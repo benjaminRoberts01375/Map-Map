@@ -10,9 +10,22 @@ import SwiftUI
 
 struct MapMap {
     /// Default displayed radius of the map
-    static private let defaultRadius: Double = 10000
+    public let defaultRadius: Double
     /// Default location is centered on Champlain College
-    static public let defaultLocation: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 44.47301, longitude: -73.20390)
+    public let defaultLocation: CLLocationCoordinate2D
     /// Region for being centered on Champlain College
-    static public let defaultRegion: MKCoordinateRegion = MKCoordinateRegion(center: defaultLocation, latitudinalMeters: defaultRadius, longitudinalMeters: defaultRadius)
+    public let defaultRegion: MKCoordinateRegion
+    /// Keeps track of the user's location
+    /// - important: Needs to be outside of the makeUIView because of a callback from the UserLocation class.
+    var userLocation: UserLocation
+    /// Where the map is currently displaying
+    @State var region: MKCoordinateRegion
+    
+    init() {
+        self.defaultRadius = 10000
+        self.defaultLocation = CLLocationCoordinate2D(latitude: 44.47301, longitude: -73.20390)
+        self.defaultRegion = MKCoordinateRegion(center: defaultLocation, latitudinalMeters: defaultRadius, longitudinalMeters: defaultRadius)
+        self.region = self.defaultRegion
+        self.userLocation = UserLocation()
+    }
 }
