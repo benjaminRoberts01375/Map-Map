@@ -13,6 +13,8 @@
 		07FDC62A2AB25E0000D92113 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07FDC6292AB25E0000D92113 /* Preview Assets.xcassets */; };
 		07FDC62F2AB25E0000D92113 /* Map_Map.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07FDC62D2AB25E0000D92113 /* Map_Map.xcdatamodeld */; };
 		07FDC6362AB26ADB00D92113 /* MapMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FDC6352AB26ADB00D92113 /* MapMap.swift */; };
+		07FDC6382AB26C1300D92113 /* UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FDC6372AB26C1300D92113 /* UserLocation.swift */; };
+		07FDC63A2AB26D2A00D92113 /* MapMapUIViewRep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FDC6392AB26D2A00D92113 /* MapMapUIViewRep.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		07FDC6292AB25E0000D92113 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		07FDC62E2AB25E0000D92113 /* Map_Map.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Map_Map.xcdatamodel; sourceTree = "<group>"; };
 		07FDC6352AB26ADB00D92113 /* MapMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMap.swift; sourceTree = "<group>"; };
+		07FDC6372AB26C1300D92113 /* UserLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocation.swift; sourceTree = "<group>"; };
+		07FDC6392AB26D2A00D92113 /* MapMapUIViewRep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapUIViewRep.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,8 @@
 				07FDC6222AB25DFD00D92113 /* Map_MapApp.swift */,
 				07FDC6242AB25DFD00D92113 /* ContentView.swift */,
 				07FDC6352AB26ADB00D92113 /* MapMap.swift */,
+				07FDC6392AB26D2A00D92113 /* MapMapUIViewRep.swift */,
+				07FDC6372AB26C1300D92113 /* UserLocation.swift */,
 				07FDC6262AB25E0000D92113 /* Assets.xcassets */,
 				07FDC62D2AB25E0000D92113 /* Map_Map.xcdatamodeld */,
 				07FDC6282AB25E0000D92113 /* Preview Content */,
@@ -145,8 +151,10 @@
 			files = (
 				07FDC6252AB25DFD00D92113 /* ContentView.swift in Sources */,
 				07FDC6232AB25DFD00D92113 /* Map_MapApp.swift in Sources */,
+				07FDC63A2AB26D2A00D92113 /* MapMapUIViewRep.swift in Sources */,
 				07FDC6362AB26ADB00D92113 /* MapMap.swift in Sources */,
 				07FDC62F2AB25E0000D92113 /* Map_Map.xcdatamodeld in Sources */,
+				07FDC6382AB26C1300D92113 /* UserLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
