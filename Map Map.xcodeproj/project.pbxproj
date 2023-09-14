@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0711E5B22AB39ABD0056AB4B /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0711E5B12AB39ABD0056AB4B /* BlurView.swift */; };
 		07FDC6232AB25DFD00D92113 /* Map_MapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FDC6222AB25DFD00D92113 /* Map_MapApp.swift */; };
 		07FDC6252AB25DFD00D92113 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FDC6242AB25DFD00D92113 /* ContentView.swift */; };
 		07FDC6272AB25E0000D92113 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07FDC6262AB25E0000D92113 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0711E5B12AB39ABD0056AB4B /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		07FDC61F2AB25DFD00D92113 /* Map Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Map Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07FDC6222AB25DFD00D92113 /* Map_MapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map_MapApp.swift; sourceTree = "<group>"; };
 		07FDC6242AB25DFD00D92113 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				07FDC63B2AB2786700D92113 /* Map-Map-Info.plist */,
 				07FDC6222AB25DFD00D92113 /* Map_MapApp.swift */,
 				07FDC6242AB25DFD00D92113 /* ContentView.swift */,
+				0711E5B12AB39ABD0056AB4B /* BlurView.swift */,
 				07FDC6352AB26ADB00D92113 /* MapMap.swift */,
 				07FDC6392AB26D2A00D92113 /* MapMapUIViewRep.swift */,
 				07FDC6372AB26C1300D92113 /* UserLocation.swift */,
@@ -152,6 +155,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07FDC6252AB25DFD00D92113 /* ContentView.swift in Sources */,
+				0711E5B22AB39ABD0056AB4B /* BlurView.swift in Sources */,
 				07FDC6232AB25DFD00D92113 /* Map_MapApp.swift in Sources */,
 				07FDC63A2AB26D2A00D92113 /* MapMapUIViewRep.swift in Sources */,
 				07FDC6362AB26ADB00D92113 /* MapMap.swift in Sources */,
