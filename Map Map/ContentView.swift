@@ -12,16 +12,13 @@ struct ContentView: View {
     let blurAmount: CGFloat = 10
     var body: some View {
         GeometryReader { geo in
-            ZStack {
+            ZStack(alignment: .top) {
                 MapMap()
-                VStack {
-                    BlurView()
-                        .frame(width: geo.size.width + blurAmount * 2, height: geo.safeAreaInsets.top + blurAmount * 2)
-                        .blur(radius: blurAmount)
-                        .offset(x: -blurAmount, y: -blurAmount * 3)
-                    Spacer()
-                } // Top blur
-                .allowsHitTesting(false)
+                BlurView()
+                    .frame(width: geo.size.width + blurAmount * 2, height: geo.safeAreaInsets.top + blurAmount * 2)
+                    .blur(radius: blurAmount)
+                    .offset(x: -blurAmount, y: -blurAmount * 3)
+                    .allowsHitTesting(false)
             }
             .ignoresSafeArea()
         }
