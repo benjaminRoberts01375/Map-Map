@@ -25,7 +25,7 @@ struct ContentView: View {
                     verticalDetents: [.small, .medium, .large],
                     horizontalDetents: [.left, .right]
                     ) {
-                    EmptyView()
+                    MapSelector()
                 }
             }
         }
