@@ -12,6 +12,8 @@
 		07A0D7172AD1C28400F462A0 /* Bottom Drawer in Frameworks */ = {isa = PBXBuildFile; productRef = 07A0D7162AD1C28400F462A0 /* Bottom Drawer */; };
 		07FCC8532AD334C000F88186 /* MapSelectorV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FCC8522AD334C000F88186 /* MapSelectorV.swift */; };
 		07FCC8552AD3593F00F88186 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FCC8542AD3593F00F88186 /* DataController.swift */; };
+		07FCC8572AD3750F00F88186 /* MapListV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FCC8562AD3750F00F88186 /* MapListV.swift */; };
+		07FCC85E2AD3761E00F88186 /* MapPhoto+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FCC85D2AD3761E00F88186 /* MapPhoto+CoreDataClass.swift */; };
 		07FDC6232AB25DFD00D92113 /* Map_MapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FDC6222AB25DFD00D92113 /* Map_MapApp.swift */; };
 		07FDC6252AB25DFD00D92113 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FDC6242AB25DFD00D92113 /* ContentView.swift */; };
 		07FDC6272AB25E0000D92113 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07FDC6262AB25E0000D92113 /* Assets.xcassets */; };
@@ -27,6 +29,8 @@
 		07A0D7112AD0AC0500F462A0 /* MapPhoto+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapPhoto+CoreDataClass.swift"; sourceTree = "<group>"; };
 		07FCC8522AD334C000F88186 /* MapSelectorV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSelectorV.swift; sourceTree = "<group>"; };
 		07FCC8542AD3593F00F88186 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		07FCC8562AD3750F00F88186 /* MapListV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapListV.swift; sourceTree = "<group>"; };
+		07FCC85D2AD3761E00F88186 /* MapPhoto+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MapPhoto+CoreDataClass.swift"; sourceTree = "<group>"; };
 		07FDC61F2AB25DFD00D92113 /* Map Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Map Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07FDC6222AB25DFD00D92113 /* Map_MapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map_MapApp.swift; sourceTree = "<group>"; };
 		07FDC6242AB25DFD00D92113 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -59,6 +63,34 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		07FCC8592AD3756300F88186 /* Map Selection */ = {
+			isa = PBXGroup;
+			children = (
+				07FCC8522AD334C000F88186 /* MapSelectorV.swift */,
+				07FCC8562AD3750F00F88186 /* MapListV.swift */,
+			);
+			path = "Map Selection";
+			sourceTree = "<group>";
+		};
+		07FCC85A2AD3759500F88186 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				07FCC8542AD3593F00F88186 /* DataController.swift */,
+				07FCC85D2AD3761E00F88186 /* MapPhoto+CoreDataClass.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		07FCC85F2AD3764A00F88186 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				07FDC6352AB26ADB00D92113 /* MapMap.swift */,
+				07FDC6372AB26C1300D92113 /* UserLocation.swift */,
+				07FDC6392AB26D2A00D92113 /* MapMapUIViewRep.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		07FDC6162AB25DFD00D92113 = {
 			isa = PBXGroup;
 			children = (
@@ -81,12 +113,10 @@
 				07A0D7102AD0ABB700F462A0 /* Models */,
 				07FDC6222AB25DFD00D92113 /* Map_MapApp.swift */,
 				07FDC6242AB25DFD00D92113 /* ContentView.swift */,
-				07FCC8522AD334C000F88186 /* MapSelectorV.swift */,
-				07FCC8542AD3593F00F88186 /* DataController.swift */,
 				0711E5B12AB39ABD0056AB4B /* BlurView.swift */,
-				07FDC6352AB26ADB00D92113 /* MapMap.swift */,
-				07FDC6392AB26D2A00D92113 /* MapMapUIViewRep.swift */,
-				07FDC6372AB26C1300D92113 /* UserLocation.swift */,
+				07FCC85F2AD3764A00F88186 /* Map */,
+				07FCC8592AD3756300F88186 /* Map Selection */,
+				07FCC85A2AD3759500F88186 /* Models */,
 				07FDC6262AB25E0000D92113 /* Assets.xcassets */,
 				07FDC62D2AB25E0000D92113 /* Map_Map.xcdatamodeld */,
 				07FDC63B2AB2786700D92113 /* Map-Map-Info.plist */,
@@ -184,10 +214,12 @@
 				07FDC6232AB25DFD00D92113 /* Map_MapApp.swift in Sources */,
 				07A0D7132AD0AC0500F462A0 /* MapPhoto+CoreDataClass.swift in Sources */,
 				07FCC8532AD334C000F88186 /* MapSelectorV.swift in Sources */,
+				07FCC85E2AD3761E00F88186 /* MapPhoto+CoreDataClass.swift in Sources */,
 				07FCC8552AD3593F00F88186 /* DataController.swift in Sources */,
 				07FDC63A2AB26D2A00D92113 /* MapMapUIViewRep.swift in Sources */,
 				07FDC6362AB26ADB00D92113 /* MapMap.swift in Sources */,
 				07FDC62F2AB25E0000D92113 /* Map_Map.xcdatamodeld in Sources */,
+				07FCC8572AD3750F00F88186 /* MapListV.swift in Sources */,
 				07FDC6382AB26C1300D92113 /* UserLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

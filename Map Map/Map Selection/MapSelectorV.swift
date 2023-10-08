@@ -9,15 +9,12 @@ import PhotosUI
 import SwiftUI
 
 struct MapSelector: View {
-    @FetchRequest(sortDescriptors: []) var maps: FetchedResults<MapPhoto>
     @State var newPhoto: [PhotosPickerItem] = []
     @State var mapProcessing = false
     
     var body: some View {
         VStack {
-            ForEach(maps) { map in
-                Text("\(map.longitude ?? 0)")
-            }
+            MapList()
             PhotosPicker("Select", selection: $newPhoto, maxSelectionCount: 1, matching: .images)
                 .onChange(of: newPhoto) { update in
                     DispatchQueue.main.asyncAfter(deadline: .now()) {
