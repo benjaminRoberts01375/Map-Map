@@ -5,8 +5,9 @@
 //  Created by Ben Roberts on 9/13/23.
 //
 
-import SwiftUI
+import Bottom_Drawer
 import CoreData
+import SwiftUI
 
 struct ContentView: View {
     let blurAmount: CGFloat = 10
@@ -14,15 +15,20 @@ struct ContentView: View {
         GeometryReader { geo in
             ZStack(alignment: .top) {
                 MapMap()
+                    .ignoresSafeArea()
                 BlurView()
-                    .frame(width: geo.size.width + blurAmount * 2, height: geo.safeAreaInsets.top + blurAmount * 2)
+                    .frame(width: geo.size.width, height: geo.safeAreaInsets.top)
                     .blur(radius: blurAmount)
-                    .offset(x: -blurAmount, y: -blurAmount * 3)
                     .allowsHitTesting(false)
+                    .ignoresSafeArea()
+                BottomDrawer(
+                    verticalDetents: [.small, .medium, .large],
+                    horizontalDetents: [.left, .right]
+                    ) {
+                    EmptyView()
+                }
             }
-            .ignoresSafeArea()
         }
-        .background(Color.black)
     }
 }
 

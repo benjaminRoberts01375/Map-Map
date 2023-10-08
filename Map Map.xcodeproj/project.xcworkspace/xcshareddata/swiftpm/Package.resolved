@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "swiftui-bottom-drawer",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/benjaminRoberts01375/SwiftUI-Bottom-Drawer/",
+      "state" : {
+        "branch" : "main",
+        "revision" : "ce9e77e38a6d698edeab4e83f71fe95482cca4ee"
+      }
+    }
+  ],
+  "version" : 2
+}
