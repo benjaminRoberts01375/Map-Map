@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct Map_MapApp: App {
+    @StateObject private var dataController = DataController()
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }
 }
