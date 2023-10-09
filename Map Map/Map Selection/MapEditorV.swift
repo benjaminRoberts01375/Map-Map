@@ -34,5 +34,8 @@ struct MapEditor: View {
                     .padding(.bottom, 40)
             }
         }
+        .onChange(of: workingTitle) { newText in
+            photo.mapName = workingTitle
+        }
     }
 }
