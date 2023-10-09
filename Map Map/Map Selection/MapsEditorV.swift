@@ -27,9 +27,20 @@ struct MapsEditor: View {
                 }
             }
             .tabViewStyle(.page)
+            .statusBarHidden()
+            .onAppear { controller.convertPhotosPickerItem(moc: moc) }
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+                keyboardIsPresent = true
             }
-            DoneButton(enabled: true, action: { dismiss() })
-                .padding(.vertical, 20)
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+                keyboardIsPresent = false
+            }
+            .animation(.easeInOut, value: keyboardIsPresent)
+            .submitLabel(.done)
+            if !keyboardIsPresent {
+                DoneButton(enabled: !keyboardIsPresent, action: { dismiss() })
+                    .padding(.bottom, 20)
+            }
         }
         .background(.black)
     }
