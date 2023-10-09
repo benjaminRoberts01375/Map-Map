@@ -38,8 +38,15 @@ struct MapsEditor: View {
             .animation(.easeInOut, value: keyboardIsPresent)
             .submitLabel(.done)
             if !keyboardIsPresent {
-                DoneButton(enabled: !keyboardIsPresent, action: { dismiss() })
-                    .padding(.bottom, 20)
+                DoneButton(
+                    enabled: !keyboardIsPresent,
+                    action: {
+                        do { try moc.save() }
+                        catch { return }
+                        dismiss()
+                    }
+                )
+                .padding(.bottom, 20)
             }
         }
         .background(.black)
