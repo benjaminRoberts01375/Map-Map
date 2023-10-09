@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MapEditor: View {
-    let photo: FetchedResults<MapPhoto>.Element
+    @ObservedObject var photo: FetchedResults<MapPhoto>.Element
     @State var workingTitle: String = "Untitled"
     
     var body: some View {
