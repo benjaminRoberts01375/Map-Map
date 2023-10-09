@@ -16,7 +16,10 @@ struct MapEditor: View {
             Color.clear
             switch photo.image {
             case .loading(let loading):
-                AnyView(loading)
+                AnyView(
+                    loading
+                        .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
+                )
             case .failure(let failure):
                 AnyView(failure)
             case .success(let image):
