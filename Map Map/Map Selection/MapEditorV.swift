@@ -21,14 +21,16 @@ struct MapEditor: View {
         VStack {
             TabView {
                 ForEach(processedPhotos, id: \.id) { photo in
-                    if photo.mapName == nil {
-                        switch photo.image {
-                        case .loading(let loading):
-                            AnyView(loading)
-                        case .failure(let failure):
-                            AnyView(failure)
-                        case .success(let image):
-                            AnyView(image)
+                    VStack {
+                        if photo.isEditing {
+                            switch photo.image {
+                            case .loading(let loading):
+                                AnyView(loading)
+                            case .failure(let failure):
+                                AnyView(failure)
+                            case .success(let image):
+                                AnyView(image)
+                            }
                         }
                     }
                 }

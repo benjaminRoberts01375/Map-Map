@@ -13,6 +13,7 @@ import SwiftUI
 @objc(MapPhoto)
 public class MapPhoto: NSManagedObject {
     var image: ImageStatus = .loading(ProgressView())
+    private(set)var isEditing: Bool = true
     
     enum ImageStatus {
         case loading(any View)
@@ -43,5 +44,9 @@ extension MapPhoto {
                     .foregroundStyle(.yellow)
             )
         }
+    }
+    
+    func markComplete() {
+        isEditing = mapName?.isEmpty ?? true
     }
 }
