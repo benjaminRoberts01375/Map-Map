@@ -9,20 +9,20 @@ import PhotosUI
 import SwiftUI
 
 struct MapSelector: View {
-    @State var newPhoto: [PhotosPickerItem] = []
+    @State var rawPhotos: [PhotosPickerItem] = []
     @State var mapProcessing = false
     
     var body: some View {
         VStack {
             MapList()
-            PhotosPicker("Select", selection: $newPhoto, maxSelectionCount: 1, matching: .images)
-                .onChange(of: newPhoto) { update in
+            PhotosPicker("Select", selection: $rawPhotos, maxSelectionCount: 30, matching: .images)
+                .onChange(of: rawPhotos) { update in
                     DispatchQueue.main.asyncAfter(deadline: .now()) {
                         mapProcessing = true
                     }
                 }
                 .fullScreenCover(isPresented: $mapProcessing, content: {
-                    Text("Processing!")
+                    MapEditor(rawPhotos: rawPhotos)
                 })
         }
     }
