@@ -13,6 +13,7 @@
 		0762DD222AD37CB100C36D33 /* MapsEditorV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762DD212AD37CB100C36D33 /* MapsEditorV.swift */; };
 		0762DD632AD3D50A00C36D33 /* MapsEditorVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762DD622AD3D50A00C36D33 /* MapsEditorVM.swift */; };
 		0762DD652AD4696B00C36D33 /* DoneButtonV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762DD642AD4696B00C36D33 /* DoneButtonV.swift */; };
+		0762DD682AD4713200C36D33 /* MapEditorV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762DD672AD4713200C36D33 /* MapEditorV.swift */; };
 		07A0D7132AD0AC0500F462A0 /* MapPhoto+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A0D7112AD0AC0500F462A0 /* MapPhoto+CoreDataClass.swift */; };
 		07A0D7172AD1C28400F462A0 /* Bottom Drawer in Frameworks */ = {isa = PBXBuildFile; productRef = 07A0D7162AD1C28400F462A0 /* Bottom Drawer */; };
 		07FCC8532AD334C000F88186 /* MapSelectorV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FCC8522AD334C000F88186 /* MapSelectorV.swift */; };
@@ -35,6 +36,7 @@
 		0762DD212AD37CB100C36D33 /* MapsEditorV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsEditorV.swift; sourceTree = "<group>"; };
 		0762DD622AD3D50A00C36D33 /* MapsEditorVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsEditorVM.swift; sourceTree = "<group>"; };
 		0762DD642AD4696B00C36D33 /* DoneButtonV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButtonV.swift; sourceTree = "<group>"; };
+		0762DD672AD4713200C36D33 /* MapEditorV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapEditorV.swift; sourceTree = "<group>"; };
 		07A0D7112AD0AC0500F462A0 /* MapPhoto+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapPhoto+CoreDataClass.swift"; sourceTree = "<group>"; };
 		07FCC8522AD334C000F88186 /* MapSelectorV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSelectorV.swift; sourceTree = "<group>"; };
 		07FCC8542AD3593F00F88186 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				07FCC8522AD334C000F88186 /* MapSelectorV.swift */,
 				0762DD212AD37CB100C36D33 /* MapsEditorV.swift */,
 				0762DD622AD3D50A00C36D33 /* MapsEditorVM.swift */,
+				0762DD672AD4713200C36D33 /* MapEditorV.swift */,
 				07FCC8562AD3750F00F88186 /* MapListV.swift */,
 			);
 			path = "Map Selection";
@@ -235,6 +238,7 @@
 				07FDC6232AB25DFD00D92113 /* Map_MapApp.swift in Sources */,
 				0762DD652AD4696B00C36D33 /* DoneButtonV.swift in Sources */,
 				0762DD202AD37A1300C36D33 /* MapPhoto+CoreDataProperties.swift in Sources */,
+				0762DD682AD4713200C36D33 /* MapEditorV.swift in Sources */,
 				07A0D7132AD0AC0500F462A0 /* MapPhoto+CoreDataClass.swift in Sources */,
 				07FCC8532AD334C000F88186 /* MapSelectorV.swift in Sources */,
 				07FCC8552AD3593F00F88186 /* DataController.swift in Sources */,

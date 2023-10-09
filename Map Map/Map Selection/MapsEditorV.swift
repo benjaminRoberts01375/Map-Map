@@ -13,6 +13,7 @@ struct MapsEditor: View {
     @Environment(\.managedObjectContext) var moc // For adding and removing
     @Environment(\.dismiss) var dismiss
     @FetchRequest(sortDescriptors: []) var processedPhotos: FetchedResults<MapPhoto>
+    @State var keyboardIsPresent: Bool = false
     
     init(rawPhotos: [PhotosPickerItem]) {
         self._controller = StateObject(wrappedValue: MapsContainer(rawPhotos: rawPhotos))
@@ -22,23 +23,10 @@ struct MapsEditor: View {
         VStack {
             TabView {
                 ForEach(processedPhotos, id: \.id) { photo in
-                    VStack {
-                        if photo.isEditing {
-                            switch photo.image {
-                            case .loading(let loading):
-                                AnyView(loading)
-                            case .failure(let failure):
-                                AnyView(failure)
-                            case .success(let image):
-                                AnyView(image)
-                            }
-                        }
-                    }
+                    if photo.isEditing { MapEditor(photo: photo) }
                 }
             }
             .tabViewStyle(.page)
-            .onAppear {
-                controller.convertPhotosPickerItem(moc: moc)
             }
             DoneButton(enabled: true, action: { dismiss() })
                 .padding(.vertical, 20)
