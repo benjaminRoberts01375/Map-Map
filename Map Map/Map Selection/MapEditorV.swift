@@ -11,6 +11,7 @@ import SwiftUI
 struct MapEditor: View {
     @StateObject var controller: MapContainer
     @Environment(\.managedObjectContext) var moc // For adding and removing
+    @Environment(\.dismiss) var dismiss
     @FetchRequest(sortDescriptors: []) var processedPhotos: FetchedResults<MapPhoto>
     
     init(rawPhotos: [PhotosPickerItem]) {
@@ -39,6 +40,8 @@ struct MapEditor: View {
             .onAppear {
                 controller.convertPhotosPickerItem(moc: moc)
             }
+            DoneButton(enabled: true, action: { dismiss() })
+                .padding(.vertical, 20)
         }
         .background(.black)
     }
