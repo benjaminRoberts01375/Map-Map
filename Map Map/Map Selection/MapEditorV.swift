@@ -40,5 +40,6 @@ struct MapEditor: View {
                 controller.convertPhotosPickerItem(moc: moc)
             }
         }
+        .background(.black)
     }
 }
