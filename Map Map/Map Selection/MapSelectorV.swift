@@ -17,13 +17,15 @@ struct MapSelector: View {
             MapList()
             PhotosPicker("Select", selection: $rawPhotos, maxSelectionCount: 30, matching: .images)
                 .onChange(of: rawPhotos) { update in
+                    if rawPhotos.isEmpty { return }
                     DispatchQueue.main.asyncAfter(deadline: .now()) {
                         mapProcessing = true
                     }
                 }
-                .fullScreenCover(isPresented: $mapProcessing, content: {
-                    MapsEditor(rawPhotos: rawPhotos)
-                })
+                .fullScreenCover(
+                    isPresented: $mapProcessing,
+                    onDismiss: { rawPhotos = [] },
+                    content: { MapsEditor(rawPhotos: rawPhotos) })
         }
     }
 }
