@@ -23,21 +23,12 @@ struct MapEditor: View {
                 ForEach(processedPhotos, id: \.id) { photo in
                     if photo.mapName == nil {
                         switch photo.image {
-                        case .loading:
-                            ProgressView()
-                        case .failure:
-                            VStack {
-                                Image(systemName: "exclamationmark.triangle.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .foregroundStyle(.yellow)
-                            }
+                        case .loading(let loading):
+                            AnyView(loading)
+                        case .failure(let failure):
+                            AnyView(failure)
                         case .success(let image):
-                            VStack {
-                                image
-                                    .resizable()
-                                    .scaledToFit()
-                            }
+                            AnyView(image)
                         }
                     }
                 }

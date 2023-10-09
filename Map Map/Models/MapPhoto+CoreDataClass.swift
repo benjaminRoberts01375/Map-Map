@@ -12,12 +12,12 @@ import SwiftUI
 
 @objc(MapPhoto)
 public class MapPhoto: NSManagedObject {
-    @Published var image: ImageStatus = .loading
+    @Published var image: ImageStatus = .loading(ProgressView())
     
     enum ImageStatus {
-        case loading
-        case success(Image)
-        case failure
+        case loading(any View)
+        case success(any View)
+        case failure(any View)
     }
 }
 
@@ -27,12 +27,21 @@ extension MapPhoto {
         Task {
             if let data = try? await rawPhoto?.loadTransferable(type: Data.self) {
                 if let uiImage = UIImage(data: data) {
-                    self.image = .success(Image(uiImage: uiImage))
+                    self.image = .success(
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFit()
+                    )
                     self.map = data
                     return
                 }
             }
-            self.image = .failure
+            self.image = .failure(
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundStyle(.yellow)
+            )
         }
     }
 }
