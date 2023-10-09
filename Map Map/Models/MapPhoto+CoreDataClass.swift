@@ -12,7 +12,7 @@ import SwiftUI
 
 @objc(MapPhoto)
 public class MapPhoto: NSManagedObject {
-    @Published var image: ImageStatus = .loading(ProgressView())
+    var image: ImageStatus = .loading(ProgressView())
     
     enum ImageStatus {
         case loading(any View)
