@@ -8,14 +8,14 @@
 import PhotosUI
 import SwiftUI
 
-struct MapEditor: View {
-    @StateObject var controller: MapContainer
+struct MapsEditor: View {
+    @StateObject var controller: MapsContainer
     @Environment(\.managedObjectContext) var moc // For adding and removing
     @Environment(\.dismiss) var dismiss
     @FetchRequest(sortDescriptors: []) var processedPhotos: FetchedResults<MapPhoto>
     
     init(rawPhotos: [PhotosPickerItem]) {
-        self._controller = StateObject(wrappedValue: MapContainer(rawPhotos: rawPhotos))
+        self._controller = StateObject(wrappedValue: MapsContainer(rawPhotos: rawPhotos))
     }
     
     var body: some View {

@@ -9,7 +9,7 @@ import CoreData
 import PhotosUI
 import SwiftUI
 
-final class MapContainer: ObservableObject {
+final class MapsContainer: ObservableObject {
     var rawPhotos: [PhotosPickerItem]
     
     init(rawPhotos: [PhotosPickerItem]) {

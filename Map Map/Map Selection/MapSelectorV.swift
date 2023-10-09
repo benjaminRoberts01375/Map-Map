@@ -22,7 +22,7 @@ struct MapSelector: View {
                     }
                 }
                 .fullScreenCover(isPresented: $mapProcessing, content: {
-                    MapEditor(rawPhotos: rawPhotos)
+                    MapsEditor(rawPhotos: rawPhotos)
                 })
         }
     }
