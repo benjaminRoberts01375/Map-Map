@@ -19,7 +19,6 @@ struct MapEditor: View {
     
     var body: some View {
         VStack {
-            Text("Editor")
             TabView {
                 ForEach(processedPhotos, id: \.id) { photo in
                     if photo.mapName == nil {
