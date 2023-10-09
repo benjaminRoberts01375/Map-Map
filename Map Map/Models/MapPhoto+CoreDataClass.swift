@@ -28,7 +28,7 @@ extension MapPhoto {
             if let data = try? await rawPhoto?.loadTransferable(type: Data.self) {
                 if let uiImage = UIImage(data: data) {
                     self.image = .success(Image(uiImage: uiImage))
-                    self.objectWillChange.send()
+                    self.map = data
                     return
                 }
             }
