@@ -11,6 +11,7 @@ import SwiftUI
 struct MapEditor: View {
     @StateObject var controller: MapContainer
     @Environment(\.managedObjectContext) var moc // For adding and removing
+    @FetchRequest(sortDescriptors: []) var processedPhotos: FetchedResults<MapPhoto>
     
     init(rawPhotos: [PhotosPickerItem]) {
         self._controller = StateObject(wrappedValue: MapContainer(rawPhotos: rawPhotos))
@@ -20,22 +21,24 @@ struct MapEditor: View {
         VStack {
             Text("Editor")
             TabView {
-                ForEach(controller.processedPhotos, id: \.id) { photo in
-                    switch photo.image {
-                    case .loading:
-                        ProgressView()
-                    case .failure:
-                        VStack {
-                            Image(systemName: "exclamationmark.triangle.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .foregroundStyle(.yellow)
-                        }
-                    case .success(let image):
-                        VStack {
-                            image
-                                .resizable()
-                                .scaledToFit()
+                ForEach(processedPhotos, id: \.id) { photo in
+                    if photo.mapName == nil {
+                        switch photo.image {
+                        case .loading:
+                            ProgressView()
+                        case .failure:
+                            VStack {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundStyle(.yellow)
+                            }
+                        case .success(let image):
+                            VStack {
+                                image
+                                    .resizable()
+                                    .scaledToFit()
+                            }
                         }
                     }
                 }
