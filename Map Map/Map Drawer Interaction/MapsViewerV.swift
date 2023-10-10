@@ -8,7 +8,7 @@
 import PhotosUI
 import SwiftUI
 
-struct MapSelector: View {
+struct MapsViewer: View {
     @State var rawPhotos: [PhotosPickerItem] = []
     @State var mapProcessing = false
     @FetchRequest(sortDescriptors: []) var processedPhotos: FetchedResults<MapPhoto>
@@ -36,5 +36,5 @@ struct MapSelector: View {
 }
 
 #Preview {
-    MapSelector()
+    MapsViewer()
 }
