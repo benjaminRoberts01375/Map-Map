@@ -58,6 +58,7 @@ extension MapPhoto {
         switch image {
         case .loading(_):
             if !isSettingUp {
+                isEditing = false
                 if let mapData = self.map {
                     isSettingUp = true
                     dataToImage(mapData)
