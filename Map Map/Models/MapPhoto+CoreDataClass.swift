@@ -54,7 +54,7 @@ extension MapPhoto {
         }
     }
     
-    func getImage() -> ImageStatus {
+    func getImageStatus() -> ImageStatus {
         switch image {
         case .loading(_):
             if !isSettingUp {
@@ -70,5 +70,17 @@ extension MapPhoto {
             break
         }
         return image
+    }
+    
+    func getImage() -> any View {
+        let img = getImageStatus()
+        switch img {
+        case .loading(let loading):
+            return loading
+        case .failure(let failure):
+            return failure
+        case .success(let success):
+            return success
+        }
     }
 }
