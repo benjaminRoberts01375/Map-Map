@@ -12,8 +12,15 @@ import SwiftUI
 
 @objc(MapPhoto)
 public class MapPhoto: NSManagedObject {
-    var image: ImageStatus = .loading(ProgressView())
-    private(set)var isEditing: Bool = true
+    private var image: ImageStatus = .loading(ProgressView())
+    private(set) var isEditing: Bool = true
+    private var isSettingUp: Bool = false
+    private var failureView: some View {
+        Image(systemName: "exclamationmark.triangle.fill")
+            .resizable()
+            .scaledToFit()
+            .foregroundStyle(.yellow)
+    }
     
     enum ImageStatus {
         case loading(any View)
@@ -25,22 +32,15 @@ public class MapPhoto: NSManagedObject {
 extension MapPhoto {
     convenience public init(rawPhoto: PhotosPickerItem?, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
+        isSettingUp = true
         Task {
             if let data = try? await rawPhoto?.loadTransferable(type: Data.self) { dataToImage(data) }
-            else {
-                self.image = .failure(
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .foregroundStyle(.yellow)
-                )
-            }
+            else { self.image = .failure(failureView) }
         }
     }
     
     func markComplete() {
         isEditing = !(mapName?.isEmpty ?? true)
-        print(isEditing)
     }
     
     func dataToImage(_ data: Data) {
@@ -52,5 +52,23 @@ extension MapPhoto {
             )
             self.map = data
         }
+    }
+    
+    func getImage() -> ImageStatus {
+        switch image {
+        case .loading(_):
+            if !isSettingUp {
+                if let mapData = self.map {
+                    isSettingUp = true
+                    dataToImage(mapData)
+                }
+                else {
+                    image = .failure(failureView)
+                }
+            }
+        default:
+            break
+        }
+        return image
     }
 }

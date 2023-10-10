@@ -14,7 +14,7 @@ struct MapEditor: View {
     var body: some View {
         ZStack {
             Color.clear
-            switch photo.image {
+            switch photo.getImage() {
             case .loading(let loading):
                 AnyView(
                     loading
