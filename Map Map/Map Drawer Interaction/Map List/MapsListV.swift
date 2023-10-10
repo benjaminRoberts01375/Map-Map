@@ -11,8 +11,8 @@ struct MapList: View {
     @FetchRequest(sortDescriptors: []) var maps: FetchedResults<MapPhoto>
     
     var body: some View {
-        ForEach(maps) { map in
-            Text("\(map.longitude ?? 0)")
+        ForEach(maps) { photo in
+            MapListItem(photo: photo)
         }
     }
 }
