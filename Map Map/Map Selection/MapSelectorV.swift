@@ -30,7 +30,7 @@ struct MapSelector: View {
                 }
                 .fullScreenCover(
                     isPresented: $mapProcessing,
-                    content: { MapsEditor(rawPhotos: rawPhotos) })
+                    content: { MapsEditor() })
         }
     }
 }
