@@ -47,6 +47,7 @@ extension MapPhoto {
     }
     
     func markComplete() {
-        isEditing = mapName?.isEmpty ?? true
+        isEditing = !(mapName?.isEmpty ?? true)
+        print(isEditing)
     }
 }
