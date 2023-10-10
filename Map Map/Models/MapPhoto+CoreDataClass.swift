@@ -26,28 +26,31 @@ extension MapPhoto {
     convenience public init(rawPhoto: PhotosPickerItem?, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
         Task {
-            if let data = try? await rawPhoto?.loadTransferable(type: Data.self) {
-                if let uiImage = UIImage(data: data) {
-                    self.image = .success(
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .scaledToFit()
-                    )
-                    self.map = data
-                    return
-                }
+            if let data = try? await rawPhoto?.loadTransferable(type: Data.self) { dataToImage(data) }
+            else {
+                self.image = .failure(
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundStyle(.yellow)
+                )
             }
-            self.image = .failure(
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .foregroundStyle(.yellow)
-            )
         }
     }
     
     func markComplete() {
         isEditing = !(mapName?.isEmpty ?? true)
         print(isEditing)
+    }
+    
+    func dataToImage(_ data: Data) {
+        if let uiImage = UIImage(data: data) {
+            self.image = .success(
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+            )
+            self.map = data
+        }
     }
 }
