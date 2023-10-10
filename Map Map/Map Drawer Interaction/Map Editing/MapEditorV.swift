@@ -14,13 +14,13 @@ struct MapEditor: View {
     var body: some View {
         ZStack {
             Color.clear
-            switch photo.getImage() {
+            switch photo.getImageStatus() {
             case .loading(let loading):
                 AnyView(
                     loading
                         .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
                 )
-            case .failure(let failure):
+            case .failure(let failure): // TODO: Show a bit more here
                 AnyView(failure)
             case .success(let image):
                 AnyView(image)
