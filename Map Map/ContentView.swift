@@ -24,8 +24,9 @@ struct ContentView: View {
                 BottomDrawer(
                     verticalDetents: [.small, .medium, .large],
                     horizontalDetents: [.left, .right]
-                    ) {
+                ) {
                     MapsViewer()
+                        .padding(.horizontal)
                 }
             }
         }
