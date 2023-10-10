@@ -68,7 +68,6 @@
 			children = (
 				0762DD212AD37CB100C36D33 /* MapsEditorV.swift */,
 				0762DD672AD4713200C36D33 /* MapEditorV.swift */,
-				07FCC8562AD3750F00F88186 /* MapListV.swift */,
 			);
 			path = "Map Editing";
 			sourceTree = "<group>";
@@ -79,6 +78,14 @@
 				0762DD642AD4696B00C36D33 /* DoneButtonV.swift */,
 			);
 			path = "Generic View Components";
+			sourceTree = "<group>";
+		};
+		077CBEAF2AD5088100741F27 /* Map List */ = {
+			isa = PBXGroup;
+			children = (
+				07FCC8562AD3750F00F88186 /* MapListV.swift */,
+			);
+			path = "Map List";
 			sourceTree = "<group>";
 		};
 		07A0D7102AD0ABB700F462A0 /* Models */ = {
@@ -93,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				07FCC8522AD334C000F88186 /* MapsViewerV.swift */,
+				077CBEAF2AD5088100741F27 /* Map List */,
 				070159D82AD505300031647F /* Map Editing */,
 			);
 			path = "Map Drawer Interaction";
