@@ -13,9 +13,11 @@ struct MapListItem: View {
     var body: some View {
         HStack {
             AnyView(photo.getImage())
-                .background(.gray)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .clipShape(RoundedRectangle(cornerRadius: 5))
                 .frame(width: 100, height: 100)
+                .background(.thickMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .padding([.leading, .vertical])
             VStack(alignment: .leading) {
                 Text(photo.mapName ?? "Unknown name")
                 if photo.longitude != 0 && photo.latitude != 0 {
