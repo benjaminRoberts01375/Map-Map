@@ -13,6 +13,7 @@ import SwiftUI
 @objc(MapPhoto)
 public class MapPhoto: NSManagedObject {
     private var image: ImageStatus = .loading(ProgressView())
+    private var thumbnail: (any View)? = nil
     private(set) var isEditing: Bool = true
     private var isSettingUp: Bool = false
     private var failureView: some View {
@@ -45,6 +46,12 @@ extension MapPhoto {
     
     func dataToImage(_ data: Data) {
         if let uiImage = UIImage(data: data) {
+            let size = CGSize(width: 300, height: 300)
+            Task {
+                if let generatedThumbnail = await uiImage.byPreparingThumbnail(ofSize: size) {
+                    thumbnail = Image(uiImage: generatedThumbnail).resizable().scaledToFit()
+                }
+            }
             self.image = .success(
                 Image(uiImage: uiImage)
                     .resizable()
@@ -83,5 +90,11 @@ extension MapPhoto {
         case .success(let success):
             return success
         }
+    }
+    
+    func getThumbnail() -> any View {
+        guard let thumbnail = thumbnail
+        else { return getImage() }
+        return thumbnail
     }
 }
