@@ -44,6 +44,10 @@ extension MapPhoto {
         isEditing = !(mapName?.isEmpty ?? true)
     }
     
+    func needsEditing() {
+        isEditing = true
+    }
+    
     func dataToImage(_ data: Data) {
         if let uiImage = UIImage(data: data) {
             let size = CGSize(width: 300, height: 300)

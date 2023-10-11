@@ -11,6 +11,7 @@ struct MapList: View {
     @FetchRequest(sortDescriptors: []) var maps: FetchedResults<MapPhoto>
     @Environment(\.managedObjectContext) var moc
     @Environment(\.colorScheme) var colorScheme
+    @State var mapProcessing = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -29,11 +30,22 @@ struct MapList: View {
                             } label: {
                                 Label("Delete", systemImage: "trash")
                             }
+                            Button {
+                                photo.needsEditing()
+                                mapProcessing = true
+                            } label: {
+                                Label("Edit", systemImage: "pencil")
+                            }
+                            
                         }
                     Divider()
                 }
             }
             .clipShape(RoundedRectangle(cornerRadius: 15))
         }
+        .fullScreenCover(
+            isPresented: $mapProcessing,
+            content: { MapsEditor() }
+        )
     }
 }
