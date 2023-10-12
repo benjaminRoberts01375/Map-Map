@@ -5,5 +5,6 @@
         <attribute name="longitude" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="map" optional="YES" attributeType="Binary"/>
         <attribute name="mapName" optional="YES" attributeType="String"/>
+        <attribute name="mapThumbnail" optional="YES" attributeType="Binary"/>
     </entity>
 </model>

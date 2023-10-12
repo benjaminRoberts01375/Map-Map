@@ -12,7 +12,7 @@ struct MapListItem: View {
     
     var body: some View {
         HStack {
-            AnyView(photo.getThumbnail())
+            AnyView(photo.getMap(.thumbnail))
                 .clipShape(RoundedRectangle(cornerRadius: 5))
                 .frame(width: 100, height: 100)
                 .background(.thickMaterial)

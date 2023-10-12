@@ -12,93 +12,133 @@ import SwiftUI
 
 @objc(MapPhoto)
 public class MapPhoto: NSManagedObject {
-    private var image: ImageStatus = .loading(ProgressView())
-    private var thumbnail: (any View)? = nil
-    private(set) var isEditing: Bool = true
-    private var isSettingUp: Bool = false
-    private var failureView: some View {
-        Image(systemName: "exclamationmark.triangle.fill")
-            .resizable()
-            .scaledToFit()
-            .foregroundStyle(.yellow)
+    private var image: ImageStatus = .empty {
+        didSet {
+            DispatchQueue.main.async {
+                self.objectWillChange.send()
+            }
+        }
+    }
+    private var thumbnail: ImageStatus = .empty {
+        didSet {
+            DispatchQueue.main.async {
+                self.objectWillChange.send()
+            }
+        }
+    }
+    private let thumbnailSize: CGSize = CGSize(width: 300, height: 300)
+    public var isEditing: Bool = false
+    
+    public enum ImageStatus {
+        case empty
+        case loading
+        case success(any View)
+        case failure
     }
     
-    enum ImageStatus {
-        case loading(any View)
-        case success(any View)
-        case failure(any View)
+    public enum MapType {
+        case thumbnail
+        case fullImage
+    }
+    
+    public func getMap(_ mapType: MapType) -> any View {
+        switch getMapFromType(mapType) {
+        case .empty:
+            Task { loadImageFromCD() }
+            return ProgressView()
+                .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
+        case .loading:
+            return ProgressView()
+                .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
+        case .success(let img):
+            return img
+        case .failure:
+            return Image(systemName: "exclamationmark.triangle.fill")
+                .resizable()
+                .scaledToFit()
+                .foregroundStyle(.yellow)
+        }
+    }
+    
+    private func getMapFromType(_ mapType: MapType) -> ImageStatus {
+        switch mapType {
+        case .fullImage:
+            return image
+        case .thumbnail:
+            return thumbnail
+        }
+    }
+    
+    private func loadImageFromCD() {
+        self.image = .loading
+        self.thumbnail = .loading
+        if let mapData = self.map { // Available in Core Data
+            if let uiImage = UIImage(data: mapData) {
+                image = .success(
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFit()
+                )
+                if self.mapThumbnail == nil { generateThumbnailFromUIImage(uiImage) }
+                else { loadThumbnailFromCD() }
+                return
+            }
+        }
+        else {
+            image = .failure
+            thumbnail = .failure
+        }
+    }
+    
+    private func generateThumbnailFromUIImage(_ uiImage: UIImage) {
+        Task {
+            if let generatedThumbnail = await uiImage.byPreparingThumbnail(ofSize: thumbnailSize) {
+                thumbnail = .success(Image(uiImage: generatedThumbnail).resizable().scaledToFit())
+                self.mapThumbnail = generatedThumbnail.jpegData(compressionQuality: 0.8)
+            }
+            else {
+                thumbnail = .failure
+            }
+        }
+    }
+    
+    private func loadThumbnailFromCD() {
+        if let mapThumbnail = self.mapThumbnail {
+            if let uiImage = UIImage(data: mapThumbnail) {
+                thumbnail = .success(Image(uiImage: uiImage).resizable().scaledToFit())
+                return
+            }
+        }
+        thumbnail = .failure
     }
 }
 
 extension MapPhoto {
     convenience public init(rawPhoto: PhotosPickerItem?, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
-        isSettingUp = true
-        Task {
-            if let data = try? await rawPhoto?.loadTransferable(type: Data.self) { dataToImage(data) }
-            else { self.image = .failure(failureView) }
-        }
-    }
-    
-    func markComplete() {
-        isEditing = !(mapName?.isEmpty ?? true)
-    }
-    
-    func needsEditing() {
+        thumbnail = .loading
+        image = .loading
         isEditing = true
-    }
-    
-    func dataToImage(_ data: Data) {
-        if let uiImage = UIImage(data: data) {
-            let size = CGSize(width: 300, height: 300)
-            Task {
-                if let generatedThumbnail = await uiImage.byPreparingThumbnail(ofSize: size) {
-                    thumbnail = Image(uiImage: generatedThumbnail).resizable().scaledToFit()
+        Task {
+            if let mapData = try? await rawPhoto?.loadTransferable(type: Data.self) {
+                self.map = mapData
+                if let uiImage = UIImage(data: mapData) {
+                    image = .success(Image(uiImage: uiImage).resizable().scaledToFit())
+                    generateThumbnailFromUIImage(uiImage)
+                    return
                 }
             }
-            self.image = .success(
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFit()
-            )
-            self.map = data
+            thumbnail = .failure
+            image = .failure
         }
     }
     
-    func getImageStatus() -> ImageStatus {
-        switch image {
-        case .loading(_):
-            if !isSettingUp {
-                isEditing = false
-                if let mapData = self.map {
-                    isSettingUp = true
-                    dataToImage(mapData)
-                }
-                else {
-                    image = .failure(failureView)
-                }
-            }
-        default:
-            break
-        }
-        return image
+    public func markAsComplete() -> Bool {
+        isEditing = !(mapName?.isEmpty ?? true)
+        return isEditing
     }
     
-    func getImage() -> any View {
-        let img = getImageStatus()
-        switch img {
-        case .loading(let loading):
-            return loading
-        case .failure(let failure):
-            return failure
-        case .success(let success):
-            return success
-        }
-    }
-    
-    func getThumbnail() -> any View {
-        guard let thumbnail = thumbnail
-        else { return getImage() }
-        return thumbnail
+    public func needsEditing() {
+        isEditing = true
     }
 }

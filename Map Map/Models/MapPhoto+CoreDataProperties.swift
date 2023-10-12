@@ -19,6 +19,7 @@ extension MapPhoto {
     @NSManaged public var latitude: NSDecimalNumber?
     @NSManaged public var longitude: NSDecimalNumber?
     @NSManaged public var map: Data?
+    @NSManaged public var mapThumbnail: Data?
     @NSManaged public var mapName: String?
 
 }

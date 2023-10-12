@@ -36,7 +36,7 @@ struct MapsEditor: View {
                     enabled: !keyboardIsPresent,
                     action: {
                         for map in processedPhotos {
-                            map.markComplete()
+                            map.markAsComplete()
                         }
                         do { try moc.save() }
                         catch { return }
