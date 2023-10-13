@@ -133,9 +133,8 @@ extension MapPhoto {
         }
     }
     
-    public func markAsComplete() -> Bool {
-        isEditing = !(mapName?.isEmpty ?? true)
-        return isEditing
+    public func markAsComplete() {
+        if mapName?.isEmpty ?? true { mapName = "Untitled"}
     }
     
     public func needsEditing() {
