@@ -25,8 +25,6 @@
 		07FDC62A2AB25E0000D92113 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07FDC6292AB25E0000D92113 /* Preview Assets.xcassets */; };
 		07FDC62F2AB25E0000D92113 /* Map_Map.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07FDC62D2AB25E0000D92113 /* Map_Map.xcdatamodeld */; };
 		07FDC6362AB26ADB00D92113 /* MapMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FDC6352AB26ADB00D92113 /* MapMap.swift */; };
-		07FDC6382AB26C1300D92113 /* UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FDC6372AB26C1300D92113 /* UserLocation.swift */; };
-		07FDC63A2AB26D2A00D92113 /* MapMapUIViewRep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FDC6392AB26D2A00D92113 /* MapMapUIViewRep.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,8 +46,6 @@
 		07FDC6292AB25E0000D92113 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		07FDC62E2AB25E0000D92113 /* Map_Map.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Map_Map.xcdatamodel; sourceTree = "<group>"; };
 		07FDC6352AB26ADB00D92113 /* MapMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMap.swift; sourceTree = "<group>"; };
-		07FDC6372AB26C1300D92113 /* UserLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocation.swift; sourceTree = "<group>"; };
-		07FDC6392AB26D2A00D92113 /* MapMapUIViewRep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapUIViewRep.swift; sourceTree = "<group>"; };
 		07FDC63B2AB2786700D92113 /* Map-Map-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Map-Map-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -123,8 +119,6 @@
 			isa = PBXGroup;
 			children = (
 				07FDC6352AB26ADB00D92113 /* MapMap.swift */,
-				07FDC6372AB26C1300D92113 /* UserLocation.swift */,
-				07FDC6392AB26D2A00D92113 /* MapMapUIViewRep.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -258,12 +252,10 @@
 				07FCC8532AD334C000F88186 /* MapsViewerV.swift in Sources */,
 				077CBEB12AD512FE00741F27 /* MapListItemV.swift in Sources */,
 				07FCC8552AD3593F00F88186 /* DataController.swift in Sources */,
-				07FDC63A2AB26D2A00D92113 /* MapMapUIViewRep.swift in Sources */,
 				07FDC6362AB26ADB00D92113 /* MapMap.swift in Sources */,
 				07868F8D2AD73E2000CCB326 /* MapPhoto+CoreDataProperties.swift in Sources */,
 				07FDC62F2AB25E0000D92113 /* Map_Map.xcdatamodeld in Sources */,
 				07FCC8572AD3750F00F88186 /* MapsListV.swift in Sources */,
-				07FDC6382AB26C1300D92113 /* UserLocation.swift in Sources */,
 				0762DD1F2AD37A1300C36D33 /* MapPhoto+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -408,6 +400,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -439,6 +432,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
