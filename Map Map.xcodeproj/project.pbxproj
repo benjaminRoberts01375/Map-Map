@@ -122,8 +122,8 @@
 		07FCC85F2AD3764A00F88186 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				07FDC6352AB26ADB00D92113 /* MapMap.swift */,
 				07FDC6372AB26C1300D92113 /* UserLocation.swift */,
+				07FDC6352AB26ADB00D92113 /* MapMap.swift */,
 				07FDC6392AB26D2A00D92113 /* MapMapUIViewRep.swift */,
 			);
 			path = Map;
