@@ -5,6 +5,7 @@
 //  Created by Ben Roberts on 9/13/23.
 //
 
+import MapKit
 import SwiftUI
 
 @main
@@ -14,6 +15,11 @@ struct Map_MapApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
+                .task {
+                    let locationManager = CLLocationManager()
+                    locationManager.desiredAccuracy = kCLLocationAccuracyBest
+                    if locationManager.authorizationStatus == .notDetermined { locationManager.requestWhenInUseAuthorization() }
+                }
         }
     }
 }

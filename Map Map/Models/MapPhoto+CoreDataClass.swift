@@ -7,6 +7,7 @@
 //
 
 import CoreData
+import MapKit
 import PhotosUI
 import SwiftUI
 
@@ -28,6 +29,12 @@ public class MapPhoto: NSManagedObject {
     }
     private let thumbnailSize: CGSize = CGSize(width: 300, height: 300)
     public var isEditing: Bool = false
+    public var coordinates: CLLocationCoordinate2D? {
+        guard let lat = self.latitude?.doubleValue,
+              let long = self.longitude?.doubleValue
+        else { return nil }
+        return CLLocationCoordinate2D(latitude: lat , longitude: long)
+    }
     
     public enum ImageStatus {
         case empty
