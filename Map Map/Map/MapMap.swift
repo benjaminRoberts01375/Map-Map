@@ -10,30 +10,30 @@ import SwiftUI
 
 struct MapMap: View {
     @FetchRequest(sortDescriptors: []) var maps: FetchedResults<MapPhoto>
-    @State var cameraPos: MapCameraPosition = .userLocation(followsHeading: true, fallback: .automatic)
-    @State var scale: Double = 1
-    @State var rotation: Angle = .zero
+    @EnvironmentObject var mapDetails: MapDetailsM
     
     var body: some View {
         GeometryReader { geo in
-            Map(position: $cameraPos) {
+            Map(initialPosition: .userLocation(fallback: .automatic)) {
                 UserAnnotation()
                 ForEach(maps) { map in
-                    Annotation(
-                        "\(map.mapName ?? "")",
-                        coordinate: CLLocationCoordinate2D(latitude: 44.47301, longitude: -73.20390),
-                        anchor: .center
-                    )
-                    {
-                        AnyView(map.getMap(.fullImage))
-                            .frame(width: 50 * scale, height: 50 * scale)
-                            .rotationEffect(rotation)
+                    if let coordinates = map.coordinates {
+                        Annotation(
+                            "\(map.mapName ?? "")",
+                            coordinate: coordinates,
+                            anchor: .center
+                        ) {
+                            AnyView(map.getMap(.fullImage))
+                                .frame(width: 50 * mapDetails.scale, height: 50 * mapDetails.scale)
+                                .rotationEffect(mapDetails.rotation)
+                        }
                     }
                 }
             }
             .onMapCameraChange(frequency: .continuous) { update in
-                scale = 10000 / update.camera.distance
-                rotation = Angle(degrees: -update.camera.heading)
+                mapDetails.scale = 10000 / update.camera.distance
+                mapDetails.rotation = Angle(degrees: -update.camera.heading)
+                mapDetails.position = update.region.center
             }
             .safeAreaPadding([.top, .leading, .trailing])
             .mapStyle(.standard(elevation: .realistic))
