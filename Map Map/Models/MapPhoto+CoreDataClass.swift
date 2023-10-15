@@ -30,10 +30,17 @@ public class MapPhoto: NSManagedObject {
     private let thumbnailSize: CGSize = CGSize(width: 300, height: 300)
     public var isEditing: Bool = false
     public var coordinates: CLLocationCoordinate2D? {
-        guard let lat = self.latitude?.doubleValue,
-              let long = self.longitude?.doubleValue
-        else { return nil }
-        return CLLocationCoordinate2D(latitude: lat , longitude: long)
+        get {
+            guard let lat = self.latitude?.doubleValue,
+                  let long = self.longitude?.doubleValue
+            else { return nil }
+            return CLLocationCoordinate2D(latitude: lat , longitude: long)
+        }
+        set(preCoordinates) {
+            guard let coordinates = preCoordinates else { return }
+            self.latitude = NSDecimalNumber(value: coordinates.latitude)
+            self.longitude = NSDecimalNumber(value: coordinates.longitude)
+        }
     }
     
     public enum ImageStatus {
