@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MapListItem: View {
     @ObservedObject var photo: FetchedResults<MapPhoto>.Element
+    @EnvironmentObject var mapDetails: MapDetailsM
     
     var body: some View {
         HStack {
@@ -25,6 +26,14 @@ struct MapListItem: View {
                         .foregroundStyle(.secondary)
                     Text("Latitude: \(photo.latitude!)º")
                         .foregroundStyle(.secondary)
+                }
+                else {
+                    Button {
+                        photo.coordinates = mapDetails.position
+                    } label: {
+                        Text("Add to map")
+                    }
+
                 }
             }
             Spacer(minLength: 0)
