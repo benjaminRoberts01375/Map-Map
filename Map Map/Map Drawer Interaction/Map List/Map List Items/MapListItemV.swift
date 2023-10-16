@@ -20,21 +20,9 @@ struct MapListItem: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .padding([.leading, .vertical])
             VStack(alignment: .leading) {
-                Text(photo.mapName ?? "Unknown name")
-                if photo.longitude != 0 && photo.latitude != 0 {
-                    Text("Longitude: \(photo.longitude!)º")
-                        .foregroundStyle(.secondary)
-                    Text("Latitude: \(photo.latitude!)º")
-                        .foregroundStyle(.secondary)
-                }
-                else {
-                    Button {
-                        photo.coordinates = mapDetails.position
-                    } label: {
-                        Text("Add to map")
-                    }
-
-                }
+                if photo.isPlacing { PlaceMap(photo: photo) }
+                else if photo.longitude != 0 && photo.latitude != 0 { MapInfo(photo: photo) }
+                else { InvokePlaceMap(photo: photo) }
             }
             Spacer(minLength: 0)
         }
