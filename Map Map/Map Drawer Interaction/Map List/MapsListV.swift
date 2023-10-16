@@ -15,35 +15,30 @@ struct MapList: View {
     let darkColor: Color = Color.init(red: 0.2, green: 0.2, blue: 0.2)
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text("Your Maps")
-                .font(.title)
-                .fontWeight(.bold)
-                .padding(.bottom)
-            VStack(spacing: 0) {
-                ForEach(maps) { photo in
-                    MapListItem(photo: photo)
-                        .background(colorScheme == .dark ? darkColor : Color.white)
-                        .contextMenu {
-                            Button(role: .destructive) {
-                                moc.delete(photo)
-                                try? moc.save()
-                            } label: {
-                                Label("Delete", systemImage: "trash")
-                            }
-                            Button {
-                                photo.needsEditing()
-                                mapProcessing = true
-                            } label: {
-                                Label("Edit", systemImage: "pencil")
-                            }
-                            
+        VStack(spacing: 0) {
+            ForEach(maps) { map in
+                MapListItem(photo: map)
+                    .padding(.leading)
+                    .background(colorScheme == .dark ? darkColor : Color.white)
+                    .contextMenu {
+                        Button(role: .destructive) {
+                            moc.delete(map)
+                            try? moc.save()
+                        } label: {
+                            Label("Delete", systemImage: "trash")
                         }
-                    Divider()
-                }
+                        Button {
+                            map.needsEditing()
+                            mapProcessing = true
+                        } label: {
+                            Label("Edit", systemImage: "pencil")
+                        }
+                        
+                    }
+                Divider()
             }
-            .clipShape(RoundedRectangle(cornerRadius: 15))
         }
+        .clipShape(RoundedRectangle(cornerRadius: 15))
         .fullScreenCover(
             isPresented: $mapProcessing,
             content: { MapsEditor() }

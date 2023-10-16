@@ -23,11 +23,21 @@ struct ContentView: View {
                     .ignoresSafeArea()
                 BottomDrawer(
                     verticalDetents: [.small, .medium, .large],
-                    horizontalDetents: [.left, .right]
-                ) {
-                    MapsViewer()
-                        .padding(.horizontal)
-                }
+                    horizontalDetents: [.left, .right],
+                    header: {
+                        HStack {
+                            Text("Your Maps")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .padding([.leading])
+                            Spacer()
+                        }
+                    },
+                    content: {
+                        MapsViewer()
+                            .padding(.horizontal)
+                    }
+                )
             }
         }
     }
