@@ -14,11 +14,15 @@ struct PlaceMap: View {
     var body: some View {
         Button {
             print("TODO: Save loc, rot, scale")
+            photo.isPlacing = false
+            mapDetails.allowsInteraction = true
         } label: {
             Text("Save")
                 .bigButton(backgroundColor: .blue)
         }
         Button {
+            photo.isPlacing = false
+            mapDetails.allowsInteraction = true
         } label: {
             Text("Cancel")
                 .bigButton(backgroundColor: .gray)

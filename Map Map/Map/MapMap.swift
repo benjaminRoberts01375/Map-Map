@@ -14,7 +14,10 @@ struct MapMap: View {
     
     var body: some View {
         GeometryReader { geo in
-            Map(initialPosition: .userLocation(fallback: .automatic)) {
+            Map(
+                initialPosition: .userLocation(fallback: .automatic),
+                interactionModes: mapDetails.allowsInteraction ? [.pan, .rotate, .zoom] : []
+            ) {
                 UserAnnotation()
                 ForEach(maps) { map in
                     if let coordinates = map.coordinates {
