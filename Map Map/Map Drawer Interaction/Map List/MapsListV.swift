@@ -12,6 +12,7 @@ struct MapList: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.colorScheme) var colorScheme
     @State var mapProcessing = false
+    let darkColor: Color = Color.init(red: 0.2, green: 0.2, blue: 0.2)
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -22,7 +23,7 @@ struct MapList: View {
             VStack(spacing: 0) {
                 ForEach(maps) { photo in
                     MapListItem(photo: photo)
-                        .background(colorScheme == .dark ? Color.init(red: 0.2, green: 0.2, blue: 0.2) : Color.white)
+                        .background(colorScheme == .dark ? darkColor : Color.white)
                         .contextMenu {
                             Button(role: .destructive) {
                                 moc.delete(photo)
