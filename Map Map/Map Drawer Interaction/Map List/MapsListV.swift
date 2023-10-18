@@ -39,9 +39,5 @@ struct MapList: View {
             }
         }
         .clipShape(RoundedRectangle(cornerRadius: 15))
-        .fullScreenCover(
-            isPresented: $mapProcessing,
-            content: { MapsEditor() }
-        )
     }
 }

@@ -21,23 +21,23 @@ struct ContentView: View {
                     .blur(radius: blurAmount)
                     .allowsHitTesting(false)
                     .ignoresSafeArea()
-                BottomDrawer(
-                    verticalDetents: [.small, .medium, .large],
-                    horizontalDetents: [.left, .right],
-                    header: {
-                        HStack {
-                            Text("Your Maps")
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .padding([.leading])
-                            Spacer()
+                    BottomDrawer(
+                        verticalDetents: [.small, .medium, .large],
+                        horizontalDetents: [.left, .right],
+                        header: {
+                            HStack {
+                                Text("Your Maps")
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                    .padding([.leading])
+                                Spacer()
+                            }
+                        },
+                        content: {
+                            MapsViewer()
+                                .padding(.horizontal)
                         }
-                    },
-                    content: {
-                        MapsViewer()
-                            .padding(.horizontal)
-                    }
-                )
+                    )
             }
         }
     }

@@ -10,7 +10,6 @@ import SwiftUI
 
 struct MapsViewer: View {
     @State var rawPhotos: [PhotosPickerItem] = []
-    @State var mapProcessing = false
     @FetchRequest(sortDescriptors: []) var processedPhotos: FetchedResults<MapPhoto>
     @Environment(\.managedObjectContext) var moc // For adding and removing
     
@@ -18,20 +17,13 @@ struct MapsViewer: View {
         VStack {
             MapList()
             PhotosPicker("Select", selection: $rawPhotos, maxSelectionCount: 30, matching: .images)
-                .onChange(of: rawPhotos) { update in
-                    if rawPhotos.isEmpty { return }
-                    for rawPhoto in rawPhotos {
+                .onChange(of: rawPhotos) { _, updatedRawPhotos in
+                    if updatedRawPhotos.isEmpty { return }
+                    for rawPhoto in updatedRawPhotos {
                         _ = MapPhoto(rawPhoto: rawPhoto, insertInto: moc)
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now()) {
-                        mapProcessing = true
                     }
                     rawPhotos = []
                 }
-                .fullScreenCover(
-                    isPresented: $mapProcessing,
-                    content: { MapsEditor() }
-                )
         }
     }
 }
