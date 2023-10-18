@@ -20,7 +20,7 @@ struct MapListItem: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .padding(.vertical)
             VStack(alignment: .leading) {
-                if photo.isPlacing { PlaceMap(photo: photo) }
+                if photo.isEditing { PlaceMap(photo: photo) }
                 else if photo.longitude != 0 && photo.latitude != 0 { MapInfo(photo: photo) }
                 else { InvokePlaceMap(photo: photo) }
             }

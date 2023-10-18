@@ -16,8 +16,7 @@ public class MapPhoto: NSManagedObject {
     @Published private var image: ImageStatus = .empty
     @Published private var thumbnail: ImageStatus = .empty
     private let thumbnailSize: CGSize = CGSize(width: 300, height: 300)
-    public var isEditing: Bool = false
-    public var isPlacing: Bool = false
+    @Published public var isEditing: Bool = false
     public var coordinates: CLLocationCoordinate2D? {
         get {
             guard let lat = self.latitude?.doubleValue,

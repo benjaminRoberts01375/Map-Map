@@ -15,7 +15,7 @@ struct InvokePlaceMap: View {
         Text(photo.mapName ?? "Unknown name")
             .padding(.vertical)
         Button {
-            photo.isPlacing = true
+            photo.isEditing = true
             mapDetails.allowsInteraction = false
 //                        photo.coordinates = mapDetails.position
         } label: {
