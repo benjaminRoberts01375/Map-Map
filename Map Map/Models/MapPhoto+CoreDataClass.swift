@@ -13,20 +13,8 @@ import SwiftUI
 
 @objc(MapPhoto)
 public class MapPhoto: NSManagedObject {
-    private var image: ImageStatus = .empty {
-        didSet {
-            DispatchQueue.main.async {
-                self.objectWillChange.send()
-            }
-        }
-    }
-    private var thumbnail: ImageStatus = .empty {
-        didSet {
-            DispatchQueue.main.async {
-                self.objectWillChange.send()
-            }
-        }
-    }
+    @Published private var image: ImageStatus = .empty
+    @Published private var thumbnail: ImageStatus = .empty
     private let thumbnailSize: CGSize = CGSize(width: 300, height: 300)
     public var isEditing: Bool = false
     public var isPlacing: Bool = false
