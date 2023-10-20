@@ -134,12 +134,4 @@ extension MapPhoto {
             image = .failure
         }
     }
-    
-    public func markAsComplete() {
-        if mapName?.isEmpty ?? true { mapName = "Untitled"}
-    }
-    
-    public func needsEditing() {
-        isEditing = true
-    }
 }

@@ -11,7 +11,6 @@ struct MapList: View {
     @FetchRequest(sortDescriptors: []) var maps: FetchedResults<MapPhoto>
     @Environment(\.managedObjectContext) var moc
     @Environment(\.colorScheme) var colorScheme
-    @State var mapProcessing = false
     let darkColor: Color = Color.init(red: 0.2, green: 0.2, blue: 0.2)
     
     var body: some View {
@@ -28,8 +27,7 @@ struct MapList: View {
                             Label("Delete", systemImage: "trash")
                         }
                         Button {
-                            map.needsEditing()
-                            mapProcessing = true
+                            map.isEditing = true
                         } label: {
                             Label("Edit", systemImage: "pencil")
                         }

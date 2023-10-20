@@ -10,7 +10,11 @@ import CoreData
 import SwiftUI
 
 struct ContentView: View {
+    @FetchRequest(sortDescriptors: []) var mapPhotos: FetchedResults<MapPhoto>
+    @Environment(\.managedObjectContext) var moc
+    @State var showSetup: Bool = false
     let blurAmount: CGFloat = 10
+    
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .top) {
@@ -21,6 +25,13 @@ struct ContentView: View {
                     .blur(radius: blurAmount)
                     .allowsHitTesting(false)
                     .ignoresSafeArea()
+                if showSetup {
+                    if let mapInProgress = mapPhotos.first(where: { $0.isEditing }) {
+                        MapEditor(map: mapInProgress)
+                    }
+                    else { EmptyView().onAppear { showSetup = false } }
+                }
+                else {
                     BottomDrawer(
                         verticalDetents: [.small, .medium, .large],
                         horizontalDetents: [.left, .right],
@@ -38,7 +49,14 @@ struct ContentView: View {
                                 .padding(.horizontal)
                         }
                     )
+                }
             }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)) { _ in
+            showSetup = mapPhotos.contains(where: { $0.isEditing })
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { _ in
+            showSetup = mapPhotos.contains(where: { $0.isEditing })
         }
     }
 }
