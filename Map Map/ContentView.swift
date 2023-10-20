@@ -52,9 +52,6 @@ struct ContentView: View {
                 }
             }
         }
-        .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)) { _ in
-            showSetup = mapPhotos.contains(where: { $0.isEditing })
-        }
         .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { _ in
             showSetup = mapPhotos.contains(where: { $0.isEditing })
         }
