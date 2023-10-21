@@ -34,8 +34,6 @@ struct MapEditor: View {
                 })
             }
         }
-        .onAppear {
-            map.mapName = workingName
-        }
+        .onAppear { workingName = map.mapName ?? "Unknown name" }
     }
 }
