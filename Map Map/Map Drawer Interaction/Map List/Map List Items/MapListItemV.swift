@@ -21,10 +21,17 @@ struct MapListItem: View {
                 .padding(.vertical)
             Text(photo.mapName ?? "Unknown name")
                 .padding(.vertical)
-            Text("Longitude: \(photo.longitude!)º")
-                .foregroundStyle(.secondary)
-            Text("Latitude: \(photo.latitude!)º")
-                .foregroundStyle(.secondary)
+            if let longitude = photo.longitude, let latitude = photo.latitude {
+                VStack {
+                    Text("Longitude: \(longitude)º")
+                        .foregroundStyle(.secondary)
+                    Text("Latitude: \(latitude)º")
+                        .foregroundStyle(.secondary)
+                }
+            }
+            else {
+                Text("Unknown location")
+            }
             Spacer(minLength: 0)
         }
     }
