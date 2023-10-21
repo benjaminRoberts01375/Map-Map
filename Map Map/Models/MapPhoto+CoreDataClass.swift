@@ -119,6 +119,7 @@ extension MapPhoto {
         self.init(context: context)
         thumbnail = .loading
         image = .loading
+        self.mapName = "Untitled map"
         isEditing = true
         Task {
             if let mapData = try? await rawPhoto?.loadTransferable(type: Data.self) {
