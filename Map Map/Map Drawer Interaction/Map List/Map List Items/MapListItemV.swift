@@ -19,9 +19,12 @@ struct MapListItem: View {
                 .background(.thickMaterial)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .padding(.vertical)
-            VStack(alignment: .leading) {
-                MapInfo(photo: photo)
-            }
+            Text(photo.mapName ?? "Unknown name")
+                .padding(.vertical)
+            Text("Longitude: \(photo.longitude!)º")
+                .foregroundStyle(.secondary)
+            Text("Latitude: \(photo.latitude!)º")
+                .foregroundStyle(.secondary)
             Spacer(minLength: 0)
         }
     }

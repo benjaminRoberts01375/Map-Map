@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		0711E5B22AB39ABD0056AB4B /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0711E5B12AB39ABD0056AB4B /* BlurView.swift */; };
 		07353A352ADCCB9700C698B0 /* BigButtonV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07353A342ADCCB9700C698B0 /* BigButtonV.swift */; };
-		07353A392ADCCDD400C698B0 /* MapInfoV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07353A382ADCCDD400C698B0 /* MapInfoV.swift */; };
-		07353A3B2ADCCE2E00C698B0 /* InvokePlaceMapV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07353A3A2ADCCE2E00C698B0 /* InvokePlaceMapV.swift */; };
 		0762DD1F2AD37A1300C36D33 /* MapPhoto+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762DD1D2AD37A1300C36D33 /* MapPhoto+CoreDataClass.swift */; };
 		0762DD652AD4696B00C36D33 /* DoneButtonV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762DD642AD4696B00C36D33 /* DoneButtonV.swift */; };
 		0762DD682AD4713200C36D33 /* MapEditorV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762DD672AD4713200C36D33 /* MapEditorV.swift */; };
@@ -32,8 +30,6 @@
 /* Begin PBXFileReference section */
 		0711E5B12AB39ABD0056AB4B /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		07353A342ADCCB9700C698B0 /* BigButtonV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonV.swift; sourceTree = "<group>"; };
-		07353A382ADCCDD400C698B0 /* MapInfoV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfoV.swift; sourceTree = "<group>"; };
-		07353A3A2ADCCE2E00C698B0 /* InvokePlaceMapV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvokePlaceMapV.swift; sourceTree = "<group>"; };
 		0762DD1D2AD37A1300C36D33 /* MapPhoto+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapPhoto+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0762DD642AD4696B00C36D33 /* DoneButtonV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButtonV.swift; sourceTree = "<group>"; };
 		0762DD672AD4713200C36D33 /* MapEditorV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapEditorV.swift; sourceTree = "<group>"; };
@@ -77,8 +73,6 @@
 			isa = PBXGroup;
 			children = (
 				077CBEB02AD512FE00741F27 /* MapListItemV.swift */,
-				07353A3A2ADCCE2E00C698B0 /* InvokePlaceMapV.swift */,
-				07353A382ADCCDD400C698B0 /* MapInfoV.swift */,
 			);
 			path = "Map List Items";
 			sourceTree = "<group>";
@@ -252,10 +246,8 @@
 				07FDC6252AB25DFD00D92113 /* ContentView.swift in Sources */,
 				0711E5B22AB39ABD0056AB4B /* BlurView.swift in Sources */,
 				07FDC6232AB25DFD00D92113 /* Map_MapApp.swift in Sources */,
-				07353A392ADCCDD400C698B0 /* MapInfoV.swift in Sources */,
 				0762DD652AD4696B00C36D33 /* DoneButtonV.swift in Sources */,
 				0762DD682AD4713200C36D33 /* MapEditorV.swift in Sources */,
-				07353A3B2ADCCE2E00C698B0 /* InvokePlaceMapV.swift in Sources */,
 				07FCC8532AD334C000F88186 /* MapsViewerV.swift in Sources */,
 				077CBEB12AD512FE00741F27 /* MapListItemV.swift in Sources */,
 				07FCC8552AD3593F00F88186 /* DataController.swift in Sources */,
