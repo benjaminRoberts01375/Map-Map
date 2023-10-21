@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MapEditor: View {
     @ObservedObject var map: FetchedResults<MapPhoto>.Element
+    @EnvironmentObject var mapDetails: MapDetailsM
     @Environment(\.managedObjectContext) var moc
     @State var workingName: String = ""
     
@@ -16,6 +17,8 @@ struct MapEditor: View {
         VStack(alignment: .center) {
             Spacer()
             AnyView(map.getMap(.fullImage))
+                .opacity(0.5)
+                .allowsHitTesting(false)
             Spacer()
             TextField("\(Image(systemName: "pencil")) Map name", text: $workingName)
                 .padding(.all, 5)
@@ -25,8 +28,11 @@ struct MapEditor: View {
                 .frame(width: 205)
             HStack {
                 Button(action: {
-                    map.isEditing = false
+                    map.coordinates = mapDetails.position
+                    map.rotation = NSDecimalNumber(value: mapDetails.rotation.degrees)
+                    map.scale = NSDecimalNumber(value: 1.0 / mapDetails.scale)
                     map.mapName = workingName
+                    map.isEditing = false
                     try? moc.save()
                 }, label: {
                     Text("Done")

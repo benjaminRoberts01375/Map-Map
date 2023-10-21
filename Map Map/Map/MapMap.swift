@@ -27,14 +27,14 @@ struct MapMap: View {
                             anchor: .center
                         ) {
                             AnyView(map.getMap(.fullImage))
-                                .frame(width: 50 * mapDetails.scale, height: 50 * mapDetails.scale)
-                                .rotationEffect(mapDetails.rotation)
+                                .frame(width: mapDetails.scale, height: mapDetails.scale)
+                                .rotationEffect(mapDetails.rotation - Angle(degrees: Double(truncating: map.rotation ?? 0)))
                         }
                     }
                 }
             }
             .onMapCameraChange(frequency: .continuous) { update in
-                mapDetails.scale = 10000 / update.camera.distance
+                mapDetails.scale = 500000 / update.camera.distance
                 mapDetails.rotation = Angle(degrees: -update.camera.heading)
                 mapDetails.position = update.region.center
             }
