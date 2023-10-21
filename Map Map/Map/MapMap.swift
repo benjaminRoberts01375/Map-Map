@@ -20,9 +20,9 @@ struct MapMap: View {
             ) {
                 UserAnnotation()
                 ForEach(maps) { map in
-                    if let coordinates = map.coordinates, let rotation = map.rotation as? Double{
+                    if let coordinates = map.coordinates, let rotation = map.rotation as? Double, let name = map.mapName {
                         Annotation(
-                            "\(map.mapName ?? "")",
+                            "\(name)",
                             coordinate: coordinates,
                             anchor: .center
                         ) {
