@@ -20,7 +20,7 @@ struct MapMap: View {
             ) {
                 UserAnnotation()
                 ForEach(maps) { map in
-                    if let coordinates = map.coordinates {
+                    if let coordinates = map.coordinates, let rotation = map.rotation as? Double{
                         Annotation(
                             "\(map.mapName ?? "")",
                             coordinate: coordinates,
@@ -28,7 +28,7 @@ struct MapMap: View {
                         ) {
                             AnyView(map.getMap(.fullImage))
                                 .frame(width: mapDetails.scale, height: mapDetails.scale)
-                                .rotationEffect(mapDetails.rotation - Angle(degrees: Double(truncating: map.rotation ?? 0)))
+                                .rotationEffect(mapDetails.rotation - Angle(degrees: rotation))
                         }
                     }
                 }
