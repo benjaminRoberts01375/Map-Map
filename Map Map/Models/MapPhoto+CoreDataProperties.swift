@@ -2,7 +2,7 @@
 //  MapPhoto+CoreDataProperties.swift
 //  Map Map
 //
-//  Created by Ben Roberts on 10/20/23.
+//  Created by Ben Roberts on 10/21/23.
 //
 //
 
@@ -16,12 +16,14 @@ extension MapPhoto {
         return NSFetchRequest<MapPhoto>(entityName: "MapPhoto")
     }
 
+    @NSManaged public var isEditing: Bool
     @NSManaged public var latitude: NSDecimalNumber?
     @NSManaged public var longitude: NSDecimalNumber?
     @NSManaged public var map: Data?
     @NSManaged public var mapName: String?
     @NSManaged public var mapThumbnail: Data?
-    @NSManaged public var isEditing: Bool
+    @NSManaged public var scale: NSDecimalNumber?
+    @NSManaged public var rotation: NSDecimalNumber?
 
 }
 
