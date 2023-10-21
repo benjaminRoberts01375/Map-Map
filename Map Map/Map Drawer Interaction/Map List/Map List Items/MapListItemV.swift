@@ -19,20 +19,20 @@ struct MapListItem: View {
                 .background(.thickMaterial)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .padding(.vertical)
-            Text(photo.mapName ?? "Unknown name")
-                .padding(.vertical)
-            if let longitude = photo.longitude, let latitude = photo.latitude {
-                VStack {
+            VStack(alignment: .leading) {
+                Text(photo.mapName ?? "Unknown name")
+                    .padding(.vertical)
+                if let longitude = photo.longitude, let latitude = photo.latitude {
                     Text("Longitude: \(longitude)º")
                         .foregroundStyle(.secondary)
                     Text("Latitude: \(latitude)º")
                         .foregroundStyle(.secondary)
                 }
+                else {
+                    Text("Unknown location")
+                }
+                Spacer(minLength: 0)
             }
-            else {
-                Text("Unknown location")
-            }
-            Spacer(minLength: 0)
         }
     }
 }
