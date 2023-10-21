@@ -82,6 +82,7 @@
 			children = (
 				0762DD642AD4696B00C36D33 /* DoneButtonV.swift */,
 				07353A342ADCCB9700C698B0 /* BigButtonV.swift */,
+				0711E5B12AB39ABD0056AB4B /* BlurView.swift */,
 			);
 			path = "Generic View Components";
 			sourceTree = "<group>";
@@ -144,7 +145,6 @@
 			children = (
 				07FDC6222AB25DFD00D92113 /* Map_MapApp.swift */,
 				07FDC6242AB25DFD00D92113 /* ContentView.swift */,
-				0711E5B12AB39ABD0056AB4B /* BlurView.swift */,
 				07FCC85F2AD3764A00F88186 /* Map */,
 				070159D82AD505300031647F /* Map Editing */,
 				07FCC8592AD3756300F88186 /* Map Drawer Interaction */,
