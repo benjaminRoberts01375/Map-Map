@@ -19,13 +19,18 @@ struct MapEditor: View {
         ZStack {
             GeometryReader { geo in
                 AnyView(map.getMap(.fullImage))
+                    .background {
+                        GeometryReader { imageGeo in
+                            Color.clear
+                                .onChange(of: imageGeo.size, initial: true) { _, update in
+                                    mapWidth = update.width
+                                }
+                        }
+                    }
                     .frame(width: geo.size.width * 0.75, height: geo.size.height * 0.75)
                     .opacity(0.5)
                     .allowsHitTesting(false)
                     .position(x: geo.frame(in: .global).midX, y: geo.frame(in: .global).midY)
-                    .onChange(of: geo.size, initial: true) { _, update in
-                        mapWidth = update.width
-                    }
             }
             
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center]) {
