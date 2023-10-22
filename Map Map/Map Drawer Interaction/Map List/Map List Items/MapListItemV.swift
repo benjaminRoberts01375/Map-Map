@@ -22,13 +22,16 @@ struct MapListItem: View {
             VStack(alignment: .leading) {
                 Text(photo.mapName ?? "Unknown name")
                     .padding(.vertical)
-                if let longitude = photo.longitude, let latitude = photo.latitude {
+                if let coordinates = photo.coordinates {
                     VStack(alignment: .leading) {
                         Text("Latitude: ")
-                        Text("\(latitude)º")
+                        Text("\(coordinates.latitude.wholeDegrees)º \(coordinates.latitude.minutes)' \(coordinates.latitude.seconds)'' ")
                             .fontWidth(.condensed)
+                            .onAppear {
+                                print(coordinates)
+                            }
                         Text("Longitude: ")
-                        Text("\(longitude)º")
+                        Text("\(coordinates.longitude.wholeDegrees)º \(coordinates.longitude.minutes)' \(coordinates.longitude.seconds)'' ")
                             .fontWidth(.condensed)
                     }
                     .foregroundStyle(.secondary)
