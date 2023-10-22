@@ -20,10 +20,10 @@ struct MapMap: View {
             ) {
                 UserAnnotation()
                 ForEach(maps) { map in
-                    if let coordinates = map.coordinates, 
-                        let rotation = map.rotation as? Double,
-                        let name = map.mapName,
-                        let scale = map.scale as? Double {
+                    if let coordinates = map.coordinates,
+                       let rotation = map.rotation as? Double,
+                       let name = map.mapName,
+                       let scale = map.scale as? Double {
                         Annotation(
                             "\(name)",
                             coordinate: coordinates,
