@@ -20,21 +20,24 @@ struct MapMap: View {
             ) {
                 UserAnnotation()
                 ForEach(maps) { map in
-                    if let coordinates = map.coordinates, let rotation = map.rotation as? Double, let name = map.mapName {
+                    if let coordinates = map.coordinates, 
+                        let rotation = map.rotation as? Double,
+                        let name = map.mapName,
+                        let scale = map.scale as? Double {
                         Annotation(
                             "\(name)",
                             coordinate: coordinates,
                             anchor: .center
                         ) {
                             AnyView(map.getMap(.fullImage))
-                                .frame(width: mapDetails.scale, height: mapDetails.scale)
+                                .frame(width: mapDetails.scale * scale, height: mapDetails.scale * scale)
                                 .rotationEffect(mapDetails.rotation - Angle(degrees: rotation))
                         }
                     }
                 }
             }
             .onMapCameraChange(frequency: .continuous) { update in
-                mapDetails.scale = 500000 / update.camera.distance
+                mapDetails.scale = 1 / update.camera.distance
                 mapDetails.rotation = Angle(degrees: -update.camera.heading)
                 mapDetails.position = update.region.center
             }
