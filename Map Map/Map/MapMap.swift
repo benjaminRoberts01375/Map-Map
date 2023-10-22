@@ -30,7 +30,7 @@ struct MapMap: View {
                             anchor: .center
                         ) {
                             AnyView(map.getMap(.fullImage))
-                                .frame(width: mapDetails.scale * scale, height: mapDetails.scale * scale)
+                                .frame(width: mapDetails.scale * scale)
                                 .rotationEffect(mapDetails.rotation - Angle(degrees: rotation))
                         }
                     }
