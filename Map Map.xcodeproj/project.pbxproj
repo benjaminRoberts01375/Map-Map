@@ -71,14 +71,6 @@
 			path = "Map Editing";
 			sourceTree = "<group>";
 		};
-		07353A3C2ADCCE8100C698B0 /* Map List Items */ = {
-			isa = PBXGroup;
-			children = (
-				077CBEB02AD512FE00741F27 /* MapListItemV.swift */,
-			);
-			path = "Map List Items";
-			sourceTree = "<group>";
-		};
 		0762DD662AD46CFA00C36D33 /* Generic View Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -93,7 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				07FCC8562AD3750F00F88186 /* MapsListV.swift */,
-				07353A3C2ADCCE8100C698B0 /* Map List Items */,
+				077CBEB02AD512FE00741F27 /* MapListItemV.swift */,
 			);
 			path = "Map List";
 			sourceTree = "<group>";
