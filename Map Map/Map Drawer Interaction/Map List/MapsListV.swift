@@ -17,8 +17,6 @@ struct MapList: View {
         VStack(spacing: 0) {
             ForEach(maps) { map in
                 MapListItem(photo: map)
-                    .padding(.leading)
-                    .background(colorScheme == .dark ? darkColor : Color.white)
                     .contextMenu {
                         Button(role: .destructive) {
                             moc.delete(map)
@@ -36,6 +34,7 @@ struct MapList: View {
                 Divider()
             }
         }
+        .background(colorScheme == .dark ? darkColor : Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 15))
     }
 }
