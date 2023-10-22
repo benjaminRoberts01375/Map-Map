@@ -23,10 +23,15 @@ struct MapListItem: View {
                 Text(photo.mapName ?? "Unknown name")
                     .padding(.vertical)
                 if let longitude = photo.longitude, let latitude = photo.latitude {
-                    Text("Longitude: \(longitude)º")
-                        .foregroundStyle(.secondary)
-                    Text("Latitude: \(latitude)º")
-                        .foregroundStyle(.secondary)
+                    VStack(alignment: .leading) {
+                        Text("Latitude: ")
+                        Text("\(latitude)º")
+                            .fontWidth(.condensed)
+                        Text("Longitude: ")
+                        Text("\(longitude)º")
+                            .fontWidth(.condensed)
+                    }
+                    .foregroundStyle(.secondary)
                 }
                 else {
                     Text("Unknown location")
