@@ -15,7 +15,7 @@ struct MapMap: View {
     var body: some View {
         GeometryReader { geo in
             Map(
-                initialPosition: .userLocation(fallback: .automatic),
+                position: $mapDetails.mapCamera,
                 interactionModes: mapDetails.allowsInteraction ? [.pan, .rotate, .zoom] : []
             ) {
                 UserAnnotation()

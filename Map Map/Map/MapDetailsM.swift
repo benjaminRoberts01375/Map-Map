@@ -13,4 +13,5 @@ final class MapDetailsM: ObservableObject {
     @Published public var scale: Double = 1
     @Published public var rotation: Angle = .zero
     @Published public var allowsInteraction: Bool = true
+    @Published public var mapCamera: MapCameraPosition = .userLocation(fallback: .automatic)
 }
