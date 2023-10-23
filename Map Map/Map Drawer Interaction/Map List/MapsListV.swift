@@ -5,9 +5,11 @@
 //  Created by Ben Roberts on 10/8/23.
 //
 
+import MapKit
 import SwiftUI
 
 struct MapList: View {
+    @EnvironmentObject var mapDetails: MapDetailsM
     @FetchRequest(sortDescriptors: []) var maps: FetchedResults<MapPhoto>
     @Environment(\.managedObjectContext) var moc
     @Environment(\.colorScheme) var colorScheme
@@ -16,7 +18,13 @@ struct MapList: View {
     var body: some View {
         VStack(spacing: 0) {
             ForEach(maps) { map in
-                MapListItem(photo: map)
+                Button(action: {
+                    withAnimation {
+                        mapDetails.mapCamera = .region(MKCoordinateRegion(center: map.coordinates ?? .zero, latitudinalMeters: 10000, longitudinalMeters: 10000))
+                    }
+                }, label: {
+                    MapListItem(photo: map)
+                })
                     .contextMenu {
                         Button(role: .destructive) {
                             moc.delete(map)
