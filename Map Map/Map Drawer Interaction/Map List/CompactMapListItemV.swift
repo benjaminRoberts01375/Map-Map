@@ -27,12 +27,12 @@ struct CompactMapListItem: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                 VStack(alignment: .leading) {
                     if let coordinates = photo.coordinates {
-                            Text("Latitude: ")
-                            Text("\(coordinates.latitude.wholeDegrees)º \(coordinates.latitude.minutes)' \(coordinates.latitude.seconds)'' ")
-                                .fontWidth(.condensed)
-                            Text("Longitude: ")
-                            Text("\(coordinates.longitude.wholeDegrees)º \(coordinates.longitude.minutes)' \(coordinates.longitude.seconds)'' ")
-                                .fontWidth(.condensed)
+                        Text("Latitude: ")
+                        Text("\(coordinates.latitude.wholeDegrees)º \(coordinates.latitude.minutes)' \(coordinates.latitude.seconds)'' ")
+                            .fontWidth(.condensed)
+                        Text("Longitude: ")
+                        Text("\(coordinates.longitude.wholeDegrees)º \(coordinates.longitude.minutes)' \(coordinates.longitude.seconds)'' ")
+                            .fontWidth(.condensed)
                     }
                     else {
                         Text("Unknown location")
