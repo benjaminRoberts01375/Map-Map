@@ -12,11 +12,11 @@ struct MapsViewer: View {
     @State var rawPhotos: [PhotosPickerItem] = []
     @FetchRequest(sortDescriptors: []) var processedPhotos: FetchedResults<MapPhoto>
     @Environment(\.managedObjectContext) var moc // For adding and removing
-    let alignment: HorizontalAlignment
+    let listMode: ListMode
     
     var body: some View {
         VStack {
-            MapList(alignment: alignment)
+            MapList(listMode: listMode)
             PhotosPicker("Select", selection: $rawPhotos, maxSelectionCount: 30, matching: .images)
                 .onChange(of: rawPhotos) { _, updatedRawPhotos in
                     if updatedRawPhotos.isEmpty { return }
@@ -30,5 +30,9 @@ struct MapsViewer: View {
 }
 
 #Preview {
-    MapsViewer(alignment: .leading)
+    MapsViewer(listMode: .full)
+}
+
+#Preview {
+    MapsViewer(listMode: .compact)
 }

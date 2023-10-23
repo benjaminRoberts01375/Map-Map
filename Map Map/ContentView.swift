@@ -45,7 +45,7 @@ struct ContentView: View {
                             }
                         },
                         content: { isShortCard in
-                            MapsViewer(alignment: isShortCard ? .center : .leading)
+                            MapsViewer(listMode: isShortCard ? .compact : .full)
                                 .padding(.horizontal)
                         }
                     )

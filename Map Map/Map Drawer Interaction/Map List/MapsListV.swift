@@ -14,18 +14,24 @@ struct MapList: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.colorScheme) var colorScheme
     let darkColor: Color = Color.init(red: 0.2, green: 0.2, blue: 0.2)
-    let alignment: HorizontalAlignment
+    let listMode: ListMode
     
     var body: some View {
-        VStack(alignment: alignment, spacing: 0) {
+        VStack(alignment: listMode == .compact ? .center : .leading, spacing: 0) {
             ForEach(maps) { map in
                 Button(action: {
                     withAnimation {
                         mapDetails.mapCamera = .region(MKCoordinateRegion(center: map.coordinates ?? .zero, latitudinalMeters: 10000, longitudinalMeters: 10000))
                     }
                 }, label: {
-                    MapListItem(photo: map, alignment: alignment)
-                        .padding(.horizontal)
+                    Group {
+                        switch listMode {
+                        case .compact:
+                            CompactMapListItem(photo: map)
+                        case .full:
+                            MapListItem(photo: map)
+                        }
+                    }
                 })
                 .buttonStyle(.plain)
                 .contextMenu {
