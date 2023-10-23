@@ -25,20 +25,21 @@ struct MapList: View {
                 }, label: {
                     MapListItem(photo: map)
                 })
-                    .contextMenu {
-                        Button(role: .destructive) {
-                            moc.delete(map)
-                            try? moc.save()
-                        } label: {
-                            Label("Delete", systemImage: "trash")
-                        }
-                        Button {
-                            map.isEditing = true
-                        } label: {
-                            Label("Edit", systemImage: "pencil")
-                        }
-                        
+                .buttonStyle(.plain)
+                .contextMenu {
+                    Button(role: .destructive) {
+                        moc.delete(map)
+                        try? moc.save()
+                    } label: {
+                        Label("Delete", systemImage: "trash")
                     }
+                    Button {
+                        map.isEditing = true
+                    } label: {
+                        Label("Edit", systemImage: "pencil")
+                    }
+                    
+                }
                 Divider()
             }
         }
