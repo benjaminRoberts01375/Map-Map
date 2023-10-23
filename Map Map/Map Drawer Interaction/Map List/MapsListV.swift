@@ -14,16 +14,18 @@ struct MapList: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.colorScheme) var colorScheme
     let darkColor: Color = Color.init(red: 0.2, green: 0.2, blue: 0.2)
+    let alignment: HorizontalAlignment
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(alignment: alignment, spacing: 0) {
             ForEach(maps) { map in
                 Button(action: {
                     withAnimation {
                         mapDetails.mapCamera = .region(MKCoordinateRegion(center: map.coordinates ?? .zero, latitudinalMeters: 10000, longitudinalMeters: 10000))
                     }
                 }, label: {
-                    MapListItem(photo: map)
+                    MapListItem(photo: map, alignment: alignment)
+                        .padding(.horizontal)
                 })
                 .buttonStyle(.plain)
                 .contextMenu {
@@ -43,6 +45,7 @@ struct MapList: View {
                 Divider()
             }
         }
+        .ignoresSafeArea()
         .background(colorScheme == .dark ? darkColor : Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 15))
     }

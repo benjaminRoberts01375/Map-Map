@@ -35,7 +35,7 @@ struct ContentView: View {
                     BottomDrawer(
                         verticalDetents: [.small, .medium, .large],
                         horizontalDetents: [.left, .right],
-                        header: {
+                        header: { _ in
                             HStack {
                                 Text("Your Maps")
                                     .font(.title)
@@ -44,8 +44,8 @@ struct ContentView: View {
                                 Spacer()
                             }
                         },
-                        content: {
-                            MapsViewer()
+                        content: { isShortCard in
+                            MapsViewer(alignment: isShortCard ? .center : .leading)
                                 .padding(.horizontal)
                         }
                     )

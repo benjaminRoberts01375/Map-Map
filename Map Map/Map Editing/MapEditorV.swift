@@ -33,7 +33,7 @@ struct MapEditor: View {
                     .position(x: geo.frame(in: .global).midX, y: geo.frame(in: .global).midY)
             }
             
-            BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center]) {
+            BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center]) { _ in
                 VStack {
                     TextField("\(Image(systemName: "pencil")) Map name", text: $workingName)
                         .padding(.all, 5)

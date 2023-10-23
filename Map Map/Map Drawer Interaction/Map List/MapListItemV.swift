@@ -10,9 +10,10 @@ import SwiftUI
 struct MapListItem: View {
     @ObservedObject var photo: FetchedResults<MapPhoto>.Element
     @EnvironmentObject var mapDetails: MapDetailsM
+    let alignment: HorizontalAlignment
     
     var body: some View {
-        VStack {
+        VStack(alignment: alignment) {
             Text(photo.mapName ?? "Unknown name")
                 .font(.title3)
                 .padding(.vertical, 7)
@@ -23,7 +24,6 @@ struct MapListItem: View {
                     .background(.thickMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                 VStack(alignment: .leading) {
-                    Spacer()
                     if let coordinates = photo.coordinates {
                         VStack(alignment: .leading) {
                             Text("Latitude: ")
