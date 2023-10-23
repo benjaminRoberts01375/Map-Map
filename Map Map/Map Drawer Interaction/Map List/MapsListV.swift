@@ -24,13 +24,11 @@ struct MapList: View {
                         mapDetails.mapCamera = .region(MKCoordinateRegion(center: map.coordinates ?? .zero, latitudinalMeters: 10000, longitudinalMeters: 10000))
                     }
                 }, label: {
-                    Group {
-                        switch listMode {
-                        case .compact:
-                            CompactMapListItem(photo: map)
-                        case .full:
-                            MapListItem(photo: map)
-                        }
+                    switch listMode {
+                    case .compact:
+                        CompactMapListItem(photo: map)
+                    case .full:
+                        MapListItem(photo: map)
                     }
                 })
                 .buttonStyle(.plain)
