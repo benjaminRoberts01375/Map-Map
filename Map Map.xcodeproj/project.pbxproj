@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0711E5B22AB39ABD0056AB4B /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0711E5B12AB39ABD0056AB4B /* BlurView.swift */; };
+		0718E4142AE5EEE50032C6C0 /* CLLocationCoordinate2DE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0718E4132AE5EEE50032C6C0 /* CLLocationCoordinate2DE.swift */; };
 		07353A352ADCCB9700C698B0 /* BigButtonV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07353A342ADCCB9700C698B0 /* BigButtonV.swift */; };
 		0762DD1F2AD37A1300C36D33 /* MapPhoto+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762DD1D2AD37A1300C36D33 /* MapPhoto+CoreDataClass.swift */; };
 		0762DD652AD4696B00C36D33 /* DoneButtonV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762DD642AD4696B00C36D33 /* DoneButtonV.swift */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		0711E5B12AB39ABD0056AB4B /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		0718E4132AE5EEE50032C6C0 /* CLLocationCoordinate2DE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2DE.swift; sourceTree = "<group>"; };
 		07353A342ADCCB9700C698B0 /* BigButtonV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonV.swift; sourceTree = "<group>"; };
 		0762DD1D2AD37A1300C36D33 /* MapPhoto+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapPhoto+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0762DD642AD4696B00C36D33 /* DoneButtonV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButtonV.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				078B4CB12AE3A087005BC9E0 /* MapPhoto+CoreDataProperties.swift */,
 				07FCC8542AD3593F00F88186 /* DataController.swift */,
 				07D522F22AE5CCCF009364B3 /* CLLocationDegreesE.swift */,
+				0718E4132AE5EEE50032C6C0 /* CLLocationCoordinate2DE.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 			files = (
 				07FDC6252AB25DFD00D92113 /* ContentView.swift in Sources */,
 				0711E5B22AB39ABD0056AB4B /* BlurView.swift in Sources */,
+				0718E4142AE5EEE50032C6C0 /* CLLocationCoordinate2DE.swift in Sources */,
 				07FDC6232AB25DFD00D92113 /* Map_MapApp.swift in Sources */,
 				07D522F32AE5CCCF009364B3 /* CLLocationDegreesE.swift in Sources */,
 				0762DD652AD4696B00C36D33 /* DoneButtonV.swift in Sources */,
