@@ -35,6 +35,7 @@ struct ContentView: View {
                     BottomDrawer(
                         verticalDetents: [.medium, .large, .header],
                         horizontalDetents: [.left, .right],
+                        shortCardSize: 315,
                         header: { _ in
                             HStack {
                                 Text("Your Maps")
