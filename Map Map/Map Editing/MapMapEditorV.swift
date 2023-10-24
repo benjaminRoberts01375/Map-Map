@@ -44,7 +44,7 @@ struct MapMapEditor: View {
                         Button(action: {
                             mapMap.coordinates = mapDetails.position
                             mapMap.mapMapRotation = mapDetails.rotation.degrees
-                            mapMap.mapMapScale = NSDecimalNumber(value: mapWidth / mapDetails.scale)
+                            mapMap.mapMapScale = mapWidth / mapDetails.scale
                             mapMap.mapMapName = workingName
                             mapMap.isEditing = false
                             try? moc.save()
