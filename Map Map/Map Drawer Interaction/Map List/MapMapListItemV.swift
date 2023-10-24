@@ -20,17 +20,12 @@ struct MapMapListItem: View {
                     .font(.title3)
                     .padding(.vertical, 7)
                     .foregroundStyle(.primary)
-                if let coordinates = mapMap.coordinates {
                     Text("Latitude: ") +
-                    Text("\(coordinates.latitude.wholeDegrees)º \(coordinates.latitude.minutes)' \(coordinates.latitude.seconds)'' ")
+                    Text("\(mapMap.coordinates.latitude.wholeDegrees)º \(mapMap.coordinates.latitude.minutes)' \(mapMap.coordinates.latitude.seconds)'' ")
                         .fontWidth(.condensed)
                     Text("Longitude: ") +
-                    Text("\(coordinates.longitude.wholeDegrees)º \(coordinates.longitude.minutes)' \(coordinates.longitude.seconds)'' ")
+                    Text("\(mapMap.coordinates.longitude.wholeDegrees)º \(mapMap.coordinates.longitude.minutes)' \(mapMap.coordinates.longitude.seconds)'' ")
                         .fontWidth(.condensed)
-                }
-                else {
-                    Text("Unknown location")
-                }
             }
             .foregroundStyle(.secondary)
             Spacer()

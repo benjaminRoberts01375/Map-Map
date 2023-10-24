@@ -20,13 +20,12 @@ struct BackgroundMap: View {
             ) {
                 UserAnnotation()
                 ForEach(mapMaps) { map in
-                    if let coordinates = map.coordinates,
-                       let rotation = map.mapMapRotation as? Double,
+                    if let rotation = map.mapMapRotation as? Double,
                        let name = map.mapMapName,
                        let scale = map.mapMapScale as? Double {
                         Annotation(
                             "\(name)",
-                            coordinate: coordinates,
+                            coordinate: map.coordinates,
                             anchor: .center
                         ) {
                             AnyView(map.getMap(.fullImage))

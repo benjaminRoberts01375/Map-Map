@@ -16,17 +16,13 @@ public class MapMap: NSManagedObject {
     @Published private var image: ImageStatus = .empty
     @Published private var thumbnail: ImageStatus = .empty
     private let thumbnailSize: CGSize = CGSize(width: 300, height: 300)
-    public var coordinates: CLLocationCoordinate2D? {
+    public var coordinates: CLLocationCoordinate2D {
         get {
-            guard let lat = self.mapMapLatitude?.doubleValue,
-                  let long = self.mapMapLongitude?.doubleValue
-            else { return nil }
-            return CLLocationCoordinate2D(latitude: lat , longitude: long)
+            return CLLocationCoordinate2D(latitude: self.mapMapLatitude , longitude: self.mapMapLongitude)
         }
-        set(preCoordinates) {
-            guard let coordinates = preCoordinates else { return }
-            self.mapMapLatitude = NSDecimalNumber(value: coordinates.latitude)
-            self.mapMapLongitude = NSDecimalNumber(value: coordinates.longitude)
+        set(coordinates) {
+            self.mapMapLatitude = coordinates.latitude
+            self.mapMapLongitude = coordinates.longitude
         }
     }
     
