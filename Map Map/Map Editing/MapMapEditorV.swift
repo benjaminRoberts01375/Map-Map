@@ -46,6 +46,7 @@ struct MapMapEditor: View {
                             mapMap.mapMapRotation = mapDetails.rotation.degrees
                             mapMap.mapMapScale = mapWidth / mapDetails.scale
                             mapMap.mapMapName = workingName
+                            mapMap.mapDistance = 1 / mapDetails.scale
                             mapMap.isEditing = false
                             try? moc.save()
                         }) {

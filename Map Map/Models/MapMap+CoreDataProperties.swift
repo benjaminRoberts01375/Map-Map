@@ -24,6 +24,7 @@ extension MapMap {
     @NSManaged public var mapMapRawThumbnail: Data?
     @NSManaged public var mapMapRotation: Double
     @NSManaged public var mapMapScale: Double
+    @NSManaged public var mapDistance: Double
 
 }
 

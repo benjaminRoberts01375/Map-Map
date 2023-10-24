@@ -11,7 +11,7 @@ import MapKit
 import PhotosUI
 import SwiftUI
 
-@objc(MapPhoto)
+@objc(MapMap)
 public class MapMap: NSManagedObject {
     @Published private var image: ImageStatus = .empty
     @Published private var thumbnail: ImageStatus = .empty
