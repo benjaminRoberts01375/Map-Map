@@ -27,11 +27,14 @@ struct MapList: View {
                     switch listMode {
                     case .compact:
                         CompactMapListItem(photo: map)
+                            .padding()
                     case .full:
                         MapListItem(photo: map)
+                            .padding()
                     }
                 })
                 .buttonStyle(.plain)
+                .background(colorScheme == .dark ? darkColor : Color.white)
                 .contextMenu {
                     Button(role: .destructive) {
                         moc.delete(map)

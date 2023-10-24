@@ -11,10 +11,10 @@ struct MapListItemThumbnail: ViewModifier {
     func body(content: Content) -> some View {
         content
             .clipShape(RoundedRectangle(cornerRadius: 5))
-            .frame(width: 100, height: 100)
+            .frame(minWidth: 100, idealWidth: 100, maxWidth: 100, minHeight: 50, maxHeight: 100)
             .background(.thickMaterial)
             .clipShape(RoundedRectangle(cornerRadius: 10))
-            .padding()
+            .padding(.trailing)
     }
 }
 

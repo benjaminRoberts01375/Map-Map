@@ -12,11 +12,12 @@ struct CompactMapListItem: View {
     @EnvironmentObject var mapDetails: MapDetailsM
     
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 0) {
                 Spacer()
                 Text(photo.mapName ?? "Unknown name")
                     .font(.title3)
+                    .padding(.bottom, 7)
                 Spacer()
             }
             HStack {
@@ -39,6 +40,5 @@ struct CompactMapListItem: View {
                 Spacer()
             }
         }
-        .padding()
     }
 }
