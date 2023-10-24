@@ -33,7 +33,7 @@ struct ContentView: View {
                 }
                 else {
                     BottomDrawer(
-                        verticalDetents: [.small, .medium, .large],
+                        verticalDetents: [.medium, .large, .header],
                         horizontalDetents: [.left, .right],
                         header: { _ in
                             HStack {
