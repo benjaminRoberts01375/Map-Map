@@ -21,7 +21,7 @@ struct MapMapList: View {
             ForEach(mapMaps) { map in
                 Button(action: {
                     withAnimation {
-                        backgroundMapDetails.mapCamera = .region(MKCoordinateRegion(center: map.coordinates ?? .zero, latitudinalMeters: 10000, longitudinalMeters: 10000))
+                        backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: map.coordinates, distance: map.mapDistance, heading: -map.mapMapRotation))
                     }
                 }, label: {
                     switch listMode {
