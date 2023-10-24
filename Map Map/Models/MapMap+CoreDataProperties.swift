@@ -22,7 +22,7 @@ extension MapMap {
     @NSManaged public var mapMapRawImage: Data?
     @NSManaged public var mapMapName: String?
     @NSManaged public var mapMapRawThumbnail: Data?
-    @NSManaged public var mapMapRotation: NSDecimalNumber?
+    @NSManaged public var mapMapRotation: Double
     @NSManaged public var mapMapScale: NSDecimalNumber?
 
 }

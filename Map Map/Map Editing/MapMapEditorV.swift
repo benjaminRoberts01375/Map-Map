@@ -43,7 +43,7 @@ struct MapMapEditor: View {
                     HStack {
                         Button(action: {
                             mapMap.coordinates = mapDetails.position
-                            mapMap.mapMapRotation = NSDecimalNumber(value: mapDetails.rotation.degrees)
+                            mapMap.mapMapRotation = mapDetails.rotation.degrees
                             mapMap.mapMapScale = NSDecimalNumber(value: mapWidth / mapDetails.scale)
                             mapMap.mapMapName = workingName
                             mapMap.isEditing = false

@@ -20,8 +20,7 @@ struct BackgroundMap: View {
             ) {
                 UserAnnotation()
                 ForEach(mapMaps) { map in
-                    if let rotation = map.mapMapRotation as? Double,
-                       let name = map.mapMapName,
+                    if let name = map.mapMapName,
                        let scale = map.mapMapScale as? Double {
                         Annotation(
                             "\(name)",
@@ -30,7 +29,7 @@ struct BackgroundMap: View {
                         ) {
                             AnyView(map.getMap(.fullImage))
                                 .frame(width: backgroundMapDetails.scale * scale)
-                                .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: rotation))
+                                .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: map.mapMapRotation))
                                 .offset(y: -7)
                         }
                     }
