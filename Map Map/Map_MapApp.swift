@@ -11,7 +11,7 @@ import SwiftUI
 @main
 struct Map_MapApp: App {
     @StateObject private var dataController = DataController()
-    @StateObject private var mapDetails = MapDetailsM()
+    @StateObject private var mapDetails = BackgroundMapDetailsM()
     var body: some Scene {
         WindowGroup {
             ContentView()

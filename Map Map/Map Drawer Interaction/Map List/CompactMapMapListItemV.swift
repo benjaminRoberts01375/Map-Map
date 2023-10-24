@@ -8,23 +8,23 @@
 import SwiftUI
 
 struct CompactMapListItem: View {
-    @ObservedObject var photo: FetchedResults<MapPhoto>.Element
-    @EnvironmentObject var mapDetails: MapDetailsM
+    @ObservedObject var mapMap: FetchedResults<MapMap>.Element
+    @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 0) {
                 Spacer()
-                Text(photo.mapName ?? "Unknown name")
+                Text(mapMap.mapMapName ?? "Unknown name")
                     .font(.title3)
                     .padding(.bottom, 7)
                 Spacer()
             }
             HStack {
-                AnyView(photo.getMap(.thumbnail))
-                    .mapListItemThumbnail()
+                AnyView(mapMap.getMap(.thumbnail))
+                    .mapMapListItemThumbnail()
                 VStack(alignment: .leading) {
-                    if let coordinates = photo.coordinates {
+                    if let coordinates = mapMap.coordinates {
                         Text("Latitude: ")
                         Text("\(coordinates.latitude.wholeDegrees)º \(coordinates.latitude.minutes)' \(coordinates.latitude.seconds)'' ")
                             .fontWidth(.condensed)

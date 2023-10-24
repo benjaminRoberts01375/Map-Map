@@ -7,20 +7,20 @@
 
 import SwiftUI
 
-struct MapListItem: View {
-    @ObservedObject var photo: FetchedResults<MapPhoto>.Element
-    @EnvironmentObject var mapDetails: MapDetailsM
+struct MapMapListItem: View {
+    @ObservedObject var mapMap: FetchedResults<MapMap>.Element
+    @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     
     var body: some View {
         HStack {
-            AnyView(photo.getMap(.thumbnail))
-                .mapListItemThumbnail()
+            AnyView(mapMap.getMap(.thumbnail))
+                .mapMapListItemThumbnail()
             VStack(alignment: .leading) {
-                Text(photo.mapName ?? "Unknown name")
+                Text(mapMap.mapMapName ?? "Unknown name")
                     .font(.title3)
                     .padding(.vertical, 7)
                     .foregroundStyle(.primary)
-                if let coordinates = photo.coordinates {
+                if let coordinates = mapMap.coordinates {
                     Text("Latitude: ") +
                     Text("\(coordinates.latitude.wholeDegrees)º \(coordinates.latitude.minutes)' \(coordinates.latitude.seconds)'' ")
                         .fontWidth(.condensed)

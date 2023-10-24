@@ -12,21 +12,21 @@ import PhotosUI
 import SwiftUI
 
 @objc(MapPhoto)
-public class MapPhoto: NSManagedObject {
+public class MapMap: NSManagedObject {
     @Published private var image: ImageStatus = .empty
     @Published private var thumbnail: ImageStatus = .empty
     private let thumbnailSize: CGSize = CGSize(width: 300, height: 300)
     public var coordinates: CLLocationCoordinate2D? {
         get {
-            guard let lat = self.latitude?.doubleValue,
-                  let long = self.longitude?.doubleValue
+            guard let lat = self.mapMapLatitude?.doubleValue,
+                  let long = self.mapMapLongitude?.doubleValue
             else { return nil }
             return CLLocationCoordinate2D(latitude: lat , longitude: long)
         }
         set(preCoordinates) {
             guard let coordinates = preCoordinates else { return }
-            self.latitude = NSDecimalNumber(value: coordinates.latitude)
-            self.longitude = NSDecimalNumber(value: coordinates.longitude)
+            self.mapMapLatitude = NSDecimalNumber(value: coordinates.latitude)
+            self.mapMapLongitude = NSDecimalNumber(value: coordinates.longitude)
         }
     }
     
@@ -73,14 +73,14 @@ public class MapPhoto: NSManagedObject {
     private func loadImageFromCD() {
         self.image = .loading
         self.thumbnail = .loading
-        if let mapData = self.map { // Available in Core Data
+        if let mapData = self.mapMapRawImage { // Available in Core Data
             if let uiImage = UIImage(data: mapData) {
                 image = .success(
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
                 )
-                if self.mapThumbnail == nil { generateThumbnailFromUIImage(uiImage) }
+                if self.mapMapRawThumbnail == nil { generateThumbnailFromUIImage(uiImage) }
                 else { loadThumbnailFromCD() }
                 return
             }
@@ -95,7 +95,7 @@ public class MapPhoto: NSManagedObject {
         Task {
             if let generatedThumbnail = await uiImage.byPreparingThumbnail(ofSize: thumbnailSize) {
                 thumbnail = .success(Image(uiImage: generatedThumbnail).resizable().scaledToFit())
-                self.mapThumbnail = generatedThumbnail.jpegData(compressionQuality: 0.8)
+                self.mapMapRawThumbnail = generatedThumbnail.jpegData(compressionQuality: 0.8)
             }
             else {
                 thumbnail = .failure
@@ -104,7 +104,7 @@ public class MapPhoto: NSManagedObject {
     }
     
     private func loadThumbnailFromCD() {
-        if let mapThumbnail = self.mapThumbnail {
+        if let mapThumbnail = self.mapMapRawThumbnail {
             if let uiImage = UIImage(data: mapThumbnail) {
                 thumbnail = .success(Image(uiImage: uiImage).resizable().scaledToFit())
                 return
@@ -114,16 +114,16 @@ public class MapPhoto: NSManagedObject {
     }
 }
 
-extension MapPhoto {
+extension MapMap {
     convenience public init(rawPhoto: PhotosPickerItem?, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
         thumbnail = .loading
         image = .loading
-        self.mapName = "Untitled map"
+        self.mapMapName = "Untitled map"
         isEditing = true
         Task {
             if let mapData = try? await rawPhoto?.loadTransferable(type: Data.self) {
-                self.map = mapData
+                self.mapMapRawImage = mapData
                 if let uiImage = UIImage(data: mapData) {
                     image = .success(Image(uiImage: uiImage).resizable().scaledToFit())
                     generateThumbnailFromUIImage(uiImage)

@@ -10,26 +10,26 @@ import CoreData
 import SwiftUI
 
 struct ContentView: View {
-    @FetchRequest(sortDescriptors: []) var mapPhotos: FetchedResults<MapPhoto>
+    @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
     @Environment(\.managedObjectContext) var moc
-    @State var showSetup: Bool = false
+    @State var editingMapMap: Bool = false
     let blurAmount: CGFloat = 10
     
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .top) {
-                MapMap()
+                BackgroundMap()
                     .ignoresSafeArea()
                 BlurView()
                     .frame(width: geo.size.width, height: geo.safeAreaInsets.top)
                     .blur(radius: blurAmount)
                     .allowsHitTesting(false)
                     .ignoresSafeArea()
-                if showSetup {
-                    if let mapInProgress = mapPhotos.first(where: { $0.isEditing }) {
-                        MapEditor(map: mapInProgress)
+                if editingMapMap {
+                    if let mapInProgress = mapMaps.first(where: { $0.isEditing }) {
+                        MapMapEditor(mapMap: mapInProgress)
                     }
-                    else { EmptyView().onAppear { showSetup = false } }
+                    else { EmptyView().onAppear { editingMapMap = false } }
                 }
                 else {
                     BottomDrawer(
@@ -46,7 +46,7 @@ struct ContentView: View {
                             }
                         },
                         content: { isShortCard in
-                            MapsViewer(listMode: isShortCard ? .compact : .full)
+                            MapMapsViewer(listMode: isShortCard ? .compact : .full)
                                 .padding(.horizontal)
                         }
                     )
@@ -54,7 +54,7 @@ struct ContentView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { _ in
-            showSetup = mapPhotos.contains(where: { $0.isEditing })
+            editingMapMap = mapMaps.contains(where: { $0.isEditing })
         }
     }
 }

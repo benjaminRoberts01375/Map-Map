@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="MapPhoto" representedClassName="MapPhoto" syncable="YES">
+    <entity name="MapMap" representedClassName="MapMap" syncable="YES">
         <attribute name="isEditing" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="latitude" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
-        <attribute name="longitude" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
-        <attribute name="map" optional="YES" attributeType="Binary"/>
-        <attribute name="mapName" optional="YES" attributeType="String"/>
-        <attribute name="mapThumbnail" optional="YES" attributeType="Binary"/>
-        <attribute name="rotation" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
-        <attribute name="scale" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="mapMapLatitude" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="mapMapLongitude" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="mapMapName" optional="YES" attributeType="String"/>
+        <attribute name="mapMapRawImage" optional="YES" attributeType="Binary"/>
+        <attribute name="mapMapRawThumbnail" optional="YES" attributeType="Binary"/>
+        <attribute name="mapMapRotation" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="mapMapScale" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
     </entity>
 </model>

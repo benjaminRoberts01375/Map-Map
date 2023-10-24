@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MapListItemThumbnail: ViewModifier {
+struct MapMapListItemThumbnail: ViewModifier {
     func body(content: Content) -> some View {
         content
             .clipShape(RoundedRectangle(cornerRadius: 5))
@@ -19,7 +19,7 @@ struct MapListItemThumbnail: ViewModifier {
 }
 
 extension View {
-    func mapListItemThumbnail() -> some View {
-        modifier(MapListItemThumbnail())
+    func mapMapListItemThumbnail() -> some View {
+        modifier(MapMapListItemThumbnail())
     }
 }

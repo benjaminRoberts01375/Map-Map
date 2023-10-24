@@ -8,20 +8,20 @@
 import PhotosUI
 import SwiftUI
 
-struct MapsViewer: View {
+struct MapMapsViewer: View {
     @State var rawPhotos: [PhotosPickerItem] = []
-    @FetchRequest(sortDescriptors: []) var processedPhotos: FetchedResults<MapPhoto>
+    @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
     @Environment(\.managedObjectContext) var moc // For adding and removing
     let listMode: ListMode
     
     var body: some View {
         VStack {
-            MapList(listMode: listMode)
+            MapMapList(listMode: listMode)
             PhotosPicker("Select", selection: $rawPhotos, maxSelectionCount: 30, matching: .images)
                 .onChange(of: rawPhotos) { _, updatedRawPhotos in
                     if updatedRawPhotos.isEmpty { return }
                     for rawPhoto in updatedRawPhotos {
-                        _ = MapPhoto(rawPhoto: rawPhoto, insertInto: moc)
+                        _ = MapMap(rawPhoto: rawPhoto, insertInto: moc)
                     }
                     rawPhotos = []
                 }
@@ -30,9 +30,9 @@ struct MapsViewer: View {
 }
 
 #Preview {
-    MapsViewer(listMode: .full)
+    MapMapsViewer(listMode: .full)
 }
 
 #Preview {
-    MapsViewer(listMode: .compact)
+    MapMapsViewer(listMode: .compact)
 }

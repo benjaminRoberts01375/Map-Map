@@ -10,23 +10,23 @@ import Foundation
 import CoreData
 
 
-extension MapPhoto {
+extension MapMap {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<MapPhoto> {
-        return NSFetchRequest<MapPhoto>(entityName: "MapPhoto")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<MapMap> {
+        return NSFetchRequest<MapMap>(entityName: "MapPhoto")
     }
 
     @NSManaged public var isEditing: Bool
-    @NSManaged public var latitude: NSDecimalNumber?
-    @NSManaged public var longitude: NSDecimalNumber?
-    @NSManaged public var map: Data?
-    @NSManaged public var mapName: String?
-    @NSManaged public var mapThumbnail: Data?
-    @NSManaged public var scale: NSDecimalNumber?
-    @NSManaged public var rotation: NSDecimalNumber?
+    @NSManaged public var mapMapLatitude: NSDecimalNumber?
+    @NSManaged public var mapMapLongitude: NSDecimalNumber?
+    @NSManaged public var mapMapRawImage: Data?
+    @NSManaged public var mapMapName: String?
+    @NSManaged public var mapMapRawThumbnail: Data?
+    @NSManaged public var mapMapScale: NSDecimalNumber?
+    @NSManaged public var mapMapRotation: NSDecimalNumber?
 
 }
 
-extension MapPhoto : Identifiable {
+extension MapMap : Identifiable {
 
 }

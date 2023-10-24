@@ -8,9 +8,9 @@
 import Bottom_Drawer
 import SwiftUI
 
-struct MapEditor: View {
-    @ObservedObject var map: FetchedResults<MapPhoto>.Element
-    @EnvironmentObject var mapDetails: MapDetailsM
+struct MapMapEditor: View {
+    @ObservedObject var mapMap: FetchedResults<MapMap>.Element
+    @EnvironmentObject var mapDetails: BackgroundMapDetailsM
     @Environment(\.managedObjectContext) var moc
     @State var workingName: String = ""
     @State var mapWidth: CGFloat = .zero
@@ -18,7 +18,7 @@ struct MapEditor: View {
     var body: some View {
         ZStack {
             GeometryReader { geo in
-                AnyView(map.getMap(.fullImage))
+                AnyView(mapMap.getMap(.fullImage))
                     .background {
                         GeometryReader { imageGeo in
                             Color.clear
@@ -42,18 +42,18 @@ struct MapEditor: View {
                         .frame(width: 205)
                     HStack {
                         Button(action: {
-                            map.coordinates = mapDetails.position
-                            map.rotation = NSDecimalNumber(value: mapDetails.rotation.degrees)
-                            map.scale = NSDecimalNumber(value: mapWidth / mapDetails.scale)
-                            map.mapName = workingName
-                            map.isEditing = false
+                            mapMap.coordinates = mapDetails.position
+                            mapMap.mapMapRotation = NSDecimalNumber(value: mapDetails.rotation.degrees)
+                            mapMap.mapMapScale = NSDecimalNumber(value: mapWidth / mapDetails.scale)
+                            mapMap.mapMapName = workingName
+                            mapMap.isEditing = false
                             try? moc.save()
                         }) {
                             Text("Done")
                                 .bigButton(backgroundColor: .blue)
                         }
                         Button(action: {
-                            moc.delete(map)
+                            moc.delete(mapMap)
                             try? moc.save()
                         }) {
                             Text("Cancel")
@@ -64,7 +64,7 @@ struct MapEditor: View {
                 }
             }
         }
-        .onAppear { workingName = map.mapName ?? "Untitled Map" }
+        .onAppear { workingName = mapMap.mapMapName ?? "Untitled Map" }
         .ignoresSafeArea()
     }
 }

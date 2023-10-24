@@ -8,7 +8,7 @@
 import MapKit
 import SwiftUI
 
-final class MapDetailsM: ObservableObject {
+final class BackgroundMapDetailsM: ObservableObject {
     @Published public var position: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     @Published public var scale: Double = 1
     @Published public var rotation: Angle = .zero

@@ -8,9 +8,9 @@
 import MapKit
 import SwiftUI
 
-struct MapList: View {
-    @EnvironmentObject var mapDetails: MapDetailsM
-    @FetchRequest(sortDescriptors: []) var maps: FetchedResults<MapPhoto>
+struct MapMapList: View {
+    @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
+    @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
     @Environment(\.managedObjectContext) var moc
     @Environment(\.colorScheme) var colorScheme
     let darkColor: Color = Color.init(red: 0.2, green: 0.2, blue: 0.2)
@@ -18,18 +18,18 @@ struct MapList: View {
     
     var body: some View {
         VStack(alignment: listMode == .compact ? .center : .leading, spacing: 0) {
-            ForEach(maps) { map in
+            ForEach(mapMaps) { map in
                 Button(action: {
                     withAnimation {
-                        mapDetails.mapCamera = .region(MKCoordinateRegion(center: map.coordinates ?? .zero, latitudinalMeters: 10000, longitudinalMeters: 10000))
+                        backgroundMapDetails.mapCamera = .region(MKCoordinateRegion(center: map.coordinates ?? .zero, latitudinalMeters: 10000, longitudinalMeters: 10000))
                     }
                 }, label: {
                     switch listMode {
                     case .compact:
-                        CompactMapListItem(photo: map)
+                        CompactMapListItem(mapMap: map)
                             .padding()
                     case .full:
-                        MapListItem(photo: map)
+                        MapMapListItem(mapMap: map)
                             .padding()
                     }
                 })
