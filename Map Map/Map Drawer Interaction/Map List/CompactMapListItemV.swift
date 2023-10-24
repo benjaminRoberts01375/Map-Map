@@ -21,10 +21,7 @@ struct CompactMapListItem: View {
             }
             HStack {
                 AnyView(photo.getMap(.thumbnail))
-                    .clipShape(RoundedRectangle(cornerRadius: 5))
-                    .frame(width: 100, height: 100)
-                    .background(.thickMaterial)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .mapListItemThumbnail()
                 VStack(alignment: .leading) {
                     if let coordinates = photo.coordinates {
                         Text("Latitude: ")
