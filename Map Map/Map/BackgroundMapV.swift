@@ -11,9 +11,10 @@ import SwiftUI
 struct BackgroundMap: View {
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
+    @State var locationsHandler = LocationsHandler.shared
     
     var body: some View {
-        GeometryReader { geo in
+        MapReader { mapContext in
             Map(
                 position: $backgroundMapDetails.mapCamera,
                 interactionModes: backgroundMapDetails.allowsInteraction ? [.pan, .rotate, .zoom] : []
@@ -37,6 +38,17 @@ struct BackgroundMap: View {
                 backgroundMapDetails.scale = 1 / update.camera.distance
                 backgroundMapDetails.rotation = Angle(degrees: -update.camera.heading)
                 backgroundMapDetails.position = update.region.center
+            }
+            .overlay {
+                if backgroundMapDetails.mapCamera.followsUserLocation {
+                    MapUserIcon()
+                }
+                else if let screenSpaceUserLocation = mapContext.convert(locationsHandler.lastLocation.coordinate, to: .local) {
+                    MapUserIcon()
+                        .position(screenSpaceUserLocation)
+                        .onAppear { locationsHandler.startLocationTracking() }
+                        .onDisappear { locationsHandler.stopLocationTracking() }
+                }
             }
             .safeAreaPadding([.top, .leading, .trailing])
             .mapStyle(.standard(elevation: .realistic))
