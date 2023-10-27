@@ -18,20 +18,6 @@ struct BackgroundMap: View {
                 position: $backgroundMapDetails.mapCamera,
                 interactionModes: backgroundMapDetails.allowsInteraction ? [.pan, .rotate, .zoom] : []
             ) {
-                if let userLocation = CLLocationManager().location?.coordinate {
-                    Annotation(
-                        "",
-                        coordinate: CLLocationCoordinate2D(latitude: userLocation.latitude, longitude: userLocation.longitude),
-                        anchor: .center
-                    ) {
-                        Image(systemName: "person.circle.fill")
-                            .resizable()
-                            .foregroundStyle(.white, .blue)
-                            .frame(width: 25, height: 25)
-                            .offset(y: -1)
-                    }
-                }
-                
                 ForEach(mapMaps) { map in
                     if let name = map.mapMapName {
                         Annotation(
