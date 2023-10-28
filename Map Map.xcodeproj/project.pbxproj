@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		0711E5B22AB39ABD0056AB4B /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0711E5B12AB39ABD0056AB4B /* BlurView.swift */; };
 		07353A352ADCCB9700C698B0 /* BigButtonV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07353A342ADCCB9700C698B0 /* BigButtonV.swift */; };
+		075805902AED68ED00C55594 /* MapMap+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0758058E2AED68ED00C55594 /* MapMap+CoreDataProperties.swift */; };
 		0762DD1F2AD37A1300C36D33 /* MapMap+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762DD1D2AD37A1300C36D33 /* MapMap+CoreDataClass.swift */; };
 		0762DD652AD4696B00C36D33 /* DoneButtonV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762DD642AD4696B00C36D33 /* DoneButtonV.swift */; };
 		0762DD682AD4713200C36D33 /* MapMapEditorV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762DD672AD4713200C36D33 /* MapMapEditorV.swift */; };
 		077CBEB12AD512FE00741F27 /* MapMapListItemV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CBEB02AD512FE00741F27 /* MapMapListItemV.swift */; };
 		07A0D7172AD1C28400F462A0 /* Bottom Drawer in Frameworks */ = {isa = PBXBuildFile; productRef = 07A0D7162AD1C28400F462A0 /* Bottom Drawer */; };
-		07C5AE692AE7785A00DF6087 /* MapMap+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C5AE672AE7785A00DF6087 /* MapMap+CoreDataProperties.swift */; };
 		07CCDBB52AEB214400BA9D43 /* UserLocationM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CCDBB42AEB214400BA9D43 /* UserLocationM.swift */; };
 		07CCDBB72AEC7E8600BA9D43 /* MapUserIconV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CCDBB62AEC7E8600BA9D43 /* MapUserIconV.swift */; };
 		07D522F32AE5CCCF009364B3 /* CLLocationDegreesE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D522F22AE5CCCF009364B3 /* CLLocationDegreesE.swift */; };
@@ -36,11 +36,11 @@
 /* Begin PBXFileReference section */
 		0711E5B12AB39ABD0056AB4B /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		07353A342ADCCB9700C698B0 /* BigButtonV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonV.swift; sourceTree = "<group>"; };
+		0758058E2AED68ED00C55594 /* MapMap+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapMap+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0762DD1D2AD37A1300C36D33 /* MapMap+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapMap+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0762DD642AD4696B00C36D33 /* DoneButtonV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButtonV.swift; sourceTree = "<group>"; };
 		0762DD672AD4713200C36D33 /* MapMapEditorV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapEditorV.swift; sourceTree = "<group>"; };
 		077CBEB02AD512FE00741F27 /* MapMapListItemV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapListItemV.swift; sourceTree = "<group>"; };
-		07C5AE672AE7785A00DF6087 /* MapMap+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapMap+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07CCDBB42AEB214400BA9D43 /* UserLocationM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationM.swift; sourceTree = "<group>"; };
 		07CCDBB62AEC7E8600BA9D43 /* MapUserIconV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapUserIconV.swift; sourceTree = "<group>"; };
 		07D522F22AE5CCCF009364B3 /* CLLocationDegreesE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationDegreesE.swift; sourceTree = "<group>"; };
@@ -116,7 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				0762DD1D2AD37A1300C36D33 /* MapMap+CoreDataClass.swift */,
-				07C5AE672AE7785A00DF6087 /* MapMap+CoreDataProperties.swift */,
+				0758058E2AED68ED00C55594 /* MapMap+CoreDataProperties.swift */,
 				07FCC8542AD3593F00F88186 /* DataController.swift */,
 				07D522F22AE5CCCF009364B3 /* CLLocationDegreesE.swift */,
 			);
@@ -256,6 +256,7 @@
 				0711E5B22AB39ABD0056AB4B /* BlurView.swift in Sources */,
 				07FDC6232AB25DFD00D92113 /* Map_MapApp.swift in Sources */,
 				07D522F32AE5CCCF009364B3 /* CLLocationDegreesE.swift in Sources */,
+				075805902AED68ED00C55594 /* MapMap+CoreDataProperties.swift in Sources */,
 				0762DD652AD4696B00C36D33 /* DoneButtonV.swift in Sources */,
 				0762DD682AD4713200C36D33 /* MapMapEditorV.swift in Sources */,
 				07FCC8532AD334C000F88186 /* MapMapsViewerV.swift in Sources */,
@@ -269,7 +270,6 @@
 				07353A352ADCCB9700C698B0 /* BigButtonV.swift in Sources */,
 				07CCDBB52AEB214400BA9D43 /* UserLocationM.swift in Sources */,
 				07CCDBB72AEC7E8600BA9D43 /* MapUserIconV.swift in Sources */,
-				07C5AE692AE7785A00DF6087 /* MapMap+CoreDataProperties.swift in Sources */,
 				07FCC8572AD3750F00F88186 /* MapsListV.swift in Sources */,
 				07FD85612AE6DD1E0089652B /* CompactMapMapListItemV.swift in Sources */,
 				0762DD1F2AD37A1300C36D33 /* MapMap+CoreDataClass.swift in Sources */,
