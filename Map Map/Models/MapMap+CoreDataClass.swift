@@ -116,7 +116,6 @@ extension MapMap {
         thumbnail = .loading
         image = .loading
         self.mapMapName = "Untitled map"
-        isEditing = true
         Task {
             if let mapData = try? await rawPhoto?.loadTransferable(type: Data.self) {
                 self.mapMapRawImage = mapData
