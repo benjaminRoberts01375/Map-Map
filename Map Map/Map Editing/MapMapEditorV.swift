@@ -48,17 +48,32 @@ struct MapMapEditor: View {
                             mapMap.mapMapName = workingName
                             mapMap.mapDistance = 1 / backgroundMapDetails.scale
                             mapMap.isEditing = false
+                            mapMap.isSetup = true
                             try? moc.save()
                         }) {
                             Text("Done")
                                 .bigButton(backgroundColor: .blue)
                         }
                         Button(action: {
-                            moc.delete(mapMap)
-                            try? moc.save()
+                            if mapMap.isSetup {
+                                moc.reset()
+                            }
+                            else {
+                                moc.delete(mapMap)
+                                try? moc.save()
+                            }
                         }) {
                             Text("Cancel")
                                 .bigButton(backgroundColor: .gray)
+                        }
+                        if mapMap.isSetup {
+                            Button( action: {
+                                moc.delete(mapMap)
+                                try? moc.save()
+                            }, label: {
+                                Text("Delete")
+                            })
+                            .bigButton(backgroundColor: .red)
                         }
                     }
                     .padding(.bottom, 10)
