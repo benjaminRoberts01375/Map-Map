@@ -30,6 +30,7 @@ struct BackgroundMap: View {
                                 .frame(width: backgroundMapDetails.scale * map.mapMapScale)
                                 .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: map.mapMapRotation))
                                 .offset(y: -7)
+                                .opacity(map.isEditing ? 0.5 : 1)
                         }
                     }
                 }
