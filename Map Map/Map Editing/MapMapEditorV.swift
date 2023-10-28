@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MapMapEditor: View {
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
-    @EnvironmentObject var mapDetails: BackgroundMapDetailsM
+    @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @Environment(\.managedObjectContext) var moc
     @State var workingName: String = ""
     @State var mapWidth: CGFloat = .zero
@@ -42,11 +42,11 @@ struct MapMapEditor: View {
                         .frame(width: 205)
                     HStack {
                         Button(action: {
-                            mapMap.coordinates = mapDetails.position
-                            mapMap.mapMapRotation = mapDetails.rotation.degrees
-                            mapMap.mapMapScale = mapWidth / mapDetails.scale
+                            mapMap.coordinates = backgroundMapDetails.position
+                            mapMap.mapMapRotation = backgroundMapDetails.rotation.degrees
+                            mapMap.mapMapScale = mapWidth / backgroundMapDetails.scale
                             mapMap.mapMapName = workingName
-                            mapMap.mapDistance = 1 / mapDetails.scale
+                            mapMap.mapDistance = 1 / backgroundMapDetails.scale
                             mapMap.isEditing = false
                             try? moc.save()
                         }) {
