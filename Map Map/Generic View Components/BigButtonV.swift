@@ -13,7 +13,7 @@ struct BigButton: ViewModifier {
     func body(content: Content) -> some View {
         content
             .foregroundStyle(.white)
-            .frame(width: 100, height: 50)
+            .frame(width: 90, height: 40)
             .background(background)
             .clipShape(RoundedRectangle(cornerRadius: 10))
     }
