@@ -43,6 +43,9 @@ struct MapMapList: View {
                         Label("Delete", systemImage: "trash")
                     }
                     Button {
+                        withAnimation {
+                            backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: map.coordinates, distance: map.mapDistance, heading: -map.mapMapRotation))
+                        }
                         map.isEditing = true
                     } label: {
                         Label("Edit", systemImage: "pencil")
