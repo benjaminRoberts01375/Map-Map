@@ -13,7 +13,6 @@ struct MapMapList: View {
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
     @Environment(\.managedObjectContext) var moc
     @Environment(\.colorScheme) var colorScheme
-    let darkColor: Color = Color.init(red: 0.2, green: 0.2, blue: 0.2)
     let listMode: ListMode
     
     var body: some View {
@@ -34,13 +33,13 @@ struct MapMapList: View {
                     }
                 })
                 .buttonStyle(.plain)
-                .background(colorScheme == .dark ? darkColor : Color.white)
+                .background(colorScheme == .dark ? .gray20 : Color.white)
                 .contextMenu { MapMapContextMenuV(mapMap: map) }
                 Divider()
             }
         }
         .ignoresSafeArea()
-        .background(colorScheme == .dark ? darkColor : Color.white)
+        .background(colorScheme == .dark ? .gray20 : Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 15))
     }
 }
