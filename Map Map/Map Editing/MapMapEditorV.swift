@@ -32,8 +32,9 @@ struct MapMapEditor: View {
                     .allowsHitTesting(false)
                     .position(x: geo.frame(in: .global).midX, y: geo.frame(in: .global).midY)
             }
+            .ignoresSafeArea()
             
-            BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center]) { _ in
+            BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
                 VStack {
                     TextField("Map name", text: $workingName)
                         .padding(.all, 5)
@@ -81,6 +82,5 @@ struct MapMapEditor: View {
             }
         }
         .onAppear { workingName = mapMap.mapMapName ?? "Untitled Map" }
-        .ignoresSafeArea()
     }
 }
