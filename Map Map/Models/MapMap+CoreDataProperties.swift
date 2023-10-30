@@ -21,8 +21,8 @@ extension MapMap {
     @NSManaged public var mapMapLatitude: Double
     @NSManaged public var mapMapLongitude: Double
     @NSManaged public var mapMapName: String?
-    @NSManaged public var mapMapRawImage: Data?
-    @NSManaged public var mapMapRawThumbnail: Data?
+    @NSManaged public var mapMapEncodedImage: Data?
+    @NSManaged public var mapMapEncodedThumbnail: Data?
     @NSManaged public var mapMapRotation: Double
     @NSManaged public var mapMapScale: Double
     @NSManaged public var isSetup: Bool

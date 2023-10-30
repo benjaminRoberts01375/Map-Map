@@ -69,14 +69,14 @@ public class MapMap: NSManagedObject {
     private func loadImageFromCD() {
         self.image = .loading
         self.thumbnail = .loading
-        if let mapData = self.mapMapRawImage { // Available in Core Data
+        if let mapData = self.mapMapEncodedImage { // Available in Core Data
             if let uiImage = UIImage(data: mapData) {
                 image = .success(
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
                 )
-                if self.mapMapRawThumbnail == nil { generateThumbnailFromUIImage(uiImage) }
+                if self.mapMapEncodedThumbnail == nil { generateThumbnailFromUIImage(uiImage) }
                 else { loadThumbnailFromCD() }
                 return
             }
@@ -91,7 +91,7 @@ public class MapMap: NSManagedObject {
         Task {
             if let generatedThumbnail = await uiImage.byPreparingThumbnail(ofSize: thumbnailSize) {
                 thumbnail = .success(Image(uiImage: generatedThumbnail).resizable().scaledToFit())
-                self.mapMapRawThumbnail = generatedThumbnail.jpegData(compressionQuality: 0.8)
+                self.mapMapEncodedThumbnail = generatedThumbnail.jpegData(compressionQuality: 0.8)
             }
             else {
                 thumbnail = .failure
@@ -100,7 +100,7 @@ public class MapMap: NSManagedObject {
     }
     
     private func loadThumbnailFromCD() {
-        if let mapThumbnail = self.mapMapRawThumbnail {
+        if let mapThumbnail = self.mapMapEncodedThumbnail {
             if let uiImage = UIImage(data: mapThumbnail) {
                 thumbnail = .success(Image(uiImage: uiImage).resizable().scaledToFit())
                 return
@@ -118,7 +118,7 @@ extension MapMap {
         self.mapMapName = "Untitled map"
         Task {
             if let mapData = try? await rawPhoto?.loadTransferable(type: Data.self) {
-                self.mapMapRawImage = mapData
+                self.mapMapEncodedImage = mapData
                 if let uiImage = UIImage(data: mapData) {
                     image = .success(Image(uiImage: uiImage).resizable().scaledToFit())
                     generateThumbnailFromUIImage(uiImage)
