@@ -12,6 +12,7 @@ struct BackgroundMap: View {
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @State var locationsHandler = LocationsHandler.shared
+    @State var screenSpaceUserLocation: CGPoint = .zero
     
     var body: some View {
         MapReader { mapContext in
@@ -39,16 +40,8 @@ struct BackgroundMap: View {
                 backgroundMapDetails.scale = 1 / update.camera.distance
                 backgroundMapDetails.rotation = Angle(degrees: -update.camera.heading)
                 backgroundMapDetails.position = update.region.center
-            }
-            .overlay {
-                if backgroundMapDetails.mapCamera.followsUserLocation {
-                    MapUserIcon()
-                }
-                else if let screenSpaceUserLocation = mapContext.convert(locationsHandler.lastLocation.coordinate, to: .local) {
-                    MapUserIcon()
-                        .position(screenSpaceUserLocation)
-                        .onAppear { locationsHandler.startLocationTracking() }
-                        .onDisappear { locationsHandler.stopLocationTracking() }
+                if let screenSpaceUserLocation = mapContext.convert(locationsHandler.lastLocation.coordinate, to: .local) {
+                    self.screenSpaceUserLocation = screenSpaceUserLocation
                 }
             }
             .safeAreaPadding([.top, .leading, .trailing])
@@ -57,6 +50,17 @@ struct BackgroundMap: View {
                 MapUserLocationButton()
                 MapCompass()
                 MapScaleView(anchorEdge: .trailing)
+            }
+            .overlay {
+                MapUserIcon()
+                    .position(screenSpaceUserLocation)
+            }
+            .onAppear { locationsHandler.startLocationTracking() }
+            .onDisappear { locationsHandler.stopLocationTracking() }
+            .onChange(of: $locationsHandler.lastLocation.wrappedValue) { _, newLocation in
+                if let screenSpaceUserLocation = mapContext.convert(newLocation.coordinate, to: .local) {
+                    self.screenSpaceUserLocation = screenSpaceUserLocation
+                }
             }
         }
     }
