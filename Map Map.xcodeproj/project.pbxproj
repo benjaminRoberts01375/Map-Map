@@ -94,6 +94,14 @@
 			path = "Generic View Components";
 			sourceTree = "<group>";
 		};
+		076F18AC2AEF79B300779E1D /* Non-Map Map Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				07D522F22AE5CCCF009364B3 /* CLLocationDegreesE.swift */,
+			);
+			path = "Non-Map Map Extensions";
+			sourceTree = "<group>";
+		};
 		077CBEAF2AD5088100741F27 /* Map List */ = {
 			isa = PBXGroup;
 			children = (
@@ -121,7 +129,6 @@
 				0762DD1D2AD37A1300C36D33 /* MapMap+CoreDataClass.swift */,
 				0758058E2AED68ED00C55594 /* MapMap+CoreDataProperties.swift */,
 				07FCC8542AD3593F00F88186 /* DataController.swift */,
-				07D522F22AE5CCCF009364B3 /* CLLocationDegreesE.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -163,6 +170,7 @@
 				07FCC8592AD3756300F88186 /* Map Drawer Interaction */,
 				07FCC85A2AD3759500F88186 /* Models */,
 				0762DD662AD46CFA00C36D33 /* Generic View Components */,
+				076F18AC2AEF79B300779E1D /* Non-Map Map Extensions */,
 				07FDC6262AB25E0000D92113 /* Assets.xcassets */,
 				07FDC62D2AB25E0000D92113 /* Map_Map.xcdatamodeld */,
 				07FDC63B2AB2786700D92113 /* Map-Map-Info.plist */,
