@@ -52,16 +52,16 @@ struct BackgroundMap: View {
                     self.screenSpaceUserLocation = screenSpaceUserLocation
                 }
             }
+            .overlay {
+                MapUserIcon()
+                    .position(screenSpaceUserLocation)
+            }
             .safeAreaPadding([.top, .leading, .trailing])
             .mapStyle(.standard(elevation: .realistic))
             .mapControls {
                 MapUserLocationButton()
                 MapCompass()
                 MapScaleView(anchorEdge: .trailing)
-            }
-            .overlay {
-                MapUserIcon()
-                    .position(screenSpaceUserLocation)
             }
             .onAppear { locationsHandler.startLocationTracking() }
             .onDisappear { locationsHandler.stopLocationTracking() }
@@ -70,6 +70,7 @@ struct BackgroundMap: View {
                     self.screenSpaceUserLocation = screenSpaceUserLocation
                 }
             }
+            .animation(.linear, value: screenSpaceUserLocation)
         }
     }
 }
