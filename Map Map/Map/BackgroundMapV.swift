@@ -39,23 +39,7 @@ struct BackgroundMap: View {
                                     .offset(y: -7)
                                     .opacity(map.isEditing ? 0.5 : 1)
                             })
-                            .contextMenu {
-                                Button(role: .destructive) {
-                                    moc.delete(map)
-                                    try? moc.save()
-                                } label: {
-                                    Label("Delete", systemImage: "trash")
-                                }
-                                Button {
-                                    withAnimation {
-                                        backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: map.coordinates, distance: map.mapDistance, heading: -map.mapMapRotation))
-                                    }
-                                    map.isEditing = true
-                                } label: {
-                                    Label("Edit", systemImage: "pencil")
-                                }
-                                
-                            }
+                            .contextMenu { MapMapContextMenuV(mapMap: map) }
                         }
                     }
                 }
