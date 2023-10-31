@@ -19,6 +19,7 @@ extension MapMap {
     @NSManaged public var isEditing: Bool
     @NSManaged public var isSetup: Bool
     @NSManaged public var mapDistance: Double
+    @NSManaged public var mapMapRawEncodedImage: Data?
     @NSManaged public var mapMapEncodedImage: Data?
     @NSManaged public var mapMapEncodedThumbnail: Data?
     @NSManaged public var mapMapLatitude: Double
