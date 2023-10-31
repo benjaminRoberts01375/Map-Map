@@ -69,7 +69,9 @@ public class MapMap: NSManagedObject {
     private func loadImageFromCD() {
         self.image = .loading
         self.thumbnail = .loading
-        if let mapData = self.mapMapEncodedImage { // Available in Core Data
+        var workingImage: Data? = self.cropCorners == nil ? self.mapMapRawEncodedImage : self.mapMapPerspectiveFixedEncodedImage
+        
+        if let mapData = workingImage { // Available in Core Data
             if let uiImage = UIImage(data: mapData) {
                 image = .success(
                     Image(uiImage: uiImage)
@@ -118,7 +120,7 @@ extension MapMap {
         self.mapMapName = "Untitled map"
         Task {
             if let mapData = try? await rawPhoto?.loadTransferable(type: Data.self) {
-                self.mapMapEncodedImage = mapData
+                self.mapMapPerspectiveFixedEncodedImage = mapData
                 if let uiImage = UIImage(data: mapData) {
                     image = .success(Image(uiImage: uiImage).resizable().scaledToFit())
                     generateThumbnailFromUIImage(uiImage)

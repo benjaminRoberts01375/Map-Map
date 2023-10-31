@@ -11,11 +11,11 @@
         <attribute name="isEditing" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="isSetup" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="mapDistance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="mapMapEncodedImage" optional="YES" attributeType="Binary"/>
         <attribute name="mapMapEncodedThumbnail" optional="YES" attributeType="Binary"/>
         <attribute name="mapMapLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="mapMapLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="mapMapName" optional="YES" attributeType="String"/>
+        <attribute name="mapMapPerspectiveFixedEncodedImage" optional="YES" attributeType="Binary"/>
         <attribute name="mapMapRawEncodedImage" optional="YES" attributeType="Binary"/>
         <attribute name="mapMapRotation" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="mapMapScale" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
