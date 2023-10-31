@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22511.1" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="FourCorners" representedClassName="FourCorners" syncable="YES">
+        <attribute name="rawBottomLeading" attributeType="String" defaultValueString="{0, 0}"/>
+        <attribute name="rawBottomTrailing" attributeType="String" defaultValueString="{0, 0}"/>
+        <attribute name="rawTopLeading" attributeType="String" defaultValueString="{0, 0}"/>
+        <attribute name="rawTopTrailing" attributeType="String" defaultValueString="{0, 0}"/>
+        <relationship name="mapMap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMap" inverseName="cropCorners" inverseEntity="MapMap"/>
+    </entity>
     <entity name="MapMap" representedClassName="MapMap" syncable="YES">
         <attribute name="isEditing" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="isSetup" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
@@ -11,6 +18,7 @@
         <attribute name="mapMapName" optional="YES" attributeType="String"/>
         <attribute name="mapMapRotation" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="mapMapScale" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="cropCorners" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FourCorners" inverseName="mapMap" inverseEntity="FourCorners"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="mapMapEncodedImage"/>
