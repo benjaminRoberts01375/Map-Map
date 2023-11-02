@@ -48,15 +48,10 @@ struct PhotoEditorV: View {
                         }
                     }
                     .frame(height: geo.size.height * 0.75)
-                    .overlay {
-                        ZStack {
-                            HandleV(position: $topLeadingPoint)
-                            HandleV(position: $topTrailingPoint)
-                            HandleV(position: $bottomLeadingPoint)
-                            HandleV(position: $bottomTrailingPoint)
-                        }
-                    }
-                    .position(x: geo.frame(in: .local).midX, y: geo.frame(in: .local).midY)
+                HandleV(position: $topLeadingPoint)
+                HandleV(position: $topTrailingPoint)
+                HandleV(position: $bottomLeadingPoint)
+                HandleV(position: $bottomTrailingPoint)
             }
         }
         .ignoresSafeArea()
