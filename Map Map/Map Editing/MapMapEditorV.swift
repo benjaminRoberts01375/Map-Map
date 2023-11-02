@@ -14,6 +14,7 @@ struct MapMapEditor: View {
     @Environment(\.managedObjectContext) var moc
     @State var workingName: String = ""
     @State var mapWidth: CGFloat = .zero
+    @State var showingPhotoEditor = false
     
     var body: some View {
         ZStack {
@@ -36,11 +37,22 @@ struct MapMapEditor: View {
             
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
                 VStack {
-                    TextField("Map name", text: $workingName)
-                        .padding(.all, 5)
-                        .background(Color.gray.opacity(0.7))
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .frame(width: 205)
+                    HStack {
+                        TextField("Map name", text: $workingName)
+                            .padding(.all, 5)
+                            .background(Color.gray.opacity(0.7))
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .frame(width: 205)
+                        Button(action: {
+                            showingPhotoEditor = true
+                        }, label: {
+                            Image(systemName: "crop")
+                                .padding(4)
+                                .background(.gray)
+                                .clipShape(Circle())
+                        })
+                        .buttonStyle(.plain)
+                    }
                     HStack {
                         Button(action: {
                             mapMap.coordinates = backgroundMapDetails.position
@@ -82,5 +94,8 @@ struct MapMapEditor: View {
             }
         }
         .onAppear { workingName = mapMap.mapMapName ?? "Untitled Map" }
+        .fullScreenCover(isPresented: $showingPhotoEditor, content: {
+            PhotoEditorV(mapMap: mapMap)
+        })
     }
 }
