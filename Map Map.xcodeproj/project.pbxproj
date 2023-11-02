@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0711E5B22AB39ABD0056AB4B /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0711E5B12AB39ABD0056AB4B /* BlurView.swift */; };
 		072DDB2E2AF426E000E74963 /* HandleV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB2D2AF426E000E74963 /* HandleV.swift */; };
+		072DDB302AF42A3E00E74963 /* IrregularGridV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */; };
 		072DDB322AF42B1F00E74963 /* CGPointE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB312AF42B1F00E74963 /* CGPointE.swift */; };
 		07353A352ADCCB9700C698B0 /* BigButtonV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07353A342ADCCB9700C698B0 /* BigButtonV.swift */; };
 		0762DD1F2AD37A1300C36D33 /* MapMap+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762DD1D2AD37A1300C36D33 /* MapMap+CoreDataClass.swift */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		0711E5B12AB39ABD0056AB4B /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		072DDB2D2AF426E000E74963 /* HandleV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleV.swift; sourceTree = "<group>"; };
+		072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrregularGridV.swift; sourceTree = "<group>"; };
 		072DDB312AF42B1F00E74963 /* CGPointE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPointE.swift; sourceTree = "<group>"; };
 		07353A342ADCCB9700C698B0 /* BigButtonV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonV.swift; sourceTree = "<group>"; };
 		0762DD1D2AD37A1300C36D33 /* MapMap+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapMap+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			children = (
 				0762DD672AD4713200C36D33 /* MapMapEditorV.swift */,
 				07A9C6B92AF1CA3300C3AED4 /* PhotoEditorV.swift */,
+				072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */,
 				072DDB2D2AF426E000E74963 /* HandleV.swift */,
 			);
 			path = "Map Editing";
@@ -288,6 +291,7 @@
 				07A9C6BA2AF1CA3300C3AED4 /* PhotoEditorV.swift in Sources */,
 				07FCC8532AD334C000F88186 /* MapMapsViewerV.swift in Sources */,
 				07A9C6B22AF1B78C00C3AED4 /* MapMap+CoreDataProperties.swift in Sources */,
+				072DDB302AF42A3E00E74963 /* IrregularGridV.swift in Sources */,
 				077CBEB12AD512FE00741F27 /* MapMapListItemV.swift in Sources */,
 				07FD85632AE6DDAD0089652B /* ListMode.swift in Sources */,
 				07FCC8552AD3593F00F88186 /* DataController.swift in Sources */,
