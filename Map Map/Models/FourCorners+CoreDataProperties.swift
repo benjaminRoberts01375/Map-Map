@@ -22,23 +22,23 @@ extension FourCorners {
     @NSManaged private var rawTopTrailing: String?
     @NSManaged public var mapMap: MapMap?
 
-    public var bottomLeading: CGPoint {
-        get { return NSCoder.cgPoint(for: rawBottomLeading ?? "") }
+    public var bottomLeading: CGSize {
+        get { return NSCoder.cgSize(for: rawBottomLeading ?? "") }
         set(update) { rawBottomLeading = NSCoder.string(for: update) }
     }
     
-    public var bottomTrailing: CGPoint {
-        get { return NSCoder.cgPoint(for: rawTopTrailing ?? "") }
+    public var bottomTrailing: CGSize {
+        get { return NSCoder.cgSize(for: rawTopTrailing ?? "") }
         set(update) { rawTopTrailing = NSCoder.string(for: update) }
     }
     
-    public var topLeading: CGPoint {
-        get { return NSCoder.cgPoint(for: rawTopLeading ?? "") }
+    public var topLeading: CGSize {
+        get { return NSCoder.cgSize(for: rawTopLeading ?? "") }
         set(update) { rawTopLeading = NSCoder.string(for: update) }
     }
     
-    public var topTrailing: CGPoint {
-        get { return NSCoder.cgPoint(for: rawTopTrailing ?? "") }
+    public var topTrailing: CGSize {
+        get { return NSCoder.cgSize(for: rawTopTrailing ?? "") }
         set(update) { rawTopTrailing = NSCoder.string(for: update) }
     }
 }
