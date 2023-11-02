@@ -48,6 +48,15 @@ struct PhotoEditorV: View {
                         }
                     }
                     .frame(height: geo.size.height * 0.75)
+                
+                IrregularGridV(
+                    topLeading: topLeadingPoint,
+                    topTrailing: topTrailingPoint,
+                    bottomLeading: bottomLeadingPoint,
+                    bottomTrailing: bottomTrailingPoint
+                )
+                .position(x: geo.size.width, y: geo.size.height)
+                
                 HandleV(position: $topLeadingPoint)
                 HandleV(position: $topTrailingPoint)
                 HandleV(position: $bottomLeadingPoint)
