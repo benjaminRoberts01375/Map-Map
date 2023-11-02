@@ -50,21 +50,10 @@ struct PhotoEditorV: View {
                     .frame(height: geo.size.height * 0.75)
                     .overlay {
                         ZStack {
-                            Circle()
-                                .frame(width: 30, height: 30)
-                                .foregroundStyle(.red)
-                                .offset(topLeadingPoint)
-                            Circle()
-                                .frame(width: 30, height: 30)
-                                .foregroundStyle(.blue)
-                                .offset(topTrailingPoint)
-                            Circle()
-                                .frame(width: 30, height: 30)
-                                .foregroundStyle(.green)
-                                .offset(bottomLeadingPoint)
-                            Circle()
-                                .frame(width: 30, height: 30)
-                                .offset(bottomTrailingPoint)
+                            HandleV(position: $topLeadingPoint)
+                            HandleV(position: $topTrailingPoint)
+                            HandleV(position: $bottomLeadingPoint)
+                            HandleV(position: $bottomTrailingPoint)
                         }
                     }
                     .position(x: geo.frame(in: .local).midX, y: geo.frame(in: .local).midY)
