@@ -55,12 +55,18 @@ struct PhotoEditorV: View {
                     bottomLeading: bottomLeadingPoint,
                     bottomTrailing: bottomTrailingPoint
                 )
+                .fill(.clear)
+                .stroke(.white.opacity(0.25), lineWidth: 2)
                 .position(x: geo.size.width, y: geo.size.height)
                 
                 HandleV(position: $topLeadingPoint)
+                    .opacity(0.25)
                 HandleV(position: $topTrailingPoint)
+                    .opacity(0.25)
                 HandleV(position: $bottomLeadingPoint)
+                    .opacity(0.25)
                 HandleV(position: $bottomTrailingPoint)
+                    .opacity(0.25)
             }
         }
         .ignoresSafeArea()
