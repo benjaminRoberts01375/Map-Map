@@ -8,6 +8,7 @@
         <relationship name="mapMap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMap" inverseName="cropCorners" inverseEntity="MapMap"/>
     </entity>
     <entity name="MapMap" representedClassName="MapMap" syncable="YES">
+        <attribute name="imageHeight" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="imageWidth" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="isEditing" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="isSetup" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>

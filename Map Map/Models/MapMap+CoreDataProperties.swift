@@ -28,6 +28,7 @@ extension MapMap {
     @NSManaged public var mapMapRotation: Double
     @NSManaged public var mapMapScale: Double
     @NSManaged public var imageWidth: Double
+    @NSManaged public var imageHeight: Double
     @NSManaged public var cropCorners: FourCorners?
 
 }

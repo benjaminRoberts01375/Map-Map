@@ -122,6 +122,7 @@ extension MapMap {
                 self.mapMapRawEncodedImage = mapData
                 if let uiImage = UIImage(data: mapData) {
                     self.imageWidth = uiImage.size.width
+                    self.imageHeight = uiImage.size.height
                     image = .success(Image(uiImage: uiImage).resizable().scaledToFit())
                     generateThumbnailFromUIImage(uiImage)
                     return
