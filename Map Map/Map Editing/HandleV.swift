@@ -28,7 +28,7 @@ struct HandleV: View {
         Circle()
             .frame(width: handleSize, height: handleSize)
             .foregroundStyle(.white)
-            .offset(position)
+            .position(x: position.width, y: position.height)
             .gesture(dragGesture)
             .shadow(radius: 2)
     }
