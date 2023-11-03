@@ -77,6 +77,8 @@ public class MapMap: NSManagedObject {
                         .resizable()
                         .scaledToFit()
                 )
+                if self.imageWidth == .zero { self.imageWidth = uiImage.size.width }
+                if self.imageHeight == .zero { self.imageHeight = uiImage.size.height }
                 if self.mapMapEncodedThumbnail == nil { generateThumbnailFromUIImage(uiImage) }
                 else { loadThumbnailFromCD() }
                 return
