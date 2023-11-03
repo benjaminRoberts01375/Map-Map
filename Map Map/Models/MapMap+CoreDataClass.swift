@@ -121,6 +121,7 @@ extension MapMap {
             if let mapData = try? await rawPhoto?.loadTransferable(type: Data.self) {
                 self.mapMapRawEncodedImage = mapData
                 if let uiImage = UIImage(data: mapData) {
+                    self.imageWidth = uiImage.size.width
                     image = .success(Image(uiImage: uiImage).resizable().scaledToFit())
                     generateThumbnailFromUIImage(uiImage)
                     return
