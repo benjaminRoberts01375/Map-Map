@@ -9,24 +9,30 @@ import Bottom_Drawer
 import SwiftUI
 
 struct PhotoEditorV: View {
+    @Environment(\.pixelLength) var pixelLength
+    
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
-    @State var topLeadingPoint: CGSize = .zero
-    @State var topTrailingPoint: CGSize = .zero
-    @State var bottomLeadingPoint: CGSize = .zero
-    @State var bottomTrailingPoint: CGSize = .zero
+    @State var topLeadingPoint: CGSize
+    @State var topTrailingPoint: CGSize
+    @State var bottomLeadingPoint: CGSize
+    @State var bottomTrailingPoint: CGSize
     @State var screenSpaceImageSize: CGSize = .zero
-    let pointsNeedSetup: Bool
+    @State var imageScale: CGFloat = 1
     
     init(mapMap: FetchedResults<MapMap>.Element) {
         self.mapMap = mapMap
         if let corners = mapMap.cropCorners { // If there are pre-defined corners, set those up
-            topLeadingPoint = corners.topLeading
-            topTrailingPoint = corners.topTrailing
-            bottomLeadingPoint = corners.bottomLeading
-            bottomTrailingPoint = corners.bottomTrailing
-            pointsNeedSetup = false
+            self._topLeadingPoint = State(initialValue: corners.topLeading)
+            self._topTrailingPoint = State(initialValue: corners.topTrailing)
+            self._bottomLeadingPoint = State(initialValue: corners.bottomLeading)
+            self._bottomTrailingPoint = State(initialValue: corners.bottomTrailing)
         }
-        else { pointsNeedSetup = true }
+        else { // No predefined corners, set corners to the actual corners of the photo
+            self._topLeadingPoint = State(initialValue: .zero)
+            self._topTrailingPoint = State(initialValue: CGSize(width: mapMap.imageWidth, height: .zero))
+            self._bottomLeadingPoint = State(initialValue: CGSize(width: .zero, height: mapMap.imageHeight))
+            self._bottomTrailingPoint = State(initialValue: CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight))
+        }
     }
     
     var body: some View {
@@ -38,38 +44,55 @@ struct PhotoEditorV: View {
                             Color.clear
                                 .onChange(of: imageGeo.size, initial: true) { _, update in
                                     screenSpaceImageSize = update
-                                    if pointsNeedSetup {
-                                        topLeadingPoint = CGSize(width: -update.width / 2, height: -update.height / 2)
-                                        topTrailingPoint = CGSize(width: update.width / 2, height: -update.height / 2)
-                                        bottomLeadingPoint = CGSize(width: -update.width / 2, height: update.height / 2)
-                                        bottomTrailingPoint = CGSize(width: update.width / 2, height: update.height / 2)
-                                    }
+                                    let newImageScale = screenSpaceImageSize.width / geo.size.width
+                                    let newImageScaleFactor = newImageScale / imageScale
+                                    topLeadingPoint *= newImageScaleFactor
+                                    topTrailingPoint *= newImageScaleFactor
+                                    bottomLeadingPoint *= newImageScaleFactor
+                                    bottomTrailingPoint *= newImageScaleFactor
+                                    imageScale = newImageScale
                                 }
                         }
                     }
                     .frame(height: geo.size.height * 0.75)
                 
-                IrregularGridV(
-                    topLeading: topLeadingPoint,
-                    topTrailing: topTrailingPoint,
-                    bottomLeading: bottomLeadingPoint,
-                    bottomTrailing: bottomTrailingPoint
-                )
-                .fill(.clear)
-                .stroke(.white.opacity(0.25), lineWidth: 2)
-                .position(x: geo.size.width, y: geo.size.height)
+                    IrregularGridV(
+                        topLeading: topLeadingPoint,
+                        topTrailing: topTrailingPoint,
+                        bottomLeading: bottomLeadingPoint,
+                        bottomTrailing: bottomTrailingPoint
+                    )
+                    .fill(.clear)
+                    .stroke(.white.opacity(0.25), lineWidth: 2)
+                    .offset(
+                        x: (geo.size.width - screenSpaceImageSize.width) / 2,
+                        y: (geo.size.height - screenSpaceImageSize.height) / 2
+                    )
                 
-                HandleV(position: $topLeadingPoint)
-                    .opacity(0.25)
-                HandleV(position: $topTrailingPoint)
-                    .opacity(0.25)
-                HandleV(position: $bottomLeadingPoint)
-                    .opacity(0.25)
-                HandleV(position: $bottomTrailingPoint)
-                    .opacity(0.25)
+                ZStack(alignment: .topLeading) {
+                    HandleV(position: $topLeadingPoint)
+                        .opacity(0.25)
+                    HandleV(position: $topTrailingPoint)
+                        .opacity(0.25)
+                    HandleV(position: $bottomLeadingPoint)
+                        .opacity(0.25)
+                    HandleV(position: $bottomTrailingPoint)
+                        .opacity(0.25)
+                }
+                .offset(
+                    x: (geo.size.width - screenSpaceImageSize.width) / 2,
+                    y: (geo.size.height - screenSpaceImageSize.height) / 2
+                )
             }
         }
         .ignoresSafeArea()
+        .background(.black)
+        .onAppear {
+            topLeadingPoint *= pixelLength
+            topTrailingPoint *= pixelLength
+            bottomLeadingPoint *= pixelLength
+            bottomTrailingPoint *= pixelLength
+        }
         
 //        BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
 //            
