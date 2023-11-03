@@ -111,6 +111,11 @@ public class MapMap: NSManagedObject {
         }
         thumbnail = .failure
     }
+    
+    private func getUIImage() -> UIImage? {
+        if let data = self.mapMapRawEncodedImage { return UIImage(data: data) }
+        return nil
+    }
 }
 
 extension MapMap {
