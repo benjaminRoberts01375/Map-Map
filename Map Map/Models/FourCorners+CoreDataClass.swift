@@ -13,3 +13,19 @@ import CoreData
 public class FourCorners: NSManagedObject {
     
 }
+
+extension FourCorners {
+    convenience public init(
+        topLeading: CGSize,
+        topTrailing: CGSize,
+        bottomLeading: CGSize,
+        bottomTrailing: CGSize,
+        insertInto context: NSManagedObjectContext
+    ) {
+        self.init(context: context)
+        self.topLeading = topLeading
+        self.topTrailing = topTrailing
+        self.bottomLeading = bottomLeading
+        self.bottomTrailing = bottomTrailing
+    }
+}
