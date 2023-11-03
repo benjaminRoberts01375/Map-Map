@@ -6,10 +6,12 @@
 //
 
 import Bottom_Drawer
+import CoreImage
 import SwiftUI
 
 struct PhotoEditorV: View {
     @Environment(\.pixelLength) var pixelLength
+    @Environment(\.managedObjectContext) var moc
     
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     @State var topLeadingPoint: CGSize
@@ -36,26 +38,27 @@ struct PhotoEditorV: View {
     }
     
     var body: some View {
-        GeometryReader { geo in
-            ZStack(alignment: .center) {
-                AnyView(mapMap.getMap(.fullImage))
-                    .background {
-                        GeometryReader { imageGeo in
-                            Color.clear
-                                .onChange(of: imageGeo.size, initial: true) { _, update in
-                                    screenSpaceImageSize = update
-                                    let newImageScale = screenSpaceImageSize.width / geo.size.width
-                                    let newImageScaleFactor = newImageScale / imageScale
-                                    topLeadingPoint *= newImageScaleFactor
-                                    topTrailingPoint *= newImageScaleFactor
-                                    bottomLeadingPoint *= newImageScaleFactor
-                                    bottomTrailingPoint *= newImageScaleFactor
-                                    imageScale = newImageScale
-                                }
+        ZStack {
+            GeometryReader { geo in
+                ZStack(alignment: .center) {
+                    AnyView(mapMap.getMap(.fullImage))
+                        .background {
+                            GeometryReader { imageGeo in
+                                Color.clear
+                                    .onChange(of: imageGeo.size, initial: true) { _, update in
+                                        screenSpaceImageSize = update
+                                        let newImageScale = screenSpaceImageSize.width / geo.size.width
+                                        let newImageScaleFactor = newImageScale / imageScale
+                                        topLeadingPoint *= newImageScaleFactor
+                                        topTrailingPoint *= newImageScaleFactor
+                                        bottomLeadingPoint *= newImageScaleFactor
+                                        bottomTrailingPoint *= newImageScaleFactor
+                                        imageScale = newImageScale
+                                    }
+                            }
                         }
-                    }
-                    .frame(height: geo.size.height * 0.75)
-                
+                        .frame(height: geo.size.height * 0.75)
+                    
                     IrregularGridV(
                         topLeading: topLeadingPoint,
                         topTrailing: topTrailingPoint,
@@ -68,34 +71,49 @@ struct PhotoEditorV: View {
                         x: (geo.size.width - screenSpaceImageSize.width) / 2,
                         y: (geo.size.height - screenSpaceImageSize.height) / 2
                     )
-                
-                ZStack(alignment: .topLeading) {
-                    HandleV(position: $topLeadingPoint)
-                        .opacity(0.25)
-                    HandleV(position: $topTrailingPoint)
-                        .opacity(0.25)
-                    HandleV(position: $bottomLeadingPoint)
-                        .opacity(0.25)
-                    HandleV(position: $bottomTrailingPoint)
-                        .opacity(0.25)
+                    
+                    ZStack(alignment: .topLeading) {
+                        HandleV(position: $topLeadingPoint)
+                            .opacity(0.25)
+                        HandleV(position: $topTrailingPoint)
+                            .opacity(0.25)
+                        HandleV(position: $bottomLeadingPoint)
+                            .opacity(0.25)
+                        HandleV(position: $bottomTrailingPoint)
+                            .opacity(0.25)
+                    }
+                    .offset(
+                        x: (geo.size.width - screenSpaceImageSize.width) / 2,
+                        y: (geo.size.height - screenSpaceImageSize.height) / 2
+                    )
                 }
-                .offset(
-                    x: (geo.size.width - screenSpaceImageSize.width) / 2,
-                    y: (geo.size.height - screenSpaceImageSize.height) / 2
-                )
+            }
+            .ignoresSafeArea()
+            .background(.black)
+            .onAppear {
+                topLeadingPoint *= pixelLength
+                topTrailingPoint *= pixelLength
+                bottomLeadingPoint *= pixelLength
+                bottomTrailingPoint *= pixelLength
+            }
+            
+            BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
+                Button {
+                    print("Saving")
+                    print("Current:", topLeadingPoint, topTrailingPoint, bottomLeadingPoint, bottomTrailingPoint)
+                    print("Image Scale:", imageScale)
+                    let topLeading = topLeadingPoint / (imageScale * pixelLength)
+                    let topTrailing = topTrailingPoint / (imageScale * pixelLength)
+                    let bottomLeading = bottomLeadingPoint / (imageScale * pixelLength)
+                    let bottomTrailing = bottomTrailingPoint / (imageScale * pixelLength)
+                    print("New:", topLeading, topTrailing, bottomLeading, bottomTrailing)
+                    
+                } label: {
+                    Text("Save")
+                        .bigButton(backgroundColor: .blue)
+                }
+
             }
         }
-        .ignoresSafeArea()
-        .background(.black)
-        .onAppear {
-            topLeadingPoint *= pixelLength
-            topTrailingPoint *= pixelLength
-            bottomLeadingPoint *= pixelLength
-            bottomTrailingPoint *= pixelLength
-        }
-        
-//        BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
-//            
-//        }
     }
 }
