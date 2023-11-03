@@ -99,14 +99,10 @@ struct PhotoEditorV: View {
             
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
                 Button {
-                    print("Saving")
-                    print("Current:", topLeadingPoint, topTrailingPoint, bottomLeadingPoint, bottomTrailingPoint)
-                    print("Image Scale:", imageScale)
                     let topLeading = topLeadingPoint / (imageScale * pixelLength)
                     let topTrailing = topTrailingPoint / (imageScale * pixelLength)
                     let bottomLeading = bottomLeadingPoint / (imageScale * pixelLength)
                     let bottomTrailing = bottomTrailingPoint / (imageScale * pixelLength)
-                    print("New:", topLeading, topTrailing, bottomLeading, bottomTrailing)
                     
                 } label: {
                     Text("Save")
