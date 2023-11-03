@@ -44,6 +44,7 @@ struct MapMapEditor: View {
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                             .frame(width: 205)
                         Button(action: {
+                            try? moc.save()
                             showingPhotoEditor = true
                         }, label: {
                             Image(systemName: "crop")
