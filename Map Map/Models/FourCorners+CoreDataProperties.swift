@@ -28,8 +28,8 @@ extension FourCorners {
     }
     
     public var bottomTrailing: CGSize {
-        get { return NSCoder.cgSize(for: rawTopTrailing ?? "") }
-        set(update) { rawTopTrailing = NSCoder.string(for: update) }
+        get { return NSCoder.cgSize(for: rawBottomTrailing ?? "") }
+        set(update) { rawBottomTrailing = NSCoder.string(for: update) }
     }
     
     public var topLeading: CGSize {
