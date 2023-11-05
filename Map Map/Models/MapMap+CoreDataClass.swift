@@ -146,3 +146,29 @@ extension MapMap {
         }
     }
 }
+
+extension MapMap {
+    func applyPerspectiveCorrectionWithCorners() {
+        guard let imageData = self.mapMapRawEncodedImage,       // Type Data
+              let uiImage = UIImage(data: consume imageData),   // Type uiImage
+              let ciImage = CIImage(image: consume uiImage),    // Type ciImage
+              let fourCorners = self.cropCorners,               // Ensure fourCorners exists
+              let filter = CIFilter(name: "CIPerspectiveCorrection")
+        else { return }
+        let context = CIContext()
+
+        filter.setValue(CIVector(cgSize: fourCorners.topLeading), forKey: "inputBottomLeft")
+        filter.setValue(CIVector(cgSize: fourCorners.topTrailing), forKey: "inputBottomRight")
+        filter.setValue(CIVector(cgSize: fourCorners.bottomLeading), forKey: "inputTopLeft")
+        filter.setValue(CIVector(cgSize: fourCorners.bottomTrailing), forKey: "inputTopRight")
+        filter.setValue(consume ciImage, forKey: kCIInputImageKey)
+        
+        guard let newCIImage = filter.outputImage,
+              let newCGImage = context.createCGImage(newCIImage, from: newCIImage.extent)
+        else { return }
+        
+        let newUIImage = UIImage(cgImage: consume newCGImage)
+        image = .success(Image(uiImage: newUIImage).resizable().scaledToFit())
+        self.mapMapPerspectiveFixedEncodedImage = newUIImage.jpegData(compressionQuality: 0.9)
+    }
+}
