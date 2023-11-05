@@ -13,6 +13,7 @@
 		072DDB322AF42B1F00E74963 /* CGPointE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB312AF42B1F00E74963 /* CGPointE.swift */; };
 		072DDB342AF4368500E74963 /* CGRectE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB332AF4368500E74963 /* CGRectE.swift */; };
 		07353A352ADCCB9700C698B0 /* BigButtonV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07353A342ADCCB9700C698B0 /* BigButtonV.swift */; };
+		074070472AF6217600E873B3 /* CGVector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074070462AF6217600E873B3 /* CGVector.swift */; };
 		075C65682AF4C5C900864A34 /* CGSizeE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C65672AF4C5C900864A34 /* CGSizeE.swift */; };
 		075C65702AF5564C00864A34 /* MapMap+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C656E2AF5564C00864A34 /* MapMap+CoreDataProperties.swift */; };
 		0762DD1F2AD37A1300C36D33 /* MapMap+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762DD1D2AD37A1300C36D33 /* MapMap+CoreDataClass.swift */; };
@@ -49,6 +50,7 @@
 		072DDB312AF42B1F00E74963 /* CGPointE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPointE.swift; sourceTree = "<group>"; };
 		072DDB332AF4368500E74963 /* CGRectE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRectE.swift; sourceTree = "<group>"; };
 		07353A342ADCCB9700C698B0 /* BigButtonV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonV.swift; sourceTree = "<group>"; };
+		074070462AF6217600E873B3 /* CGVector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGVector.swift; sourceTree = "<group>"; };
 		075C65672AF4C5C900864A34 /* CGSizeE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSizeE.swift; sourceTree = "<group>"; };
 		075C656E2AF5564C00864A34 /* MapMap+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapMap+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0762DD1D2AD37A1300C36D33 /* MapMap+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapMap+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				072DDB312AF42B1F00E74963 /* CGPointE.swift */,
 				072DDB332AF4368500E74963 /* CGRectE.swift */,
 				075C65672AF4C5C900864A34 /* CGSizeE.swift */,
+				074070462AF6217600E873B3 /* CGVector.swift */,
 			);
 			path = "Non-Map Map Extensions";
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				072DDB302AF42A3E00E74963 /* IrregularGridV.swift in Sources */,
 				075C65682AF4C5C900864A34 /* CGSizeE.swift in Sources */,
 				077CBEB12AD512FE00741F27 /* MapMapListItemV.swift in Sources */,
+				074070472AF6217600E873B3 /* CGVector.swift in Sources */,
 				07FD85632AE6DDAD0089652B /* ListMode.swift in Sources */,
 				07FCC8552AD3593F00F88186 /* DataController.swift in Sources */,
 				075C65702AF5564C00864A34 /* MapMap+CoreDataProperties.swift in Sources */,
