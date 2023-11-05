@@ -10,6 +10,7 @@ import CoreImage
 import SwiftUI
 
 struct PhotoEditorV: View {
+    @Environment(\.dismiss) var dismiss
     @Environment(\.pixelLength) var pixelLength
     @Environment(\.managedObjectContext) var moc
     
@@ -103,7 +104,15 @@ struct PhotoEditorV: View {
                     let topTrailing = topTrailingPoint / (imageScale * pixelLength)
                     let bottomLeading = bottomLeadingPoint / (imageScale * pixelLength)
                     let bottomTrailing = bottomTrailingPoint / (imageScale * pixelLength)
-                    
+                    mapMap.setCorners(
+                        topLeading: topLeading,
+                        topTrailing: topTrailing,
+                        bottomLeading: bottomLeading,
+                        bottomTrailing: bottomTrailing
+                    )
+                    mapMap.applyPerspectiveCorrectionWithCorners()
+                    try? moc.save()
+                    dismiss()
                 } label: {
                     Text("Save")
                         .bigButton(backgroundColor: .blue)
