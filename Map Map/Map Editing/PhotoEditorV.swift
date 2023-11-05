@@ -99,25 +99,42 @@ struct PhotoEditorV: View {
             }
             
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
-                Button {
-                    let topLeading = topLeadingPoint / (imageScale * pixelLength)
-                    let topTrailing = topTrailingPoint / (imageScale * pixelLength)
-                    let bottomLeading = bottomLeadingPoint / (imageScale * pixelLength)
-                    let bottomTrailing = bottomTrailingPoint / (imageScale * pixelLength)
-                    mapMap.setCorners(
-                        topLeading: topLeading,
-                        topTrailing: topTrailing,
-                        bottomLeading: bottomLeading,
-                        bottomTrailing: bottomTrailing
-                    )
-                    mapMap.applyPerspectiveCorrectionWithCorners()
-                    try? moc.save()
-                    dismiss()
-                } label: {
-                    Text("Save")
-                        .bigButton(backgroundColor: .blue)
+                HStack {
+                    Button {
+                        let topLeading = topLeadingPoint / (imageScale * pixelLength)
+                        let topTrailing = topTrailingPoint / (imageScale * pixelLength)
+                        let bottomLeading = bottomLeadingPoint / (imageScale * pixelLength)
+                        let bottomTrailing = bottomTrailingPoint / (imageScale * pixelLength)
+                        mapMap.setCorners(
+                            topLeading: topLeading,
+                            topTrailing: topTrailing,
+                            bottomLeading: bottomLeading,
+                            bottomTrailing: bottomTrailing
+                        )
+                        mapMap.applyPerspectiveCorrectionWithCorners()
+                        try? moc.save()
+                        dismiss()
+                    } label: {
+                        Text("Save")
+                            .bigButton(backgroundColor: .blue)
+                    }
+                    Button {
+                        topLeadingPoint = .zero
+                        topTrailingPoint = CGSize(width: screenSpaceImageSize.width, height: .zero)
+                        bottomLeadingPoint = CGSize(width: .zero, height: screenSpaceImageSize.height)
+                        bottomTrailingPoint = screenSpaceImageSize
+                    } label: {
+                        Text("Reset")
+                            .bigButton(backgroundColor: .gray)
+                    }
+                    Button {
+                        moc.reset()
+                        dismiss()
+                    } label: {
+                        Text("Reset")
+                            .bigButton(backgroundColor: .gray)
+                    }
                 }
-
             }
         }
     }
