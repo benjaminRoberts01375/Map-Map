@@ -112,6 +112,15 @@ public class MapMap: NSManagedObject {
         thumbnail = .failure
     }
     
+    public func setCorners(topLeading: CGSize, topTrailing: CGSize, bottomLeading: CGSize, bottomTrailing: CGSize) {
+        guard let context = self.managedObjectContext else { return }
+        self.cropCorners = FourCorners(
+            topLeading: topLeading,
+            topTrailing: topTrailing,
+            bottomLeading: bottomLeading,
+            bottomTrailing: bottomTrailing,
+            insertInto: context
+        )
     }
 }
 
