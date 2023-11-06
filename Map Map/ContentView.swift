@@ -58,7 +58,7 @@ struct ContentView: View {
         }
         .onAppear {
             for mapMap in mapMaps {
-                if mapMap.isSetup { moc.delete(mapMap) }
+                if !mapMap.isSetup { moc.delete(mapMap) }
                 else if mapMap.isEditing == true { mapMap.isEditing = false }
             }
             try? moc.save()
