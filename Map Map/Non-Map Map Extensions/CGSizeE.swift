@@ -8,16 +8,16 @@
 import Foundation
 
 extension CGSize {
-    static func * (size: CGSize, factor: CGFloat) -> CGSize {
-        return CGSize(width: size.width * factor, height: size.height * factor)
+    static func * (lhs: CGSize, rhs: CGSize) -> CGSize {
+        return CGSize(width: lhs.width * rhs.width, height: lhs.height * rhs.height)
     }
     
-    static func / (size: CGSize, factor: CGFloat) -> CGSize {
-        return CGSize(width: size.width / factor, height: size.height / factor)
+    static func / (lhs: CGSize, rhs: CGSize) -> CGSize {
+        return CGSize(width: lhs.width / rhs.width, height: lhs.width / rhs.width)
     }
     
-    static func *= (size: inout CGSize, factor: CGFloat) {
-            size.width *= factor
-            size.height *= factor
+    static func *= (lhs: inout CGSize, rhs: CGSize) {
+        lhs.width *= rhs.height
+        lhs.height *= rhs.height
     }
 }
