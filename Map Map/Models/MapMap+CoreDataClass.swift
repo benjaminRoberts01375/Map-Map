@@ -179,6 +179,6 @@ extension MapMap {
         
         let newUIImage = UIImage(cgImage: consume newCGImage)
         image = .success(Image(uiImage: newUIImage).resizable().scaledToFit())
-        self.mapMapPerspectiveFixedEncodedImage = newUIImage.jpegData(compressionQuality: 0.9)
+        self.mapMapPerspectiveFixedEncodedImage = newUIImage.pngData()
     }
 }
