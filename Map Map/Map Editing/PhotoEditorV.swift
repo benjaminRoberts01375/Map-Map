@@ -20,7 +20,6 @@ struct PhotoEditorV: View {
     @State var bottomLeadingPoint: CGSize
     @State var bottomTrailingPoint: CGSize
     @State var screenSpaceImageSize: CGSize = .zero
-    @State var imageScale: CGFloat = 1
     
     init(mapMap: FetchedResults<MapMap>.Element) {
         self.mapMap = mapMap
@@ -48,13 +47,11 @@ struct PhotoEditorV: View {
                                 Color.clear
                                     .onChange(of: imageGeo.size, initial: true) { _, update in
                                         screenSpaceImageSize = update
-                                        let newImageScale = screenSpaceImageSize.width / geo.size.width
-                                        let newImageScaleFactor = newImageScale / imageScale
-                                        topLeadingPoint *= newImageScaleFactor
-                                        topTrailingPoint *= newImageScaleFactor
-                                        bottomLeadingPoint *= newImageScaleFactor
-                                        bottomTrailingPoint *= newImageScaleFactor
-                                        imageScale = newImageScale
+                                        let scaleRatio = screenSpaceImageSize / CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight)
+                                        topLeadingPoint *= scaleRatio
+                                        topTrailingPoint *= scaleRatio
+                                        bottomLeadingPoint *= scaleRatio
+                                        bottomTrailingPoint *= scaleRatio
                                     }
                             }
                         }
@@ -87,20 +84,15 @@ struct PhotoEditorV: View {
             }
             .ignoresSafeArea()
             .background(.black)
-            .onAppear {
-                topLeadingPoint *= pixelLength
-                topTrailingPoint *= pixelLength
-                bottomLeadingPoint *= pixelLength
-                bottomTrailingPoint *= pixelLength
-            }
             
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
                 HStack {
                     Button {
-                        let topLeading = topLeadingPoint / (imageScale * pixelLength)
-                        let topTrailing = topTrailingPoint / (imageScale * pixelLength)
-                        let bottomLeading = bottomLeadingPoint / (imageScale * pixelLength)
-                        let bottomTrailing = bottomTrailingPoint / (imageScale * pixelLength)
+                        let inverseRatio = CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight) / screenSpaceImageSize
+                        let topLeading = topLeadingPoint * inverseRatio
+                        let topTrailing = topTrailingPoint * inverseRatio
+                        let bottomLeading = bottomLeadingPoint * inverseRatio
+                        let bottomTrailing = bottomTrailingPoint * inverseRatio
                         mapMap.setCorners(
                             topLeading: topLeading,
                             topTrailing: topTrailing,
