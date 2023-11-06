@@ -56,6 +56,13 @@ struct ContentView: View {
         .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { _ in
             editingMapMap = mapMaps.contains(where: { $0.isEditing })
         }
+        .onAppear {
+            for mapMap in mapMaps {
+                if mapMap.isSetup { moc.delete(mapMap) }
+                else if mapMap.isEditing == true { mapMap.isEditing = false }
+            }
+            try? moc.save()
+        }
     }
 }
 
