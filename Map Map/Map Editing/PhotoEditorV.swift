@@ -102,7 +102,7 @@ struct PhotoEditorV: View {
                         mapMap.applyPerspectiveCorrectionWithCorners()
                         dismiss()
                     } label: {
-                        Text("Save")
+                        Text("Crop")
                             .bigButton(backgroundColor: .blue)
                     }
                     Button {
