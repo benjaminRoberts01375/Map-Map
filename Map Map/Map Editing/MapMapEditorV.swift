@@ -68,12 +68,8 @@ struct MapMapEditor: View {
                                 .bigButton(backgroundColor: .blue)
                         }
                         Button(action: {
-                            if mapMap.isSetup {
-                                moc.reset()
-                            }
-                            else {
-                                moc.delete(mapMap)
-                            }
+                            if mapMap.isSetup { moc.reset() }
+                            else { moc.delete(mapMap) }
                         }) {
                             Text("Cancel")
                                 .bigButton(backgroundColor: .gray)
