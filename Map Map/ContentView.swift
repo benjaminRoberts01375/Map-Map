@@ -36,17 +36,9 @@ struct ContentView: View {
                         verticalDetents: [.medium, .large, .header],
                         horizontalDetents: [.left, .right],
                         shortCardSize: 315,
-                        header: { _ in
-                            HStack {
-                                Text("Your Map Maps")
-                                    .font(.title)
-                                    .fontWeight(.bold)
-                                    .padding([.leading])
-                                Spacer()
-                            }
-                        },
+                        header: { _ in DefaultDrawerHeaderV() },
                         content: { isShortCard in
-                            MapMapsViewer(listMode: isShortCard ? .compact : .full)
+                            MapMapList(listMode: isShortCard ? .compact : .full)
                                 .padding(.horizontal)
                         }
                     )
