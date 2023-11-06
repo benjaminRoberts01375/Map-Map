@@ -90,7 +90,6 @@ struct MapMapEditor: View {
                             .bigButton(backgroundColor: .red)
                         }
                     }
-                    .padding(.bottom, 10)
                 }
             }
         }
