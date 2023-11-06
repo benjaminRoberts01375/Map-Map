@@ -41,7 +41,7 @@ struct PhotoEditorV: View {
         ZStack {
             GeometryReader { geo in
                 ZStack(alignment: .center) {
-                    AnyView(mapMap.getMap(.fullImage))
+                    AnyView(mapMap.getMap(.original))
                         .background {
                             GeometryReader { imageGeo in
                                 Color.clear

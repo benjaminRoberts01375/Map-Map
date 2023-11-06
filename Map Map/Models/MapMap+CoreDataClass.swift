@@ -36,6 +36,7 @@ public class MapMap: NSManagedObject {
     public enum MapType {
         case thumbnail
         case fullImage
+        case original
     }
     
     public func getMap(_ mapType: MapType) -> any View {
@@ -63,6 +64,15 @@ public class MapMap: NSManagedObject {
             return image
         case .thumbnail:
             return thumbnail
+        case .original:
+            guard let mapData = self.mapMapRawEncodedImage,
+                  let uiImage = UIImage(data: mapData)
+            else { return .failure }
+            return .success(
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+            )
         }
     }
     
