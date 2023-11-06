@@ -67,7 +67,7 @@ struct PhotoEditorV: View {
                         bottomTrailing: bottomTrailingPoint
                     )
                     .fill(.clear)
-                    .stroke(.white.opacity(0.25), lineWidth: 2)
+                    .stroke(.white.opacity(0.75), lineWidth: 2)
                     .offset(
                         x: (geo.size.width - screenSpaceImageSize.width) / 2,
                         y: (geo.size.height - screenSpaceImageSize.height) / 2
@@ -75,13 +75,9 @@ struct PhotoEditorV: View {
                     
                     ZStack(alignment: .topLeading) {
                         HandleV(position: $topLeadingPoint)
-                            .opacity(0.25)
                         HandleV(position: $topTrailingPoint)
-                            .opacity(0.25)
                         HandleV(position: $bottomLeadingPoint)
-                            .opacity(0.25)
                         HandleV(position: $bottomTrailingPoint)
-                            .opacity(0.25)
                     }
                     .offset(
                         x: (geo.size.width - screenSpaceImageSize.width) / 2,

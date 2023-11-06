@@ -30,6 +30,7 @@ struct HandleV: View {
             .foregroundStyle(.white)
             .position(x: position.width, y: position.height)
             .gesture(dragGesture)
+            .opacity(0.5)
             .shadow(radius: 2)
     }
 }
