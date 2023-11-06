@@ -100,7 +100,6 @@ struct PhotoEditorV: View {
                             bottomTrailing: bottomTrailing
                         )
                         mapMap.applyPerspectiveCorrectionWithCorners()
-                        try? moc.save()
                         dismiss()
                     } label: {
                         Text("Save")
