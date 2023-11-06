@@ -160,7 +160,7 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		07FCC85F2AD3764A00F88186 /* Map */ = {
+		07FCC85F2AD3764A00F88186 /* Background Map */ = {
 			isa = PBXGroup;
 			children = (
 				07FDC6352AB26ADB00D92113 /* BackgroundMapV.swift */,
@@ -168,7 +168,7 @@
 				07CCDBB42AEB214400BA9D43 /* UserLocationM.swift */,
 				07D742C02ADB67CB0087FFC5 /* BackgroundMapDetailsM.swift */,
 			);
-			path = Map;
+			path = "Background Map";
 			sourceTree = "<group>";
 		};
 		07FDC6162AB25DFD00D92113 = {
@@ -192,7 +192,7 @@
 			children = (
 				07FDC6222AB25DFD00D92113 /* Map_MapApp.swift */,
 				07FDC6242AB25DFD00D92113 /* ContentView.swift */,
-				07FCC85F2AD3764A00F88186 /* Map */,
+				07FCC85F2AD3764A00F88186 /* Background Map */,
 				070159D82AD505300031647F /* Map Editing */,
 				07FCC8592AD3756300F88186 /* Map Drawer Interaction */,
 				07FCC85A2AD3759500F88186 /* Models */,
