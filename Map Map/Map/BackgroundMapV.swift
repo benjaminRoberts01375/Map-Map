@@ -21,25 +21,25 @@ struct BackgroundMap: View {
                 position: $backgroundMapDetails.mapCamera,
                 interactionModes: backgroundMapDetails.allowsInteraction ? [.pan, .rotate, .zoom] : []
             ) {
-                ForEach(mapMaps) { map in
-                    if let name = map.mapMapName {
+                ForEach(mapMaps) { mapMap in
+                    if let name = mapMap.mapMapName {
                         Annotation(
                             "\(name)",
-                            coordinate: map.coordinates,
+                            coordinate: mapMap.coordinates,
                             anchor: .center
                         ) {
                             Button(action: {
                                 withAnimation {
-                                    backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: map.coordinates, distance: map.mapDistance, heading: -map.mapMapRotation))
+                                    backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: mapMap.coordinates, distance: mapMap.mapDistance, heading: -mapMap.mapMapRotation))
                                 }
                             }, label: {
-                                AnyView(map.getMap(.fullImage))
-                                    .frame(width: backgroundMapDetails.scale * map.mapMapScale)
-                                    .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: map.mapMapRotation))
+                                AnyView(mapMap.getMap(.fullImage))
+                                    .frame(width: backgroundMapDetails.scale * mapMap.mapMapScale)
+                                    .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: mapMap.mapMapRotation))
                                     .offset(y: -7)
-                                    .opacity(map.isEditing ? 0.5 : 1)
+                                    .opacity(mapMap.isEditing ? 0.5 : 1)
                             })
-                            .contextMenu { MapMapContextMenuV(mapMap: map) }
+                            .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
                         }
                     }
                 }
