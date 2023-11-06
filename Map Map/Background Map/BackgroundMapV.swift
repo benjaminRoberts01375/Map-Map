@@ -22,7 +22,7 @@ struct BackgroundMap: View {
                 interactionModes: backgroundMapDetails.allowsInteraction ? [.pan, .rotate, .zoom] : []
             ) {
                 ForEach(mapMaps) { mapMap in
-                    if let name = mapMap.mapMapName {
+                    if let name = mapMap.mapMapName, mapMap.isSetup {
                         Annotation(
                             "\(name)",
                             coordinate: mapMap.coordinates,
