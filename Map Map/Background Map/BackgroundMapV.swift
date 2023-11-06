@@ -22,7 +22,7 @@ struct BackgroundMap: View {
                 interactionModes: backgroundMapDetails.allowsInteraction ? [.pan, .rotate, .zoom] : []
             ) {
                 ForEach(mapMaps) { mapMap in
-                    if let name = mapMap.mapMapName, mapMap.isSetup {
+                    if let name = mapMap.mapMapName, mapMap.isSetup && !mapMap.isEditing {
                         Annotation(
                             "\(name)",
                             coordinate: mapMap.coordinates,
@@ -37,7 +37,6 @@ struct BackgroundMap: View {
                                     .frame(width: backgroundMapDetails.scale * mapMap.mapMapScale)
                                     .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: mapMap.mapMapRotation))
                                     .offset(y: -7)
-                                    .opacity(mapMap.isEditing ? 0.5 : 1)
                             })
                             .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
                         }
