@@ -38,7 +38,7 @@ struct ContentView: View {
                         shortCardSize: 315,
                         header: { _ in
                             HStack {
-                                Text("Your Maps")
+                                Text("Your Map Maps")
                                     .font(.title)
                                     .fontWeight(.bold)
                                     .padding([.leading])
