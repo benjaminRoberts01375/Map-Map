@@ -166,11 +166,15 @@ extension MapMap {
               let filter = CIFilter(name: "CIPerspectiveCorrection")
         else { return }
         let context = CIContext()
-
-        filter.setValue(CIVector(cgSize: fourCorners.topLeading), forKey: "inputBottomLeft")
-        filter.setValue(CIVector(cgSize: fourCorners.topTrailing), forKey: "inputBottomRight")
-        filter.setValue(CIVector(cgSize: fourCorners.bottomLeading), forKey: "inputTopLeft")
-        filter.setValue(CIVector(cgSize: fourCorners.bottomTrailing), forKey: "inputTopRight")
+        
+        func cartesianVecForPoint(_ point: CGSize) -> CIVector {
+            return CIVector(x: point.width, y: ciImage.extent.height - point.height)
+        }
+        
+        filter.setValue(cartesianVecForPoint(fourCorners.topLeading), forKey: "inputTopLeft")
+        filter.setValue(cartesianVecForPoint(fourCorners.topTrailing), forKey: "inputTopRight")
+        filter.setValue(cartesianVecForPoint(fourCorners.bottomLeading), forKey: "inputBottomLeft")
+        filter.setValue(cartesianVecForPoint(fourCorners.bottomTrailing), forKey: "inputBottomRight")
         filter.setValue(consume ciImage, forKey: kCIInputImageKey)
         
         guard let newCIImage = filter.outputImage,
