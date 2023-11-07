@@ -91,7 +91,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		070159D82AD505300031647F /* Map Editing */ = {
+		070159D82AD505300031647F /* MapMap Editing */ = {
 			isa = PBXGroup;
 			children = (
 				0762DD672AD4713200C36D33 /* MapMapEditorV.swift */,
@@ -99,7 +99,7 @@
 				072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */,
 				072DDB2D2AF426E000E74963 /* HandleV.swift */,
 			);
-			path = "Map Editing";
+			path = "MapMap Editing";
 			sourceTree = "<group>";
 		};
 		0762DD662AD46CFA00C36D33 /* Generic View Components */ = {
@@ -190,7 +190,7 @@
 				07FDC6242AB25DFD00D92113 /* ContentView.swift */,
 				07764B412AF96DFA0009525E /* DefaultDrawerHeaderV.swift */,
 				07FCC85F2AD3764A00F88186 /* Background Map */,
-				070159D82AD505300031647F /* Map Editing */,
+				070159D82AD505300031647F /* MapMap Editing */,
 				07FCC8592AD3756300F88186 /* Map Drawer Interaction */,
 				07FCC85A2AD3759500F88186 /* Models */,
 				0762DD662AD46CFA00C36D33 /* Generic View Components */,
