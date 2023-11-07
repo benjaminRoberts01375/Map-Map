@@ -113,6 +113,8 @@ struct PhotoEditorV: View {
                         topTrailingPoint = CGSize(width: screenSpaceImageSize.width, height: .zero)
                         bottomLeadingPoint = CGSize(width: .zero, height: screenSpaceImageSize.height)
                         bottomTrailingPoint = screenSpaceImageSize
+                        mapMap.cropCorners = nil
+                        mapMap.mapMapPerspectiveFixedEncodedImage = nil
                     } label: {
                         Text("Reset")
                             .bigButton(backgroundColor: .gray)
