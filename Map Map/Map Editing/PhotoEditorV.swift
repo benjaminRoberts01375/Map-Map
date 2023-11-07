@@ -55,7 +55,10 @@ struct PhotoEditorV: View {
                                     }
                             }
                         }
-                        .frame(height: geo.size.height * 0.75)
+                        .frame(
+                            width: geo.size.width - 100,
+                            height: geo.size.height * 0.72
+                        )
                     
                     IrregularGridV(
                         topLeading: topLeadingPoint,
