@@ -42,6 +42,8 @@ final class CameraVM: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoDat
 
     func endSession() {
         captureSession.stopRunning()
+        livePreview = nil
+        finalPhoto = nil
     }
     
     func capturePhoto() {
