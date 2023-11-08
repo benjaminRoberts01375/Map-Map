@@ -13,6 +13,31 @@ struct CameraView: View {
 
     var body: some View {
         VStack {
+            ZStack {
+                if let livePreview = cameraManager.livePreview {
+                    Image(uiImage: livePreview)
+                        .resizable()
+                        .scaledToFit()
+                }
+                
+                Button("Capture") {
+                    cameraManager.capturePhoto()
+                }
+            }
+            if let output = cameraManager.finalPhoto {
+                Image(uiImage: output)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 300)
+            }
+        }
+        .onAppear {
+            cameraManager.startSession()
+        }
+        .onDisappear {
+            cameraManager.endSession()
+        }
+    }
 }
 
 @Observable
