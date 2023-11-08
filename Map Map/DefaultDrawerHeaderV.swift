@@ -12,6 +12,7 @@ struct DefaultDrawerHeaderV: View {
     @Environment(\.managedObjectContext) var moc
     @State var rawPhotos: [PhotosPickerItem] = []
     @State var photosPickerPresented = false
+    @State var cameraPresented = false
     
     var body: some View {
         HStack {
@@ -21,6 +22,11 @@ struct DefaultDrawerHeaderV: View {
                 .padding([.leading])
             
             Menu {
+                Button(action: {
+                    cameraPresented = true
+                }, label: {
+                    Label("Camera", systemImage: "camera.fill")
+                })
                 Button {
                     photosPickerPresented = true
                 } label: {
@@ -42,5 +48,8 @@ struct DefaultDrawerHeaderV: View {
             rawPhotos = []
         }
         .photosPicker(isPresented: $photosPickerPresented, selection: $rawPhotos, maxSelectionCount: 1, matching: .images)
+        .sheet(isPresented: $cameraPresented, content: {
+            CameraView()
+        })
     }
 }
