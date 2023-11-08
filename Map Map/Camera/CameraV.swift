@@ -18,6 +18,7 @@ struct CameraView: View {
 @Observable
 final class CameraViewModel: NSObject, AVCapturePhotoCaptureDelegate {
     private var captureSession = AVCaptureSession()
+    var finalPhoto: UIImage?
 
     func startSession() {
         if let camera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
@@ -42,6 +43,12 @@ final class CameraViewModel: NSObject, AVCapturePhotoCaptureDelegate {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func capturePhoto() {
+        let settings = AVCapturePhotoSettings()
+        settings.photoQualityPrioritization = .quality
+        photoOutput?.capturePhoto(with: settings, delegate: self)
     }
     }
 }
