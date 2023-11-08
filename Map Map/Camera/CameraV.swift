@@ -40,7 +40,6 @@ struct CameraView: View {
 }
 
 struct CameraPreview: UIViewControllerRepresentable {
-    typealias UIViewControllerType = UIViewController
     let cameraService: CameraService
     let didFinishProcessingPhoto: (Result<AVCapturePhoto, Error>) -> ()
     
