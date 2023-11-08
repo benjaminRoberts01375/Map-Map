@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07082FAD2AFACE6E003255E3 /* CameraV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07082FAC2AFACE6E003255E3 /* CameraV.swift */; };
 		0711E5B22AB39ABD0056AB4B /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0711E5B12AB39ABD0056AB4B /* BlurView.swift */; };
 		072DDB2E2AF426E000E74963 /* HandleV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB2D2AF426E000E74963 /* HandleV.swift */; };
 		072DDB302AF42A3E00E74963 /* IrregularGridV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		07082FAC2AFACE6E003255E3 /* CameraV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraV.swift; sourceTree = "<group>"; };
 		0711E5B12AB39ABD0056AB4B /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		072DDB2D2AF426E000E74963 /* HandleV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleV.swift; sourceTree = "<group>"; };
 		072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrregularGridV.swift; sourceTree = "<group>"; };
@@ -100,6 +102,14 @@
 				072DDB2D2AF426E000E74963 /* HandleV.swift */,
 			);
 			path = "MapMap Editing";
+			sourceTree = "<group>";
+		};
+		07082FAF2AFACE7A003255E3 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				07082FAC2AFACE6E003255E3 /* CameraV.swift */,
+			);
+			path = Camera;
 			sourceTree = "<group>";
 		};
 		0762DD662AD46CFA00C36D33 /* Generic View Components */ = {
@@ -189,6 +199,7 @@
 				07FDC6222AB25DFD00D92113 /* Map_MapApp.swift */,
 				07FDC6242AB25DFD00D92113 /* ContentView.swift */,
 				07764B412AF96DFA0009525E /* DefaultDrawerHeaderV.swift */,
+				07082FAF2AFACE7A003255E3 /* Camera */,
 				07FCC85F2AD3764A00F88186 /* Background Map */,
 				070159D82AD505300031647F /* MapMap Editing */,
 				07FCC8592AD3756300F88186 /* Map Drawer Interaction */,
@@ -302,6 +313,7 @@
 				07FD85632AE6DDAD0089652B /* ListMode.swift in Sources */,
 				07FCC8552AD3593F00F88186 /* DataController.swift in Sources */,
 				075C65702AF5564C00864A34 /* MapMap+CoreDataProperties.swift in Sources */,
+				07082FAD2AFACE6E003255E3 /* CameraV.swift in Sources */,
 				072DDB322AF42B1F00E74963 /* CGPointE.swift in Sources */,
 				07FDC6362AB26ADB00D92113 /* BackgroundMapV.swift in Sources */,
 				07FDC62F2AB25E0000D92113 /* Map_Map.xcdatamodeld in Sources */,
@@ -456,6 +468,7 @@
 				INFOPLIST_FILE = "Map-Map-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MapMap;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Map Map uses your camera for taking photos of maps. That's it. (◕‿◕ ✿)";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Map Map uses your location to show where you are on the map. That's it. (◕‿◕ ✿)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -489,6 +502,7 @@
 				INFOPLIST_FILE = "Map-Map-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MapMap;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Map Map uses your camera for taking photos of maps. That's it. (◕‿◕ ✿)";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Map Map uses your location to show where you are on the map. That's it. (◕‿◕ ✿)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
