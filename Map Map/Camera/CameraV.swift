@@ -16,10 +16,11 @@ struct CameraView: View {
 }
 
 @Observable
-final class CameraViewModel: NSObject, AVCapturePhotoCaptureDelegate {
+final class CameraViewModel: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
     private var captureSession = AVCaptureSession()
     private var photoOutput: AVCapturePhotoOutput?
     var finalPhoto: UIImage?
+    var livePreview: UIImage?
 
     func startSession() {
         if let camera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
@@ -55,6 +56,19 @@ final class CameraViewModel: NSObject, AVCapturePhotoCaptureDelegate {
         settings.photoQualityPrioritization = .quality
         photoOutput?.capturePhoto(with: settings, delegate: self)
     }
+
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
+            let ciImage = CIImage(cvImageBuffer: imageBuffer)
+            let context = CIContext()
+            if let cgImage = context.createCGImage(ciImage, from: ciImage.extent) {
+                DispatchQueue.main.async {
+                    self.livePreview = UIImage(cgImage: cgImage)
+                }
+            }
+        }
+    }
+
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let imageData = photo.fileDataRepresentation() {
             finalPhoto = UIImage(data: imageData)
