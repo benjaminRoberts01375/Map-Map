@@ -51,5 +51,9 @@ final class CameraViewModel: NSObject, AVCapturePhotoCaptureDelegate {
         settings.photoQualityPrioritization = .quality
         photoOutput?.capturePhoto(with: settings, delegate: self)
     }
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        if let imageData = photo.fileDataRepresentation() {
+            finalPhoto = UIImage(data: imageData)
+        }
     }
 }
