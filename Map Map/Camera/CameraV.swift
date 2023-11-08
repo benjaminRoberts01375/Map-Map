@@ -9,36 +9,36 @@ import AVFoundation
 import SwiftUI
 
 struct CameraView: View {
-    @State var cameraVM = CameraVM()
-
+    let cameraService = CameraService()
+    @State var finalPhoto: UIImage?
+    
     var body: some View {
         VStack {
             ZStack {
-                if let livePreview = cameraVM.livePreview {
-                    Image(uiImage: livePreview)
-                        .resizable()
-                        .scaledToFit()
+                CameraPreview(cameraService: cameraService) { result in
+                    switch result {
+                    case .success(let photo):
+                        if let photoData = photo.cgImageRepresentation() {
+                            finalPhoto = UIImage(cgImage: photoData)
+                        }
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
                 }
-                
+                .scaledToFit()
                 Button("Capture") {
-                    cameraVM.capturePhoto()
+                    cameraService.capturePhoto()
                 }
             }
-            if let output = cameraVM.finalPhoto {
-                Image(uiImage: output)
+            if let finalPhoto = finalPhoto {
+                Image(uiImage: finalPhoto)
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 300)
             }
-        }
-        .onAppear {
-            cameraVM.startSession()
-        }
-        .onDisappear {
-            cameraVM.endSession()
         }
     }
 }
+
 struct CameraPreview: UIViewControllerRepresentable {
     typealias UIViewControllerType = UIViewController
     let cameraService: CameraService
