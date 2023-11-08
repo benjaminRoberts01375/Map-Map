@@ -45,6 +45,10 @@ final class CameraViewModel: NSObject, AVCapturePhotoCaptureDelegate {
             }
         }
     }
+
+    func endSession() {
+        captureSession.stopRunning()
+    }
     
     func capturePhoto() {
         let settings = AVCapturePhotoSettings()
