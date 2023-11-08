@@ -18,6 +18,7 @@ struct CameraView: View {
 @Observable
 final class CameraViewModel: NSObject, AVCapturePhotoCaptureDelegate {
     private var captureSession = AVCaptureSession()
+    private var photoOutput: AVCapturePhotoOutput?
     var finalPhoto: UIImage?
 
     func startSession() {
