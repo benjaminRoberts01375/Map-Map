@@ -11,6 +11,7 @@ import SwiftUI
 struct CameraView: View {
     let cameraService = CameraService()
     @State var finalPhoto: UIImage?
+    @State var rotationAngle: Angle = Angle(degrees: 0)
     
     var body: some View {
         GeometryReader { geo in
@@ -24,8 +25,24 @@ struct CameraView: View {
                     print(error.localizedDescription)
                 }
             }
+            .rotationEffect(rotationAngle)
             .onChange(of: geo.size, initial: true) { _, update in
                 cameraService.previewLayer.frame = CGRect(x: 0, y: 0, width: update.width, height: update.height)
+                
+                guard let connection = cameraService.previewLayer.connection else { return }
+                rotationAngle = Angle(degrees: connection.videoRotationAngle + 180)
+                switch UIDevice.current.orientation {
+                case .landscapeLeft:
+                    rotationAngle = Angle(degrees: 270)
+                case .landscapeRight:
+                    rotationAngle = Angle(degrees: 90)
+                case .portrait:
+                    rotationAngle = Angle(degrees: 0)
+                case .portraitUpsideDown:
+                    rotationAngle = Angle(degrees: 180)
+                default:
+                    rotationAngle = Angle(degrees: 0)
+                }
             }
         }
     }
