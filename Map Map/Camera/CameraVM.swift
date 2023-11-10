@@ -119,8 +119,9 @@ class CameraService {
     }
     
     func capturePhoto() {
+        guard let delegate = delegate else { return }
         let settings = AVCapturePhotoSettings()
         settings.photoQualityPrioritization = .quality
-        output.capturePhoto(with: settings, delegate: delegate!)
+        output.capturePhoto(with: settings, delegate: delegate)
     }
 }
