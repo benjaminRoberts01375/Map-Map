@@ -11,7 +11,9 @@ import SwiftUI
 struct CameraView: View {
     let cameraService = CameraService()
     @State var finalPhoto: UIImage?
-    @State var rotationAngle: Angle = Angle(degrees: 0)
+    @State var rotationAngle: Angle = .zero
+    
+    init() { adjustAngle() }
     
     var body: some View {
         GeometryReader { geo in
@@ -26,7 +28,7 @@ struct CameraView: View {
                 }
             }
             .rotationEffect(rotationAngle)
-            .onChange(of: geo.size, initial: true) { _, update in
+            .onChange(of: geo.size, initial: false) { _, update in
                 cameraService.previewLayer.frame = CGRect(x: 0, y: 0, width: update.width, height: update.height)
                 adjustAngle()
             }
