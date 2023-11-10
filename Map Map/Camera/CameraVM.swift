@@ -14,7 +14,7 @@ final class CameraVM: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoDat
     private var photoOutput: AVCapturePhotoOutput?
     var finalPhoto: UIImage?
     var livePreview: UIImage?
-
+    
     func startSession() {
         if let camera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
             do {
@@ -39,7 +39,7 @@ final class CameraVM: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoDat
             }
         }
     }
-
+    
     func endSession() {
         captureSession.stopRunning()
         livePreview = nil
@@ -50,7 +50,7 @@ final class CameraVM: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoDat
         let settings = AVCapturePhotoSettings()
         photoOutput?.capturePhoto(with: settings, delegate: self)
     }
-
+    
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
             let ciImage = CIImage(cvImageBuffer: imageBuffer)
@@ -62,7 +62,7 @@ final class CameraVM: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoDat
             }
         }
     }
-
+    
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let imageData = photo.fileDataRepresentation() {
             finalPhoto = UIImage(data: imageData)
@@ -73,30 +73,30 @@ final class CameraVM: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoDat
 class CameraService {
     var session: AVCaptureSession?
     var delegate: AVCapturePhotoCaptureDelegate?
-
+    
     let output = AVCapturePhotoOutput()
     let previewLayer = AVCaptureVideoPreviewLayer()
-
+    
     func start(delegate: AVCapturePhotoCaptureDelegate, completion: @escaping (Error?) -> ()) {
         self.delegate = delegate
         checkPermissions(completion: completion)
     }
-
+    
     private func checkPermissions(completion: @escaping (Error?) -> ()) {
-            switch AVCaptureDevice.authorizationStatus(for: .video) {
-            case .notDetermined:
-                AVCaptureDevice.requestAccess(for: .video) { _ in
-                    Task { await self.setupCamera(completion: completion) }
-                }
-            case .authorized:
-                Task { await setupCamera(completion: completion) }
-            case .denied, .restricted:
-                break
-            @unknown default:
-                break
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { _ in
+                Task { await self.setupCamera(completion: completion) }
             }
+        case .authorized:
+            Task { await setupCamera(completion: completion) }
+        case .denied, .restricted:
+            break
+        @unknown default:
+            break
+        }
     }
-
+    
     private func setupCamera(completion: @escaping (Error?) -> ()) async {
         let session = AVCaptureSession()
         if let device = AVCaptureDevice.default(for: .video) {
@@ -108,8 +108,8 @@ class CameraService {
                 if session.canAddOutput(output) {
                     session.addOutput(output)
                 }
-                previewLayer.videoGravity = .resizeAspectFill
                 previewLayer.session = session
+                previewLayer.videoGravity = .resizeAspect
                 session.startRunning()
                 self.session = session
             } catch {
@@ -117,7 +117,7 @@ class CameraService {
             }
         }
     }
-
+    
     func capturePhoto() {
         let settings = AVCapturePhotoSettings()
         settings.photoQualityPrioritization = .quality
