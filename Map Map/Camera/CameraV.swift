@@ -13,27 +13,19 @@ struct CameraView: View {
     @State var finalPhoto: UIImage?
     
     var body: some View {
-        VStack {
-            ZStack {
-                CameraPreview(cameraService: cameraService) { result in
-                    switch result {
-                    case .success(let photo):
-                        if let photoData = photo.cgImageRepresentation() {
-                            finalPhoto = UIImage(cgImage: photoData)
-                        }
-                    case .failure(let error):
-                        print(error.localizedDescription)
+        GeometryReader { geo in
+            CameraPreview(cameraService: cameraService) { result in
+                switch result {
+                case .success(let photo):
+                    if let photoData = photo.cgImageRepresentation() {
+                        finalPhoto = UIImage(cgImage: photoData)
                     }
-                }
-                .scaledToFit()
-                Button("Capture") {
-                    cameraService.capturePhoto()
+                case .failure(let error):
+                    print(error.localizedDescription)
                 }
             }
-            if let finalPhoto = finalPhoto {
-                Image(uiImage: finalPhoto)
-                    .resizable()
-                    .scaledToFit()
+            .onChange(of: geo.size, initial: true) { _, update in
+                cameraService.previewLayer.frame = CGRect(x: 0, y: 0, width: update.width, height: update.height)
             }
         }
     }
