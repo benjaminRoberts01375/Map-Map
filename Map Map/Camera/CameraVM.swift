@@ -12,8 +12,13 @@ final class CameraService {
     var session: AVCaptureSession?
     var delegate: AVCapturePhotoCaptureDelegate?
     
-    let output = AVCapturePhotoOutput()
+    let output: AVCapturePhotoOutput
     let previewLayer = AVCaptureVideoPreviewLayer()
+    
+    init() {
+        output = AVCapturePhotoOutput()
+        output.maxPhotoQualityPrioritization = .quality
+    }
     
     func start(delegate: AVCapturePhotoCaptureDelegate, completion: @escaping (Error?) -> ()) {
         self.delegate = delegate
