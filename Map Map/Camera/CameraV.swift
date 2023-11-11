@@ -6,34 +6,59 @@
 //
 
 import AVFoundation
+import Bottom_Drawer
 import SwiftUI
 
 struct CameraView: View {
     let cameraService = CameraService()
+    @Environment(\.dismiss) var dismiss
     @State var finalPhoto: UIImage?
     @State var rotationAngle: Angle = .zero
+    @State var allowsPhoto: Bool = true
     
     init() { adjustAngle() }
     
     var body: some View {
-        GeometryReader { geo in
-            CameraPreview(cameraService: cameraService) { result in
-                switch result {
-                case .success(let photo):
-                    if let photoData = photo.cgImageRepresentation() {
-                        finalPhoto = UIImage(cgImage: photoData)
+        ZStack {
+            GeometryReader { geo in
+                CameraPreview(cameraService: cameraService) { result in
+                    switch result {
+                    case .success(let photo):
+                        if let photoData = photo.cgImageRepresentation() {
+                            finalPhoto = UIImage(cgImage: photoData)
+                        }
+                    case .failure(let error):
+                        print(error.localizedDescription)
                     }
-                case .failure(let error):
-                    print(error.localizedDescription)
+                    allowsPhoto = true
+                }
+                .rotationEffect(rotationAngle)
+                .onChange(of: geo.size, initial: false) { _, update in
+                    cameraService.previewLayer.frame = CGRect(x: 0, y: 0, width: update.width, height: update.height)
+                    adjustAngle()
                 }
             }
-            .rotationEffect(rotationAngle)
-            .onChange(of: geo.size, initial: false) { _, update in
-                cameraService.previewLayer.frame = CGRect(x: 0, y: 0, width: update.width, height: update.height)
-                adjustAngle()
+            .background(.black)
+            BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center]) { _ in
+                HStack {
+                    Button(action: {
+                        allowsPhoto = false
+                        cameraService.capturePhoto()
+                    }, label: {
+                        Text("Capture")
+                            .bigButton(backgroundColor: .blue)
+                    })
+                    .disabled(!allowsPhoto)
+                    
+                    Button(action: {
+                        dismiss()
+                    }, label: {
+                        Text("Cancel")
+                            .bigButton(backgroundColor: .gray)
+                    })
+                }
             }
         }
-        .background(.black)
     }
     
     func adjustAngle() {
