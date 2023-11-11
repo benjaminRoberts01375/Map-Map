@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07082FAD2AFACE6E003255E3 /* CameraV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07082FAC2AFACE6E003255E3 /* CameraV.swift */; };
+		07082FAD2AFACE6E003255E3 /* CameraPreviewV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07082FAC2AFACE6E003255E3 /* CameraPreviewV.swift */; };
 		0711E5B22AB39ABD0056AB4B /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0711E5B12AB39ABD0056AB4B /* BlurView.swift */; };
 		072DDB2E2AF426E000E74963 /* HandleV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB2D2AF426E000E74963 /* HandleV.swift */; };
 		072DDB302AF42A3E00E74963 /* IrregularGridV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */; };
@@ -45,7 +45,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		07082FAC2AFACE6E003255E3 /* CameraV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraV.swift; sourceTree = "<group>"; };
+		07082FAC2AFACE6E003255E3 /* CameraPreviewV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewV.swift; sourceTree = "<group>"; };
 		0711E5B12AB39ABD0056AB4B /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		072DDB2D2AF426E000E74963 /* HandleV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleV.swift; sourceTree = "<group>"; };
 		072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrregularGridV.swift; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 		07082FAF2AFACE7A003255E3 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
-				07082FAC2AFACE6E003255E3 /* CameraV.swift */,
+				07082FAC2AFACE6E003255E3 /* CameraPreviewV.swift */,
 				0744E7162AFB203D00D9F0B5 /* CameraVM.swift */,
 			);
 			path = Camera;
@@ -316,7 +316,7 @@
 				07FD85632AE6DDAD0089652B /* ListMode.swift in Sources */,
 				07FCC8552AD3593F00F88186 /* DataController.swift in Sources */,
 				075C65702AF5564C00864A34 /* MapMap+CoreDataProperties.swift in Sources */,
-				07082FAD2AFACE6E003255E3 /* CameraV.swift in Sources */,
+				07082FAD2AFACE6E003255E3 /* CameraPreviewV.swift in Sources */,
 				072DDB322AF42B1F00E74963 /* CGPointE.swift in Sources */,
 				07FDC6362AB26ADB00D92113 /* BackgroundMapV.swift in Sources */,
 				07FDC62F2AB25E0000D92113 /* Map_Map.xcdatamodeld in Sources */,

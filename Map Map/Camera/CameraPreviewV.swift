@@ -9,7 +9,7 @@ import AVFoundation
 import Bottom_Drawer
 import SwiftUI
 
-struct CameraView: View {
+struct CameraPreviewV: View {
     let cameraService = CameraService()
     @Environment(\.dismiss) var dismiss
     @State var finalPhoto: UIImage?
