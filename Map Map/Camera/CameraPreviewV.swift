@@ -12,11 +12,14 @@ import SwiftUI
 struct CameraPreviewV: View {
     let cameraService = CameraPreviewVM()
     @Environment(\.dismiss) var dismiss
-    @State var finalPhoto: UIImage?
+    @Binding var finalPhoto: UIImage?
     @State var rotationAngle: Angle = .zero
     @State var allowsPhoto: Bool = true
     
-    init() { adjustAngle() }
+    init(photoPassthrough: Binding<UIImage?>) {
+        self._finalPhoto = photoPassthrough
+        adjustAngle()
+    }
     
     var body: some View {
         ZStack {

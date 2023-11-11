@@ -49,7 +49,7 @@ struct DefaultDrawerHeaderV: View {
         }
         .photosPicker(isPresented: $photosPickerPresented, selection: $rawPhotos, maxSelectionCount: 1, matching: .images)
         .sheet(isPresented: $cameraPresented, content: {
-            CameraPreviewV()
+            CameraV()
         })
     }
 }
