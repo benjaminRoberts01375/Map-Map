@@ -10,7 +10,7 @@ import Bottom_Drawer
 import SwiftUI
 
 struct CameraPreviewV: View {
-    let cameraService = CameraService()
+    let cameraService = CameraPreviewVM()
     @Environment(\.dismiss) var dismiss
     @State var finalPhoto: UIImage?
     @State var rotationAngle: Angle = .zero
@@ -78,7 +78,7 @@ struct CameraPreviewV: View {
 }
 
 struct CameraPreview: UIViewControllerRepresentable {
-    let cameraService: CameraService
+    let cameraService: CameraPreviewVM
     let didFinishProcessingPhoto: (Result<AVCapturePhoto, Error>) -> ()
     
     func makeUIViewController(context: Context) -> UIViewController {

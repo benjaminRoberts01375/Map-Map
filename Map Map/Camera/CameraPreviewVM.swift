@@ -8,7 +8,7 @@
 import AVFoundation
 import SwiftUI
 
-final class CameraService {
+final class CameraPreviewVM {
     var session: AVCaptureSession?
     var delegate: AVCapturePhotoCaptureDelegate?
     
