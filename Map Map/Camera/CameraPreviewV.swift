@@ -46,7 +46,7 @@ struct CameraPreviewV: View {
                     allowsPhoto = true
                 }
                 .rotationEffect(rotationAngle)
-                .onChange(of: geo.size, initial: false) { _, update in
+                .onChange(of: geo.size, initial: true) { _, update in
                     cameraService.previewLayer.frame = CGRect(x: 0, y: 0, width: update.width, height: update.height)
                     adjustAngle()
                 }
