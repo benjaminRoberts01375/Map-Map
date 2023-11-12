@@ -9,6 +9,7 @@ import Bottom_Drawer
 import SwiftUI
 
 struct CameraReviewV: View {
+    @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     @Binding var photoPassthrough: UIImage?
     var body: some View {
@@ -21,6 +22,9 @@ struct CameraReviewV: View {
                     HStack {
                         Button(action: {
                             print("Accept")
+                            guard let generatedImage = photoPassthrough else { return }
+                            _ = MapMap(rawPhoto: generatedImage, insertInto: moc)
+                            dismiss()
                         }, label: {
                             Text("Accept")
                                 .bigButton(backgroundColor: .blue)

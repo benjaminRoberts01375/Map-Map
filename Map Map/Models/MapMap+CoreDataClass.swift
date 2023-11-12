@@ -134,6 +134,7 @@ public class MapMap: NSManagedObject {
     }
 }
 
+// MARK: Photo inits
 extension MapMap {
     convenience public init(rawPhoto: PhotosPickerItem?, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
@@ -157,6 +158,7 @@ extension MapMap {
     }
 }
 
+// MARK: Perspectice correction
 extension MapMap {
     func applyPerspectiveCorrectionWithCorners() {
         guard let imageData = self.mapMapRawEncodedImage,       // Type Data
