@@ -40,6 +40,7 @@ struct CameraReviewV: View {
                     }
                 }
             }
+            .background(.black)
         }
     }
 }
