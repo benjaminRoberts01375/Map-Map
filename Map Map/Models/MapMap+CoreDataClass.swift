@@ -156,6 +156,19 @@ extension MapMap {
             image = .failure
         }
     }
+    
+    convenience public init(rawPhoto: UIImage, insertInto context: NSManagedObjectContext) {
+        self.init(context: context)
+        image = .success(Image(uiImage: rawPhoto).resizable().scaledToFit())
+        Task {
+            thumbnail = .loading
+            self.mapMapName = "Untitled map"
+            self.mapMapRawEncodedImage = rawPhoto.jpegData(compressionQuality: 90)
+            self.imageWidth = rawPhoto.size.width
+            self.imageHeight = rawPhoto.size.height
+            generateThumbnailFromUIImage(rawPhoto)
+        }
+    }
 }
 
 // MARK: Perspectice correction
