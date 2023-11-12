@@ -27,8 +27,18 @@ struct CameraPreviewV: View {
                 CameraPreview(cameraService: cameraService) { result in
                     switch result {
                     case .success(let photo):
-                        if let photoData = photo.cgImageRepresentation() {
-                            finalPhoto = UIImage(cgImage: photoData)
+                        guard let photoData = photo.cgImageRepresentation() else { return }
+                        switch UIDevice.current.orientation {
+                        case .landscapeLeft:
+                            finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .up)
+                        case .landscapeRight:
+                            finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .down)
+                        case .portrait:
+                            finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .right)
+                        case .portraitUpsideDown:
+                            finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .left)
+                        default:
+                            finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .right)
                         }
                     case .failure(let error):
                         print(error.localizedDescription)
