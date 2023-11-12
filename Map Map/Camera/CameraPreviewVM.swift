@@ -62,6 +62,7 @@ final class CameraPreviewVM {
     }
     
     func capturePhoto() {
+        checkPermissions { if $0 == nil { return } }
         guard let delegate = delegate else { return }
         let settings = AVCapturePhotoSettings()
         settings.photoQualityPrioritization = .quality
