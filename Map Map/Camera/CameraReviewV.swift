@@ -21,7 +21,6 @@ struct CameraReviewV: View {
                 BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center]) { _ in
                     HStack {
                         Button(action: {
-                            print("Accept")
                             guard let generatedImage = photoPassthrough else { return }
                             _ = MapMap(rawPhoto: generatedImage, insertInto: moc)
                             dismiss()
