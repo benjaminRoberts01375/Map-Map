@@ -32,13 +32,13 @@ struct CameraPreviewV: View {
                         case .landscapeLeft:
                             finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .up)
                         case .landscapeRight:
-                            finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .down)
+                            finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .down).fixOrientation()
                         case .portrait:
-                            finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .right)
+                            finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .right).fixOrientation()
                         case .portraitUpsideDown:
-                            finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .left)
+                            finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .left).fixOrientation()
                         default:
-                            finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .right)
+                            finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .right).fixOrientation()
                         }
                     case .failure(let error):
                         print(error.localizedDescription)
