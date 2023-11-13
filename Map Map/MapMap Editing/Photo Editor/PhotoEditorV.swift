@@ -18,6 +18,8 @@ struct PhotoEditorV: View {
     @State var handleTracker: HandleTrackerM
     @State var screenSpaceImageSize: CGSize = .zero
     
+    @State var loading: Bool = false
+    
     init(mapMap: FetchedResults<MapMap>.Element) {
         self.mapMap = mapMap
         if let corners = mapMap.cropCorners { // If there are pre-defined corners, set those up
@@ -82,6 +84,7 @@ struct PhotoEditorV: View {
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
                 HStack {
                     Button {
+                        loading = true
                         let inverseRatio = CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight) / screenSpaceImageSize
                         let topLeading = handleTracker.topLeadingPoint * inverseRatio
                         let topTrailing = handleTracker.topTrailingPoint * inverseRatio
@@ -96,8 +99,14 @@ struct PhotoEditorV: View {
                         mapMap.applyPerspectiveCorrectionWithCorners()
                         dismiss()
                     } label: {
-                        Text("Crop")
-                            .bigButton(backgroundColor: .blue)
+                        if loading {
+                            ProgressView()
+                                .bigButton(backgroundColor: .blue)
+                        }
+                        else {
+                            Text("Crop")
+                                .bigButton(backgroundColor: .blue)
+                        }
                     }
                     Button {
                         handleTracker.topLeadingPoint = .zero
