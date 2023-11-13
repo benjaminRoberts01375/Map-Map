@@ -33,6 +33,7 @@
 		07CCDBB72AEC7E8600BA9D43 /* MapUserIconV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CCDBB62AEC7E8600BA9D43 /* MapUserIconV.swift */; };
 		07D522F32AE5CCCF009364B3 /* CLLocationDegreesE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D522F22AE5CCCF009364B3 /* CLLocationDegreesE.swift */; };
 		07D742C12ADB67CB0087FFC5 /* BackgroundMapDetailsM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D742C02ADB67CB0087FFC5 /* BackgroundMapDetailsM.swift */; };
+		07EB79E72B01A7F600DC2699 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB79E62B01A7F600DC2699 /* UIImage.swift */; };
 		07EE1D122AE750FB000829CA /* MapMapListItemThumbnailModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EE1D112AE750FB000829CA /* MapMapListItemThumbnailModifier.swift */; };
 		07FCC8552AD3593F00F88186 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FCC8542AD3593F00F88186 /* DataController.swift */; };
 		07FCC8572AD3750F00F88186 /* MapsListV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FCC8562AD3750F00F88186 /* MapsListV.swift */; };
@@ -72,6 +73,7 @@
 		07CCDBB62AEC7E8600BA9D43 /* MapUserIconV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapUserIconV.swift; sourceTree = "<group>"; };
 		07D522F22AE5CCCF009364B3 /* CLLocationDegreesE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationDegreesE.swift; sourceTree = "<group>"; };
 		07D742C02ADB67CB0087FFC5 /* BackgroundMapDetailsM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMapDetailsM.swift; sourceTree = "<group>"; };
+		07EB79E62B01A7F600DC2699 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		07EE1D112AE750FB000829CA /* MapMapListItemThumbnailModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapListItemThumbnailModifier.swift; sourceTree = "<group>"; };
 		07FCC8542AD3593F00F88186 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		07FCC8562AD3750F00F88186 /* MapsListV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsListV.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				072DDB312AF42B1F00E74963 /* CGPointE.swift */,
 				072DDB332AF4368500E74963 /* CGRectE.swift */,
 				075C65672AF4C5C900864A34 /* CGSizeE.swift */,
+				07EB79E62B01A7F600DC2699 /* UIImage.swift */,
 			);
 			path = "Non-Map Map Extensions";
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				07FDC6232AB25DFD00D92113 /* Map_MapApp.swift in Sources */,
 				07D522F32AE5CCCF009364B3 /* CLLocationDegreesE.swift in Sources */,
 				07A9C6AF2AF1B78C00C3AED4 /* FourCorners+CoreDataClass.swift in Sources */,
+				07EB79E72B01A7F600DC2699 /* UIImage.swift in Sources */,
 				0762DD652AD4696B00C36D33 /* DoneButtonV.swift in Sources */,
 				0762DD682AD4713200C36D33 /* MapMapEditorV.swift in Sources */,
 				072DDB342AF4368500E74963 /* CGRectE.swift in Sources */,
