@@ -15,25 +15,16 @@ struct PhotoEditorV: View {
     @Environment(\.managedObjectContext) var moc
     
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
-    @State var topLeadingPoint: CGSize
-    @State var topTrailingPoint: CGSize
-    @State var bottomLeadingPoint: CGSize
-    @State var bottomTrailingPoint: CGSize
+    @State var handleTracker: HandleTrackerM
     @State var screenSpaceImageSize: CGSize = .zero
     
     init(mapMap: FetchedResults<MapMap>.Element) {
         self.mapMap = mapMap
         if let corners = mapMap.cropCorners { // If there are pre-defined corners, set those up
-            self._topLeadingPoint = State(initialValue: corners.topLeading)
-            self._topTrailingPoint = State(initialValue: corners.topTrailing)
-            self._bottomLeadingPoint = State(initialValue: corners.bottomLeading)
-            self._bottomTrailingPoint = State(initialValue: corners.bottomTrailing)
+            self._handleTracker = State(initialValue: HandleTrackerM(corners: corners))
         }
         else { // No predefined corners, set corners to the actual corners of the photo
-            self._topLeadingPoint = State(initialValue: .zero)
-            self._topTrailingPoint = State(initialValue: CGSize(width: mapMap.imageWidth, height: .zero))
-            self._bottomLeadingPoint = State(initialValue: CGSize(width: .zero, height: mapMap.imageHeight))
-            self._bottomTrailingPoint = State(initialValue: CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight))
+            self._handleTracker = State(initialValue: HandleTrackerM(width: mapMap.imageWidth, height: mapMap.imageHeight))
         }
     }
     
@@ -48,10 +39,10 @@ struct PhotoEditorV: View {
                                     .onChange(of: imageGeo.size, initial: true) { _, update in
                                         screenSpaceImageSize = update
                                         let scaleRatio = screenSpaceImageSize / CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight)
-                                        topLeadingPoint *= scaleRatio
-                                        topTrailingPoint *= scaleRatio
-                                        bottomLeadingPoint *= scaleRatio
-                                        bottomTrailingPoint *= scaleRatio
+                                        handleTracker.topLeadingPoint *= scaleRatio
+                                        handleTracker.topTrailingPoint *= scaleRatio
+                                        handleTracker.bottomLeadingPoint *= scaleRatio
+                                        handleTracker.bottomTrailingPoint *= scaleRatio
                                     }
                             }
                         }
@@ -61,10 +52,10 @@ struct PhotoEditorV: View {
                         )
                     
                     IrregularGridV(
-                        topLeading: topLeadingPoint,
-                        topTrailing: topTrailingPoint,
-                        bottomLeading: bottomLeadingPoint,
-                        bottomTrailing: bottomTrailingPoint
+                        topLeading: handleTracker.topLeadingPoint,
+                        topTrailing: handleTracker.topTrailingPoint,
+                        bottomLeading: handleTracker.bottomLeadingPoint,
+                        bottomTrailing: handleTracker.bottomTrailingPoint
                     )
                     .fill(.clear)
                     .stroke(.white.opacity(0.75), lineWidth: 2)
@@ -74,10 +65,10 @@ struct PhotoEditorV: View {
                     )
                     
                     ZStack(alignment: .topLeading) {
-                        HandleV(position: $topLeadingPoint)
-                        HandleV(position: $topTrailingPoint)
-                        HandleV(position: $bottomLeadingPoint)
-                        HandleV(position: $bottomTrailingPoint)
+                        HandleV(position: $handleTracker.topLeadingPoint)
+                        HandleV(position: $handleTracker.topTrailingPoint)
+                        HandleV(position: $handleTracker.bottomLeadingPoint)
+                        HandleV(position: $handleTracker.bottomTrailingPoint)
                     }
                     .offset(
                         x: (geo.size.width - screenSpaceImageSize.width) / 2,
@@ -92,10 +83,10 @@ struct PhotoEditorV: View {
                 HStack {
                     Button {
                         let inverseRatio = CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight) / screenSpaceImageSize
-                        let topLeading = topLeadingPoint * inverseRatio
-                        let topTrailing = topTrailingPoint * inverseRatio
-                        let bottomLeading = bottomLeadingPoint * inverseRatio
-                        let bottomTrailing = bottomTrailingPoint * inverseRatio
+                        let topLeading = handleTracker.topLeadingPoint * inverseRatio
+                        let topTrailing = handleTracker.topTrailingPoint * inverseRatio
+                        let bottomLeading = handleTracker.bottomLeadingPoint * inverseRatio
+                        let bottomTrailing = handleTracker.bottomTrailingPoint * inverseRatio
                         mapMap.setCorners(
                             topLeading: topLeading,
                             topTrailing: topTrailing,
@@ -109,10 +100,10 @@ struct PhotoEditorV: View {
                             .bigButton(backgroundColor: .blue)
                     }
                     Button {
-                        topLeadingPoint = .zero
-                        topTrailingPoint = CGSize(width: screenSpaceImageSize.width, height: .zero)
-                        bottomLeadingPoint = CGSize(width: .zero, height: screenSpaceImageSize.height)
-                        bottomTrailingPoint = screenSpaceImageSize
+                        handleTracker.topLeadingPoint = .zero
+                        handleTracker.topTrailingPoint = CGSize(width: screenSpaceImageSize.width, height: .zero)
+                        handleTracker.bottomLeadingPoint = CGSize(width: .zero, height: screenSpaceImageSize.height)
+                        handleTracker.bottomTrailingPoint = screenSpaceImageSize
                         mapMap.cropCorners = nil
                         mapMap.mapMapPerspectiveFixedEncodedImage = nil
                     } label: {
