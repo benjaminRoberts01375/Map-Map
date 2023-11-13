@@ -111,7 +111,6 @@ struct PhotoEditorV: View {
                             .bigButton(backgroundColor: .gray)
                     }
                     Button {
-                        moc.reset()
                         dismiss()
                     } label: {
                         Text("Cancel")
