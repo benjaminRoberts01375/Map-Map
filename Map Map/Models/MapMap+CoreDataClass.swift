@@ -171,7 +171,7 @@ extension MapMap {
     }
 }
 
-// MARK: Perspectice correction
+// MARK: Perspective correction
 extension MapMap {
     func applyPerspectiveCorrectionWithCorners() {
         guard let imageData = self.mapMapRawEncodedImage,       // Type Data
