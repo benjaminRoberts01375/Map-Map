@@ -107,10 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				0762DD672AD4713200C36D33 /* MapMapEditorV.swift */,
-				07A9C6B92AF1CA3300C3AED4 /* PhotoEditorV.swift */,
-				0790A2112B01C0FC00863B29 /* HandleTrackerM.swift */,
-				072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */,
-				072DDB2D2AF426E000E74963 /* HandleV.swift */,
+				0790A2142B01C7EF00863B29 /* Photo Editor */,
 			);
 			path = "MapMap Editing";
 			sourceTree = "<group>";
@@ -158,6 +155,17 @@
 				07FD85602AE6DD1E0089652B /* CompactMapMapListItemV.swift */,
 			);
 			path = "Map List";
+			sourceTree = "<group>";
+		};
+		0790A2142B01C7EF00863B29 /* Photo Editor */ = {
+			isa = PBXGroup;
+			children = (
+				07A9C6B92AF1CA3300C3AED4 /* PhotoEditorV.swift */,
+				0790A2112B01C0FC00863B29 /* HandleTrackerM.swift */,
+				072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */,
+				072DDB2D2AF426E000E74963 /* HandleV.swift */,
+			);
+			path = "Photo Editor";
 			sourceTree = "<group>";
 		};
 		07FCC8592AD3756300F88186 /* Map Drawer Interaction */ = {
