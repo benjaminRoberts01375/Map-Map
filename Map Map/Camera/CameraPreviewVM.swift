@@ -45,6 +45,7 @@ final class CameraPreviewVM {
         if let device = AVCaptureDevice.default(for: .video) {
             do {
                 let input = try AVCaptureDeviceInput(device: device)
+                session.sessionPreset = .photo
                 if session.canAddInput(input) {
                     session.addInput(input)
                 }
