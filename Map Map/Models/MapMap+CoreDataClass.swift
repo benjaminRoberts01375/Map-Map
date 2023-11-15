@@ -163,10 +163,18 @@ extension MapMap {
         Task {
             thumbnail = .loading
             self.mapMapName = "Untitled map"
-            self.mapMapRawEncodedImage = rawPhoto.jpegData(compressionQuality: 90)
+            
+            guard let jpegData = rawPhoto.jpegData(compressionQuality: 90),
+                  let uiImage = UIImage(data: jpegData)
+            else {
+                image = .failure
+                return
+            }
+            image = .success(Image(uiImage: uiImage).resizable().scaledToFit())
+            self.mapMapRawEncodedImage = jpegData
             self.imageWidth = rawPhoto.size.width
             self.imageHeight = rawPhoto.size.height
-            generateThumbnailFromUIImage(rawPhoto)
+            generateThumbnailFromUIImage(uiImage)
         }
     }
 }
