@@ -109,6 +109,7 @@ struct PhotoEditorV: View {
                                 .bigButton(backgroundColor: .blue)
                         }
                     }
+                    .disabled(loading)
                     Button {
                         handleTracker.topLeadingPoint = .zero
                         handleTracker.topTrailingPoint = CGSize(width: screenSpaceImageSize.width, height: .zero)
