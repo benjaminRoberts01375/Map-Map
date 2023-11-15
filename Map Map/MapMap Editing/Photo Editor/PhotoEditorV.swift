@@ -18,6 +18,7 @@ struct PhotoEditorV: View {
     @State var screenSpaceImageSize: CGSize = .zero
     
     @State var loading: Bool = false
+    private static let perspectiveQueue = DispatchQueue(label: "com.RobertsHousehold.MapMap.PerspectiveFixer", attributes: .concurrent)
     
     init(mapMap: FetchedResults<MapMap>.Element) {
         self.mapMap = mapMap
