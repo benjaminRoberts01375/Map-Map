@@ -174,11 +174,10 @@ extension MapMap {
 // MARK: Perspective correction
 extension MapMap {
     func applyPerspectiveCorrectionWithCorners() {
-        guard let imageData = self.mapMapRawEncodedImage,       // Type Data
-              let uiImage = UIImage(data: consume imageData),   // Type uiImage
-              let ciImage = CIImage(image: consume uiImage),    // Type ciImage
-              let fourCorners = self.cropCorners,               // Ensure fourCorners exists
-              let filter = CIFilter(name: "CIPerspectiveCorrection")
+        guard let mapMapRawEncodedImage = self.mapMapRawEncodedImage,   // Map map data
+              let ciImage = CIImage(data: mapMapRawEncodedImage),       // Type ciImage
+              let fourCorners = self.cropCorners,                       // Ensure fourCorners exists
+              let filter = CIFilter(name: "CIPerspectiveCorrection")    // Filter to use
         else { return }
         let context = CIContext()
         
@@ -190,7 +189,7 @@ extension MapMap {
         filter.setValue(cartesianVecForPoint(fourCorners.topTrailing), forKey: "inputTopRight")
         filter.setValue(cartesianVecForPoint(fourCorners.bottomLeading), forKey: "inputBottomLeft")
         filter.setValue(cartesianVecForPoint(fourCorners.bottomTrailing), forKey: "inputBottomRight")
-        filter.setValue(consume ciImage, forKey: kCIInputImageKey)
+        filter.setValue(ciImage, forKey: kCIInputImageKey)
         
         guard let newCIImage = filter.outputImage,
               let newCGImage = context.createCGImage(newCIImage, from: newCIImage.extent)
