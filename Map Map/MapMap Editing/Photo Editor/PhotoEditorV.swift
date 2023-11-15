@@ -85,19 +85,20 @@ struct PhotoEditorV: View {
                 HStack {
                     Button {
                         loading = true
-                        let inverseRatio = CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight) / screenSpaceImageSize
-                        let topLeading = handleTracker.topLeadingPoint * inverseRatio
-                        let topTrailing = handleTracker.topTrailingPoint * inverseRatio
-                        let bottomLeading = handleTracker.bottomLeadingPoint * inverseRatio
-                        let bottomTrailing = handleTracker.bottomTrailingPoint * inverseRatio
-                        mapMap.setCorners(
-                            topLeading: topLeading,
-                            topTrailing: topTrailing,
-                            bottomLeading: bottomLeading,
-                            bottomTrailing: bottomTrailing
-                        )
-                        mapMap.applyPerspectiveCorrectionWithCorners()
-                        dismiss()
+                        PhotoEditorV.perspectiveQueue.async {
+                            let inverseRatio = CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight) / screenSpaceImageSize
+                            mapMap.setCorners(
+                                topLeading: handleTracker.topLeadingPoint * inverseRatio,
+                                topTrailing: handleTracker.topTrailingPoint * inverseRatio,
+                                bottomLeading: handleTracker.bottomLeadingPoint * inverseRatio,
+                                bottomTrailing: handleTracker.bottomTrailingPoint * inverseRatio
+                            )
+                            mapMap.applyPerspectiveCorrectionWithCorners() // Causes lockup
+                            print("Dismissing")
+                            DispatchQueue.main.async {
+                                dismiss()
+                            }
+                        }
                     } label: {
                         if loading {
                             ProgressView()
