@@ -12,7 +12,6 @@ import SwiftUI
 struct PhotoEditorV: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.pixelLength) var pixelLength
-    @Environment(\.managedObjectContext) var moc
     
     let mapMap: FetchedResults<MapMap>.Element
     @State var handleTracker: HandleTrackerM
