@@ -101,7 +101,7 @@ struct PhotoEditorV: View {
                     } label: {
                         if loading {
                             ProgressView()
-                                .bigButton(backgroundColor: .blue)
+                                .bigButton(backgroundColor: .blue.opacity(0.5))
                         }
                         else {
                             Text("Crop")
