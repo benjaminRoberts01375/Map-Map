@@ -23,6 +23,7 @@
 		076F18AB2AEF77FA00779E1D /* MapMapContextMenuV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076F18AA2AEF77FA00779E1D /* MapMapContextMenuV.swift */; };
 		07764B422AF96DFA0009525E /* DefaultDrawerHeaderV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07764B412AF96DFA0009525E /* DefaultDrawerHeaderV.swift */; };
 		0776EB062B05586B00F89BFC /* MapMapV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0776EB052B05586B00F89BFC /* MapMapV.swift */; };
+		0776EB082B055C2200F89BFC /* GridOverlayV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0776EB072B055C2200F89BFC /* GridOverlayV.swift */; };
 		077CBEB12AD512FE00741F27 /* MapMapListItemV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CBEB02AD512FE00741F27 /* MapMapListItemV.swift */; };
 		0790A2122B01C0FC00863B29 /* HandleTrackerM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790A2112B01C0FC00863B29 /* HandleTrackerM.swift */; };
 		07A0D7172AD1C28400F462A0 /* Bottom Drawer in Frameworks */ = {isa = PBXBuildFile; productRef = 07A0D7162AD1C28400F462A0 /* Bottom Drawer */; };
@@ -66,6 +67,7 @@
 		076F18AA2AEF77FA00779E1D /* MapMapContextMenuV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapContextMenuV.swift; sourceTree = "<group>"; };
 		07764B412AF96DFA0009525E /* DefaultDrawerHeaderV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDrawerHeaderV.swift; sourceTree = "<group>"; };
 		0776EB052B05586B00F89BFC /* MapMapV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapV.swift; sourceTree = "<group>"; };
+		0776EB072B055C2200F89BFC /* GridOverlayV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridOverlayV.swift; sourceTree = "<group>"; };
 		077CBEB02AD512FE00741F27 /* MapMapListItemV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapListItemV.swift; sourceTree = "<group>"; };
 		0790A2112B01C0FC00863B29 /* HandleTrackerM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleTrackerM.swift; sourceTree = "<group>"; };
 		07A9C6AB2AF1B78C00C3AED4 /* FourCorners+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FourCorners+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				07A9C6B92AF1CA3300C3AED4 /* PhotoEditorV.swift */,
+				0776EB072B055C2200F89BFC /* GridOverlayV.swift */,
 				0790A2112B01C0FC00863B29 /* HandleTrackerM.swift */,
 				072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */,
 				072DDB2D2AF426E000E74963 /* HandleV.swift */,
@@ -325,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07BA6E342B000E460059310E /* CameraV.swift in Sources */,
+				0776EB082B055C2200F89BFC /* GridOverlayV.swift in Sources */,
 				07FDC6252AB25DFD00D92113 /* ContentView.swift in Sources */,
 				0711E5B22AB39ABD0056AB4B /* BlurView.swift in Sources */,
 				07FDC6232AB25DFD00D92113 /* Map_MapApp.swift in Sources */,

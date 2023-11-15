@@ -31,6 +31,7 @@ struct PhotoEditorV: View {
     }
     
     var body: some View {
+        let _ = Self._printChanges()
         ZStack {
             GeometryReader { geo in
                 ZStack(alignment: .center) {
@@ -53,29 +54,11 @@ struct PhotoEditorV: View {
                             height: geo.size.height * 0.72
                         )
                     
-                    IrregularGridV(
-                        topLeading: handleTracker.topLeadingPoint,
-                        topTrailing: handleTracker.topTrailingPoint,
-                        bottomLeading: handleTracker.bottomLeadingPoint,
-                        bottomTrailing: handleTracker.bottomTrailingPoint
-                    )
-                    .fill(.clear)
-                    .stroke(.white.opacity(0.75), lineWidth: 2)
-                    .offset(
-                        x: (geo.size.width - screenSpaceImageSize.width) / 2,
-                        y: (geo.size.height - screenSpaceImageSize.height) / 2
-                    )
-                    
-                    ZStack(alignment: .topLeading) {
-                        HandleV(position: $handleTracker.topLeadingPoint)
-                        HandleV(position: $handleTracker.topTrailingPoint)
-                        HandleV(position: $handleTracker.bottomLeadingPoint)
-                        HandleV(position: $handleTracker.bottomTrailingPoint)
-                    }
-                    .offset(
-                        x: (geo.size.width - screenSpaceImageSize.width) / 2,
-                        y: (geo.size.height - screenSpaceImageSize.height) / 2
-                    )
+                    GridOverlayV(handleTracker: $handleTracker)
+                        .offset(
+                            x: (geo.size.width - screenSpaceImageSize.width) / 2,
+                            y: (geo.size.height - screenSpaceImageSize.height) / 2
+                        )
                 }
             }
             .ignoresSafeArea()
