@@ -14,7 +14,7 @@ struct PhotoEditorV: View {
     @Environment(\.pixelLength) var pixelLength
     @Environment(\.managedObjectContext) var moc
     
-    @ObservedObject var mapMap: FetchedResults<MapMap>.Element
+    let mapMap: FetchedResults<MapMap>.Element
     @State var handleTracker: HandleTrackerM
     @State var screenSpaceImageSize: CGSize = .zero
     
@@ -34,7 +34,7 @@ struct PhotoEditorV: View {
         ZStack {
             GeometryReader { geo in
                 ZStack(alignment: .center) {
-                    AnyView(mapMap.getMap(.original))
+                    MapMapV(mapMap: mapMap)
                         .background {
                             GeometryReader { imageGeo in
                                 Color.clear
