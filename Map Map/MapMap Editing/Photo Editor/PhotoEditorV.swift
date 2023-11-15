@@ -59,6 +59,8 @@ struct PhotoEditorV: View {
                             x: (geo.size.width - screenSpaceImageSize.width) / 2,
                             y: (geo.size.height - screenSpaceImageSize.height) / 2
                         )
+                        .allowsHitTesting(!loading)
+                        .opacity(loading ? 0.5 : 1)
                 }
             }
             .ignoresSafeArea()
@@ -102,16 +104,19 @@ struct PhotoEditorV: View {
                         mapMap.mapMapPerspectiveFixedEncodedImage = nil
                     } label: {
                         Text("Reset")
-                            .bigButton(backgroundColor: .gray)
+                            .bigButton(backgroundColor: .gray.opacity(loading ? 0.5 : 1))
                     }
+                    .disabled(loading)
                     Button {
                         dismiss()
                     } label: {
                         Text("Cancel")
-                            .bigButton(backgroundColor: .gray)
+                            .bigButton(backgroundColor: .gray.opacity(loading ? 0.5 : 1))
                     }
+                    .disabled(loading)
                 }
             }
         }
+        .animation(.easeInOut, value: loading)
     }
 }
