@@ -12,7 +12,7 @@ struct BackgroundMap: View {
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @State var locationsHandler = LocationsHandler.shared
-    @State var screenSpaceUserLocation: CGPoint = .zero
+    @State var screenSpaceUserLocation: CGPoint?
     
     var body: some View {
         MapReader { mapContext in
@@ -51,6 +51,8 @@ struct BackgroundMap: View {
                 }
             }
             .overlay {
+                guard let screenSpaceUserLocation = screenSpaceUserLocation
+                else { return }
                 MapUserIcon()
                     .position(screenSpaceUserLocation)
             }
