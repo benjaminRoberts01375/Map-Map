@@ -51,10 +51,13 @@ struct BackgroundMap: View {
                 }
             }
             .overlay {
-                guard let screenSpaceUserLocation = screenSpaceUserLocation
-                else { return }
-                MapUserIcon()
-                    .position(screenSpaceUserLocation)
+                if let screenSpaceUserLocation = screenSpaceUserLocation {
+                    MapUserIcon()
+                        .position(screenSpaceUserLocation)
+                }
+                else {
+                    EmptyView()
+                }
             }
             .safeAreaPadding([.top, .leading, .trailing])
             .mapStyle(.standard(elevation: .realistic))
