@@ -48,6 +48,12 @@ struct ContentView: View {
         .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { _ in
             editingMapMap = mapMaps.contains(where: { $0.isEditing })
         }
+        .onReceive(NotificationCenter.default.publisher(for: .savingToastNotification)) { notification in
+            if let showing = notification.userInfo?["savingVal"] as? Bool {
+            }
+            if let info = notification.userInfo?["name"] as? String {
+            }
+        }
         .task {
             for mapMap in mapMaps {
                 if !mapMap.isSetup { moc.delete(mapMap) }
