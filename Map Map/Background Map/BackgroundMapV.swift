@@ -46,7 +46,7 @@ struct BackgroundMap: View {
                 backgroundMapDetails.scale = 1 / update.camera.distance
                 backgroundMapDetails.rotation = Angle(degrees: -update.camera.heading)
                 backgroundMapDetails.position = update.region.center
-                if let screenSpaceUserLocation = mapContext.convert(locationsHandler.lastLocation.coordinate, to: .local) {
+                if let screenSpaceUserLocation = mapContext.convert(locationsHandler.lastLocation.coordinate, to: .global) {
                     self.screenSpaceUserLocation = screenSpaceUserLocation
                 }
             }
