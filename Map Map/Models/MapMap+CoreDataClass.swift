@@ -204,7 +204,21 @@ extension MapMap {
         else { return }
         
         let newUIImage = UIImage(cgImage: consume newCGImage)
-        image = .success(Image(uiImage: newUIImage).resizable().scaledToFit())
-        self.mapMapPerspectiveFixedEncodedImage = newUIImage.pngData()
+        let result: ImageStatus = .success(Image(uiImage: newUIImage).resizable().scaledToFit())
+        DispatchQueue.main.async {
+            self.image = result
+            self.objectWillChange.send()
+        }
+        
+        Task {
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .savingToastNotification, object: nil, userInfo: ["savingVal":true, "name":self.mapMapName ?? "Unknown map"])
+            }
+            let result = newUIImage.pngData()
+            DispatchQueue.main.async {
+                self.mapMapPerspectiveFixedEncodedImage = result
+                NotificationCenter.default.post(name: .savingToastNotification, object: nil, userInfo: ["savingVal":false])
+            }
+        }
     }
 }
