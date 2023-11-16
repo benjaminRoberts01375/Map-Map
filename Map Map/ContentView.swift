@@ -13,6 +13,7 @@ struct ContentView: View {
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
     @Environment(\.managedObjectContext) var moc
     @State var editingMapMap: Bool = false
+    @State var toastInfo: ToastInfo = ToastInfo()
     let blurAmount: CGFloat = 10
     
     var body: some View {
