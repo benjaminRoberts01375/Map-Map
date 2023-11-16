@@ -5,6 +5,7 @@
 //  Created by Ben Roberts on 9/13/23.
 //
 
+import AlertToast
 import Bottom_Drawer
 import CoreData
 import SwiftUI
@@ -46,13 +47,18 @@ struct ContentView: View {
                 }
             }
         }
+        .toast(isPresenting: $toastInfo.showing, tapToDismiss: false, alert: {
+            AlertToast(displayMode: .hud, type: .loading, title: "Saving", subTitle: toastInfo.info)
+        })
         .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { _ in
             editingMapMap = mapMaps.contains(where: { $0.isEditing })
         }
         .onReceive(NotificationCenter.default.publisher(for: .savingToastNotification)) { notification in
             if let showing = notification.userInfo?["savingVal"] as? Bool {
+                toastInfo.showing = showing
             }
             if let info = notification.userInfo?["name"] as? String {
+                toastInfo.info = info
             }
         }
         .task {

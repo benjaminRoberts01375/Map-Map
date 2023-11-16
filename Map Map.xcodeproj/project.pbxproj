@@ -25,6 +25,7 @@
 		07764B422AF96DFA0009525E /* DefaultDrawerHeaderV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07764B412AF96DFA0009525E /* DefaultDrawerHeaderV.swift */; };
 		0776EB062B05586B00F89BFC /* MapMapV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0776EB052B05586B00F89BFC /* MapMapV.swift */; };
 		0776EB082B055C2200F89BFC /* GridOverlayV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0776EB072B055C2200F89BFC /* GridOverlayV.swift */; };
+		0776EB0B2B056C0D00F89BFC /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 0776EB0A2B056C0D00F89BFC /* AlertToast */; };
 		077CBEB12AD512FE00741F27 /* MapMapListItemV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CBEB02AD512FE00741F27 /* MapMapListItemV.swift */; };
 		0790A2122B01C0FC00863B29 /* HandleTrackerM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790A2112B01C0FC00863B29 /* HandleTrackerM.swift */; };
 		07A0D7172AD1C28400F462A0 /* Bottom Drawer in Frameworks */ = {isa = PBXBuildFile; productRef = 07A0D7162AD1C28400F462A0 /* Bottom Drawer */; };
@@ -105,6 +106,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07A0D7172AD1C28400F462A0 /* Bottom Drawer in Frameworks */,
+				0776EB0B2B056C0D00F89BFC /* AlertToast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +309,7 @@
 			mainGroup = 07FDC6162AB25DFD00D92113;
 			packageReferences = (
 				07A0D7152AD1C28400F462A0 /* XCRemoteSwiftPackageReference "SwiftUI-Bottom-Drawer" */,
+				0776EB092B056C0D00F89BFC /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = 07FDC6202AB25DFD00D92113 /* Products */;
 			projectDirPath = "";
