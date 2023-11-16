@@ -9,22 +9,23 @@ import SwiftUI
 
 @Observable
 final class HandleTrackerM {
-    var topLeadingPoint: CGSize
-    var topTrailingPoint: CGSize
-    var bottomLeadingPoint: CGSize
-    var bottomTrailingPoint: CGSize
+    var corners: FourCornersStorage
+    let initialCorners: FourCornersStorage
     
     init(corners: FourCorners) {
-        self._topLeadingPoint = corners.topLeading
-        self._topTrailingPoint = corners.topTrailing
-        self._bottomLeadingPoint = corners.bottomLeading
-        self._bottomTrailingPoint = corners.bottomTrailing
+        let corners = FourCornersStorage(corners: corners)
+        self.corners = corners
+        self.initialCorners = corners
     }
     
     init(width: CGFloat, height: CGFloat) {
-        self._topLeadingPoint = .zero
-        self._topTrailingPoint = CGSize(width: width, height: .zero)
-        self._bottomLeadingPoint = CGSize(width: .zero, height: height)
-        self._bottomTrailingPoint = CGSize(width: width, height: height)
+        let corners = FourCornersStorage(
+            topLeading: .zero,
+            topTrailing: CGSize(width: width, height: .zero),
+            bottomLeading: CGSize(width: .zero, height: height),
+            bottomTrailing: CGSize(width: width, height: height)
+        )
+        self.corners = corners
+        self.initialCorners = corners
     }
 }

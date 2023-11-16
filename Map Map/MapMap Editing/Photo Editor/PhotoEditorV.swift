@@ -41,10 +41,10 @@ struct PhotoEditorV: View {
                                     .onChange(of: imageGeo.size, initial: true) { _, update in
                                         screenSpaceImageSize = update
                                         let scaleRatio = screenSpaceImageSize / CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight)
-                                        handleTracker.topLeadingPoint *= scaleRatio
-                                        handleTracker.topTrailingPoint *= scaleRatio
-                                        handleTracker.bottomLeadingPoint *= scaleRatio
-                                        handleTracker.bottomTrailingPoint *= scaleRatio
+                                        handleTracker.corners.topLeading *= scaleRatio
+                                        handleTracker.corners.topTrailing *= scaleRatio
+                                        handleTracker.corners.bottomLeading *= scaleRatio
+                                        handleTracker.corners.bottomTrailing *= scaleRatio
                                     }
                             }
                         }
@@ -71,13 +71,12 @@ struct PhotoEditorV: View {
                         loading = true
                         PhotoEditorV.perspectiveQueue.async {
                             let inverseRatio = CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight) / screenSpaceImageSize
-                            mapMap.setCorners(
-                                topLeading: handleTracker.topLeadingPoint * inverseRatio,
-                                topTrailing: handleTracker.topTrailingPoint * inverseRatio,
-                                bottomLeading: handleTracker.bottomLeadingPoint * inverseRatio,
-                                bottomTrailing: handleTracker.bottomTrailingPoint * inverseRatio
+                            mapMap.setAndApplyCorners(
+                                topLeading: handleTracker.corners.topLeading * inverseRatio,
+                                topTrailing: handleTracker.corners.topTrailing * inverseRatio,
+                                bottomLeading: handleTracker.corners.bottomLeading * inverseRatio,
+                                bottomTrailing: handleTracker.corners.bottomTrailing * inverseRatio
                             )
-                            mapMap.applyPerspectiveCorrectionWithCorners() // Causes lockup
                             DispatchQueue.main.async {
                                 dismiss()
                             }
@@ -94,12 +93,11 @@ struct PhotoEditorV: View {
                     }
                     .disabled(loading)
                     Button {
-                        handleTracker.topLeadingPoint = .zero
-                        handleTracker.topTrailingPoint = CGSize(width: screenSpaceImageSize.width, height: .zero)
-                        handleTracker.bottomLeadingPoint = CGSize(width: .zero, height: screenSpaceImageSize.height)
-                        handleTracker.bottomTrailingPoint = screenSpaceImageSize
+                        handleTracker.corners.topLeading = .zero
+                        handleTracker.corners.topTrailing = CGSize(width: screenSpaceImageSize.width, height: .zero)
+                        handleTracker.corners.bottomLeading = CGSize(width: .zero, height: screenSpaceImageSize.height)
+                        handleTracker.corners.bottomTrailing = screenSpaceImageSize
                         mapMap.cropCorners = nil
-                        mapMap.mapMapPerspectiveFixedEncodedImage = nil
                     } label: {
                         Text("Reset")
                             .bigButton(backgroundColor: .gray.opacity(loading ? 0.5 : 1))

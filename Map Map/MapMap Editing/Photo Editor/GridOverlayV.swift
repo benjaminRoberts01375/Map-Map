@@ -13,18 +13,18 @@ struct GridOverlayV: View {
     var body: some View {
         ZStack(alignment: .topLeading) {
             IrregularGridV(
-                topLeading: handleTracker.topLeadingPoint,
-                topTrailing: handleTracker.topTrailingPoint,
-                bottomLeading: handleTracker.bottomLeadingPoint,
-                bottomTrailing: handleTracker.bottomTrailingPoint
+                topLeading: handleTracker.corners.topLeading,
+                topTrailing: handleTracker.corners.topTrailing,
+                bottomLeading: handleTracker.corners.bottomLeading,
+                bottomTrailing: handleTracker.corners.bottomTrailing
             )
             .fill(.clear)
             .stroke(.white.opacity(0.75), lineWidth: 2)
             
-            HandleV(position: $handleTracker.topLeadingPoint)
-            HandleV(position: $handleTracker.topTrailingPoint)
-            HandleV(position: $handleTracker.bottomLeadingPoint)
-            HandleV(position: $handleTracker.bottomTrailingPoint)
+            HandleV(position: $handleTracker.corners.topLeading)
+            HandleV(position: $handleTracker.corners.topTrailing)
+            HandleV(position: $handleTracker.corners.bottomLeading)
+            HandleV(position: $handleTracker.corners.bottomTrailing)
         }
     }
 }
