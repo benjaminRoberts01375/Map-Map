@@ -11,7 +11,6 @@ import SwiftUI
 struct BackgroundMap: View {
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
-    @Environment(\.managedObjectContext) var moc
     @State var locationsHandler = LocationsHandler.shared
     @State var screenSpaceUserLocation: CGPoint = .zero
     
