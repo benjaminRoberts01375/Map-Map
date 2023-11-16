@@ -102,7 +102,7 @@ public class MapMap: NSManagedObject {
         Task {
             if let generatedThumbnail = await uiImage.byPreparingThumbnail(ofSize: thumbnailSize) {
                 thumbnail = .success(Image(uiImage: generatedThumbnail).resizable().scaledToFit())
-                self.mapMapEncodedThumbnail = generatedThumbnail.jpegData(compressionQuality: 0.8)
+                self.mapMapEncodedThumbnail = generatedThumbnail.jpegData(compressionQuality: 0.1)
             }
             else {
                 thumbnail = .failure
@@ -162,7 +162,7 @@ extension MapMap {
         Task {
             if let mapData = try? await rawPhoto?.loadTransferable(type: Data.self) {
                 if let uiImage = UIImage(data: mapData)?.fixOrientation() {
-                    self.mapMapRawEncodedImage = uiImage.jpegData(compressionQuality: 0.10)
+                    self.mapMapRawEncodedImage = uiImage.jpegData(compressionQuality: 0.1)
                     self.imageWidth = uiImage.size.width.rounded()
                     self.imageHeight = uiImage.size.height.rounded()
                     image = .success(Image(uiImage: uiImage).resizable().scaledToFit())
@@ -182,7 +182,7 @@ extension MapMap {
             thumbnail = .loading
             self.mapMapName = "Untitled map"
             
-            guard let jpegData = rawPhoto.jpegData(compressionQuality: 90),
+            guard let jpegData = rawPhoto.jpegData(compressionQuality: 0.1),
                   let uiImage = UIImage(data: jpegData)
             else {
                 image = .failure
