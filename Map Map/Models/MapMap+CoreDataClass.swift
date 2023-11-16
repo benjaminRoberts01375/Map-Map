@@ -122,15 +122,35 @@ public class MapMap: NSManagedObject {
         thumbnail = .failure
     }
     
-    public func setCorners(topLeading: CGSize, topTrailing: CGSize, bottomLeading: CGSize, bottomTrailing: CGSize) {
+    public func setAndApplyCorners(topLeading: CGSize, topTrailing: CGSize, bottomLeading: CGSize, bottomTrailing: CGSize) {
+        if let cropCorners = cropCorners, // If crop corners exist, and they're equal to what's already defined...
+           cropCorners.topLeading == topLeading.rounded() &&
+            cropCorners.topTrailing == topTrailing.rounded() &&
+            cropCorners.bottomLeading == bottomLeading.rounded() &&
+            cropCorners.bottomTrailing == bottomTrailing.rounded() {
+            return
+        }
+        
         guard let context = self.managedObjectContext else { return }
-        self.cropCorners = FourCorners(
-            topLeading: topLeading,
-            topTrailing: topTrailing,
-            bottomLeading: bottomLeading,
-            bottomTrailing: bottomTrailing,
+        let cropCorners = FourCorners(
+            topLeading: topLeading.rounded(),
+            topTrailing: topTrailing.rounded(),
+            bottomLeading: bottomLeading.rounded(),
+            bottomTrailing: bottomTrailing.rounded(),
             insertInto: context
         )
+        if cropCorners.topLeading != .zero || // If the crop corners are unique
+            cropCorners.topTrailing != CGSize(width: imageWidth, height: .zero) ||
+            cropCorners.bottomLeading != CGSize(width: .zero, height: imageHeight) ||
+            cropCorners.bottomTrailing != CGSize(width: imageWidth, height: imageHeight) {
+            self.cropCorners = cropCorners
+            applyPerspectiveCorrectionWithCorners()
+            return
+        }
+        // Crop corners were not unique
+        self.cropCorners = nil
+        self.mapMapPerspectiveFixedEncodedImage = nil
+        loadImageFromCD()
     }
 }
 
@@ -145,8 +165,8 @@ extension MapMap {
             if let mapData = try? await rawPhoto?.loadTransferable(type: Data.self) {
                 self.mapMapRawEncodedImage = mapData
                 if let uiImage = UIImage(data: mapData) {
-                    self.imageWidth = uiImage.size.width
-                    self.imageHeight = uiImage.size.height
+                    self.imageWidth = uiImage.size.width.rounded()
+                    self.imageHeight = uiImage.size.height.rounded()
                     image = .success(Image(uiImage: uiImage).resizable().scaledToFit())
                     generateThumbnailFromUIImage(uiImage)
                     return
@@ -181,7 +201,7 @@ extension MapMap {
 
 // MARK: Perspective correction
 extension MapMap {
-    func applyPerspectiveCorrectionWithCorners() {
+    private func applyPerspectiveCorrectionWithCorners() {
         guard let mapMapRawEncodedImage = self.mapMapRawEncodedImage,   // Map map data
               let ciImage = CIImage(data: mapMapRawEncodedImage),       // Type ciImage
               let fourCorners = self.cropCorners,                       // Ensure fourCorners exists
