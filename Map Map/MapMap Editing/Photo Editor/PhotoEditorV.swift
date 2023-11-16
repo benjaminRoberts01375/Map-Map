@@ -18,7 +18,7 @@ struct PhotoEditorV: View {
     @State var screenSpaceImageSize: CGSize = .zero
     
     @State var loading: Bool = false
-    private static let perspectiveQueue = DispatchQueue(label: "com.RobertsHousehold.MapMap.PerspectiveFixer", attributes: .concurrent)
+    private static let perspectiveQueue = DispatchQueue(label: "com.RobertsHousehold.MapMap.PerspectiveFixer", qos: .userInteractive)
     
     init(mapMap: FetchedResults<MapMap>.Element) {
         self.mapMap = mapMap
@@ -31,7 +31,6 @@ struct PhotoEditorV: View {
     }
     
     var body: some View {
-        let _ = Self._printChanges()
         ZStack {
             GeometryReader { geo in
                 ZStack(alignment: .center) {
@@ -79,7 +78,6 @@ struct PhotoEditorV: View {
                                 bottomTrailing: handleTracker.bottomTrailingPoint * inverseRatio
                             )
                             mapMap.applyPerspectiveCorrectionWithCorners() // Causes lockup
-                            print("Dismissing")
                             DispatchQueue.main.async {
                                 dismiss()
                             }
