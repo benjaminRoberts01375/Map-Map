@@ -20,4 +20,8 @@ extension CGSize {
         lhs.width *= rhs.height
         lhs.height *= rhs.height
     }
+    
+    func rounded() -> CGSize {
+        return CGSize(width: width.rounded(), height: height.rounded())
+    }
 }
