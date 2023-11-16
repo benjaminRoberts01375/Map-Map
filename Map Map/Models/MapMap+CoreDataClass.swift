@@ -163,8 +163,8 @@ extension MapMap {
         self.mapMapName = "Untitled map"
         Task {
             if let mapData = try? await rawPhoto?.loadTransferable(type: Data.self) {
-                self.mapMapRawEncodedImage = mapData
-                if let uiImage = UIImage(data: mapData) {
+                if let uiImage = UIImage(data: mapData)?.fixOrientation() {
+                    self.mapMapRawEncodedImage = uiImage.jpegData(compressionQuality: 0.10)
                     self.imageWidth = uiImage.size.width.rounded()
                     self.imageHeight = uiImage.size.height.rounded()
                     image = .success(Image(uiImage: uiImage).resizable().scaledToFit())
