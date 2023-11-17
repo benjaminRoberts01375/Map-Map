@@ -21,6 +21,17 @@ struct BackgroundMapLayersV: View {
                     .blur(radius: blurAmount)
                     .ignoresSafeArea()
                     .allowsHitTesting(false)
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Latitude: \(backgroundMapDetails.position.latitude)")
+                        Text("Longitude: \(backgroundMapDetails.position.longitude)")
+                    }
+                }
+                .padding(5)
+                .background(.regularMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 11))
+                .padding(.top, 25)
+                .padding(.leading)
             }
         }
     }

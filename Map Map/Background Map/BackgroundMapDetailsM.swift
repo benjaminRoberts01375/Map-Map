@@ -9,7 +9,7 @@ import MapKit
 import SwiftUI
 
 final class BackgroundMapDetailsM: ObservableObject {
-    public var position: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+    @Published public var position: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     public var scale: Double = 1
     public var rotation: Angle = .zero
     @Published public var allowsInteraction: Bool = true
