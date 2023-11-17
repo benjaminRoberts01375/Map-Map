@@ -15,18 +15,11 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var moc
     @State var editingMapMap: Bool = false
     @State var toastInfo: ToastInfo = ToastInfo()
-    let blurAmount: CGFloat = 10
     
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .top) {
-                BackgroundMap()
-                    .ignoresSafeArea()
-                BlurView()
-                    .frame(width: geo.size.width, height: geo.safeAreaInsets.top)
-                    .blur(radius: blurAmount)
-                    .allowsHitTesting(false)
-                    .ignoresSafeArea()
+                BackgroundMapLayersV()
                 if editingMapMap {
                     if let mapInProgress = mapMaps.first(where: { $0.isEditing }) {
                         MapMapEditor(mapMap: mapInProgress)
