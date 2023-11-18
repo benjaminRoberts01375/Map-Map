@@ -10,6 +10,7 @@ import SwiftUI
 struct BackgroundMapLayersV: View {
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     let blurAmount: CGFloat = 10
+    let stringFormat: String = "%.4f"
     
     var body: some View {
         GeometryReader { geo in
@@ -24,11 +25,11 @@ struct BackgroundMapLayersV: View {
                 HStack {
                     VStack(alignment: .leading) {
                         Text("Latitude: ") + 
-                        Text("\(String(format: "%.4f", abs(backgroundMapDetails.position.latitude)))º ").fontWidth(.condensed) +
+                        Text("\(String(format: stringFormat, abs(backgroundMapDetails.position.latitude)))º ").fontWidth(.condensed) +
                         Text(backgroundMapDetails.position.latitude < 0 ? "S" : "N")
                         
                         Text("Longitude: ") +
-                        Text("\(String(format: "%.4f", abs(backgroundMapDetails.position.longitude)))º ").fontWidth(.condensed) +
+                        Text("\(String(format: stringFormat, abs(backgroundMapDetails.position.longitude)))º ").fontWidth(.condensed) +
                         Text(backgroundMapDetails.position.longitude < 0 ? "W" : "E")
                     }
                 }
