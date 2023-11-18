@@ -14,4 +14,7 @@ final class BackgroundMapDetailsM: ObservableObject {
     public var rotation: Angle = .zero
     @Published public var allowsInteraction: Bool = true
     @Published public var mapCamera: MapCameraPosition = .userLocation(fallback: .automatic)
+    public var userRotation: Angle {
+        get { Angle(degrees: -rotation.degrees) }
+    }
 }
