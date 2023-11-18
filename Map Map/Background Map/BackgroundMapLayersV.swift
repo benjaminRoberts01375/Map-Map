@@ -23,8 +23,13 @@ struct BackgroundMapLayersV: View {
                     .allowsHitTesting(false)
                 HStack {
                     VStack(alignment: .leading) {
-                        Text("Latitude: \(backgroundMapDetails.position.latitude)")
-                        Text("Longitude: \(backgroundMapDetails.position.longitude)")
+                        Text("Latitude: ") + 
+                        Text("\(String(format: "%.4f", abs(backgroundMapDetails.position.latitude)))º ").fontWidth(.condensed) +
+                        Text(backgroundMapDetails.position.latitude < 0 ? "S" : "N")
+                        
+                        Text("Longitude: ") +
+                        Text("\(String(format: "%.4f", abs(backgroundMapDetails.position.longitude)))º ").fontWidth(.condensed) +
+                        Text(backgroundMapDetails.position.longitude < 0 ? "W" : "E")
                     }
                 }
                 .padding(5)
