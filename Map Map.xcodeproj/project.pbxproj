@@ -14,6 +14,7 @@
 		072DDB322AF42B1F00E74963 /* CGPointE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB312AF42B1F00E74963 /* CGPointE.swift */; };
 		072DDB342AF4368500E74963 /* CGRectE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB332AF4368500E74963 /* CGRectE.swift */; };
 		07353A352ADCCB9700C698B0 /* BigButtonV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07353A342ADCCB9700C698B0 /* BigButtonV.swift */; };
+		073733432B096C10004B96D1 /* DoubleE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073733422B096C10004B96D1 /* DoubleE.swift */; };
 		073F91692B05C5A400AE56CB /* ToastInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073F91682B05C5A400AE56CB /* ToastInfo.swift */; };
 		073F916B2B06794000AE56CB /* FourCornersStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073F916A2B06794000AE56CB /* FourCornersStorage.swift */; };
 		0744E7172AFB203D00D9F0B5 /* CameraPreviewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0744E7162AFB203D00D9F0B5 /* CameraPreviewVM.swift */; };
@@ -63,6 +64,7 @@
 		072DDB312AF42B1F00E74963 /* CGPointE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPointE.swift; sourceTree = "<group>"; };
 		072DDB332AF4368500E74963 /* CGRectE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRectE.swift; sourceTree = "<group>"; };
 		07353A342ADCCB9700C698B0 /* BigButtonV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonV.swift; sourceTree = "<group>"; };
+		073733422B096C10004B96D1 /* DoubleE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleE.swift; sourceTree = "<group>"; };
 		073F91682B05C5A400AE56CB /* ToastInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastInfo.swift; sourceTree = "<group>"; };
 		073F916A2B06794000AE56CB /* FourCornersStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourCornersStorage.swift; sourceTree = "<group>"; };
 		0744E7162AFB203D00D9F0B5 /* CameraPreviewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewVM.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 			children = (
 				07D522F22AE5CCCF009364B3 /* CLLocationDegreesE.swift */,
 				072DDB312AF42B1F00E74963 /* CGPointE.swift */,
+				073733422B096C10004B96D1 /* DoubleE.swift */,
 				072DDB332AF4368500E74963 /* CGRectE.swift */,
 				075C65672AF4C5C900864A34 /* CGSizeE.swift */,
 				07EB79E62B01A7F600DC2699 /* UIImage.swift */,
@@ -369,6 +372,7 @@
 				07FDC6362AB26ADB00D92113 /* BackgroundMapV.swift in Sources */,
 				07FDC62F2AB25E0000D92113 /* Map_Map.xcdatamodeld in Sources */,
 				07EE1D122AE750FB000829CA /* MapMapListItemThumbnailModifier.swift in Sources */,
+				073733432B096C10004B96D1 /* DoubleE.swift in Sources */,
 				073F91692B05C5A400AE56CB /* ToastInfo.swift in Sources */,
 				0784CF0D2B07D8D6007EABB6 /* BackgroundMapLayersV.swift in Sources */,
 				07D742C12ADB67CB0087FFC5 /* BackgroundMapDetailsM.swift in Sources */,
