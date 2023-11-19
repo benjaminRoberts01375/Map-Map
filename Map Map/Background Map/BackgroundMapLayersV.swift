@@ -33,7 +33,7 @@ struct BackgroundMapLayersV: View {
                         Text(backgroundMapDetails.position.longitude < 0 ? "W" : "E")
                         
                         Text("Heading: ") +
-                        Text("\(String(format: stringFormat, backgroundMapDetails.userRotation.degrees))º").fontWidth(.condensed) +
+                        Text("\(String(format: stringFormat, backgroundMapDetails.userRotation.degrees))º ").fontWidth(.condensed) +
                         Text(determineHeadingLabel())
                     }
                 }
