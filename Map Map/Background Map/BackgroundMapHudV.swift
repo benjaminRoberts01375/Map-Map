@@ -33,11 +33,11 @@ struct BackgroundMapHudV: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Latitude: ") +
-            Text("\(String(format: stringFormat, abs(backgroundMapDetails.position.latitude)))º ").fontWidth(.condensed) +
+            Text("\(generateDisplayCoordinates(degree: abs(backgroundMapDetails.position.latitude))) ").fontWidth(.condensed) +
             Text(backgroundMapDetails.position.latitude < 0 ? "S" : "N")
             
             Text("Longitude: ") +
-            Text("\(String(format: stringFormat, abs(backgroundMapDetails.position.longitude)))º ").fontWidth(.condensed) +
+            Text("\(generateDisplayCoordinates(degree: abs(backgroundMapDetails.position.longitude))) ").fontWidth(.condensed) +
             Text(backgroundMapDetails.position.longitude < 0 ? "W" : "E")
             
             Text("Heading: ") +
@@ -73,5 +73,14 @@ struct BackgroundMapHudV: View {
         }
         
         return label
+    }
+    
+    private func generateDisplayCoordinates(degree: CLLocationDegrees) -> String {
+        switch displayType {
+        case .degrees:
+            return "\(String(format: stringFormat, degree))º "
+        case .DMS:
+            return "\(degree.wholeDegrees)º \(degree.minutes)' \(degree.seconds)\" "
+        }
     }
 }
