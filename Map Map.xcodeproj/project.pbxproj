@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		07082FAD2AFACE6E003255E3 /* CameraPreviewV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07082FAC2AFACE6E003255E3 /* CameraPreviewV.swift */; };
 		0711E5B22AB39ABD0056AB4B /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0711E5B12AB39ABD0056AB4B /* BlurView.swift */; };
+		07134EB92B099FEB00D23A18 /* BackgroundMapHudV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07134EB82B099FEB00D23A18 /* BackgroundMapHudV.swift */; };
 		072DDB2E2AF426E000E74963 /* HandleV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB2D2AF426E000E74963 /* HandleV.swift */; };
 		072DDB302AF42A3E00E74963 /* IrregularGridV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */; };
 		072DDB322AF42B1F00E74963 /* CGPointE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB312AF42B1F00E74963 /* CGPointE.swift */; };
@@ -59,6 +60,7 @@
 /* Begin PBXFileReference section */
 		07082FAC2AFACE6E003255E3 /* CameraPreviewV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewV.swift; sourceTree = "<group>"; };
 		0711E5B12AB39ABD0056AB4B /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		07134EB82B099FEB00D23A18 /* BackgroundMapHudV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMapHudV.swift; sourceTree = "<group>"; };
 		072DDB2D2AF426E000E74963 /* HandleV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleV.swift; sourceTree = "<group>"; };
 		072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrregularGridV.swift; sourceTree = "<group>"; };
 		072DDB312AF42B1F00E74963 /* CGPointE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPointE.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 			children = (
 				07FDC6352AB26ADB00D92113 /* BackgroundMapV.swift */,
 				0784CF0C2B07D8D6007EABB6 /* BackgroundMapLayersV.swift */,
+				07134EB82B099FEB00D23A18 /* BackgroundMapHudV.swift */,
 				07CCDBB62AEC7E8600BA9D43 /* MapUserIconV.swift */,
 				07CCDBB42AEB214400BA9D43 /* UserLocationM.swift */,
 				07D742C02ADB67CB0087FFC5 /* BackgroundMapDetailsM.swift */,
@@ -374,6 +377,7 @@
 				07EE1D122AE750FB000829CA /* MapMapListItemThumbnailModifier.swift in Sources */,
 				073733432B096C10004B96D1 /* DoubleE.swift in Sources */,
 				073F91692B05C5A400AE56CB /* ToastInfo.swift in Sources */,
+				07134EB92B099FEB00D23A18 /* BackgroundMapHudV.swift in Sources */,
 				0784CF0D2B07D8D6007EABB6 /* BackgroundMapLayersV.swift in Sources */,
 				07D742C12ADB67CB0087FFC5 /* BackgroundMapDetailsM.swift in Sources */,
 				0744E7172AFB203D00D9F0B5 /* CameraPreviewVM.swift in Sources */,
