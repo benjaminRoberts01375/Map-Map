@@ -22,10 +22,6 @@ struct BackgroundMapLayersV: View {
                     .ignoresSafeArea()
                     .allowsHitTesting(false)
                 BackgroundMapButtonsV(mapScope: mapScope)
-//                BackgroundMapHudV(mapNameSpace: mapNameSpace)
-//                    .ignoresSafeArea()
-//                    .padding(.trailing, 80)
-//                    .offset(y: -30)
             }
         }
         .mapScope(mapScope)
