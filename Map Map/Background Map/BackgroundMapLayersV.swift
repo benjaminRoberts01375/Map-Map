@@ -21,10 +21,10 @@ struct BackgroundMapLayersV: View {
                     .blur(radius: blurAmount)
                     .ignoresSafeArea()
                     .allowsHitTesting(false)
-                BackgroundMapHudV()
-                    .ignoresSafeArea()
-                    .padding(.trailing, 80)
-                    .offset(y: -30)
+//                BackgroundMapHudV(mapNameSpace: mapNameSpace)
+//                    .ignoresSafeArea()
+//                    .padding(.trailing, 80)
+//                    .offset(y: -30)
             }
         }
         .mapScope(mapScope)

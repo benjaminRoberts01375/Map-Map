@@ -44,6 +44,7 @@ struct BackgroundMap: View {
                     }
                 }
             }
+            .mapControlVisibility(.hidden)
             .onMapCameraChange(frequency: .continuous) { update in
                 backgroundMapDetails.scale = 1 / update.camera.distance
                 backgroundMapDetails.rotation = Angle(degrees: -update.camera.heading)
@@ -64,11 +65,6 @@ struct BackgroundMap: View {
             }
             .safeAreaPadding([.top, .leading, .trailing])
             .mapStyle(.standard(elevation: .realistic))
-            .mapControls {
-                MapUserLocationButton()
-                MapCompass()
-                MapScaleView(anchorEdge: .trailing)
-            }
             .onAppear { locationsHandler.startLocationTracking() }
             .onDisappear { locationsHandler.stopLocationTracking() }
             .onChange(of: $locationsHandler.lastLocation.wrappedValue) { _, newLocation in
