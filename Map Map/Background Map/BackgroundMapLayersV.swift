@@ -22,6 +22,7 @@ struct BackgroundMapLayersV: View {
                     .ignoresSafeArea()
                     .allowsHitTesting(false)
                 BackgroundMapButtonsV(mapScope: mapScope)
+                    .padding(.trailing, 8)
             }
         }
         .mapScope(mapScope)
