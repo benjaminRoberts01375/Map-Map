@@ -5,7 +5,7 @@
 //  Created by Ben Roberts on 11/18/23.
 //
 
-import CoreLocation
+import MapKit
 import SwiftUI
 
 struct BackgroundMapHudV: View {
@@ -47,6 +47,20 @@ struct BackgroundMapHudV: View {
         .padding(5)
         .background(.regularMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 11))
+        .contextMenu {
+            Button {
+                let placemark = MKPlacemark(coordinate: backgroundMapDetails.position)
+                let mapItem = MKMapItem(placemark: placemark)
+                print(backgroundMapDetails.span)
+                let launchOptions: [String : Any] = [
+                    MKLaunchOptionsMapCenterKey: backgroundMapDetails.position,
+                    MKLaunchOptionsMapSpanKey: backgroundMapDetails.span
+                ]
+                mapItem.openInMaps(launchOptions: launchOptions)
+            } label: {
+                Label("Open in Maps", systemImage: "map.fill")
+            }
+        }
         .padding(.top, 25)
         .padding(.leading)
         .gesture(tap)
