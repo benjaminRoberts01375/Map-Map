@@ -62,7 +62,6 @@ struct BackgroundMapHudV: View {
             }
         }
         .padding(.top, 25)
-        .padding(.leading)
         .gesture(tap)
     }
     

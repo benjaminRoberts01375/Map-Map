@@ -12,7 +12,7 @@ struct BackgroundMapLayersV: View {
     
     var body: some View {
         GeometryReader { geo in
-            ZStack(alignment: .topLeading) {
+            ZStack(alignment: .topTrailing) {
                 BackgroundMap()
                     .ignoresSafeArea()
                 BlurView()
@@ -21,6 +21,9 @@ struct BackgroundMapLayersV: View {
                     .ignoresSafeArea()
                     .allowsHitTesting(false)
                 BackgroundMapHudV()
+                    .ignoresSafeArea()
+                    .padding(.trailing, 80)
+                    .offset(y: -30)
             }
         }
     }
