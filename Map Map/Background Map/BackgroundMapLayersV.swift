@@ -21,6 +21,7 @@ struct BackgroundMapLayersV: View {
                     .blur(radius: blurAmount)
                     .ignoresSafeArea()
                     .allowsHitTesting(false)
+                BackgroundMapButtonsV(mapScope: mapScope)
 //                BackgroundMapHudV(mapNameSpace: mapNameSpace)
 //                    .ignoresSafeArea()
 //                    .padding(.trailing, 80)

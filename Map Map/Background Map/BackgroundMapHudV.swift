@@ -61,7 +61,6 @@ struct BackgroundMapHudV: View {
                 Label("Open in Maps", systemImage: "map.fill")
             }
         }
-        .padding(.top, 25)
         .gesture(tap)
     }
     
