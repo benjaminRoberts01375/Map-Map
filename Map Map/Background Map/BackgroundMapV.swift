@@ -13,12 +13,14 @@ struct BackgroundMap: View {
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @State var locationsHandler = LocationsHandler.shared
     @State var screenSpaceUserLocation: CGPoint?
+    let mapScope: Namespace.ID
     
     var body: some View {
         MapReader { mapContext in
             Map(
                 position: $backgroundMapDetails.mapCamera,
-                interactionModes: backgroundMapDetails.allowsInteraction ? [.pan, .rotate, .zoom] : []
+                interactionModes: backgroundMapDetails.allowsInteraction ? [.pan, .rotate, .zoom] : [],
+                scope: mapScope
             ) {
                 ForEach(mapMaps) { mapMap in
                     if let name = mapMap.mapMapName, mapMap.isSetup && !mapMap.isEditing {
@@ -80,5 +82,5 @@ struct BackgroundMap: View {
 }
 
 #Preview {
-    BackgroundMap()
+    BackgroundMap(mapScope: Namespace().wrappedValue)
 }
