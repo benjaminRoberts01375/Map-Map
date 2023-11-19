@@ -11,6 +11,11 @@ struct BackgroundMapHudV: View {
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     let stringFormat: String = "%.4f"
     
+    private enum locationDisplayMode {
+        case degrees
+        case DMS
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("Latitude: ") +
