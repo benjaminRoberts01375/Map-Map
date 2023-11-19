@@ -44,8 +44,8 @@ struct BackgroundMapHudV: View {
             Text("\(String(format: stringFormat, backgroundMapDetails.userRotation.degrees))º ").fontWidth(.condensed) +
             Text(determineHeadingLabel())
         }
-        .padding(5)
-        .background(.regularMaterial)
+        .padding(10)
+        .background(.ultraThickMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 11))
         .contextMenu {
             Button {
