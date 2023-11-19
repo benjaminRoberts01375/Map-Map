@@ -5,15 +5,29 @@
 //  Created by Ben Roberts on 11/18/23.
 //
 
+import CoreLocation
 import SwiftUI
 
 struct BackgroundMapHudV: View {
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
+    @State private var displayType: locationDisplayMode = .degrees
     let stringFormat: String = "%.4f"
     
     private enum locationDisplayMode {
         case degrees
         case DMS
+    }
+    
+    var tap: some Gesture {
+       TapGesture()
+            .onEnded { _ in
+                switch displayType {
+                case .degrees:
+                    displayType = .DMS
+                case .DMS:
+                    displayType = .degrees
+                }
+            }
     }
     
     var body: some View {
@@ -35,6 +49,7 @@ struct BackgroundMapHudV: View {
         .clipShape(RoundedRectangle(cornerRadius: 11))
         .padding(.top, 25)
         .padding(.leading)
+        .gesture(tap)
     }
     
     func determineHeadingLabel() -> String {
