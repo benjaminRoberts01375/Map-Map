@@ -48,20 +48,24 @@ struct BackgroundMapLayersV: View {
     
     func determineHeadingLabel() -> String {
         var label = ""
-        print("Called")
-        if backgroundMapDetails.userRotation.degrees.isBetween(min: 90, max: 270) {
-            label = "S"
+        let shareOfThePie = 67.5
+        let quarter: Double = 90
+        if backgroundMapDetails.userRotation.degrees < shareOfThePie {
+            label += "N"
         }
-        else {
-            label = "N"
+        else if backgroundMapDetails.userRotation.degrees.isBetween(min: quarter * 4 - shareOfThePie, max: quarter * 4 + shareOfThePie) {
+            label += "N"
         }
-        
-        if backgroundMapDetails.userRotation.degrees.isBetween(min: 180, max: 360) {
-            label += "W"
+        if backgroundMapDetails.userRotation.degrees.isBetween(min: quarter * 2 - shareOfThePie, max: quarter * 2 + shareOfThePie) {
+            label += "S"
         }
-        else {
+        if backgroundMapDetails.userRotation.degrees.isBetween(min: quarter - shareOfThePie, max: quarter + shareOfThePie) {
             label += "E"
         }
+        if backgroundMapDetails.userRotation.degrees.isBetween(min: quarter * 3 - shareOfThePie, max: quarter * 3 + shareOfThePie) {
+            label += "W"
+        }
+        
         return label
     }
 }
