@@ -13,6 +13,7 @@ final class BackgroundMapDetailsM: ObservableObject {
     public var scale: Double = 1
     public var rotation: Angle = .zero
     @Published public var allowsInteraction: Bool = true
+    public var span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0, longitudeDelta: 0)
     @Published public var mapCamera: MapCameraPosition = .userLocation(fallback: .automatic)
     public var userRotation: Angle {
         get { Angle(degrees: abs(rotation.degrees)) }
