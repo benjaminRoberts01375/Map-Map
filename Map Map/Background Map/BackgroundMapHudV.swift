@@ -98,3 +98,12 @@ struct BackgroundMapHudV: View {
         }
     }
 }
+
+struct BackgroundMapHudV_Previews: PreviewProvider {
+    static var previews: some View {
+        let backgroundMapDetails = BackgroundMapDetailsM()
+        
+        return BackgroundMapHudV()
+            .environmentObject(backgroundMapDetails)
+    }
+}
