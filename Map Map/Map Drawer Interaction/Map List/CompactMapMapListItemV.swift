@@ -20,7 +20,7 @@ struct CompactMapListItem: View {
                     .padding(.bottom, 7)
                 Spacer()
             }
-            HStack {
+            HStack(spacing: 0) {
                 AnyView(mapMap.getMap(.thumbnail))
                     .mapMapListItemThumbnail()
                 VStack(alignment: .leading) {
