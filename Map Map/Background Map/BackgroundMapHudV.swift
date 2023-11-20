@@ -31,18 +31,21 @@ struct BackgroundMapHudV: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("Latitude: ") +
-            Text("\(generateDisplayCoordinates(degree: abs(backgroundMapDetails.position.latitude))) ").fontWidth(.condensed) +
-            Text(backgroundMapDetails.position.latitude < 0 ? "S" : "N")
-            
-            Text("Longitude: ") +
-            Text("\(generateDisplayCoordinates(degree: abs(backgroundMapDetails.position.longitude))) ").fontWidth(.condensed) +
-            Text(backgroundMapDetails.position.longitude < 0 ? "W" : "E")
-            
-            Text("Heading: ") +
-            Text("\(String(format: stringFormat, backgroundMapDetails.userRotation.degrees))º ").fontWidth(.condensed) +
-            Text(determineHeadingLabel())
+        HStack(spacing: 0) {
+            VStack(alignment: .leading) {
+                Text("Latitude: ") +
+                Text("\(generateDisplayCoordinates(degree: abs(backgroundMapDetails.position.latitude))) ").fontWidth(.condensed) +
+                Text(backgroundMapDetails.position.latitude < 0 ? "S" : "N")
+                
+                Text("Longitude: ") +
+                Text("\(generateDisplayCoordinates(degree: abs(backgroundMapDetails.position.longitude))) ").fontWidth(.condensed) +
+                Text(backgroundMapDetails.position.longitude < 0 ? "W" : "E")
+                
+                Text("Heading: ") +
+                Text("\(String(format: stringFormat, backgroundMapDetails.userRotation.degrees))º ").fontWidth(.condensed) +
+                Text(determineHeadingLabel())
+            }
+            Spacer(minLength: 0)
         }
         .padding(10)
         .background(.ultraThickMaterial)
