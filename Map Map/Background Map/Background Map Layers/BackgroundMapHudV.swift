@@ -11,6 +11,7 @@ import SwiftUI
 struct BackgroundMapHudV: View {
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @State private var displayType: locationDisplayMode = .degrees
+    @State private var showHeading: Bool = false
     let stringFormat: String = "%.4f"
     
     private enum locationDisplayMode {
@@ -35,10 +36,11 @@ struct BackgroundMapHudV: View {
                 Text("Longitude: ") +
                 Text("\(generateDisplayCoordinates(degree: abs(backgroundMapDetails.position.longitude))) ").fontWidth(.condensed) +
                 Text(backgroundMapDetails.position.longitude < 0 ? "W" : "E")
-                
-                Text("Heading: ") +
-                Text("\(String(format: stringFormat, backgroundMapDetails.userRotation.degrees))º ").fontWidth(.condensed) +
-                Text(determineHeadingLabel())
+                if showHeading {
+                    Text("Heading: ") +
+                    Text("\(String(format: stringFormat, backgroundMapDetails.userRotation.degrees))º ").fontWidth(.condensed) +
+                    Text(determineHeadingLabel())
+                }
             }
             Spacer(minLength: 0)
         }
@@ -84,6 +86,11 @@ struct BackgroundMapHudV: View {
                 }
             }
 
+        }
+        .onChange(of: backgroundMapDetails.rotation) { _, update in
+            withAnimation {
+                showHeading = update.degrees != .zero
+            }
         }
         .gesture(tap)
         .animation(.easeInOut, value: displayType)
