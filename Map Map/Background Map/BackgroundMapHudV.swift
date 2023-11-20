@@ -73,6 +73,22 @@ struct BackgroundMapHudV: View {
             } label: {
                 Label("Open in Maps", systemImage: "map.fill")
             }
+            Button {
+                switch displayType {
+                case .degrees:
+                    displayType = .DMS
+                case .DMS:
+                    displayType = .degrees
+                }
+            } label: {
+                switch displayType {
+                case .degrees:
+                    Label("Show Degrees, Minutes, Seconds", systemImage: "clock.fill")
+                case .DMS:
+                    Label("Show Degrees", systemImage: "numbersign")
+                }
+            }
+
         }
         .gesture(tap)
         .animation(.easeInOut, value: displayType)
