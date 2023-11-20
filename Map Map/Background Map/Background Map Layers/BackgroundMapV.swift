@@ -9,6 +9,7 @@ import MapKit
 import SwiftUI
 
 struct BackgroundMap: View {
+    @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
     @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
@@ -78,8 +79,16 @@ struct BackgroundMap: View {
                             }
                         } label: {
                             marker.thumbnail
-                                .frame(width: 30, height: 30)
                         }
+                        .contextMenu {
+                            Button(role: .destructive) {
+                                moc.delete(marker)
+                                try? moc.save()
+                            } label: {
+                                Label("Delete Marker", systemImage: "trash.fill")
+                            }
+                        }
+                        .frame(width: 30, height: 30)
                         .position(screenSpaceMarkerLocations[i])
                         .offset(y: -7)
                     }
