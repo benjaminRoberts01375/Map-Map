@@ -21,6 +21,13 @@ struct BackgroundMapButtonsV: View {
                 MapUserLocationButton(scope: mapScope)
                     .background(.thickMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
+                Button {
+                    print("Text")
+                } label: {
+                    Image(systemName: "mappin.and.ellipse")
+                        .mapButton()
+                }
+
             }
         }
         .mapScope(mapScope)
