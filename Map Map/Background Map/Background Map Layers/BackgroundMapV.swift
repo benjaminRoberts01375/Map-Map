@@ -83,6 +83,7 @@ struct BackgroundMap: View {
                         .contextMenu {
                             Button(role: .destructive) {
                                 moc.delete(marker)
+                                self.screenSpaceMarkerLocations?.remove(at: i)
                                 try? moc.save()
                             } label: {
                                 Label("Delete Marker", systemImage: "trash.fill")
