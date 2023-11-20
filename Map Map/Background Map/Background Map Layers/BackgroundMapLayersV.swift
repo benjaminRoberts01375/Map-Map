@@ -26,6 +26,7 @@ struct BackgroundMapLayersV: View {
                     .allowsHitTesting(false)
                     .position(y: 0)
                 CrosshairV()
+                    .allowsHitTesting(false)
                     .opacity(crosshairOpacity)
                     .onChange(of: backgroundMapDetails.position) {
                         if timer != nil {
