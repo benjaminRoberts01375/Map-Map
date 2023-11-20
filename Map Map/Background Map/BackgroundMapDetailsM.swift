@@ -18,4 +18,11 @@ final class BackgroundMapDetailsM: ObservableObject {
     public var userRotation: Angle {
         get { Angle(degrees: abs(rotation.degrees)) }
     }
+    
+    func setMapRotation(newRotation: CGFloat) {
+        let camera = MapCamera(centerCoordinate: position, distance: 1 / scale, heading: newRotation)
+        withAnimation {
+            mapCamera = MapCameraPosition.camera(camera)
+        }
+    }
 }
