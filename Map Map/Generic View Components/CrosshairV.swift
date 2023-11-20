@@ -26,10 +26,21 @@ struct CrosshairV: View {
 }
 
 fileprivate struct CrosshairComponentV: View {
+    let size = CGSize(width: 4, height: 20)
+    
     var body: some View {
-        Color.gray
-            .frame(width: 3, height: 20)
+        Rectangle()
+            .fill(.white)
+            .blendMode(.difference)
             .clipShape(Capsule())
+            .frame(width: size.width, height: size.height)
+            .overlay {
+                Rectangle()
+                    .fill(.ultraThinMaterial)
+                    .environment(\.colorScheme, .light)
+                    .clipShape(Capsule())
+                    .frame(width: size.width, height: size.height)
+            }
     }
 }
 
