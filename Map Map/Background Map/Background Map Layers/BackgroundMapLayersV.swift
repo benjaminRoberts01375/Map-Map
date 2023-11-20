@@ -10,10 +10,11 @@ import SwiftUI
 struct BackgroundMapLayersV: View {
     let blurAmount: CGFloat = 10
     @Namespace var mapScope
+    @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     
     var body: some View {
         GeometryReader { geo in
-            ZStack(alignment: .topTrailing) {
+            ZStack(alignment: .center) {
                 BackgroundMap(mapScope: mapScope)
                     .ignoresSafeArea()
                 BlurView()
@@ -21,14 +22,20 @@ struct BackgroundMapLayersV: View {
                     .blur(radius: blurAmount)
                     .ignoresSafeArea()
                     .allowsHitTesting(false)
-                BackgroundMapButtonsV(mapScope: mapScope)
-                    .padding(.trailing, 8)
-                    .background {
-                        BlurView()
-                            .blur(radius: blurAmount)
-                            .ignoresSafeArea()
-                            .allowsHitTesting(false)
+                    .position(y: 0)
+                CrosshairV()
                     }
+                VStack(alignment: .trailing) {
+                    BackgroundMapButtonsV(mapScope: mapScope)
+                        .padding(.trailing, 8)
+                        .background {
+                            BlurView()
+                                .blur(radius: blurAmount)
+                                .ignoresSafeArea()
+                                .allowsHitTesting(false)
+                        }
+                    Color.clear
+                }
             }
         }
         .mapScope(mapScope)
