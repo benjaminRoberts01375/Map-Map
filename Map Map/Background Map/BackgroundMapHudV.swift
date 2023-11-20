@@ -75,6 +75,7 @@ struct BackgroundMapHudV: View {
             }
         }
         .gesture(tap)
+        .animation(.easeInOut, value: displayType)
     }
     
     func determineHeadingLabel() -> String {
