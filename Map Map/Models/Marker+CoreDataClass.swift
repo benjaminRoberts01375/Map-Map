@@ -6,10 +6,23 @@
 //
 //
 
-import Foundation
 import CoreData
+import SwiftUI
 
 @objc(Marker)
 public class Marker: NSManagedObject {
-
+    var thumbnail: some View {
+        get {
+            Circle()
+                .fill(.red)
+                .overlay {
+                    Image(systemName: "star.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .scaleEffect(0.6)
+                        .foregroundStyle(.white)
+                }
+                .ignoresSafeArea(.all)
+        }
+    }
 }
