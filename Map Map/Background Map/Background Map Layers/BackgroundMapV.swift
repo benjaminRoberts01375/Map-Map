@@ -10,9 +10,11 @@ import SwiftUI
 
 struct BackgroundMap: View {
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
+    @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @State var locationsHandler = LocationsHandler.shared
     @State var screenSpaceUserLocation: CGPoint?
+    @State var screenSpaceMarkerLocations: [CGPoint]?
     let mapScope: Namespace.ID
     
     var body: some View {
@@ -53,14 +55,34 @@ struct BackgroundMap: View {
                 if let screenSpaceUserLocation = mapContext.convert(locationsHandler.lastLocation.coordinate, to: .local) {
                     self.screenSpaceUserLocation = screenSpaceUserLocation
                 }
+                var screenSpaceMarkerPositions: [CGPoint] = []
+                for marker in markers {
+                    guard let screenSpaceMarkerPosition = mapContext.convert(marker.coordinates, to: .local)
+                    else { return }
+                    screenSpaceMarkerPositions.append(screenSpaceMarkerPosition)
+                }
+                self.screenSpaceMarkerLocations = screenSpaceMarkerPositions
             }
             .overlay {
                 if let screenSpaceUserLocation = screenSpaceUserLocation {
                     MapUserIcon()
                         .position(screenSpaceUserLocation)
                 }
-                else {
-                    EmptyView()
+                else { EmptyView() }
+                
+                if let screenSpaceMarkerLocations = screenSpaceMarkerLocations, markers.count == screenSpaceMarkerLocations.count {
+                    ForEach(Array(markers.enumerated()), id: \.offset) { i, marker in
+                        Button {
+                            withAnimation {
+                                backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: 6000, heading: 0))
+                            }
+                        } label: {
+                            marker.thumbnail
+                                .frame(width: 30, height: 30)
+                        }
+                        .position(screenSpaceMarkerLocations[i])
+                        .offset(y: -7)
+                    }
                 }
             }
             .safeAreaPadding([.top, .leading, .trailing])
