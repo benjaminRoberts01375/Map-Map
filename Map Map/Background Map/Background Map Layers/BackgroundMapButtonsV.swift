@@ -9,6 +9,9 @@ import MapKit
 import SwiftUI
 
 struct BackgroundMapButtonsV: View {
+    @Environment(\.managedObjectContext) var moc
+    @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
+    
     let mapScope: Namespace.ID
     
     var body: some View {
@@ -22,12 +25,11 @@ struct BackgroundMapButtonsV: View {
                     .background(.thickMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
                 Button {
-                    print("Text")
+                    let _ = Marker(coordinates: backgroundMapDetails.position, insertInto: moc)
                 } label: {
                     Image(systemName: "mappin.and.ellipse")
                         .mapButton()
                 }
-
             }
         }
         .mapScope(mapScope)
