@@ -182,6 +182,17 @@
 			path = "Map List";
 			sourceTree = "<group>";
 		};
+		078C6DC92B0AECA8001AD131 /* Background Map Layers */ = {
+			isa = PBXGroup;
+			children = (
+				0784CF0C2B07D8D6007EABB6 /* BackgroundMapLayersV.swift */,
+				07FDC6352AB26ADB00D92113 /* BackgroundMapV.swift */,
+				07BE4BB72B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift */,
+				07134EB82B099FEB00D23A18 /* BackgroundMapHudV.swift */,
+			);
+			path = "Background Map Layers";
+			sourceTree = "<group>";
+		};
 		0790A2142B01C7EF00863B29 /* Photo Editor */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,10 +230,7 @@
 		07FCC85F2AD3764A00F88186 /* Background Map */ = {
 			isa = PBXGroup;
 			children = (
-				07FDC6352AB26ADB00D92113 /* BackgroundMapV.swift */,
-				0784CF0C2B07D8D6007EABB6 /* BackgroundMapLayersV.swift */,
-				07BE4BB72B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift */,
-				07134EB82B099FEB00D23A18 /* BackgroundMapHudV.swift */,
+				078C6DC92B0AECA8001AD131 /* Background Map Layers */,
 				07CCDBB62AEC7E8600BA9D43 /* MapUserIconV.swift */,
 				07CCDBB42AEB214400BA9D43 /* UserLocationM.swift */,
 				07D742C02ADB67CB0087FFC5 /* BackgroundMapDetailsM.swift */,
