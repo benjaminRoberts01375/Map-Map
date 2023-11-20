@@ -12,8 +12,10 @@ import SwiftUI
 
 struct ContentView: View {
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
+    @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
     @Environment(\.managedObjectContext) var moc
     @State var editingMapMap: Bool = false
+    @State var editingMarker: Bool = false
     @State var toastInfo: ToastInfo = ToastInfo()
     
     var body: some View {
@@ -25,6 +27,11 @@ struct ContentView: View {
                         MapMapEditor(mapMap: mapInProgress)
                     }
                     else { EmptyView().onAppear { editingMapMap = false } }
+                }
+                else if editingMarker {
+                    if let markerInProgress = markers.first(where: { $0.isEditing }) {
+                        
+                    }
                 }
                 else {
                     BottomDrawer(
@@ -58,6 +65,9 @@ struct ContentView: View {
             for mapMap in mapMaps {
                 if !mapMap.isSetup { moc.delete(mapMap) }
                 else if mapMap.isEditing == true { mapMap.isEditing = false }
+            }
+            for marker in markers {
+                if marker.isEditing { marker.isEditing = false }
             }
             try? moc.save()
         }
