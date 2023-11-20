@@ -19,6 +19,7 @@ extension Marker {
     @NSManaged public var latitude: Double
     @NSManaged public var longitude: Double
     @NSManaged public var name: String?
+    @NSManaged public var isEditing: Bool
     @NSManaged public var mapMap: NSSet?
 
 }
