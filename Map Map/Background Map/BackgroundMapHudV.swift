@@ -21,12 +21,7 @@ struct BackgroundMapHudV: View {
     var tap: some Gesture {
        TapGesture()
             .onEnded { _ in
-                switch displayType {
-                case .degrees:
-                    displayType = .DMS
-                case .DMS:
-                    displayType = .degrees
-                }
+                backgroundMapDetails.setMapRotation(newRotation: 0)
             }
     }
     
