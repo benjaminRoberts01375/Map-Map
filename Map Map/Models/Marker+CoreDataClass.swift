@@ -7,6 +7,7 @@
 //
 
 import CoreData
+import MapKit
 import SwiftUI
 
 @objc(Marker)
@@ -23,6 +24,16 @@ public class Marker: NSManagedObject {
                         .foregroundStyle(.white)
                 }
                 .ignoresSafeArea(.all)
+        }
+    }
+    
+    var coordinates: CLLocationCoordinate2D {
+        get {
+            return CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
+        }
+        set(value) {
+            self.latitude = value.latitude
+            self.longitude = value.longitude
         }
     }
 }
