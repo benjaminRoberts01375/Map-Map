@@ -26,6 +26,7 @@ struct BackgroundMapButtonsV: View {
                     .clipShape(RoundedRectangle(cornerRadius: 5))
                 Button {
                     let _ = Marker(coordinates: backgroundMapDetails.position, insertInto: moc)
+                    try? moc.save()
                 } label: {
                     Image(systemName: "mappin.and.ellipse")
                         .mapButton()
