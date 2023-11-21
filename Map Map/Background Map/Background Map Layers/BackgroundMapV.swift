@@ -9,13 +9,12 @@ import MapKit
 import SwiftUI
 
 struct BackgroundMap: View {
-    @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
     @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @State var locationsHandler = LocationsHandler.shared
-    @State var screenSpaceUserLocation: CGPoint?
-    @State var screenSpaceMarkerLocations: [CGPoint]?
+    @Binding var screenSpaceUserLocation: CGPoint?
+    @Binding var screenSpaceMarkerLocations: [CGPoint]?
     let mapScope: Namespace.ID
     
     var body: some View {
@@ -64,38 +63,7 @@ struct BackgroundMap: View {
                 }
                 self.screenSpaceMarkerLocations = screenSpaceMarkerPositions
             }
-            .overlay {
-                if let screenSpaceUserLocation = screenSpaceUserLocation {
-                    MapUserIcon()
-                        .position(screenSpaceUserLocation)
-                }
-                else { EmptyView() }
-                
-                if let screenSpaceMarkerLocations = screenSpaceMarkerLocations, markers.count == screenSpaceMarkerLocations.count {
-                    ForEach(Array(markers.enumerated()), id: \.offset) { i, marker in
-                        Button {
-                            withAnimation {
-                                backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: 6000, heading: 0))
-                            }
-                        } label: {
-                            marker.thumbnail
-                        }
-                        .contextMenu {
-                            Button(role: .destructive) {
-                                moc.delete(marker)
-                                self.screenSpaceMarkerLocations?.remove(at: i)
-                                try? moc.save()
-                            } label: {
-                                Label("Delete Marker", systemImage: "trash.fill")
-                            }
-                        }
-                        .frame(width: 30, height: 30)
-                        .position(screenSpaceMarkerLocations[i])
-                        .offset(y: -7)
-                    }
-                }
-            }
-            .safeAreaPadding([.top, .leading, .trailing])
+//            .safeAreaPadding([.top, .leading, .trailing])
             .mapStyle(.standard(elevation: .realistic))
             .onAppear { locationsHandler.startLocationTracking() }
             .onDisappear { locationsHandler.stopLocationTracking() }
@@ -107,8 +75,4 @@ struct BackgroundMap: View {
             .animation(.linear, value: screenSpaceUserLocation)
         }
     }
-}
-
-#Preview {
-    BackgroundMap(mapScope: Namespace().wrappedValue)
 }

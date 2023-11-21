@@ -13,16 +13,17 @@ struct BackgroundMapLayersV: View {
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @State var timer: Timer?
     @State var crosshairOpacity: Double = 0
+    @State var screenSpaceUserLocation: CGPoint?
+    @State var screenSpaceMarkerLocations: [CGPoint]?
     
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .center) {
-                BackgroundMap(mapScope: mapScope)
-                    .ignoresSafeArea()
+                BackgroundMap(screenSpaceUserLocation: $screenSpaceUserLocation, screenSpaceMarkerLocations: $screenSpaceMarkerLocations, mapScope: mapScope)
+                BackgroundMapPointsV(screenSpaceUserLocation: $screenSpaceUserLocation, screenSpaceMarkerLocations: $screenSpaceMarkerLocations)
                 BlurView()
                     .frame(width: geo.size.width, height: geo.safeAreaInsets.top)
                     .blur(radius: blurAmount)
-                    .ignoresSafeArea()
                     .allowsHitTesting(false)
                     .position(y: 0)
                 CrosshairV()
@@ -52,7 +53,9 @@ struct BackgroundMapLayersV: View {
                         }
                     Color.clear
                 }
+                .safeAreaPadding(geo.safeAreaInsets)
             }
+            .ignoresSafeArea()
         }
         .mapScope(mapScope)
     }
