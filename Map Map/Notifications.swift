@@ -9,4 +9,5 @@ import NotificationCenter
 
 extension Notification.Name {
     static let savingToastNotification = Notification.Name("SavingData")
+    static let addedMarker = Notification.Name("NewMarker")
 }
