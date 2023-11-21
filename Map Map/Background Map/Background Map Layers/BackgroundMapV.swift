@@ -71,6 +71,11 @@ struct BackgroundMap: View {
                     self.screenSpaceUserLocation = screenSpaceUserLocation
                 }
             }
+            .onReceive(NotificationCenter.default.publisher(for: .addedMarker)) { notification in
+                if let marker = notification.userInfo?["marker"] as? Marker, let screenSpaceMarkerLocation = mapContext.convert(marker.coordinates, to: .local) {
+                    screenSpaceMarkerLocations[marker] = screenSpaceMarkerLocation
+                }
+            }
             .animation(.linear, value: screenSpaceUserLocation)
         }
     }
