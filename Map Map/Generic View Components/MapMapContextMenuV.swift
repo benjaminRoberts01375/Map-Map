@@ -18,7 +18,7 @@ struct MapMapContextMenuV: View {
             moc.delete(mapMap)
             try? moc.save()
         } label: {
-            Label("Delete", systemImage: "trash.fill")
+            Label("Delete Map Map", systemImage: "trash.fill")
         }
         Button {
             withAnimation {
