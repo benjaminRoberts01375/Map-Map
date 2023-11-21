@@ -44,16 +44,7 @@ struct BackgroundMapHudV: View {
             }
             Spacer(minLength: 0)
         }
-        .frame(
-            width: { 
-                switch displayType {
-                case .degrees:
-                    return 165
-                case .DMS:
-                    return 172
-                }
-            }()
-        )
+        .frame(width: 181)
         .padding(10)
         .background(.ultraThickMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 11))
