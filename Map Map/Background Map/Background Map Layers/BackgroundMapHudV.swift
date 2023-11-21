@@ -61,7 +61,6 @@ struct BackgroundMapHudV: View {
             Button {
                 let placemark = MKPlacemark(coordinate: backgroundMapDetails.position)
                 let mapItem = MKMapItem(placemark: placemark)
-                print(backgroundMapDetails.span)
                 let launchOptions: [String : Any] = [
                     MKLaunchOptionsMapCenterKey: backgroundMapDetails.position,
                     MKLaunchOptionsMapSpanKey: backgroundMapDetails.span
