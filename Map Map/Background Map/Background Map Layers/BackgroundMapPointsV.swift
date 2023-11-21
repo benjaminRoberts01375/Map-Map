@@ -28,13 +28,7 @@ struct BackgroundMapPointsV: View {
                     marker.thumbnail
                 }
                 .contextMenu {
-                    Button(role: .destructive) {
-                        self.screenSpaceMarkerLocations.removeValue(forKey: marker)
-                        moc.delete(marker)
-                        try? moc.save()
-                    } label: {
-                        Label("Delete Marker", systemImage: "trash.fill")
-                    }
+                    MarkerContextMenuV(screenSpaceMarkerLocations: $screenSpaceMarkerLocations, marker: marker)
                 }
                 .frame(width: iconSize, height: iconSize)
                 .position(position)
