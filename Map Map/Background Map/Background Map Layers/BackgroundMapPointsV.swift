@@ -18,12 +18,6 @@ struct BackgroundMapPointsV: View {
     let userLocationSize: CGFloat = 24
     
     var body: some View {
-        if let screenSpaceUserLocation = screenSpaceUserLocation {
-            MapUserIcon()
-                .frame(width: userLocationSize, height: userLocationSize)
-                .position(screenSpaceUserLocation)
-        }
-        else { EmptyView() }
         ForEach(markers) { marker in
             if let position = screenSpaceMarkerLocations[marker] {
                 Button {
@@ -46,5 +40,12 @@ struct BackgroundMapPointsV: View {
                 .position(position)
             }
         }
+        
+        if let screenSpaceUserLocation = screenSpaceUserLocation {
+            MapUserIcon()
+                .frame(width: userLocationSize, height: userLocationSize)
+                .position(screenSpaceUserLocation)
+        }
+        else { EmptyView() }
     }
 }
