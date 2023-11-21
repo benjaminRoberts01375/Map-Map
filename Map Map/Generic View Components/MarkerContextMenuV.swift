@@ -21,5 +21,16 @@ struct MarkerContextMenuV: View {
         } label: {
             Label("Delete Marker", systemImage: "trash.fill")
         }
+        
+        Button {
+            let placemark = MKPlacemark(coordinate: marker.coordinates)
+            let mapItem = MKMapItem(placemark: placemark)
+            let launchOptions: [String : Any] = [
+                MKLaunchOptionsMapCenterKey: marker.coordinates
+            ]
+            mapItem.openInMaps(launchOptions: launchOptions)
+        } label: {
+            Label("Open in Maps", systemImage: "map.fill")
+        }
     }
 }
