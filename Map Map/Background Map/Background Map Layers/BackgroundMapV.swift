@@ -14,7 +14,7 @@ struct BackgroundMap: View {
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @State var locationsHandler = LocationsHandler.shared
     @Binding var screenSpaceUserLocation: CGPoint?
-    @Binding var screenSpaceMarkerLocations: [CGPoint]?
+    @Binding var screenSpaceMarkerLocations: [Marker : CGPoint]
     let mapScope: Namespace.ID
     
     var body: some View {
@@ -55,15 +55,14 @@ struct BackgroundMap: View {
                 if let screenSpaceUserLocation = mapContext.convert(locationsHandler.lastLocation.coordinate, to: .local) {
                     self.screenSpaceUserLocation = screenSpaceUserLocation
                 }
-                var screenSpaceMarkerPositions: [CGPoint] = []
+                var screenSpaceMarkerPositions: [Marker : CGPoint] = [:]
                 for marker in markers {
                     guard let screenSpaceMarkerPosition = mapContext.convert(marker.coordinates, to: .local)
                     else { return }
-                    screenSpaceMarkerPositions.append(screenSpaceMarkerPosition)
+                    screenSpaceMarkerPositions[marker] = screenSpaceMarkerPosition
                 }
                 self.screenSpaceMarkerLocations = screenSpaceMarkerPositions
             }
-//            .safeAreaPadding([.top, .leading, .trailing])
             .mapStyle(.standard(elevation: .realistic))
             .onAppear { locationsHandler.startLocationTracking() }
             .onDisappear { locationsHandler.stopLocationTracking() }

@@ -14,7 +14,7 @@ struct BackgroundMapLayersV: View {
     @State var timer: Timer?
     @State var crosshairOpacity: Double = 0
     @State var screenSpaceUserLocation: CGPoint?
-    @State var screenSpaceMarkerLocations: [CGPoint]?
+    @State var screenSpaceMarkerLocations: [Marker : CGPoint] = [:]
     
     var body: some View {
         GeometryReader { geo in

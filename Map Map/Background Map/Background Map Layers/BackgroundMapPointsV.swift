@@ -13,7 +13,7 @@ struct BackgroundMapPointsV: View {
     @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
     @Environment(\.managedObjectContext) var moc
     @Binding var screenSpaceUserLocation: CGPoint?
-    @Binding var screenSpaceMarkerLocations: [CGPoint]?
+    @Binding var screenSpaceMarkerLocations: [Marker : CGPoint]
     let iconSize: CGFloat = 30
     let userLocationSize: CGFloat = 24
     
@@ -24,9 +24,8 @@ struct BackgroundMapPointsV: View {
                 .position(screenSpaceUserLocation)
         }
         else { EmptyView() }
-        
-        if let screenSpaceMarkerLocations = screenSpaceMarkerLocations, markers.count == screenSpaceMarkerLocations.count {
-            ForEach(Array(markers.enumerated()), id: \.offset) { i, marker in
+        ForEach(markers) { marker in
+            if let position = screenSpaceMarkerLocations[marker] {
                 Button {
                     withAnimation {
                         backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: 6000, heading: 0))
@@ -36,16 +35,15 @@ struct BackgroundMapPointsV: View {
                 }
                 .contextMenu {
                     Button(role: .destructive) {
+                        self.screenSpaceMarkerLocations.removeValue(forKey: marker)
                         moc.delete(marker)
-                        self.screenSpaceMarkerLocations?.remove(at: i)
                         try? moc.save()
                     } label: {
                         Label("Delete Marker", systemImage: "trash.fill")
                     }
                 }
                 .frame(width: iconSize, height: iconSize)
-                .position(screenSpaceMarkerLocations[i])
-//                .offset(x: 16, y: 15)
+                .position(position)
             }
         }
     }
