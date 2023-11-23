@@ -14,7 +14,7 @@ struct BackgroundMapPointsV: View {
     @Environment(\.managedObjectContext) var moc
     @Binding var screenSpaceUserLocation: CGPoint?
     @Binding var screenSpaceMarkerLocations: [Marker : CGPoint]
-    let iconSize: CGFloat = 30
+    static let iconSize: CGFloat = 30
     let userLocationSize: CGFloat = 24
     
     var body: some View {
@@ -30,7 +30,7 @@ struct BackgroundMapPointsV: View {
                 .contextMenu {
                     MarkerContextMenuV(screenSpaceMarkerLocations: $screenSpaceMarkerLocations, marker: marker)
                 }
-                .frame(width: iconSize, height: iconSize)
+                .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
                 .position(position)
             }
         }
