@@ -43,7 +43,13 @@ struct BackgroundMapLayersV: View {
                         }
                     }
                 VStack(alignment: .trailing) {
-                    BackgroundMapButtonsV(mapScope: mapScope)
+                    BackgroundMapButtonsV(
+                        markerPositions: $screenSpaceMarkerLocations,
+                        screenSize: CGSize(
+                            width: geo.size.width + geo.safeAreaInsets.leading + geo.safeAreaInsets.trailing,
+                            height: geo.size.height + geo.safeAreaInsets.top + geo.safeAreaInsets.bottom
+                        ),
+                        mapScope: mapScope)
                         .padding(.trailing, 8)
                         .background {
                             BlurView()
