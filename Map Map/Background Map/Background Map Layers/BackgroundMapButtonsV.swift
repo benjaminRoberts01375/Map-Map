@@ -17,7 +17,7 @@ struct BackgroundMapButtonsV: View {
     let screenSize: CGSize
     let mapScope: Namespace.ID
     
-    enum MarkerButtonType {
+    enum MarkerButtonType: Equatable {
         case add
         case delete(Marker)
     }
@@ -51,9 +51,9 @@ struct BackgroundMapButtonsV: View {
                             .mapButton()
                     }
                 }
-                
             }
         }
+        .animation(.easeInOut, value: markerButton)
         .mapScope(mapScope)
         .onChange(of: backgroundMapDetails.position) { _, update in
             for marker in markers {
@@ -61,7 +61,6 @@ struct BackgroundMapButtonsV: View {
                     let xComponent = abs(markerPos.x - screenSize.width  / 2)
                     let yComponent = abs(markerPos.y - screenSize.height / 2)
                     let distance = sqrt(pow(xComponent, 2) + pow(yComponent, 2))
-                    print(xComponent, yComponent, distance)
                     if distance < BackgroundMapPointsV.iconSize / 2 {
                         markerButton = .delete(marker)
                         return
