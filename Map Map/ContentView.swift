@@ -40,7 +40,7 @@ struct ContentView: View {
                         shortCardSize: 315,
                         header: { _ in DefaultDrawerHeaderV() },
                         content: { isShortCard in
-                            MapMapList(listMode: isShortCard ? .compact : .full)
+                            MapMapList()
                                 .padding(.horizontal)
                         }
                     )

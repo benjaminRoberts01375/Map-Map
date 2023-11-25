@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CompactMapListItem: View {
+struct ListItemV: View {
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     
@@ -23,14 +23,26 @@ struct CompactMapListItem: View {
             HStack(spacing: 0) {
                 AnyView(mapMap.getMap(.thumbnail))
                     .mapMapListItemThumbnail()
-                Spacer()
-                VStack(alignment: .leading) {
-                    Text("Latitude: ")
-                    Text("\(mapMap.coordinates.latitude.wholeDegrees)º \(mapMap.coordinates.latitude.minutes)' \(mapMap.coordinates.latitude.seconds)'' ")
-                        .fontWidth(.condensed)
-                    Text("Longitude: ")
-                    Text("\(mapMap.coordinates.longitude.wholeDegrees)º \(mapMap.coordinates.longitude.minutes)' \(mapMap.coordinates.longitude.seconds)'' ")
-                        .fontWidth(.condensed)
+                    .padding(.trailing)
+                ViewThatFits {
+                    VStack(alignment: .leading) {
+                        Text("Latitude: ") +
+                        Text("\(mapMap.coordinates.latitude.wholeDegrees)º \(mapMap.coordinates.latitude.minutes)' \(mapMap.coordinates.latitude.seconds)'' ")
+                            .fontWidth(.condensed)
+                        Text("Longitude: ") +
+                        Text("\(mapMap.coordinates.longitude.wholeDegrees)º \(mapMap.coordinates.longitude.minutes)' \(mapMap.coordinates.longitude.seconds)'' ")
+                            .fontWidth(.condensed)
+                    }
+                    .background(.red)
+                    
+                    VStack(alignment: .leading) {
+                        Text("Latitude: ")
+                        Text("\(mapMap.coordinates.latitude.wholeDegrees)º \(mapMap.coordinates.latitude.minutes)' \(mapMap.coordinates.latitude.seconds)'' ")
+                            .fontWidth(.condensed)
+                        Text("Longitude: ")
+                        Text("\(mapMap.coordinates.longitude.wholeDegrees)º \(mapMap.coordinates.longitude.minutes)' \(mapMap.coordinates.longitude.seconds)'' ")
+                            .fontWidth(.condensed)
+                    }
                 }
                 .foregroundStyle(.secondary)
                 Spacer(minLength: 0)

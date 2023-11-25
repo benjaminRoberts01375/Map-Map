@@ -13,24 +13,17 @@ struct MapMapList: View {
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
     @Environment(\.managedObjectContext) var moc
     @Environment(\.colorScheme) var colorScheme
-    let listMode: ListMode
     
     var body: some View {
-        VStack(alignment: listMode == .compact ? .center : .leading, spacing: 0) {
+        VStack(spacing: 0) {
             ForEach(mapMaps) { map in
                 Button(action: {
                     withAnimation {
                         backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: map.coordinates, distance: map.mapDistance, heading: -map.mapMapRotation))
                     }
                 }, label: {
-                    switch listMode {
-                    case .compact:
-                        CompactMapListItem(mapMap: map)
-                            .padding()
-                    case .full:
-                        MapMapListItem(mapMap: map)
-                            .padding()
-                    }
+                    ListItemV(mapMap: map)
+                        .padding()
                 })
                 .buttonStyle(.plain)
                 .background(colorScheme == .dark ? .gray20 : Color.white)
