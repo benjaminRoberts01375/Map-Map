@@ -15,6 +15,7 @@ struct BackgroundMapLayersV: View {
     @State var crosshairOpacity: Double = 0
     @State var screenSpaceUserLocation: CGPoint?
     @State var screenSpaceMarkerLocations: [Marker : CGPoint] = [:]
+    @Binding var displayType: LocationDisplayMode
     
     var body: some View {
         GeometryReader { geo in
@@ -45,18 +46,19 @@ struct BackgroundMapLayersV: View {
                 VStack(alignment: .trailing) {
                     BackgroundMapButtonsV(
                         markerPositions: $screenSpaceMarkerLocations,
-                        screenSize: CGSize(
+                        displayType: $displayType, screenSize: CGSize(
                             width: geo.size.width + geo.safeAreaInsets.leading + geo.safeAreaInsets.trailing,
                             height: geo.size.height + geo.safeAreaInsets.top + geo.safeAreaInsets.bottom
                         ),
-                        mapScope: mapScope)
-                        .padding(.trailing, 8)
-                        .background {
-                            BlurView()
-                                .blur(radius: blurAmount)
-                                .ignoresSafeArea()
-                                .allowsHitTesting(false)
-                        }
+                        mapScope: mapScope
+                    )
+                    .padding(.trailing, 8)
+                    .background {
+                        BlurView()
+                            .blur(radius: blurAmount)
+                            .ignoresSafeArea()
+                            .allowsHitTesting(false)
+                    }
                     Color.clear
                 }
                 .safeAreaPadding(geo.safeAreaInsets)

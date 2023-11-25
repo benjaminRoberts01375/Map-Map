@@ -22,7 +22,7 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .top) {
-                BackgroundMapLayersV()
+                BackgroundMapLayersV(displayType: $displayType)
                 if editingMapMap {
                     if let mapInProgress = mapMaps.first(where: { $0.isEditing }) {
                         MapMapEditor(mapMap: mapInProgress)

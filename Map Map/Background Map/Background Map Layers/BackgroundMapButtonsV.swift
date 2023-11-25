@@ -14,6 +14,7 @@ struct BackgroundMapButtonsV: View {
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @State var markerButton: MarkerButtonType = .add
     @Binding var markerPositions: [Marker : CGPoint]
+    @Binding var displayType: LocationDisplayMode
     let screenSize: CGSize
     let mapScope: Namespace.ID
     
@@ -25,7 +26,7 @@ struct BackgroundMapButtonsV: View {
     var body: some View {
         HStack(alignment: .top) {
             VStack {
-                BackgroundMapHudV()
+                BackgroundMapHudV(rawDisplayType: $displayType)
                 MapScaleView(scope: mapScope)
             }
             VStack {

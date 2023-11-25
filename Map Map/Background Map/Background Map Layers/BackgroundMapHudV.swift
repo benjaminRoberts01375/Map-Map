@@ -11,6 +11,7 @@ import SwiftUI
 struct BackgroundMapHudV: View {
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @State private var displayType: locationDisplayMode = .degrees
+    @Binding var rawDisplayType: LocationDisplayMode
     @State private var showHeading: Bool = false
     let stringFormat: String = "%.4f"
     
@@ -123,7 +124,7 @@ struct BackgroundMapHudV_Previews: PreviewProvider {
     static var previews: some View {
         let backgroundMapDetails = BackgroundMapDetailsM()
         
-        return BackgroundMapHudV()
+        return BackgroundMapHudV(rawDisplayType: .constant(LocationDisplayMode.degrees))
             .environmentObject(backgroundMapDetails)
     }
 }
