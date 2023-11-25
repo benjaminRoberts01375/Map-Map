@@ -44,6 +44,7 @@
 		07BA6E342B000E460059310E /* CameraV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BA6E332B000E460059310E /* CameraV.swift */; };
 		07BA6E362B000EF20059310E /* CameraReviewV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BA6E352B000EF20059310E /* CameraReviewV.swift */; };
 		07BE4BB82B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BE4BB72B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift */; };
+		07C9D7732B1195C10099041A /* LocationDisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C9D7722B1195C10099041A /* LocationDisplayMode.swift */; };
 		07CCDBB52AEB214400BA9D43 /* UserLocationM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CCDBB42AEB214400BA9D43 /* UserLocationM.swift */; };
 		07CCDBB72AEC7E8600BA9D43 /* MapUserIconV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CCDBB62AEC7E8600BA9D43 /* MapUserIconV.swift */; };
 		07D522F32AE5CCCF009364B3 /* CLLocationDegreesE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D522F22AE5CCCF009364B3 /* CLLocationDegreesE.swift */; };
@@ -101,6 +102,7 @@
 		07BA6E332B000E460059310E /* CameraV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraV.swift; sourceTree = "<group>"; };
 		07BA6E352B000EF20059310E /* CameraReviewV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraReviewV.swift; sourceTree = "<group>"; };
 		07BE4BB72B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMapButtonsV.swift; sourceTree = "<group>"; };
+		07C9D7722B1195C10099041A /* LocationDisplayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDisplayMode.swift; sourceTree = "<group>"; };
 		07CCDBB42AEB214400BA9D43 /* UserLocationM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationM.swift; sourceTree = "<group>"; };
 		07CCDBB62AEC7E8600BA9D43 /* MapUserIconV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapUserIconV.swift; sourceTree = "<group>"; };
 		07D522F22AE5CCCF009364B3 /* CLLocationDegreesE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationDegreesE.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 				07764B412AF96DFA0009525E /* DefaultDrawerHeaderV.swift */,
 				07E24D422B05C1240049F5EB /* Notifications.swift */,
 				0773AEDD2B0BDF30007D7CDB /* MarkerEditorV.swift */,
+				07C9D7722B1195C10099041A /* LocationDisplayMode.swift */,
 				07FCC8592AD3756300F88186 /* Map Drawer Interaction */,
 				07FCC85F2AD3764A00F88186 /* Background Map */,
 				07082FAF2AFACE7A003255E3 /* Camera */,
@@ -418,6 +421,7 @@
 				07D742C12ADB67CB0087FFC5 /* BackgroundMapDetailsM.swift in Sources */,
 				0744E7172AFB203D00D9F0B5 /* CameraPreviewVM.swift in Sources */,
 				07E465532B0C34C9005193F1 /* MarkerContextMenuV.swift in Sources */,
+				07C9D7732B1195C10099041A /* LocationDisplayMode.swift in Sources */,
 				0790A2122B01C0FC00863B29 /* HandleTrackerM.swift in Sources */,
 				07E465512B0C11A5005193F1 /* BackgroundMapPointsV.swift in Sources */,
 				0773AEDE2B0BDF30007D7CDB /* MarkerEditorV.swift in Sources */,
