@@ -10,15 +10,10 @@ import SwiftUI
 
 struct BackgroundMapHudV: View {
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
-    @State private var displayType: locationDisplayMode = .degrees
+    @Environment(\.locationDisplayMode) var locationDisplayMode
     @Binding var rawDisplayType: LocationDisplayMode
     @State private var showHeading: Bool = false
     let stringFormat: String = "%.4f"
-    
-    private enum locationDisplayMode {
-        case degrees
-        case DMS
-    }
     
     var tap: some Gesture {
        TapGesture()
@@ -31,12 +26,12 @@ struct BackgroundMapHudV: View {
         HStack(spacing: 0) {
             VStack(alignment: .leading) {
                 Text("Latitude: ") +
-                Text("\(generateDisplayCoordinates(degree: abs(backgroundMapDetails.position.latitude))) ").fontWidth(.condensed) +
-                Text(backgroundMapDetails.position.latitude < 0 ? "S" : "N")
+                Text(locationDisplayMode.degreesToString(latitude: backgroundMapDetails.position.latitude))
+                    .fontWidth(.condensed)
                 
                 Text("Longitude: ") +
-                Text("\(generateDisplayCoordinates(degree: abs(backgroundMapDetails.position.longitude))) ").fontWidth(.condensed) +
-                Text(backgroundMapDetails.position.longitude < 0 ? "W" : "E")
+                Text(locationDisplayMode.degreesToString(latitude: backgroundMapDetails.position.longitude))
+                    .fontWidth(.condensed)
                 if showHeading {
                     Text("Heading: ") +
                     Text("\(String(format: stringFormat, backgroundMapDetails.userRotation.degrees))º ").fontWidth(.condensed) +
@@ -62,14 +57,14 @@ struct BackgroundMapHudV: View {
                 Label("Open in Maps", systemImage: "map.fill")
             }
             Button {
-                switch displayType {
+                switch rawDisplayType {
                 case .degrees:
-                    displayType = .DMS
+                    rawDisplayType = .DMS
                 case .DMS:
-                    displayType = .degrees
+                    rawDisplayType = .degrees
                 }
             } label: {
-                switch displayType {
+                switch rawDisplayType {
                 case .degrees:
                     Label("Show Degrees, Minutes, Seconds", systemImage: "clock.fill")
                 case .DMS:
@@ -84,7 +79,7 @@ struct BackgroundMapHudV: View {
             }
         }
         .gesture(tap)
-        .animation(.easeInOut, value: displayType)
+        .animation(.easeInOut, value: rawDisplayType)
     }
     
     func determineHeadingLabel() -> String {
@@ -108,15 +103,6 @@ struct BackgroundMapHudV: View {
         }
         
         return label
-    }
-    
-    private func generateDisplayCoordinates(degree: CLLocationDegrees) -> String {
-        switch displayType {
-        case .degrees:
-            return "\(String(format: stringFormat, degree))º "
-        case .DMS:
-            return "\(degree.wholeDegrees)º \(degree.minutes)' \(degree.seconds)\" "
-        }
     }
 }
 

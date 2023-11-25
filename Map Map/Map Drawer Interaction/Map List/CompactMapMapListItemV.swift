@@ -10,6 +10,7 @@ import SwiftUI
 struct ListItemV: View {
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
+    @Environment(\.locationDisplayMode) var displayType
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -27,20 +28,19 @@ struct ListItemV: View {
                 ViewThatFits {
                     VStack(alignment: .leading) {
                         Text("Latitude: ") +
-                        Text("\(mapMap.coordinates.latitude.wholeDegrees)º \(mapMap.coordinates.latitude.minutes)' \(mapMap.coordinates.latitude.seconds)'' ")
+                        Text(displayType.degreesToString(latitude: mapMap.coordinates.latitude))
                             .fontWidth(.condensed)
                         Text("Longitude: ") +
-                        Text("\(mapMap.coordinates.longitude.wholeDegrees)º \(mapMap.coordinates.longitude.minutes)' \(mapMap.coordinates.longitude.seconds)'' ")
+                        Text(displayType.degreesToString(longitude: mapMap.coordinates.longitude))
                             .fontWidth(.condensed)
                     }
-                    .background(.red)
                     
                     VStack(alignment: .leading) {
                         Text("Latitude: ")
-                        Text("\(mapMap.coordinates.latitude.wholeDegrees)º \(mapMap.coordinates.latitude.minutes)' \(mapMap.coordinates.latitude.seconds)'' ")
+                        Text(displayType.degreesToString(latitude: mapMap.coordinates.latitude))
                             .fontWidth(.condensed)
                         Text("Longitude: ")
-                        Text("\(mapMap.coordinates.longitude.wholeDegrees)º \(mapMap.coordinates.longitude.minutes)' \(mapMap.coordinates.longitude.seconds)'' ")
+                        Text(displayType.degreesToString(longitude: mapMap.coordinates.longitude))
                             .fontWidth(.condensed)
                     }
                 }
