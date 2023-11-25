@@ -23,3 +23,26 @@ extension EnvironmentValues {
         set { self[LocationDisplayModeKey.self] = newValue }
     }
 }
+
+extension LocationDisplayMode {
+    func getDirectionlessString(degrees: CLLocationDegrees) -> String {
+        let stringFormat = "%.4f"
+        
+        switch self {
+        case .degrees:
+            return "\(String(format: stringFormat, abs(degrees)))º"
+        case .DMS:
+            return "\(abs(degrees.wholeDegrees))º \(degrees.minutes)' \(degrees.seconds)''"
+        }
+    }
+    
+    func degreesToString(latitude: CLLocationDegrees) -> String {
+        let directionLabel = latitude < 0 ? "S" : "N"
+        return "\(getDirectionlessString(degrees: latitude)) \(directionLabel)"
+    }
+    
+    func degreesToString(longitude: CLLocationDegrees) -> String {
+        let directionLabel = longitude < 0 ? "W" : "E"
+        return "\(getDirectionlessString(degrees: longitude)) \(directionLabel)"
+    }
+}
