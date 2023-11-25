@@ -14,15 +14,16 @@ struct CompactMapListItem: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 0) {
-                Spacer()
+                Spacer(minLength: 0)
                 Text(mapMap.mapMapName ?? "Unknown name")
                     .font(.title3)
                     .padding(.bottom, 7)
-                Spacer()
+                Spacer(minLength: 0)
             }
             HStack(spacing: 0) {
                 AnyView(mapMap.getMap(.thumbnail))
                     .mapMapListItemThumbnail()
+                Spacer()
                 VStack(alignment: .leading) {
                     Text("Latitude: ")
                     Text("\(mapMap.coordinates.latitude.wholeDegrees)º \(mapMap.coordinates.latitude.minutes)' \(mapMap.coordinates.latitude.seconds)'' ")
@@ -32,7 +33,7 @@ struct CompactMapListItem: View {
                         .fontWidth(.condensed)
                 }
                 .foregroundStyle(.secondary)
-                Spacer()
+                Spacer(minLength: 0)
             }
         }
     }
