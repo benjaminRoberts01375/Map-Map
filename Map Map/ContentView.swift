@@ -17,6 +17,7 @@ struct ContentView: View {
     @State var editingMapMap: Bool = false
     @State var editingMarker: Bool = false
     @State var toastInfo: ToastInfo = ToastInfo()
+    @State var displayType: LocationDisplayMode = .degrees
     
     var body: some View {
         GeometryReader { geo in
@@ -41,6 +42,7 @@ struct ContentView: View {
                         header: { _ in DefaultDrawerHeaderV() },
                         content: { isShortCard in
                             MapMapList()
+                                .environment(\.locationDisplayMode, displayType)
                                 .padding(.horizontal)
                         }
                     )

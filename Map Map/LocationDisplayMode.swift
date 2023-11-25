@@ -13,3 +13,13 @@ public enum LocationDisplayMode {
     case DMS
 }
 
+private struct LocationDisplayModeKey: EnvironmentKey {
+    static var defaultValue: LocationDisplayMode = .degrees
+}
+
+extension EnvironmentValues {
+    var locationDisplayMode: LocationDisplayMode {
+        get { self[LocationDisplayModeKey.self] }
+        set { self[LocationDisplayModeKey.self] = newValue }
+    }
+}
