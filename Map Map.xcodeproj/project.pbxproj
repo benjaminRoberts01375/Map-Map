@@ -26,7 +26,6 @@
 		076F18AB2AEF77FA00779E1D /* MapMapContextMenuV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076F18AA2AEF77FA00779E1D /* MapMapContextMenuV.swift */; };
 		0773AED42B0B30E6007D7CDB /* MapMap+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0773AED02B0B30E6007D7CDB /* MapMap+CoreDataProperties.swift */; };
 		0773AEDB2B0BDE94007D7CDB /* Marker+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0773AED92B0BDE94007D7CDB /* Marker+CoreDataClass.swift */; };
-		0773AEDC2B0BDE94007D7CDB /* Marker+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0773AEDA2B0BDE94007D7CDB /* Marker+CoreDataProperties.swift */; };
 		0773AEDE2B0BDF30007D7CDB /* MarkerEditorV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0773AEDD2B0BDF30007D7CDB /* MarkerEditorV.swift */; };
 		07764B422AF96DFA0009525E /* DefaultDrawerHeaderV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07764B412AF96DFA0009525E /* DefaultDrawerHeaderV.swift */; };
 		0776EB062B05586B00F89BFC /* MapMapV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0776EB052B05586B00F89BFC /* MapMapV.swift */; };
@@ -44,6 +43,7 @@
 		07BA6E342B000E460059310E /* CameraV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BA6E332B000E460059310E /* CameraV.swift */; };
 		07BA6E362B000EF20059310E /* CameraReviewV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BA6E352B000EF20059310E /* CameraReviewV.swift */; };
 		07BE4BB82B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BE4BB72B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift */; };
+		07C2E0792B128F41003C292E /* Marker+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2E0772B128F41003C292E /* Marker+CoreDataProperties.swift */; };
 		07C9D7732B1195C10099041A /* LocationDisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C9D7722B1195C10099041A /* LocationDisplayMode.swift */; };
 		07CCDBB52AEB214400BA9D43 /* UserLocationM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CCDBB42AEB214400BA9D43 /* UserLocationM.swift */; };
 		07CCDBB72AEC7E8600BA9D43 /* MapUserIconV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CCDBB62AEC7E8600BA9D43 /* MapUserIconV.swift */; };
@@ -86,7 +86,6 @@
 		076F18AA2AEF77FA00779E1D /* MapMapContextMenuV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapContextMenuV.swift; sourceTree = "<group>"; };
 		0773AED02B0B30E6007D7CDB /* MapMap+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapMap+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0773AED92B0BDE94007D7CDB /* Marker+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Marker+CoreDataClass.swift"; sourceTree = "<group>"; };
-		0773AEDA2B0BDE94007D7CDB /* Marker+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Marker+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0773AEDD2B0BDF30007D7CDB /* MarkerEditorV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerEditorV.swift; sourceTree = "<group>"; };
 		07764B412AF96DFA0009525E /* DefaultDrawerHeaderV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDrawerHeaderV.swift; sourceTree = "<group>"; };
 		0776EB052B05586B00F89BFC /* MapMapV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapV.swift; sourceTree = "<group>"; };
@@ -102,6 +101,7 @@
 		07BA6E332B000E460059310E /* CameraV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraV.swift; sourceTree = "<group>"; };
 		07BA6E352B000EF20059310E /* CameraReviewV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraReviewV.swift; sourceTree = "<group>"; };
 		07BE4BB72B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMapButtonsV.swift; sourceTree = "<group>"; };
+		07C2E0772B128F41003C292E /* Marker+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Marker+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07C9D7722B1195C10099041A /* LocationDisplayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDisplayMode.swift; sourceTree = "<group>"; };
 		07CCDBB42AEB214400BA9D43 /* UserLocationM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationM.swift; sourceTree = "<group>"; };
 		07CCDBB62AEC7E8600BA9D43 /* MapUserIconV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapUserIconV.swift; sourceTree = "<group>"; };
@@ -241,7 +241,7 @@
 				0762DD1D2AD37A1300C36D33 /* MapMap+CoreDataClass.swift */,
 				0773AED02B0B30E6007D7CDB /* MapMap+CoreDataProperties.swift */,
 				0773AED92B0BDE94007D7CDB /* Marker+CoreDataClass.swift */,
-				0773AEDA2B0BDE94007D7CDB /* Marker+CoreDataProperties.swift */,
+				07C2E0772B128F41003C292E /* Marker+CoreDataProperties.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -403,7 +403,6 @@
 				07A9C6BA2AF1CA3300C3AED4 /* PhotoEditorV.swift in Sources */,
 				072DDB302AF42A3E00E74963 /* IrregularGridV.swift in Sources */,
 				075C65682AF4C5C900864A34 /* CGSizeE.swift in Sources */,
-				0773AEDC2B0BDE94007D7CDB /* Marker+CoreDataProperties.swift in Sources */,
 				07FD85632AE6DDAD0089652B /* ListMode.swift in Sources */,
 				07FCC8552AD3593F00F88186 /* DataController.swift in Sources */,
 				07082FAD2AFACE6E003255E3 /* CameraPreviewV.swift in Sources */,
@@ -437,6 +436,7 @@
 				07764B422AF96DFA0009525E /* DefaultDrawerHeaderV.swift in Sources */,
 				078C6DCB2B0B0100001AD131 /* CrosshairV.swift in Sources */,
 				0762DD1F2AD37A1300C36D33 /* MapMap+CoreDataClass.swift in Sources */,
+				07C2E0792B128F41003C292E /* Marker+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

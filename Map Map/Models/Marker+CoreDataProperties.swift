@@ -2,7 +2,7 @@
 //  Marker+CoreDataProperties.swift
 //  Map Map
 //
-//  Created by Ben Roberts on 11/20/23.
+//  Created by Ben Roberts on 11/25/23.
 //
 //
 
@@ -16,10 +16,11 @@ extension Marker {
         return NSFetchRequest<Marker>(entityName: "Marker")
     }
 
+    @NSManaged public var isEditing: Bool
     @NSManaged public var latitude: Double
     @NSManaged public var longitude: Double
     @NSManaged public var name: String?
-    @NSManaged public var isEditing: Bool
+    @NSManaged public var thumbnailImage: String?
     @NSManaged public var mapMap: NSSet?
 
 }
