@@ -36,7 +36,7 @@ struct ContentView: View {
                 }
                 else {
                     BottomDrawer(
-                        verticalDetents: [.medium, .fraction(0.85), .header],
+                        verticalDetents: [.medium, .large, .header],
                         horizontalDetents: [.left, .right],
                         shortCardSize: 315,
                         header: { _ in DefaultDrawerHeaderV() },
