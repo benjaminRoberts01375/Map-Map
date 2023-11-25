@@ -40,7 +40,7 @@ struct BackgroundMapHudV: View {
             }
             Spacer(minLength: 0)
         }
-        .frame(width: 181)
+        .frame(width: 160)
         .padding(10)
         .background(.ultraThickMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 11))
