@@ -44,6 +44,7 @@
 		07BA6E362B000EF20059310E /* CameraReviewV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BA6E352B000EF20059310E /* CameraReviewV.swift */; };
 		07BE4BB82B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BE4BB72B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift */; };
 		07C2E0792B128F41003C292E /* Marker+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2E0772B128F41003C292E /* Marker+CoreDataProperties.swift */; };
+		07C2E07B2B128F9C003C292E /* AvailableThumbnailImagesM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2E07A2B128F9C003C292E /* AvailableThumbnailImagesM.swift */; };
 		07C9D7732B1195C10099041A /* LocationDisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C9D7722B1195C10099041A /* LocationDisplayMode.swift */; };
 		07CCDBB52AEB214400BA9D43 /* UserLocationM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CCDBB42AEB214400BA9D43 /* UserLocationM.swift */; };
 		07CCDBB72AEC7E8600BA9D43 /* MapUserIconV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CCDBB62AEC7E8600BA9D43 /* MapUserIconV.swift */; };
@@ -102,6 +103,7 @@
 		07BA6E352B000EF20059310E /* CameraReviewV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraReviewV.swift; sourceTree = "<group>"; };
 		07BE4BB72B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMapButtonsV.swift; sourceTree = "<group>"; };
 		07C2E0772B128F41003C292E /* Marker+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Marker+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		07C2E07A2B128F9C003C292E /* AvailableThumbnailImagesM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableThumbnailImagesM.swift; sourceTree = "<group>"; };
 		07C9D7722B1195C10099041A /* LocationDisplayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDisplayMode.swift; sourceTree = "<group>"; };
 		07CCDBB42AEB214400BA9D43 /* UserLocationM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationM.swift; sourceTree = "<group>"; };
 		07CCDBB62AEC7E8600BA9D43 /* MapUserIconV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapUserIconV.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				0773AED02B0B30E6007D7CDB /* MapMap+CoreDataProperties.swift */,
 				0773AED92B0BDE94007D7CDB /* Marker+CoreDataClass.swift */,
 				07C2E0772B128F41003C292E /* Marker+CoreDataProperties.swift */,
+				07C2E07A2B128F9C003C292E /* AvailableThumbnailImagesM.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				073F916B2B06794000AE56CB /* FourCornersStorage.swift in Sources */,
 				07EB79E72B01A7F600DC2699 /* UIImageE.swift in Sources */,
 				0762DD652AD4696B00C36D33 /* DoneButtonV.swift in Sources */,
+				07C2E07B2B128F9C003C292E /* AvailableThumbnailImagesM.swift in Sources */,
 				0762DD682AD4713200C36D33 /* MapMapEditorV.swift in Sources */,
 				072DDB342AF4368500E74963 /* CGRectE.swift in Sources */,
 				07A9C6BA2AF1CA3300C3AED4 /* PhotoEditorV.swift in Sources */,

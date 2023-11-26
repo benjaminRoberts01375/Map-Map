@@ -1,0 +1,52 @@
+//
+//  AvailableThumbnailImagesM.swift
+//  Map Map
+//
+//  Created by Ben Roberts on 11/25/23.
+//
+
+struct AvailableThumbnailImagesM {
+    let pin = "pin.fill"
+    let mappin = "mappin"
+    let mappinSlash = "mappin.slash"
+    let mappinAndEllipse = "mappin.and.ellipse"
+    let box = "shippingbox.fill"
+    let scribble = "scribble.variable"
+    let trash = "trash.fill"
+    let paperAirplane = "paperplane.fill"
+    let clipboard = "list.bullet.clipboard.fill"
+    let calendar = "calendar"
+    let arrowLeft = "arrowshape.left.fill"
+    let arrowRight = "arrowshape.right.fill"
+    let arrowUp = "arrowshape.up.fill"
+    let arrowDown = "arrowshape.down.fill"
+    let arrowLeftRight = "arrowshape.left.arrowshape.right.fill"
+    let ruler = "ruler.fill"
+    let chain = "link.circle.fill"
+    let personSlash = "person.slash.fill"
+    let personApart = "person.line.dotted.person.fill"
+    let figureWalk = "figure.walk"
+    let figureRun = "figure.run"
+    let figureStretch = "figure.flexibility"
+    let figureGolf = "figure.golf"
+    let figureHunt = "figure.hunting"
+    let figureStairs = "figure.stairs"
+    let water = "water.waves"
+    let noLight = "sun.max.trianglebadge.exclamationmark"
+    let caution = "exclamationmark.triangle.fill"
+    let flashlight = "flashlight.on.fill"
+    let camera = "camera.fill"
+    let punctuationQuestionmark = "questionmark"
+    let punctuationExclamationmark = "exclamationmark"
+    let punctuationExclamationQuestionmark = "exclamationmark.questionmark"
+    let info = "info"
+    let house = "house.fill"
+    let fireworks = "fireworks"
+    let tent = "tent.fill"
+    let lodge = "house.lodge.fill"
+    let signpostLeft = "signpost.left.fill"
+    let signpostRight = "signpost.right.fill"
+    let signpostLR = "signpost.right.and.left.fill"
+    let mountain = "mountain.2.fill"
+    let key = "key.horizontal.fill"
+}
