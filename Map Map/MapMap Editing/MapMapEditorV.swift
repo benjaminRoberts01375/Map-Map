@@ -38,7 +38,7 @@ struct MapMapEditor: View {
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
                 VStack {
                     HStack {
-                        TextField("Map name", text: $workingName)
+                        TextField("Map Map name", text: $workingName)
                             .padding(.all, 5)
                             .background(Color.gray.opacity(0.7))
                             .clipShape(RoundedRectangle(cornerRadius: 10))
