@@ -26,7 +26,7 @@ struct MapMapContextMenuV: View {
             }
             mapMap.isEditing = true
         } label: {
-            Label("Edit", systemImage: "pencil")
+            Label("Edit Map Map", systemImage: "pencil")
         }
     }
 }
