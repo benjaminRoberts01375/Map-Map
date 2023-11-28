@@ -20,7 +20,7 @@ public class Marker: NSManagedObject {
     var thumbnail: some View {
         get {
             Circle()
-                .fill(.red)
+                .fill(self.backgroundColor)
                 .overlay {
                     Image(systemName: "star.fill")
                         .resizable()
