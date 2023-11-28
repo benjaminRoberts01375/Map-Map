@@ -10,6 +10,7 @@
 		07082FAD2AFACE6E003255E3 /* CameraPreviewV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07082FAC2AFACE6E003255E3 /* CameraPreviewV.swift */; };
 		0711E5B22AB39ABD0056AB4B /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0711E5B12AB39ABD0056AB4B /* BlurView.swift */; };
 		07134EB92B099FEB00D23A18 /* BackgroundMapHudV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07134EB82B099FEB00D23A18 /* BackgroundMapHudV.swift */; };
+		07249C002B1672D50088B721 /* MarkerSymbolPickerV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07249BFF2B1672D50088B721 /* MarkerSymbolPickerV.swift */; };
 		072DDB2E2AF426E000E74963 /* HandleV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB2D2AF426E000E74963 /* HandleV.swift */; };
 		072DDB302AF42A3E00E74963 /* IrregularGridV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */; };
 		072DDB322AF42B1F00E74963 /* CGPointE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB312AF42B1F00E74963 /* CGPointE.swift */; };
@@ -71,6 +72,7 @@
 		07082FAC2AFACE6E003255E3 /* CameraPreviewV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewV.swift; sourceTree = "<group>"; };
 		0711E5B12AB39ABD0056AB4B /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		07134EB82B099FEB00D23A18 /* BackgroundMapHudV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMapHudV.swift; sourceTree = "<group>"; };
+		07249BFF2B1672D50088B721 /* MarkerSymbolPickerV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerSymbolPickerV.swift; sourceTree = "<group>"; };
 		072DDB2D2AF426E000E74963 /* HandleV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleV.swift; sourceTree = "<group>"; };
 		072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrregularGridV.swift; sourceTree = "<group>"; };
 		072DDB312AF42B1F00E74963 /* CGPointE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPointE.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				0773AEDD2B0BDF30007D7CDB /* MarkerEditorV.swift */,
+				07249BFF2B1672D50088B721 /* MarkerSymbolPickerV.swift */,
 			);
 			path = "Marker Editor";
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				07E465512B0C11A5005193F1 /* BackgroundMapPointsV.swift in Sources */,
 				0773AEDE2B0BDF30007D7CDB /* MarkerEditorV.swift in Sources */,
 				07353A352ADCCB9700C698B0 /* BigButtonV.swift in Sources */,
+				07249C002B1672D50088B721 /* MarkerSymbolPickerV.swift in Sources */,
 				07CCDBB52AEB214400BA9D43 /* UserLocationM.swift in Sources */,
 				07BA6E362B000EF20059310E /* CameraReviewV.swift in Sources */,
 				07A9C6B02AF1B78C00C3AED4 /* FourCorners+CoreDataProperties.swift in Sources */,
