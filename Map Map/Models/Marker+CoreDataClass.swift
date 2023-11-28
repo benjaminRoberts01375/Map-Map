@@ -48,7 +48,7 @@ public class Marker: NSManagedObject {
         }
         else {
             guard let context = self.managedObjectContext else { return Color.red }
-            let defaultColor = MarkerColor(red: 0.92, green: 0.3, blue: 0.24, insertInto: context)
+            let defaultColor = MarkerColor(red: 0.95, green: 0.30, blue: 0.30, insertInto: context)
             self.color = defaultColor
             return Color(red: defaultColor.red, green: defaultColor.green, blue: defaultColor.blue)
         }
