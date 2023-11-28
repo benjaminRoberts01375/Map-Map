@@ -41,6 +41,18 @@ public class Marker: NSManagedObject {
             self.longitude = value.longitude
         }
     }
+    
+    var backgroundColor: Color {
+        if let color = self.color {
+            return Color(red: color.red, green: color.green, blue: color.blue)
+        }
+        else {
+            guard let context = self.managedObjectContext else { return Color.red }
+            let defaultColor = MarkerColor(red: 0.92, green: 0.3, blue: 0.24, insertInto: context)
+            self.color = defaultColor
+            return Color(red: defaultColor.red, green: defaultColor.green, blue: defaultColor.blue)
+        }
+    }
 }
 
 extension Marker {
