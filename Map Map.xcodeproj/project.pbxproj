@@ -161,6 +161,14 @@
 			path = Camera;
 			sourceTree = "<group>";
 		};
+		07249BFE2B16725E0088B721 /* Marker Editor */ = {
+			isa = PBXGroup;
+			children = (
+				0773AEDD2B0BDF30007D7CDB /* MarkerEditorV.swift */,
+			);
+			path = "Marker Editor";
+			sourceTree = "<group>";
+		};
 		0762DD662AD46CFA00C36D33 /* Generic View Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,12 +292,12 @@
 				073F91682B05C5A400AE56CB /* ToastInfo.swift */,
 				07764B412AF96DFA0009525E /* DefaultDrawerHeaderV.swift */,
 				07E24D422B05C1240049F5EB /* Notifications.swift */,
-				0773AEDD2B0BDF30007D7CDB /* MarkerEditorV.swift */,
 				07C9D7722B1195C10099041A /* LocationDisplayMode.swift */,
 				07FCC8592AD3756300F88186 /* Map Drawer Interaction */,
 				07FCC85F2AD3764A00F88186 /* Background Map */,
 				07082FAF2AFACE7A003255E3 /* Camera */,
 				070159D82AD505300031647F /* MapMap Editing */,
+				07249BFE2B16725E0088B721 /* Marker Editor */,
 				07FCC85A2AD3759500F88186 /* Models */,
 				0762DD662AD46CFA00C36D33 /* Generic View Components */,
 				076F18AC2AEF79B300779E1D /* Non-Map Map Extensions */,
