@@ -13,3 +13,12 @@ import CoreData
 public class MarkerColor: NSManagedObject {
 
 }
+
+extension MarkerColor {
+    convenience init(red: Double, green: Double, blue: Double, insertInto context: NSManagedObjectContext) {
+        self.init(context: context)
+        self.red = red
+        self.green = green
+        self.blue = blue
+    }
+}
