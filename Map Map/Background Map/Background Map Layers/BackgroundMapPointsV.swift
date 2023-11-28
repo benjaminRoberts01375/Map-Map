@@ -19,7 +19,7 @@ struct BackgroundMapPointsV: View {
     
     var body: some View {
         ForEach(markers) { marker in
-            if let position = screenSpaceMarkerLocations[marker] {
+            if let position = screenSpaceMarkerLocations[marker], !marker.isEditing {
                 Button {
                     withAnimation {
                         backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: 6000, heading: 0))
