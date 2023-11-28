@@ -11,6 +11,7 @@
 		0711E5B22AB39ABD0056AB4B /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0711E5B12AB39ABD0056AB4B /* BlurView.swift */; };
 		07134EB92B099FEB00D23A18 /* BackgroundMapHudV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07134EB82B099FEB00D23A18 /* BackgroundMapHudV.swift */; };
 		07249C002B1672D50088B721 /* MarkerSymbolPickerV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07249BFF2B1672D50088B721 /* MarkerSymbolPickerV.swift */; };
+		07249C0B2B1681FF0088B721 /* WHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07249C0A2B1681FF0088B721 /* WHStack.swift */; };
 		072DDB2E2AF426E000E74963 /* HandleV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB2D2AF426E000E74963 /* HandleV.swift */; };
 		072DDB302AF42A3E00E74963 /* IrregularGridV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */; };
 		072DDB322AF42B1F00E74963 /* CGPointE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB312AF42B1F00E74963 /* CGPointE.swift */; };
@@ -73,6 +74,7 @@
 		0711E5B12AB39ABD0056AB4B /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		07134EB82B099FEB00D23A18 /* BackgroundMapHudV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMapHudV.swift; sourceTree = "<group>"; };
 		07249BFF2B1672D50088B721 /* MarkerSymbolPickerV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerSymbolPickerV.swift; sourceTree = "<group>"; };
+		07249C0A2B1681FF0088B721 /* WHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WHStack.swift; sourceTree = "<group>"; };
 		072DDB2D2AF426E000E74963 /* HandleV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleV.swift; sourceTree = "<group>"; };
 		072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrregularGridV.swift; sourceTree = "<group>"; };
 		072DDB312AF42B1F00E74963 /* CGPointE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPointE.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				076F18AA2AEF77FA00779E1D /* MapMapContextMenuV.swift */,
 				0776EB052B05586B00F89BFC /* MapMapV.swift */,
 				07E465522B0C34C9005193F1 /* MarkerContextMenuV.swift */,
+				07249C0A2B1681FF0088B721 /* WHStack.swift */,
 			);
 			path = "Generic View Components";
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 				072DDB302AF42A3E00E74963 /* IrregularGridV.swift in Sources */,
 				075C65682AF4C5C900864A34 /* CGSizeE.swift in Sources */,
 				07FD85632AE6DDAD0089652B /* ListMode.swift in Sources */,
+				07249C0B2B1681FF0088B721 /* WHStack.swift in Sources */,
 				07FCC8552AD3593F00F88186 /* DataController.swift in Sources */,
 				07082FAD2AFACE6E003255E3 /* CameraPreviewV.swift in Sources */,
 				072DDB322AF42B1F00E74963 /* CGPointE.swift in Sources */,
