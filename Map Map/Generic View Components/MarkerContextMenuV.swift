@@ -23,6 +23,12 @@ struct MarkerContextMenuV: View {
         }
         
         Button {
+            marker.isEditing = true
+        } label: {
+            Label("Edit Marker", systemImage: "pencil")
+        }
+        
+        Button {
             let placemark = MKPlacemark(coordinate: marker.coordinates)
             let mapItem = MKMapItem(placemark: placemark)
             let launchOptions: [String : Any] = [
