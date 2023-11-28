@@ -13,6 +13,9 @@
 		07249C002B1672D50088B721 /* MarkerSymbolPickerV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07249BFF2B1672D50088B721 /* MarkerSymbolPickerV.swift */; };
 		07249C0B2B1681FF0088B721 /* WHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07249C0A2B1681FF0088B721 /* WHStack.swift */; };
 		07249C0D2B1682970088B721 /* MarkerSymbolPickerItemV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07249C0C2B1682970088B721 /* MarkerSymbolPickerItemV.swift */; };
+		07249C222B1692610088B721 /* MarkerColor+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07249C202B1692610088B721 /* MarkerColor+CoreDataClass.swift */; };
+		07249C232B1692610088B721 /* MarkerColor+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07249C212B1692610088B721 /* MarkerColor+CoreDataProperties.swift */; };
+		07249C272B1692A40088B721 /* Marker+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07249C252B1692A40088B721 /* Marker+CoreDataProperties.swift */; };
 		072DDB2E2AF426E000E74963 /* HandleV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB2D2AF426E000E74963 /* HandleV.swift */; };
 		072DDB302AF42A3E00E74963 /* IrregularGridV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */; };
 		072DDB322AF42B1F00E74963 /* CGPointE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB312AF42B1F00E74963 /* CGPointE.swift */; };
@@ -46,7 +49,6 @@
 		07BA6E342B000E460059310E /* CameraV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BA6E332B000E460059310E /* CameraV.swift */; };
 		07BA6E362B000EF20059310E /* CameraReviewV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BA6E352B000EF20059310E /* CameraReviewV.swift */; };
 		07BE4BB82B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BE4BB72B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift */; };
-		07C2E0792B128F41003C292E /* Marker+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2E0772B128F41003C292E /* Marker+CoreDataProperties.swift */; };
 		07C2E07B2B128F9C003C292E /* AvailableThumbnailImagesM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2E07A2B128F9C003C292E /* AvailableThumbnailImagesM.swift */; };
 		07C9D7732B1195C10099041A /* LocationDisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C9D7722B1195C10099041A /* LocationDisplayMode.swift */; };
 		07CCDBB52AEB214400BA9D43 /* UserLocationM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CCDBB42AEB214400BA9D43 /* UserLocationM.swift */; };
@@ -77,6 +79,9 @@
 		07249BFF2B1672D50088B721 /* MarkerSymbolPickerV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerSymbolPickerV.swift; sourceTree = "<group>"; };
 		07249C0A2B1681FF0088B721 /* WHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WHStack.swift; sourceTree = "<group>"; };
 		07249C0C2B1682970088B721 /* MarkerSymbolPickerItemV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerSymbolPickerItemV.swift; sourceTree = "<group>"; };
+		07249C202B1692610088B721 /* MarkerColor+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MarkerColor+CoreDataClass.swift"; sourceTree = "<group>"; };
+		07249C212B1692610088B721 /* MarkerColor+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MarkerColor+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		07249C252B1692A40088B721 /* Marker+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Marker+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		072DDB2D2AF426E000E74963 /* HandleV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleV.swift; sourceTree = "<group>"; };
 		072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrregularGridV.swift; sourceTree = "<group>"; };
 		072DDB312AF42B1F00E74963 /* CGPointE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPointE.swift; sourceTree = "<group>"; };
@@ -108,7 +113,6 @@
 		07BA6E332B000E460059310E /* CameraV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraV.swift; sourceTree = "<group>"; };
 		07BA6E352B000EF20059310E /* CameraReviewV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraReviewV.swift; sourceTree = "<group>"; };
 		07BE4BB72B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMapButtonsV.swift; sourceTree = "<group>"; };
-		07C2E0772B128F41003C292E /* Marker+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Marker+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07C2E07A2B128F9C003C292E /* AvailableThumbnailImagesM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableThumbnailImagesM.swift; sourceTree = "<group>"; };
 		07C9D7722B1195C10099041A /* LocationDisplayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDisplayMode.swift; sourceTree = "<group>"; };
 		07CCDBB42AEB214400BA9D43 /* UserLocationM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationM.swift; sourceTree = "<group>"; };
@@ -253,6 +257,7 @@
 		07FCC85A2AD3759500F88186 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				07C2E07A2B128F9C003C292E /* AvailableThumbnailImagesM.swift */,
 				07FCC8542AD3593F00F88186 /* DataController.swift */,
 				07A9C6AB2AF1B78C00C3AED4 /* FourCorners+CoreDataClass.swift */,
 				07A9C6AC2AF1B78C00C3AED4 /* FourCorners+CoreDataProperties.swift */,
@@ -260,8 +265,9 @@
 				0762DD1D2AD37A1300C36D33 /* MapMap+CoreDataClass.swift */,
 				0773AED02B0B30E6007D7CDB /* MapMap+CoreDataProperties.swift */,
 				0773AED92B0BDE94007D7CDB /* Marker+CoreDataClass.swift */,
-				07C2E0772B128F41003C292E /* Marker+CoreDataProperties.swift */,
-				07C2E07A2B128F9C003C292E /* AvailableThumbnailImagesM.swift */,
+				07249C252B1692A40088B721 /* Marker+CoreDataProperties.swift */,
+				07249C202B1692610088B721 /* MarkerColor+CoreDataClass.swift */,
+				07249C212B1692610088B721 /* MarkerColor+CoreDataProperties.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -415,6 +421,7 @@
 				07BE4BB82B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift in Sources */,
 				07D522F32AE5CCCF009364B3 /* CLLocationDegreesE.swift in Sources */,
 				07A9C6AF2AF1B78C00C3AED4 /* FourCorners+CoreDataClass.swift in Sources */,
+				07249C272B1692A40088B721 /* Marker+CoreDataProperties.swift in Sources */,
 				0773AEDB2B0BDE94007D7CDB /* Marker+CoreDataClass.swift in Sources */,
 				073F916B2B06794000AE56CB /* FourCornersStorage.swift in Sources */,
 				07EB79E72B01A7F600DC2699 /* UIImageE.swift in Sources */,
@@ -424,6 +431,7 @@
 				072DDB342AF4368500E74963 /* CGRectE.swift in Sources */,
 				07A9C6BA2AF1CA3300C3AED4 /* PhotoEditorV.swift in Sources */,
 				072DDB302AF42A3E00E74963 /* IrregularGridV.swift in Sources */,
+				07249C222B1692610088B721 /* MarkerColor+CoreDataClass.swift in Sources */,
 				075C65682AF4C5C900864A34 /* CGSizeE.swift in Sources */,
 				07FD85632AE6DDAD0089652B /* ListMode.swift in Sources */,
 				07249C0B2B1681FF0088B721 /* WHStack.swift in Sources */,
@@ -433,6 +441,7 @@
 				07E24D432B05C1240049F5EB /* Notifications.swift in Sources */,
 				07FDC6362AB26ADB00D92113 /* BackgroundMapV.swift in Sources */,
 				07FDC62F2AB25E0000D92113 /* Map_Map.xcdatamodeld in Sources */,
+				07249C232B1692610088B721 /* MarkerColor+CoreDataProperties.swift in Sources */,
 				078C6DC82B0A9448001AD131 /* MapButtonVModifier.swift in Sources */,
 				07EE1D122AE750FB000829CA /* MapMapListItemThumbnailModifier.swift in Sources */,
 				073733432B096C10004B96D1 /* DoubleE.swift in Sources */,
@@ -460,7 +469,6 @@
 				07764B422AF96DFA0009525E /* DefaultDrawerHeaderV.swift in Sources */,
 				078C6DCB2B0B0100001AD131 /* CrosshairV.swift in Sources */,
 				0762DD1F2AD37A1300C36D33 /* MapMap+CoreDataClass.swift in Sources */,
-				07C2E0792B128F41003C292E /* Marker+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

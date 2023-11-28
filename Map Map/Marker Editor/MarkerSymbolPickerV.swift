@@ -8,13 +8,48 @@
 import SwiftUI
 
 struct MarkerSymbolPickerV: View {
-    let thumbnailImages = Mirror(reflecting: AvailableThumbnailImagesM()).children
+    private let thumbnailImages: [String] = Mirror(reflecting: AvailableThumbnailImagesM()).children.map( { $0.value as! String })
     
     var body: some View {
-        /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Hello, world!@*/Text("Hello, world!")/*@END_MENU_TOKEN@*/
+        ScrollView {
+            Color.clear
+                .frame(height: 70)
+            WHStack {
+                ForEach(thumbnailImages, id: \.self) { symbol in
+                    MarkerSymbolPickerItemV(symbol: symbol)
+                        .frame(width: 40, height: 40)
+                        .padding(5)
+                }
+            }
+            .frame(width: 300, height: 300)
+            Color.clear
+                .frame(height: 70)
+        }
     }
 }
 
-#Preview {
-    MarkerSymbolPickerV()
+struct MarkerSymbolPickerV_Previews: PreviewProvider {
+    struct Container: View {
+        @State var showingPopover = true
+        var body: some View {
+            VStack() {
+                
+                Button(
+                    action: {
+                        showingPopover.toggle()
+                    }, label: {
+                        Text("Toggle popover")
+                    }
+                )
+                .popover(isPresented: $showingPopover, arrowEdge: .top , content: {
+                    MarkerSymbolPickerV()
+                        .presentationCompactAdaptation(.popover)
+                })
+            }
+        }
+    }
+    
+    static var previews: some View {
+        Container()
+    }
 }

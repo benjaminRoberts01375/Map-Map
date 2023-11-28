@@ -22,7 +22,7 @@
         <attribute name="mapMapRotation" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="mapMapScale" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="cropCorners" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FourCorners" inverseName="mapMap" inverseEntity="FourCorners"/>
-        <relationship name="markers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Marker" inverseName="mapMap" inverseEntity="Marker"/>
+        <relationship name="markers" toMany="YES" deletionRule="Nullify" destinationEntity="Marker" inverseName="mapMap" inverseEntity="Marker"/>
     </entity>
     <entity name="Marker" representedClassName="Marker" syncable="YES">
         <attribute name="isEditing" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -30,6 +30,13 @@
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String" defaultValueString="Untitled Marker"/>
         <attribute name="thumbnailImage" optional="YES" attributeType="String"/>
+        <relationship name="color" maxCount="1" deletionRule="Nullify" destinationEntity="MarkerColor" inverseName="marker" inverseEntity="MarkerColor"/>
         <relationship name="mapMap" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MapMap" inverseName="markers" inverseEntity="MapMap"/>
+    </entity>
+    <entity name="MarkerColor" representedClassName="MarkerColor" syncable="YES">
+        <attribute name="blue" attributeType="Double" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="green" attributeType="Double" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="red" attributeType="Double" defaultValueString="1" usesScalarValueType="YES"/>
+        <relationship name="marker" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Marker" inverseName="color" inverseEntity="Marker"/>
     </entity>
 </model>
