@@ -38,10 +38,9 @@ struct MarkerEditorV: View {
                                 }
                         }
                         .popover(isPresented: $showingImagePicker) {
-                            Text("Hello world")
+                            MarkerSymbolPickerV()
                         }
-                        
-                        
+                        .presentationCompactAdaptation(.popover)
                     }
                     HStack {
                         Button {
