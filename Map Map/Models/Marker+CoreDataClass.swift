@@ -12,6 +12,11 @@ import SwiftUI
 
 @objc(Marker)
 public class Marker: NSManagedObject {
+    var correctedThumbnailImage: Image {
+        return Image(systemName: self.thumbnailImage ?? "star.fill")
+            .resizable()
+    }
+    
     var thumbnail: some View {
         get {
             Circle()
