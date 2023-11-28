@@ -14,6 +14,6 @@ struct MarkerSymbolPickerItemV: View {
         Image(systemName: symbol)
             .resizable()
             .scaledToFit()
-            .foregroundStyle(.primary)
+            .foregroundStyle(.white)
     }
 }
