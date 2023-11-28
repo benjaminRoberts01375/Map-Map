@@ -9,11 +9,21 @@ import SwiftUI
 
 struct MarkerSymbolPickerItemV: View {
     let symbol: String
+    let backgroundColor: Color
     
     var body: some View {
-        Image(systemName: symbol)
-            .resizable()
-            .scaledToFit()
-            .foregroundStyle(.white)
+        Circle()
+            .foregroundStyle(backgroundColor)
+            .overlay {
+                Image(systemName: symbol)
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundStyle(.white)
+                    .scaleEffect(0.6)
+            }
     }
+}
+
+#Preview {
+    MarkerSymbolPickerItemV(symbol: "map", backgroundColor: .red)
 }

@@ -38,8 +38,7 @@ struct MarkerEditorV: View {
                                 }
                         }
                         .popover(isPresented: $showingImagePicker) {
-                            MarkerSymbolPickerV()
-                                .background(marker.backgroundColor)
+                            MarkerSymbolPickerV(backgroundColor: marker.backgroundColor)
                         }
                         .presentationCompactAdaptation(.popover)
                     }

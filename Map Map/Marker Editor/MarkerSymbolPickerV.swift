@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MarkerSymbolPickerV: View {
     private let thumbnailImages: [String] = Mirror(reflecting: AvailableThumbnailImagesM()).children.map( { $0.value as! String })
+    let backgroundColor: Color
     
     var body: some View {
         ScrollView {
@@ -16,7 +17,7 @@ struct MarkerSymbolPickerV: View {
                 .frame(height: 250)
             WHStack {
                 ForEach(thumbnailImages, id: \.self) { symbol in
-                    MarkerSymbolPickerItemV(symbol: symbol)
+                    MarkerSymbolPickerItemV(symbol: symbol, backgroundColor: backgroundColor)
                         .frame(width: 40, height: 40)
                         .padding()
                 }
@@ -33,7 +34,6 @@ struct MarkerSymbolPickerV_Previews: PreviewProvider {
         @State var showingPopover = true
         var body: some View {
             VStack() {
-                
                 Button(
                     action: {
                         showingPopover.toggle()
@@ -42,7 +42,7 @@ struct MarkerSymbolPickerV_Previews: PreviewProvider {
                     }
                 )
                 .popover(isPresented: $showingPopover, arrowEdge: .top , content: {
-                    MarkerSymbolPickerV()
+                    MarkerSymbolPickerV(backgroundColor: .red)
                         .presentationCompactAdaptation(.popover)
                 })
             }
