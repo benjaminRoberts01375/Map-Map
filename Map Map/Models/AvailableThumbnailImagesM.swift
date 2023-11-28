@@ -22,7 +22,7 @@ struct AvailableThumbnailImagesM {
     let arrowDown = "arrowshape.down.fill"
     let arrowLeftRight = "arrowshape.left.arrowshape.right.fill"
     let ruler = "ruler.fill"
-    let chain = "link.circle.fill"
+    let chain = "link"
     let personSlash = "person.slash.fill"
     let personApart = "person.line.dotted.person.fill"
     let figureWalk = "figure.walk"
