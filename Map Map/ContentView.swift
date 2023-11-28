@@ -33,6 +33,7 @@ struct ContentView: View {
                     if let markerInProgress = markers.first(where: { $0.isEditing }) {
                         MarkerEditorV(marker: markerInProgress)
                     }
+                    else { EmptyView().onAppear { editingMapMap = false } }
                 }
                 else {
                     BottomDrawer(
@@ -54,6 +55,7 @@ struct ContentView: View {
         })
         .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { _ in
             editingMapMap = mapMaps.contains(where: { $0.isEditing })
+            editingMarker = markers.contains(where: { $0.isEditing })
         }
         .onReceive(NotificationCenter.default.publisher(for: .savingToastNotification)) { notification in
             if let showing = notification.userInfo?["savingVal"] as? Bool {
