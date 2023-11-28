@@ -31,7 +31,7 @@ struct ContentView: View {
                 }
                 else if editingMarker {
                     if let markerInProgress = markers.first(where: { $0.isEditing }) {
-                        
+                        MarkerEditorV(marker: markerInProgress)
                     }
                 }
                 else {
