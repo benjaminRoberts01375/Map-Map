@@ -13,19 +13,15 @@ struct MarkerSymbolPickerV: View {
     
     var body: some View {
         ScrollView {
-            Color.clear
-                .frame(height: 250)
             WHStack {
                 ForEach(thumbnailImages, id: \.self) { symbol in
                     MarkerSymbolPickerItemV(symbol: symbol, backgroundColor: backgroundColor)
-                        .frame(width: 40, height: 40)
+                        .frame(width: 45, height: 45)
                         .padding()
                 }
             }
-            .frame(width: 325, height: 300)
-            Color.clear
-                .frame(height: 250)
         }
+        .frame(width: 325, height: 300)
     }
 }
 
