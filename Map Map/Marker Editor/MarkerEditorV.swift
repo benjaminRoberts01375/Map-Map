@@ -9,7 +9,7 @@ import Bottom_Drawer
 import SwiftUI
 
 struct MarkerEditorV: View {
-    @State var workingName: String = ""
+    @State var workingName: String
     @State var showingImagePicker: Bool = false
     @Environment(\.managedObjectContext) var moc
     @ObservedObject var marker: FetchedResults<Marker>.Element
@@ -17,9 +17,8 @@ struct MarkerEditorV: View {
     
     init(marker: FetchedResults<Marker>.Element) {
         self.marker = marker
-        if let name = marker.name {
-            self.workingName = name
-        }
+        if let name = marker.name { self._workingName = State(initialValue: name) }
+        else { self._workingName = State(initialValue: "") }
     }
     
     var body: some View {
