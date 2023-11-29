@@ -32,7 +32,7 @@ public class Marker: NSManagedObject {
                     .resizable()
                     .scaledToFit()
                     .scaleEffect(0.6)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(self.forgroundColor)
             }
             .ignoresSafeArea(.all)
     }
@@ -67,6 +67,16 @@ public class Marker: NSManagedObject {
                 self.color = MarkerColor(red: red, green: green, blue: blue, insertInto: context)
             }
         }
+    }
+    
+    var forgroundColor: Color {
+        if let backgroundColorComponents = self.color,
+           backgroundColorComponents.red * 0.299 +
+            backgroundColorComponents.green * 0.587 +
+            backgroundColorComponents.blue * 0.114 > 0.5 { // Is a light color
+            return .black
+        }
+        return .white
     }
 }
 
