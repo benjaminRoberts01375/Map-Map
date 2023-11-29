@@ -10,6 +10,7 @@ import SwiftUI
 struct MarkerSymbolPickerV: View {
     private let thumbnailImages: [String] = Mirror(reflecting: AvailableThumbnailImagesM()).children.map( { $0.value as! String })
     let backgroundColor: Color
+    @Binding var selectedSymbol: String?
     
     var body: some View {
         ScrollView {
@@ -18,6 +19,12 @@ struct MarkerSymbolPickerV: View {
                     MarkerSymbolPickerItemV(symbol: symbol, backgroundColor: backgroundColor)
                         .frame(width: 45, height: 45)
                         .padding()
+                        .background {
+                            if symbol == selectedSymbol {
+                                Color.gray
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                            }
+                        }
                 }
             }
         }
@@ -28,6 +35,8 @@ struct MarkerSymbolPickerV: View {
 struct MarkerSymbolPickerV_Previews: PreviewProvider {
     struct Container: View {
         @State var showingPopover = true
+        @State var selectedSymbol: String? = "map"
+        
         var body: some View {
             VStack() {
                 Button(
@@ -38,7 +47,7 @@ struct MarkerSymbolPickerV_Previews: PreviewProvider {
                     }
                 )
                 .popover(isPresented: $showingPopover, arrowEdge: .top , content: {
-                    MarkerSymbolPickerV(backgroundColor: .red)
+                    MarkerSymbolPickerV(backgroundColor: .red, selectedSymbol: $selectedSymbol)
                         .presentationCompactAdaptation(.popover)
                 })
             }
