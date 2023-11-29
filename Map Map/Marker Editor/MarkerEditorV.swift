@@ -16,6 +16,11 @@ struct MarkerEditorV: View {
     
     var body: some View {
         ZStack {
+            marker.thumbnail
+                .allowsHitTesting(false)
+                .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
+                .ignoresSafeArea()
+                .offset(y: -2)
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
                 VStack {
                     HStack {
