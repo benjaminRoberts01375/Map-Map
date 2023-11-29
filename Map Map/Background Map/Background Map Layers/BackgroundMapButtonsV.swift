@@ -56,24 +56,26 @@ struct BackgroundMapButtonsV: View {
         }
         .animation(.easeInOut, value: markerButton)
         .mapScope(mapScope)
-        .onChange(of: backgroundMapDetails.position) { _, update in
-            for marker in markers {
-                if let markerPos = markerPositions[marker] {
-                    let xComponent = abs(markerPos.x - screenSize.width  / 2)
-                    let yComponent = abs(markerPos.y - screenSize.height / 2)
-                    let distance = sqrt(pow(xComponent, 2) + pow(yComponent, 2))
-                    if distance < BackgroundMapPointsV.iconSize / 2 {
-                        markerButton = .delete(marker)
-                        return
-                    }
+        .onChange(of: backgroundMapDetails.position) { checkOverMarker() }
+    }
+    
+    func checkOverMarker() {
+        for marker in markers {
+            if let markerPos = markerPositions[marker] {
+                let xComponent = abs(markerPos.x - screenSize.width  / 2)
+                let yComponent = abs(markerPos.y - screenSize.height / 2)
+                let distance = sqrt(pow(xComponent, 2) + pow(yComponent, 2))
+                if distance < BackgroundMapPointsV.iconSize / 2 {
+                    markerButton = .delete(marker)
+                    return
                 }
             }
-            switch markerButton {
-            case .add:
-                break
-            default:
-                markerButton = .add
-            }
+        }
+        switch markerButton {
+        case .add:
+            break
+        default:
+            markerButton = .add
         }
     }
 }
