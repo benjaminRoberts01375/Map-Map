@@ -15,6 +15,13 @@ struct MarkerEditorV: View {
     @ObservedObject var marker: FetchedResults<Marker>.Element
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     
+    init(marker: FetchedResults<Marker>.Element) {
+        self.marker = marker
+        if let name = marker.name {
+            self.workingName = name
+        }
+    }
+    
     var body: some View {
         ZStack {
             marker.thumbnail
