@@ -18,12 +18,12 @@ struct MarkerEditorV: View {
         ZStack {
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
                 VStack {
-                    TextField("Marker name", text: $workingName)
-                        .padding(.all, 5)
-                        .background(Color.gray.opacity(0.7))
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .frame(width: 205)
                     HStack {
+                        TextField("Marker name", text: $workingName)
+                            .padding(.all, 5)
+                            .background(Color.gray.opacity(0.7))
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .frame(width: 205)
                         Button {
                             showingImagePicker.toggle()
                         } label: {
