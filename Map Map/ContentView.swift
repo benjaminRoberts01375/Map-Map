@@ -14,8 +14,8 @@ struct ContentView: View {
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
     @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
     @Environment(\.managedObjectContext) var moc
-    @State var editingMapMap: Bool = false
-    @State var editingMarker: Bool = false
+    @State var editingMapMap: MapMap?
+    @State var editingMarker: Marker?
     @State var toastInfo: ToastInfo = ToastInfo()
     @State var displayType: LocationDisplayMode = .degrees
     
@@ -23,17 +23,11 @@ struct ContentView: View {
         GeometryReader { geo in
             ZStack(alignment: .top) {
                 BackgroundMapLayersV(displayType: $displayType)
-                if editingMapMap {
-                    if let mapInProgress = mapMaps.first(where: { $0.isEditing }) {
-                        MapMapEditor(mapMap: mapInProgress)
-                    }
-                    else { EmptyView().onAppear { editingMapMap = false } }
+                if let editingMapMap = editingMapMap {
+                    MapMapEditor(mapMap: editingMapMap)
                 }
-                else if editingMarker {
-                    if let markerInProgress = markers.first(where: { $0.isEditing }) {
-                        MarkerEditorV(marker: markerInProgress)
-                    }
-                    else { EmptyView().onAppear { editingMapMap = false } }
+                else if let editingMarker = editingMarker {
+                    MarkerEditorV(marker: editingMarker)
                 }
                 else {
                     BottomDrawer(
@@ -54,8 +48,10 @@ struct ContentView: View {
             AlertToast(displayMode: .hud, type: .loading, title: "Saving", subTitle: toastInfo.info)
         })
         .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { _ in
-            editingMapMap = mapMaps.contains(where: { $0.isEditing })
-            editingMarker = markers.contains(where: { $0.isEditing })
+            let editingMapMap = mapMaps.first(where: { $0.isEditing })
+            if self.editingMapMap != editingMapMap { self.editingMapMap = editingMapMap }
+            let editingMarker = markers.first(where: { $0.isEditing} )
+            if self.editingMarker != editingMarker { self.editingMarker = editingMarker }
         }
         .onReceive(NotificationCenter.default.publisher(for: .savingToastNotification)) { notification in
             if let showing = notification.userInfo?["savingVal"] as? Bool {
