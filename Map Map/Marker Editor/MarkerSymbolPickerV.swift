@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MarkerSymbolPickerV: View {
-    private let thumbnailImages: [String] = Mirror(reflecting: AvailableThumbnailImagesM()).children.map( { $0.value as! String })
+    private let thumbnailImages: [String] = Mirror(reflecting: AvailableThumbnailImagesM()).children.sorted { $0.label! < $1.label! }.map { $0.value as! String }
     @ObservedObject var marker: FetchedResults<Marker>.Element
     
     var body: some View {
