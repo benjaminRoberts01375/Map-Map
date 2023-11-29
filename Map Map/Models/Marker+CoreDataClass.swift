@@ -26,18 +26,16 @@ public class Marker: NSManagedObject {
     }
     
     var thumbnail: some View {
-        get {
-            Circle()
-                .fill(self.backgroundColor)
-                .overlay {
-                    Image(systemName: "star.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .scaleEffect(0.6)
-                        .foregroundStyle(.white)
-                }
-                .ignoresSafeArea(.all)
-        }
+        Circle()
+            .fill(self.backgroundColor)
+            .overlay {
+                self.correctedThumbnailImage
+                    .resizable()
+                    .scaledToFit()
+                    .scaleEffect(0.6)
+                    .foregroundStyle(.white)
+            }
+            .ignoresSafeArea(.all)
     }
     
     var coordinates: CLLocationCoordinate2D {
