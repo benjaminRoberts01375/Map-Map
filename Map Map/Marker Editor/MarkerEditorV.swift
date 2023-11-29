@@ -45,6 +45,8 @@ struct MarkerEditorV: View {
                     HStack {
                         Button {
                             marker.name = workingName
+                            marker.isEditing = false
+                            try? moc.save()
                         } label: {
                             Text("Done")
                                 .bigButton(backgroundColor: .blue)
