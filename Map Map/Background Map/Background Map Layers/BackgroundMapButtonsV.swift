@@ -57,6 +57,9 @@ struct BackgroundMapButtonsV: View {
         .animation(.easeInOut, value: markerButton)
         .mapScope(mapScope)
         .onChange(of: backgroundMapDetails.position) { checkOverMarker() }
+        .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)) { _ in
+            checkOverMarker()
+        }
     }
     
     func checkOverMarker() {
