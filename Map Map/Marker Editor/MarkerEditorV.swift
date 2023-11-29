@@ -13,6 +13,7 @@ struct MarkerEditorV: View {
     @State var showingImagePicker: Bool = false
     @Environment(\.managedObjectContext) var moc
     @ObservedObject var marker: FetchedResults<Marker>.Element
+    @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     
     var body: some View {
         ZStack {
@@ -52,6 +53,7 @@ struct MarkerEditorV: View {
                     HStack {
                         Button {
                             marker.name = workingName
+                            marker.coordinates = backgroundMapDetails.position
                             marker.isEditing = false
                             try? moc.save()
                         } label: {
