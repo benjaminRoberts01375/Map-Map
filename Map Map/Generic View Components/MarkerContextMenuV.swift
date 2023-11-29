@@ -9,6 +9,7 @@ import MapKit
 import SwiftUI
 
 struct MarkerContextMenuV: View {
+    @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @Environment(\.managedObjectContext) var moc
     @Binding var screenSpaceMarkerLocations: [Marker : CGPoint]
     let marker: FetchedResults<Marker>.Element
@@ -23,6 +24,9 @@ struct MarkerContextMenuV: View {
         }
         
         Button {
+            withAnimation {
+                backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: 6000, heading: 0))
+            }
             marker.isEditing = true
         } label: {
             Label("Edit Marker", systemImage: "pencil")
