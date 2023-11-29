@@ -13,8 +13,16 @@ import SwiftUI
 @objc(Marker)
 public class Marker: NSManagedObject {
     var correctedThumbnailImage: Image {
-        return Image(systemName: self.thumbnailImage ?? "star.fill")
-            .resizable()
+        if let thumbnailImage = thumbnailImage {
+            return Image(systemName: thumbnailImage)
+                .resizable()
+        }
+        else {
+            self.thumbnailImage = "star.fill"
+            return Image(systemName: "star.fill")
+                .resizable()
+            
+        }
     }
     
     var thumbnail: some View {
