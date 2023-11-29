@@ -9,8 +9,7 @@ import SwiftUI
 
 struct MarkerSymbolPickerV: View {
     private let thumbnailImages: [String] = Mirror(reflecting: AvailableThumbnailImagesM()).children.map( { $0.value as! String })
-    let backgroundColor: Color
-    @Binding var selectedSymbol: String?
+    @ObservedObject var marker: FetchedResults<Marker>.Element
     
     var body: some View {
         ScrollView {
@@ -18,47 +17,24 @@ struct MarkerSymbolPickerV: View {
                 .frame(height: 10)
             WHStack {
                 ForEach(thumbnailImages, id: \.self) { symbol in
-                    MarkerSymbolPickerItemV(symbol: symbol, backgroundColor: backgroundColor)
-                        .frame(width: 45, height: 45)
-                        .padding()
-                        .background {
-                            if symbol == selectedSymbol {
-                                Color.lightGray
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    Button {
+                        marker.thumbnailImage = symbol
+                    } label: {
+                        MarkerSymbolPickerItemV(symbol: symbol, backgroundColor: marker.backgroundColor)
+                            .frame(width: 45, height: 45)
+                            .padding()
+                            .background {
+                                if marker.thumbnailImage == symbol {
+                                    Color.lightGray
+                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                }
                             }
-                        }
+                    }
                 }
             }
             Color.clear
                 .frame(height: 10)
         }
         .frame(width: 335, height: 300)
-    }
-}
-
-struct MarkerSymbolPickerV_Previews: PreviewProvider {
-    struct Container: View {
-        @State var showingPopover = true
-        @State var selectedSymbol: String? = "map"
-        
-        var body: some View {
-            VStack() {
-                Button(
-                    action: {
-                        showingPopover.toggle()
-                    }, label: {
-                        Text("Toggle popover")
-                    }
-                )
-                .popover(isPresented: $showingPopover, arrowEdge: .top , content: {
-                    MarkerSymbolPickerV(backgroundColor: .red, selectedSymbol: $selectedSymbol)
-                        .presentationCompactAdaptation(.popover)
-                })
-            }
-        }
-    }
-    
-    static var previews: some View {
-        Container()
     }
 }
