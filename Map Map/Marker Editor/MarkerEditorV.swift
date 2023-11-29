@@ -24,12 +24,14 @@ struct MarkerEditorV: View {
                             .background(Color.gray.opacity(0.7))
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                             .frame(width: 205)
+                        ColorPicker("", selection: $marker.backgroundColor, supportsOpacity: false)
+                            .labelsHidden()
                         Button {
                             showingImagePicker.toggle()
                         } label: {
                             Circle()
                                 .fill(.gray)
-                                .frame(width: 40)
+                                .frame(width: 32)
                                 .overlay {
                                     marker.correctedThumbnailImage
                                         .scaledToFit()
