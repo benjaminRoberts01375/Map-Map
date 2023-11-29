@@ -49,4 +49,5 @@ struct AvailableThumbnailImagesM {
     let signpostLR = "signpost.right.and.left.fill"
     let mountain = "mountain.2.fill"
     let key = "key.horizontal.fill"
+    let star = "star.fill"
 }
