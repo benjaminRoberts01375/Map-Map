@@ -21,7 +21,6 @@ public class Marker: NSManagedObject {
             self.thumbnailImage = "star.fill"
             return Image(systemName: "star.fill")
                 .resizable()
-            
         }
     }
     
@@ -39,9 +38,7 @@ public class Marker: NSManagedObject {
     }
     
     var coordinates: CLLocationCoordinate2D {
-        get {
-            return CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
-        }
+        get { CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude) }
         set(value) {
             self.latitude = value.latitude
             self.longitude = value.longitude
