@@ -78,6 +78,16 @@ public class Marker: NSManagedObject {
         }
         return .white
     }
+    
+    var lockRotationAngleDouble: Double? {
+        get { return self.lockRotationAngle?.doubleValue }
+        set(newValue) {
+            if let newValue = newValue {
+                self.lockRotationAngle = NSDecimalNumber(value: newValue)
+            }
+            else { self.lockRotationAngle = nil }
+        }
+    }
 }
 
 extension Marker {
