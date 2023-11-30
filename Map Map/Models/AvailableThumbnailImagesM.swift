@@ -17,7 +17,6 @@ struct AvailableThumbnailImagesM {
     let camera = "camera.fill"
     let figureGolf = "figure.golf"
     let figureHunt = "figure.hunting"
-    let figureLodge = "figure.lodge"
     let figureRun = "figure.run"
     let figureStairs = "figure.stairs"
     let figureStretch = "figure.flexibility"
