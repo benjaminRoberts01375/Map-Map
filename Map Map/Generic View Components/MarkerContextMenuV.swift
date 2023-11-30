@@ -24,8 +24,16 @@ struct MarkerContextMenuV: View {
         }
         
         Button {
-            withAnimation {
-                backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: 6000, heading: 0))
+            let distance: Double = 6000
+            if let rotation = marker.lockRotationAngleDouble {
+                withAnimation {
+                    backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: distance, heading: rotation))
+                }
+            }
+            else {
+                withAnimation {
+                    backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: distance, heading: 0))
+                }
             }
             marker.isEditing = true
         } label: {
