@@ -27,6 +27,7 @@
     <entity name="Marker" representedClassName="Marker" syncable="YES">
         <attribute name="isEditing" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lockRotationAngle" optional="YES" attributeType="Decimal"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String" defaultValueString="Untitled Marker"/>
         <attribute name="thumbnailImage" optional="YES" attributeType="String"/>

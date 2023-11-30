@@ -15,7 +15,6 @@
 		07249C0D2B1682970088B721 /* MarkerSymbolPickerItemV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07249C0C2B1682970088B721 /* MarkerSymbolPickerItemV.swift */; };
 		07249C222B1692610088B721 /* MarkerColor+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07249C202B1692610088B721 /* MarkerColor+CoreDataClass.swift */; };
 		07249C232B1692610088B721 /* MarkerColor+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07249C212B1692610088B721 /* MarkerColor+CoreDataProperties.swift */; };
-		07249C272B1692A40088B721 /* Marker+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07249C252B1692A40088B721 /* Marker+CoreDataProperties.swift */; };
 		072DDB2E2AF426E000E74963 /* HandleV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB2D2AF426E000E74963 /* HandleV.swift */; };
 		072DDB302AF42A3E00E74963 /* IrregularGridV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */; };
 		072DDB322AF42B1F00E74963 /* CGPointE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072DDB312AF42B1F00E74963 /* CGPointE.swift */; };
@@ -25,6 +24,7 @@
 		073F91692B05C5A400AE56CB /* ToastInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073F91682B05C5A400AE56CB /* ToastInfo.swift */; };
 		073F916B2B06794000AE56CB /* FourCornersStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073F916A2B06794000AE56CB /* FourCornersStorage.swift */; };
 		0744E7172AFB203D00D9F0B5 /* CameraPreviewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0744E7162AFB203D00D9F0B5 /* CameraPreviewVM.swift */; };
+		074FEDE72B180EBF008C86A7 /* Marker+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074FEDE52B180EBF008C86A7 /* Marker+CoreDataProperties.swift */; };
 		075C65682AF4C5C900864A34 /* CGSizeE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C65672AF4C5C900864A34 /* CGSizeE.swift */; };
 		0762DD1F2AD37A1300C36D33 /* MapMap+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762DD1D2AD37A1300C36D33 /* MapMap+CoreDataClass.swift */; };
 		0762DD652AD4696B00C36D33 /* DoneButtonV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762DD642AD4696B00C36D33 /* DoneButtonV.swift */; };
@@ -81,7 +81,6 @@
 		07249C0C2B1682970088B721 /* MarkerSymbolPickerItemV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerSymbolPickerItemV.swift; sourceTree = "<group>"; };
 		07249C202B1692610088B721 /* MarkerColor+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MarkerColor+CoreDataClass.swift"; sourceTree = "<group>"; };
 		07249C212B1692610088B721 /* MarkerColor+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MarkerColor+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		07249C252B1692A40088B721 /* Marker+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Marker+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		072DDB2D2AF426E000E74963 /* HandleV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleV.swift; sourceTree = "<group>"; };
 		072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrregularGridV.swift; sourceTree = "<group>"; };
 		072DDB312AF42B1F00E74963 /* CGPointE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPointE.swift; sourceTree = "<group>"; };
@@ -91,6 +90,7 @@
 		073F91682B05C5A400AE56CB /* ToastInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastInfo.swift; sourceTree = "<group>"; };
 		073F916A2B06794000AE56CB /* FourCornersStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourCornersStorage.swift; sourceTree = "<group>"; };
 		0744E7162AFB203D00D9F0B5 /* CameraPreviewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewVM.swift; sourceTree = "<group>"; };
+		074FEDE52B180EBF008C86A7 /* Marker+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Marker+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		075C65672AF4C5C900864A34 /* CGSizeE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSizeE.swift; sourceTree = "<group>"; };
 		0762DD1D2AD37A1300C36D33 /* MapMap+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapMap+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0762DD642AD4696B00C36D33 /* DoneButtonV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButtonV.swift; sourceTree = "<group>"; };
@@ -265,7 +265,7 @@
 				0762DD1D2AD37A1300C36D33 /* MapMap+CoreDataClass.swift */,
 				0773AED02B0B30E6007D7CDB /* MapMap+CoreDataProperties.swift */,
 				0773AED92B0BDE94007D7CDB /* Marker+CoreDataClass.swift */,
-				07249C252B1692A40088B721 /* Marker+CoreDataProperties.swift */,
+				074FEDE52B180EBF008C86A7 /* Marker+CoreDataProperties.swift */,
 				07249C202B1692610088B721 /* MarkerColor+CoreDataClass.swift */,
 				07249C212B1692610088B721 /* MarkerColor+CoreDataProperties.swift */,
 			);
@@ -421,7 +421,7 @@
 				07BE4BB82B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift in Sources */,
 				07D522F32AE5CCCF009364B3 /* CLLocationDegreesE.swift in Sources */,
 				07A9C6AF2AF1B78C00C3AED4 /* FourCorners+CoreDataClass.swift in Sources */,
-				07249C272B1692A40088B721 /* Marker+CoreDataProperties.swift in Sources */,
+				074FEDE72B180EBF008C86A7 /* Marker+CoreDataProperties.swift in Sources */,
 				0773AEDB2B0BDE94007D7CDB /* Marker+CoreDataClass.swift in Sources */,
 				073F916B2B06794000AE56CB /* FourCornersStorage.swift in Sources */,
 				07EB79E72B01A7F600DC2699 /* UIImageE.swift in Sources */,
