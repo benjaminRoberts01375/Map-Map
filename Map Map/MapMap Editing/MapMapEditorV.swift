@@ -13,7 +13,7 @@ struct MapMapEditor: View {
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @Environment(\.managedObjectContext) var moc
     @State var workingName: String = ""
-    @State var mapWidth: CGFloat = .zero
+    @State var mapMapWidth: CGFloat = .zero
     @State var showingPhotoEditor = false
     
     var body: some View {
@@ -24,7 +24,7 @@ struct MapMapEditor: View {
                         GeometryReader { imageGeo in
                             Color.clear
                                 .onChange(of: imageGeo.size, initial: true) { _, update in
-                                    mapWidth = update.width
+                                    mapMapWidth = update.width
                                 }
                         }
                     }
@@ -57,7 +57,7 @@ struct MapMapEditor: View {
                         Button(action: {
                             mapMap.coordinates = backgroundMapDetails.position
                             mapMap.mapMapRotation = backgroundMapDetails.rotation.degrees
-                            mapMap.mapMapScale = mapWidth / backgroundMapDetails.scale
+                            mapMap.mapMapScale = mapMapWidth / backgroundMapDetails.scale
                             mapMap.mapMapName = workingName
                             mapMap.mapDistance = 1 / backgroundMapDetails.scale
                             mapMap.isEditing = false
