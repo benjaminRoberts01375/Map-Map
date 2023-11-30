@@ -21,6 +21,7 @@ struct MarkerEditorV: View {
         if let name = marker.name { self._workingName = State(initialValue: name) }
         else { self._workingName = State(initialValue: "") }
         self._saveAngle = State(initialValue: marker.lockRotationAngleDouble != nil)
+        NotificationCenter.default.post(name: .editingMarker, object: nil, userInfo: ["editing":true])
     }
     
     var body: some View {
@@ -90,5 +91,6 @@ struct MarkerEditorV: View {
                 }
             }
         }
+        .onDisappear { NotificationCenter.default.post(name: .editingMarker, object: nil, userInfo: ["editing":false]) }
     }
 }
