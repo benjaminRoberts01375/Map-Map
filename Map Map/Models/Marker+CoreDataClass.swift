@@ -63,18 +63,19 @@ public class Marker: NSManagedObject {
                 var green: CGFloat = 0.0
                 var blue: CGFloat = 0.0
                 var alpha: CGFloat = 0.0
-                UIColor(newValue).getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+                _ = UIColor(newValue).getRed(&red, green: &green, blue: &blue, alpha: &alpha)
                 self.color = MarkerColor(red: red, green: green, blue: blue, insertInto: context)
             }
         }
     }
     
     var forgroundColor: Color {
-        if let backgroundColorComponents = self.color,
-           backgroundColorComponents.red * 0.299 +
-            backgroundColorComponents.green * 0.587 +
-            backgroundColorComponents.blue * 0.114 > 0.5 { // Is a light color
-            return .black
+        if let backgroundColorComponents = self.color {
+            return Marker.calculateForgroundColor(
+                red: backgroundColorComponents.red,
+                green: backgroundColorComponents.green,
+                blue: backgroundColorComponents.blue
+            )
         }
         return .white
     }
@@ -87,6 +88,22 @@ public class Marker: NSManagedObject {
             }
             else { self.lockRotationAngle = nil }
         }
+    }
+    
+    static func calculateForgroundColor(red: Double, green: Double, blue: Double) -> Color {
+        if red * 0.299 + green * 0.587 + blue * 0.114 > 0.5 { // Is a light color
+            return .black
+        }
+        return .white
+    }
+    
+    static func calculateForgroundColor(color: Color) -> Color {
+        var red: CGFloat = 0.0
+        var green: CGFloat = 0.0
+        var blue: CGFloat = 0.0
+        var alpha: CGFloat = 0.0
+        _ = UIColor(color).getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        return Marker.calculateForgroundColor(red: red, green: green, blue: blue)
     }
 }
 
