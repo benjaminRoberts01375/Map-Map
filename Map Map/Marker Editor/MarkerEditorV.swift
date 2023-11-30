@@ -9,6 +9,7 @@ import Bottom_Drawer
 import SwiftUI
 
 struct MarkerEditorV: View {
+    @State var saveAngle: Bool
     @State var workingName: String
     @State var showingImagePicker: Bool = false
     @Environment(\.managedObjectContext) var moc
@@ -19,10 +20,22 @@ struct MarkerEditorV: View {
         self.marker = marker
         if let name = marker.name { self._workingName = State(initialValue: name) }
         else { self._workingName = State(initialValue: "") }
+        self._saveAngle = State(initialValue: marker.lockRotationAngleDouble != nil)
     }
     
     var body: some View {
         ZStack {
+            ZStack(alignment: .topLeading) {
+                Button {
+                    saveAngle.toggle()
+                } label: {
+                    Image(systemName: saveAngle ? "lock.rotation" : "lock.open.rotation")
+                        .opacity(saveAngle ? 1 : 0.75)
+                        .mapButton()
+                }
+                Color.clear
+            }
+            .padding(.leading, 8)
             marker.thumbnail
                 .allowsHitTesting(false)
                 .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
@@ -60,6 +73,7 @@ struct MarkerEditorV: View {
                         Button {
                             marker.name = workingName
                             marker.coordinates = backgroundMapDetails.position
+                            marker.lockRotationAngleDouble = backgroundMapDetails.userRotation.degrees
                             marker.isEditing = false
                             try? moc.save()
                         } label: {
