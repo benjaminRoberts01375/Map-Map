@@ -23,6 +23,7 @@ struct ContentView: View {
         GeometryReader { geo in
             ZStack(alignment: .top) {
                 BackgroundMapLayersV(displayType: $displayType)
+                    .environment(\.locationDisplayMode, displayType)
                 if let editingMapMap = editingMapMap {
                     MapMapEditor(mapMap: editingMapMap)
                 }
