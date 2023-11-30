@@ -25,7 +25,7 @@ struct MarkerSymbolPickerV: View {
                             .padding()
                             .background {
                                 if marker.thumbnailImage == symbol {
-                                    Color.lightGray
+                                    Color.highlightGray
                                         .clipShape(RoundedRectangle(cornerRadius: 10))
                                 }
                             }
