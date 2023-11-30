@@ -24,7 +24,7 @@ struct BackgroundMapPointsV: View {
                     let distance: Double = 6000
                     if let rotation = marker.lockRotationAngleDouble {
                         withAnimation {
-                            backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: distance, heading: rotation))
+                            backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: distance, heading: -rotation))
                         }
                     }
                     else {
@@ -33,7 +33,13 @@ struct BackgroundMapPointsV: View {
                         }
                     }
                 } label: {
-                    marker.thumbnail
+                    if let angle = marker.lockRotationAngleDouble {
+                        marker.thumbnail
+                            .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: angle))
+                    }
+                    else {
+                        marker.thumbnail
+                    }
                 }
                 .contextMenu {
                     MarkerContextMenuV(screenSpaceMarkerLocations: $screenSpaceMarkerLocations, marker: marker)

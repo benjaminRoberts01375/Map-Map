@@ -27,7 +27,7 @@ struct MarkerContextMenuV: View {
             let distance: Double = 6000
             if let rotation = marker.lockRotationAngleDouble {
                 withAnimation {
-                    backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: distance, heading: rotation))
+                    backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: distance, heading: -rotation))
                 }
             }
             else {

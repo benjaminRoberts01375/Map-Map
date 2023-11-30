@@ -73,7 +73,7 @@ struct MarkerEditorV: View {
                         Button {
                             marker.name = workingName
                             marker.coordinates = backgroundMapDetails.position
-                            marker.lockRotationAngleDouble = backgroundMapDetails.userRotation.degrees
+                            marker.lockRotationAngleDouble = backgroundMapDetails.rotation.degrees
                             marker.isEditing = false
                             try? moc.save()
                         } label: {
