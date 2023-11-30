@@ -33,6 +33,7 @@ struct MarkerEditorV: View {
                     Image(systemName: saveAngle ? "lock.rotation" : "lock.open.rotation")
                         .opacity(saveAngle ? 1 : 0.75)
                         .mapButton()
+                        .saturation(saveAngle ? 1 : 0)
                 }
                 Color.clear
             }
