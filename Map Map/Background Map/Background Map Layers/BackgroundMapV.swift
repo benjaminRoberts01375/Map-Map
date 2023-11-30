@@ -15,6 +15,7 @@ struct BackgroundMap: View {
     @State var locationsHandler = LocationsHandler.shared
     @Binding var screenSpaceUserLocation: CGPoint?
     @Binding var screenSpaceMarkerLocations: [Marker : CGPoint]
+    @State var tappableMapMaps = true
     let mapScope: Namespace.ID
     
     var body: some View {
@@ -31,17 +32,25 @@ struct BackgroundMap: View {
                             coordinate: mapMap.coordinates,
                             anchor: .center
                         ) {
-                            Button(action: {
-                                withAnimation {
-                                    backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: mapMap.coordinates, distance: mapMap.mapDistance, heading: -mapMap.mapMapRotation))
-                                }
-                            }, label: {
+                            if tappableMapMaps {
+                                Button(action: {
+                                    withAnimation {
+                                        backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: mapMap.coordinates, distance: mapMap.mapDistance, heading: -mapMap.mapMapRotation))
+                                    }
+                                }, label: {
+                                    AnyView(mapMap.getMap(.fullImage))
+                                        .frame(width: backgroundMapDetails.scale * mapMap.mapMapScale)
+                                        .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: mapMap.mapMapRotation))
+                                        .offset(y: -7)
+                                })
+                                .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
+                            }
+                            else {
                                 AnyView(mapMap.getMap(.fullImage))
                                     .frame(width: backgroundMapDetails.scale * mapMap.mapMapScale)
                                     .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: mapMap.mapMapRotation))
                                     .offset(y: -7)
-                            })
-                            .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
+                            }
                         }
                     }
                 }
@@ -74,6 +83,11 @@ struct BackgroundMap: View {
             .onReceive(NotificationCenter.default.publisher(for: .addedMarker)) { notification in
                 if let marker = notification.userInfo?["marker"] as? Marker, let screenSpaceMarkerLocation = mapContext.convert(marker.coordinates, to: .local) {
                     screenSpaceMarkerLocations[marker] = screenSpaceMarkerLocation
+                }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .editingMarker)) { notification in
+                if let editingStatus = notification.userInfo?["editing"] as? Bool {
+                    tappableMapMaps = !editingStatus
                 }
             }
             .animation(.linear, value: screenSpaceUserLocation)
