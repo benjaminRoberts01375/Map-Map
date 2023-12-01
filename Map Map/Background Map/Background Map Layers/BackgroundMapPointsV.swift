@@ -33,13 +33,8 @@ struct BackgroundMapPointsV: View {
                         }
                     }
                 } label: {
-                    if let angle = marker.lockRotationAngleDouble {
-                        MarkerV(marker: marker)
-                            .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: angle))
-                    }
-                    else {
-                        MarkerV(marker: marker)
-                    }
+                    MarkerV(marker: marker)
+                        .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: marker.lockRotationAngleDouble ?? 0))
                 }
                 .contextMenu {
                     MarkerContextMenuV(screenSpaceMarkerLocations: $screenSpaceMarkerLocations, marker: marker)
