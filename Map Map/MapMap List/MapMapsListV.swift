@@ -16,18 +16,18 @@ struct MapMapList: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ForEach(mapMaps) { map in
+            ForEach(mapMaps) { mapMap in
                 Button(action: {
                     withAnimation {
-                        backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: map.coordinates, distance: map.mapDistance, heading: -map.mapMapRotation))
+                        backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: mapMap.coordinates, distance: mapMap.mapDistance, heading: -mapMap.mapMapRotation))
                     }
                 }, label: {
-                    MapMapListItemV(mapMap: map)
+                    MapMapListItemV(mapMap: mapMap)
                         .padding()
                 })
                 .buttonStyle(.plain)
                 .background(colorScheme == .dark ? .gray20 : Color.white)
-                .contextMenu { MapMapContextMenuV(mapMap: map) }
+                .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
                 Divider()
             }
         }
