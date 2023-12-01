@@ -20,17 +20,22 @@ struct BackgroundMapPointsV: View {
     var body: some View {
         ForEach(markers) { marker in
             if let position = screenSpaceMarkerLocations[marker], !marker.isEditing {
-                Button {
-                    let distance: Double = 6000
-                    withAnimation {
-                        backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: distance, heading: -(marker.lockRotationAngleDouble ?? 0)))
+                ZStack {
+                    Button {
+                        let distance: Double = 6000
+                        withAnimation {
+                            backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: distance, heading: -(marker.lockRotationAngleDouble ?? 0)))
+                        }
+                    } label: {
+                        MarkerV(marker: marker)
+                            .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: marker.lockRotationAngleDouble ?? 0))
                     }
-                } label: {
-                    MarkerV(marker: marker)
-                        .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: marker.lockRotationAngleDouble ?? 0))
+                    .contextMenu { MarkerContextMenuV(screenSpaceMarkerLocations: $screenSpaceMarkerLocations, marker: marker) }
+                    .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
+                    Text(marker.name ?? "")
+                        .allowsHitTesting(false)
+                        .offset(y: BackgroundMapPointsV.iconSize)
                 }
-                .contextMenu { MarkerContextMenuV(screenSpaceMarkerLocations: $screenSpaceMarkerLocations, marker: marker) }
-                .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
                 .position(position)
             }
         }
