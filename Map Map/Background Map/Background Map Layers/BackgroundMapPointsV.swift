@@ -29,9 +29,7 @@ struct BackgroundMapPointsV: View {
                     MarkerV(marker: marker)
                         .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: marker.lockRotationAngleDouble ?? 0))
                 }
-                .contextMenu {
-                    MarkerContextMenuV(screenSpaceMarkerLocations: $screenSpaceMarkerLocations, marker: marker)
-                }
+                .contextMenu { MarkerContextMenuV(screenSpaceMarkerLocations: $screenSpaceMarkerLocations, marker: marker) }
                 .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
                 .position(position)
             }
