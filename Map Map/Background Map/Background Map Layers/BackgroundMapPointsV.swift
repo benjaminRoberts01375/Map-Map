@@ -33,6 +33,13 @@ struct BackgroundMapPointsV: View {
                     .contextMenu { MarkerContextMenuV(screenSpaceMarkerLocations: $screenSpaceMarkerLocations, marker: marker) }
                     .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
                     Text(marker.name ?? "")
+                        .shadow(color: .black.opacity(2), radius: 3)
+                        .padding(5)
+                        .background {
+                            Color.black
+                                .opacity(0.35)
+                                .blur(radius: 5)
+                        }
                         .allowsHitTesting(false)
                         .offset(y: BackgroundMapPointsV.iconSize)
                 }
