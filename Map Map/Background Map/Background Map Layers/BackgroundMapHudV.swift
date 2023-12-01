@@ -30,7 +30,7 @@ struct BackgroundMapHudV: View {
                     .fontWidth(.condensed)
                 
                 Text("Longitude: ") +
-                Text(locationDisplayMode.degreesToString(latitude: backgroundMapDetails.position.longitude))
+                Text(locationDisplayMode.degreesToString(longitude: backgroundMapDetails.position.longitude))
                     .fontWidth(.condensed)
                 if showHeading {
                     Text("Heading: ") +
