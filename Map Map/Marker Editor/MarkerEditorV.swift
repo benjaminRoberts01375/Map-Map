@@ -38,7 +38,7 @@ struct MarkerEditorV: View {
                 Color.clear
             }
             .padding(.leading, 8)
-            marker.thumbnail
+            MarkerV(marker: marker)
                 .allowsHitTesting(false)
                 .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
                 .ignoresSafeArea()

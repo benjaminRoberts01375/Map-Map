@@ -24,19 +24,6 @@ public class Marker: NSManagedObject {
         }
     }
     
-    var thumbnail: some View {
-        Circle()
-            .fill(self.backgroundColor)
-            .overlay {
-                self.correctedThumbnailImage
-                    .resizable()
-                    .scaledToFit()
-                    .scaleEffect(0.6)
-                    .foregroundStyle(self.forgroundColor)
-            }
-            .ignoresSafeArea(.all)
-    }
-    
     var coordinates: CLLocationCoordinate2D {
         get { CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude) }
         set(value) {
