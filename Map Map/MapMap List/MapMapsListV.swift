@@ -22,7 +22,7 @@ struct MapMapList: View {
                         backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: map.coordinates, distance: map.mapDistance, heading: -map.mapMapRotation))
                     }
                 }, label: {
-                    ListItemV(mapMap: map)
+                    MapMapListItemV(mapMap: map)
                         .padding()
                 })
                 .buttonStyle(.plain)

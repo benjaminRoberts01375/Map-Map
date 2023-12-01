@@ -14,7 +14,6 @@ struct MapMapListItemThumbnail: ViewModifier {
             .frame(minWidth: 100, idealWidth: 100, maxWidth: 100, minHeight: 50, maxHeight: 100)
             .background(.thickMaterial)
             .clipShape(RoundedRectangle(cornerRadius: 10))
-//            .padding(.trailing)
     }
 }
 

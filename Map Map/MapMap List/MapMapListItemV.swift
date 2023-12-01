@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ListItemV: View {
+struct MapMapListItemV: View {
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @Environment(\.locationDisplayMode) var displayType
