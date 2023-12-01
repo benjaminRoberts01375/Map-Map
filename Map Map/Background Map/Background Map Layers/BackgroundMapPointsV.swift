@@ -22,15 +22,8 @@ struct BackgroundMapPointsV: View {
             if let position = screenSpaceMarkerLocations[marker], !marker.isEditing {
                 Button {
                     let distance: Double = 6000
-                    if let rotation = marker.lockRotationAngleDouble {
-                        withAnimation {
-                            backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: distance, heading: -rotation))
-                        }
-                    }
-                    else {
-                        withAnimation {
-                            backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: distance, heading: 0))
-                        }
+                    withAnimation {
+                        backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: distance, heading: -(marker.lockRotationAngleDouble ?? 0)))
                     }
                 } label: {
                     MarkerV(marker: marker)
