@@ -22,7 +22,7 @@ struct ListItemV: View {
                 Spacer(minLength: 0)
             }
             HStack(spacing: 0) {
-                AnyView(mapMap.getMap(.thumbnail))
+                MapMapV(mapMap: mapMap, mapType: .thumbnail)
                     .mapMapListItemThumbnail()
                     .padding(.trailing)
                 ViewThatFits {

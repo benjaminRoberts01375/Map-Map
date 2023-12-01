@@ -38,7 +38,7 @@ struct BackgroundMap: View {
                                         backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: mapMap.coordinates, distance: mapMap.mapDistance, heading: -mapMap.mapMapRotation))
                                     }
                                 }, label: {
-                                    AnyView(mapMap.getMap(.fullImage))
+                                    MapMapV(mapMap: mapMap, mapType: .fullImage)
                                         .frame(width: backgroundMapDetails.scale * mapMap.mapMapScale)
                                         .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: mapMap.mapMapRotation))
                                         .offset(y: -7)
@@ -46,7 +46,7 @@ struct BackgroundMap: View {
                                 .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
                             }
                             else {
-                                AnyView(mapMap.getMap(.fullImage))
+                                MapMapV(mapMap: mapMap, mapType: .fullImage)
                                     .frame(width: backgroundMapDetails.scale * mapMap.mapMapScale)
                                     .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: mapMap.mapMapRotation))
                                     .offset(y: -7)

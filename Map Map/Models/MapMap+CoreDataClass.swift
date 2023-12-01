@@ -13,13 +13,12 @@ import SwiftUI
 
 @objc(MapMap)
 public class MapMap: NSManagedObject {
-    @Published private var image: ImageStatus = .empty
-    @Published private var thumbnail: ImageStatus = .empty
-    private let thumbnailSize: CGSize = CGSize(width: 300, height: 300)
+    @Published public var image: ImageStatus = .empty 
+    { didSet { self.objectWillChange.send() } }
+    @Published public var thumbnail: ImageStatus = .empty
+    static let thumbnailSize: CGSize = CGSize(width: 300, height: 300)
     public var coordinates: CLLocationCoordinate2D {
-        get {
-            return CLLocationCoordinate2D(latitude: self.mapMapLatitude , longitude: self.mapMapLongitude)
-        }
+        get { CLLocationCoordinate2D(latitude: self.mapMapLatitude , longitude: self.mapMapLongitude) }
         set(coordinates) {
             self.mapMapLatitude = coordinates.latitude
             self.mapMapLongitude = coordinates.longitude
@@ -29,83 +28,38 @@ public class MapMap: NSManagedObject {
     public enum ImageStatus {
         case empty
         case loading
-        case success(any View)
+        case success(Image)
         case failure
     }
     
-    public enum MapType {
-        case thumbnail
-        case fullImage
-        case original
-    }
-    
-    public func getMap(_ mapType: MapType) -> any View {
-        switch getMapFromType(mapType) {
-        case .empty:
-            Task { loadImageFromCD() }
-            return ProgressView()
-                .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
-        case .loading:
-            return ProgressView()
-                .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
-        case .success(let img):
-            return img
-        case .failure:
-            return Image(systemName: "exclamationmark.triangle.fill")
-                .resizable()
-                .scaledToFit()
-                .foregroundStyle(.yellow)
-        }
-    }
-    
-    private func getMapFromType(_ mapType: MapType) -> ImageStatus {
-        switch mapType {
-        case .fullImage:
-            return image
-        case .thumbnail:
-            return thumbnail
-        case .original:
-            guard let mapData = self.mapMapRawEncodedImage,
-                  let uiImage = UIImage(data: mapData)
-            else { return .failure }
-            return .success(
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFit()
-            )
-        }
-    }
-    
-    private func loadImageFromCD() {
-        self.image = .loading
-        self.thumbnail = .loading
+    public func loadImageFromCD() {
         let workingImage: Data? = self.cropCorners == nil ? self.mapMapRawEncodedImage : self.mapMapPerspectiveFixedEncodedImage
         if let mapData = workingImage { // Available in Core Data
             if let uiImage = UIImage(data: mapData) {
-                image = .success(
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .scaledToFit()
-                )
+                let outputImage = Image(uiImage: uiImage)
+                DispatchQueue.main.async { self.image = .success(outputImage) }
                 if self.mapMapEncodedThumbnail == nil { generateThumbnailFromUIImage(uiImage) }
                 else { loadThumbnailFromCD() }
                 return
             }
         }
         else {
-            image = .failure
-            thumbnail = .failure
+            DispatchQueue.main.async {
+                self.image = .failure
+                self.thumbnail = .failure
+            }
         }
     }
     
     private func generateThumbnailFromUIImage(_ uiImage: UIImage) {
         Task {
-            if let generatedThumbnail = await uiImage.byPreparingThumbnail(ofSize: thumbnailSize) {
-                thumbnail = .success(Image(uiImage: generatedThumbnail).resizable().scaledToFit())
+            if let generatedThumbnail = await uiImage.byPreparingThumbnail(ofSize: MapMap.thumbnailSize) {
+                let outputImage = Image(uiImage: generatedThumbnail)
+                DispatchQueue.main.async { self.thumbnail = .success(outputImage) }
                 self.mapMapEncodedThumbnail = generatedThumbnail.jpegData(compressionQuality: 0.1)
             }
             else {
-                thumbnail = .failure
+                DispatchQueue.main.async { self.thumbnail = .failure }
             }
         }
     }
@@ -113,11 +67,12 @@ public class MapMap: NSManagedObject {
     private func loadThumbnailFromCD() {
         if let mapThumbnail = self.mapMapEncodedThumbnail {
             if let uiImage = UIImage(data: mapThumbnail) {
-                thumbnail = .success(Image(uiImage: uiImage).resizable().scaledToFit())
+                let outputImage = Image(uiImage: uiImage)
+                DispatchQueue.main.async { self.thumbnail = .success(outputImage) }
                 return
             }
         }
-        thumbnail = .failure
+        DispatchQueue.main.async { self.thumbnail = .failure }
     }
     
     public func setAndApplyCorners(topLeading: CGSize, topTrailing: CGSize, bottomLeading: CGSize, bottomTrailing: CGSize) {
@@ -165,19 +120,22 @@ extension MapMap {
                     self.mapMapRawEncodedImage = uiImage.jpegData(compressionQuality: 0.1)
                     self.imageWidth = uiImage.size.width.rounded()
                     self.imageHeight = uiImage.size.height.rounded()
-                    image = .success(Image(uiImage: uiImage).resizable().scaledToFit())
+                    let outputImage = Image(uiImage: uiImage)
+                    DispatchQueue.main.async { self.image = .success(outputImage) }
                     generateThumbnailFromUIImage(uiImage)
                     return
                 }
             }
-            thumbnail = .failure
-            image = .failure
+            DispatchQueue.main.async {
+                self.thumbnail = .failure
+                self.image = .failure
+            }
         }
     }
     
     convenience public init(rawPhoto: UIImage, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
-        image = .success(Image(uiImage: rawPhoto).resizable().scaledToFit())
+        image = .success(Image(uiImage: rawPhoto))
         Task {
             thumbnail = .loading
             self.mapMapName = "Untitled map"
@@ -188,7 +146,8 @@ extension MapMap {
                 image = .failure
                 return
             }
-            image = .success(Image(uiImage: uiImage).resizable().scaledToFit())
+            let outputImage = Image(uiImage: uiImage)
+            DispatchQueue.main.async { self.image = .success(outputImage) }
             self.mapMapRawEncodedImage = jpegData
             self.imageWidth = rawPhoto.size.width
             self.imageHeight = rawPhoto.size.height
@@ -222,7 +181,7 @@ extension MapMap {
         else { return }
         
         let newUIImage = UIImage(cgImage: consume newCGImage)
-        let result: ImageStatus = .success(Image(uiImage: newUIImage).resizable().scaledToFit())
+        let result: ImageStatus = .success(Image(uiImage: newUIImage))
         DispatchQueue.main.async {
             self.image = result
             self.objectWillChange.send()

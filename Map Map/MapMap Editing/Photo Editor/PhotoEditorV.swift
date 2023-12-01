@@ -34,7 +34,7 @@ struct PhotoEditorV: View {
         ZStack {
             GeometryReader { geo in
                 ZStack(alignment: .center) {
-                    MapMapV(mapMap: mapMap)
+                    MapMapV(mapMap: mapMap, mapType: .original)
                         .background {
                             GeometryReader { imageGeo in
                                 Color.clear

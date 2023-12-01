@@ -19,7 +19,7 @@ struct MapMapEditor: View {
     var body: some View {
         ZStack {
             GeometryReader { geo in
-                AnyView(mapMap.getMap(.fullImage))
+                MapMapV(mapMap: mapMap, mapType: .fullImage)
                     .background {
                         GeometryReader { imageGeo in
                             Color.clear
