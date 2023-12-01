@@ -11,6 +11,8 @@ struct MapMapListItemV: View {
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @Environment(\.locationDisplayMode) var displayType
+    let mapMapSize: CGFloat = 100
+    let cornerRadius: CGFloat = 10
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -23,7 +25,10 @@ struct MapMapListItemV: View {
             }
             HStack(spacing: 0) {
                 MapMapV(mapMap: mapMap, mapType: .thumbnail)
-                    .mapMapListItemThumbnail()
+                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius / 2))
+                    .frame(minWidth: mapMapSize, idealWidth: mapMapSize, maxWidth: mapMapSize, minHeight: mapMapSize / 2, maxHeight: mapMapSize)
+                    .background(.thickMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                     .padding(.trailing)
                 ViewThatFits {
                     VStack(alignment: .leading) {
