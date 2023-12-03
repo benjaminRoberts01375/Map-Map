@@ -9,6 +9,7 @@ import MapKit
 import SwiftUI
 
 struct BackgroundMapButtonsV: View {
+    @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
     @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
     @Environment(\.managedObjectContext) var moc
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
@@ -38,8 +39,7 @@ struct BackgroundMapButtonsV: View {
                 switch markerButton {
                 case .add:
                     Button {
-                        let _ = Marker(coordinates: backgroundMapDetails.position, insertInto: moc)
-                        try? moc.save()
+                        addMarker()
                     } label: {
                         Image(systemName: "mappin.and.ellipse")
                             .mapButton()
@@ -110,5 +110,18 @@ struct BackgroundMapButtonsV: View {
         convexHullPath.close()
         
         return convexHullPath.contains(CGPoint(size: screenSize / 2))
+    }
+    
+    func addMarker() {
+        let newMarker = Marker(coordinates: backgroundMapDetails.position, insertInto: moc)
+        
+        for mapMap in mapMaps {
+            if checkOverMapMap(mapMap: mapMap) {
+                newMarker.addToMapMap(mapMap)
+                return
+            }
+        }
+        
+        try? moc.save()
     }
 }
