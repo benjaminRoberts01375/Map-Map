@@ -84,7 +84,7 @@ struct BackgroundMapButtonsV: View {
     }
     
     func checkOverMapMap(mapMap: MapMap) -> Bool {
-        guard let rect = screenSpaceMapMapLocations[mapMap]
+        guard let rect = mapMapLocations[mapMap]
         else { return false }
         
         let transform = CGAffineTransform(translationX: rect.midX - rect.width / 2, y: rect.midY - rect.height / 2)

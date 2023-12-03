@@ -47,6 +47,7 @@ struct BackgroundMapLayersV: View {
                     }
                 VStack(alignment: .trailing) {
                     BackgroundMapButtonsV(
+                        mapMapLocations: $screenSpaceMapMapLocations, 
                         markerPositions: $screenSpaceMarkerLocations,
                         displayType: $displayType, screenSize: CGSize(
                             width: geo.size.width + geo.safeAreaInsets.leading + geo.safeAreaInsets.trailing,
