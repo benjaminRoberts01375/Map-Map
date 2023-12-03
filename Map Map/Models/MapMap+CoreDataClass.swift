@@ -25,6 +25,10 @@ public class MapMap: NSManagedObject {
         }
     }
     
+    var formattedMarkers: Set<Marker> {
+        self.markers as? Set<Marker> ?? []
+    }
+    
     public enum ImageStatus {
         case empty
         case loading
