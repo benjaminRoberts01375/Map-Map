@@ -14,6 +14,7 @@ struct BackgroundMap: View {
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @State var locationsHandler = LocationsHandler.shared
     @Binding var screenSpaceUserLocation: CGPoint?
+    @Binding var screenSpaceMapMapLocations: [MapMap : CGRect]
     @Binding var screenSpaceMarkerLocations: [Marker : CGPoint]
     @State var tappableMapMaps = true
     let mapScope: Namespace.ID
@@ -71,6 +72,21 @@ struct BackgroundMap: View {
                     screenSpaceMarkerPositions[marker] = screenSpaceMarkerPosition
                 }
                 self.screenSpaceMarkerLocations = screenSpaceMarkerPositions
+                var screenSpaceMapMapPositions: [MapMap : CGRect] = [:]
+                for mapMap in mapMaps {
+                    guard let center = mapContext.convert(mapMap.coordinates, to: .local)
+                    else { return }
+                    let size = backgroundMapDetails.scale * mapMap.mapMapScale
+                    let rect = CGRect(
+                        origin: center,
+                        size: CGSize(
+                            width: size,
+                            height: size / mapMap.imageWidth * mapMap.imageHeight
+                        )
+                    )
+                    screenSpaceMapMapPositions[mapMap] = rect
+                }
+                self.screenSpaceMapMapLocations = screenSpaceMapMapPositions
             }
             .mapStyle(.standard(elevation: .realistic))
             .onAppear { locationsHandler.startLocationTracking() }
