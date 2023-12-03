@@ -21,7 +21,8 @@ struct BackgroundMapLayersV: View {
         GeometryReader { geo in
             ZStack(alignment: .center) {
                 BackgroundMap(screenSpaceUserLocation: $screenSpaceUserLocation, screenSpaceMarkerLocations: $screenSpaceMarkerLocations, mapScope: mapScope)
-                BackgroundMapPointsV(screenSpaceUserLocation: $screenSpaceUserLocation, screenSpaceMarkerLocations: $screenSpaceMarkerLocations)
+                BackgroundMapPointsV(screenSpaceUserLocation: $screenSpaceUserLocation, screenSpaceMarkerLocations: $screenSpaceMarkerLocations, screenSize: geo.size)
+                    .safeAreaPadding(geo.safeAreaInsets)
                 BlurView()
                     .frame(width: geo.size.width, height: geo.safeAreaInsets.top)
                     .blur(radius: blurAmount)

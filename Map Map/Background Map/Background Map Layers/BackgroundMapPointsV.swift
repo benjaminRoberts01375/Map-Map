@@ -14,6 +14,7 @@ struct BackgroundMapPointsV: View {
     @Environment(\.managedObjectContext) var moc
     @Binding var screenSpaceUserLocation: CGPoint?
     @Binding var screenSpaceMarkerLocations: [Marker : CGPoint]
+    let screenSize: CGSize
     static let iconSize: CGFloat = 30
     let userLocationSize: CGFloat = 24
     
@@ -32,16 +33,18 @@ struct BackgroundMapPointsV: View {
                     }
                     .contextMenu { MarkerContextMenuV(screenSpaceMarkerLocations: $screenSpaceMarkerLocations, marker: marker) }
                     .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
-                    Text(marker.name ?? "")
-                        .shadow(color: .black.opacity(2), radius: 3)
-                        .padding(5)
-                        .background {
-                            Color.black
-                                .opacity(0.35)
-                                .blur(radius: 5)
-                        }
-                        .allowsHitTesting(false)
-                        .offset(y: BackgroundMapPointsV.iconSize)
+                    if let markerName = marker.name, isOverMarker(marker) {
+                        Text(markerName)
+                            .shadow(color: .black.opacity(2), radius: 3)
+                            .padding(5)
+                            .background {
+                                Color.black
+                                    .opacity(0.35)
+                                    .blur(radius: 5)
+                            }
+                            .allowsHitTesting(false)
+                            .offset(y: BackgroundMapPointsV.iconSize)
+                    }
                 }
                 .position(position)
             }
@@ -53,5 +56,13 @@ struct BackgroundMapPointsV: View {
                 .position(screenSpaceUserLocation)
         }
         else { EmptyView() }
+    }
+    
+    func isOverMarker(_ marker: Marker) -> Bool {
+        guard let markerPos = screenSpaceMarkerLocations[marker] else { return false }
+        let xComponent = abs(markerPos.x - screenSize.width  / 2)
+        let yComponent = abs(markerPos.y - screenSize.height / 2)
+        let distance = sqrt(pow(xComponent, 2) + pow(yComponent, 2))
+        return distance < BackgroundMapPointsV.iconSize / 2
     }
 }
