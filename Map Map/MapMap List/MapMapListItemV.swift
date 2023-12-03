@@ -30,26 +30,7 @@ struct MapMapListItemV: View {
                     .background(.thickMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                     .padding(.trailing)
-                ViewThatFits {
-                    VStack(alignment: .leading) {
-                        Text("Latitude: ") +
-                        Text(displayType.degreesToString(latitude: mapMap.coordinates.latitude))
-                            .fontWidth(.condensed)
-                        Text("Longitude: ") +
-                        Text(displayType.degreesToString(longitude: mapMap.coordinates.longitude))
-                            .fontWidth(.condensed)
-                    }
-                    
-                    VStack(alignment: .leading) {
-                        Text("Latitude: ")
-                        Text(displayType.degreesToString(latitude: mapMap.coordinates.latitude))
-                            .fontWidth(.condensed)
-                        Text("Longitude: ")
-                        Text(displayType.degreesToString(longitude: mapMap.coordinates.longitude))
-                            .fontWidth(.condensed)
-                    }
-                }
-                .foregroundStyle(.secondary)
+                MapMapListCoordsV(coordinates: mapMap.coordinates)
                 Spacer(minLength: 0)
             }
         }
