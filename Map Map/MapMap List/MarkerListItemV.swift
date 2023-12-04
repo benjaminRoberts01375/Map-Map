@@ -10,19 +10,19 @@ import SwiftUI
 struct MarkerListItemV: View {
     @ObservedObject var marker: FetchedResults<Marker>.Element
     @Environment(\.locationDisplayMode) var displayType
-    let size: CGFloat = 30
+    let markerSize: CGFloat = 30
     var body: some View {
-        HStack {
+        HStack(spacing: 0) {
             if let markerName = marker.name {
                 MarkerV(marker: marker)
-                    .frame(width: 30)
-                    .padding()
-                VStack {
+                    .frame(width: markerSize)
+                    .padding(.trailing)
+                VStack(alignment: .leading) {
                     Text(markerName)
                     MapMapListCoordsV(coordinates: marker.coordinates)
-                    Text("test")
                 }
             }
+            Spacer(minLength: 0)
         }
     }
 }
