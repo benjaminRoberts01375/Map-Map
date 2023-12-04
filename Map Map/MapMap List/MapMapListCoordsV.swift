@@ -13,7 +13,7 @@ struct MapMapListCoordsV: View {
     let coordinates: CLLocationCoordinate2D
     
     var body: some View {
-        ViewThatFits {
+        ViewThatFits(in: .horizontal) {
             VStack(alignment: .leading) {
                 Text("Latitude: ") +
                 Text(displayType.degreesToString(latitude: coordinates.latitude))
