@@ -13,10 +13,7 @@ struct MapMapListUnsortedMarkersV: View {
     var body: some View {
         ForEach(markers) { marker in
             if marker.formattedMapMaps.isEmpty {
-                MarkerListItemV(marker: marker)
-                    .padding([.trailing, .top, .bottom], 5)
-                    .padding(.leading)
-                Divider()
+                MarkerFormattedListItemV(marker: marker)
             }
         }
     }
