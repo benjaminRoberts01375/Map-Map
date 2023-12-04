@@ -17,5 +17,6 @@ struct CombineMarkerListItemsV: View {
                 MarkerFormattedListItemV(marker: marker)
             }
         }
+        .padding(.top, 7)
     }
 }
