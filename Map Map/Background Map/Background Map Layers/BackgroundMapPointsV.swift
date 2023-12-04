@@ -39,13 +39,14 @@ struct BackgroundMapPointsV: View {
                     .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
                     if let markerName = marker.name, isOverMarker(marker) {
                         Text(markerName)
-                            .shadow(color: .black.opacity(2), radius: 3)
+                            .shadow(color: .black.opacity(0.5), radius: 3)
                             .padding(5)
                             .background {
                                 Color.black
                                     .opacity(0.35)
-                                    .blur(radius: 5)
+                                    .blur(radius: 10)
                             }
+                            .foregroundStyle(.white)
                             .allowsHitTesting(false)
                             .offset(y: BackgroundMapPointsV.iconSize)
                     }
