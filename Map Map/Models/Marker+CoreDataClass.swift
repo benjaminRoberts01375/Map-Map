@@ -77,6 +77,11 @@ public class Marker: NSManagedObject {
         }
     }
     
+    var formattedMapMaps: [MapMap] {
+        let mapMapSet = self.mapMap as? Set<MapMap> ?? []
+        return mapMapSet.sorted(by: { $0.coordinates < $1.coordinates })
+    }
+    
     static func calculateForgroundColor(red: Double, green: Double, blue: Double) -> Color {
         if red * 0.299 + green * 0.587 + blue * 0.114 > 0.5 { // Is a light color
             return .black
