@@ -9,14 +9,13 @@ import MapKit
 import SwiftUI
 
 struct CombineMarkerListItemsV: View {
-    @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @Environment(\.colorScheme) var colorScheme
-    let mapMap: FetchedResults<MapMap>.Element
+    @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     
     var body: some View {
         VStack {
-            ForEach(Array(mapMap.formattedMarkers)) { marker in
+            ForEach(mapMap.formattedMarkers) { marker in
                 Button {
                     let distance: Double = 6000
                     withAnimation {
@@ -24,6 +23,8 @@ struct CombineMarkerListItemsV: View {
                     }
                 } label: {
                     MarkerListItemV(marker: marker)
+                        .padding([.trailing, .top, .bottom], 5)
+                        .padding(.leading)
                 }
                 .buttonStyle(.plain)
                 .background(colorScheme == .dark ? .gray20 : Color.white)
@@ -33,4 +34,3 @@ struct CombineMarkerListItemsV: View {
         }
     }
 }
-

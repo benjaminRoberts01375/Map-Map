@@ -25,8 +25,9 @@ public class MapMap: NSManagedObject {
         }
     }
     
-    var formattedMarkers: Set<Marker> {
-        self.markers as? Set<Marker> ?? []
+    var formattedMarkers: [Marker] {
+        let markerSet = self.markers as? Set<Marker> ?? []
+        return markerSet.sorted(by: { $0.latitude < $1.latitude })
     }
     
     public enum ImageStatus {
