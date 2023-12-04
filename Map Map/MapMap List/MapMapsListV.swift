@@ -29,6 +29,7 @@ struct MapMapList: View {
                 .background(colorScheme == .dark ? .gray20 : Color.white)
                 .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
                 Divider()
+                CombineMarkerListItemsV(mapMap: mapMap)
             }
         }
         .ignoresSafeArea()

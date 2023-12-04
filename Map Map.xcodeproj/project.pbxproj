@@ -47,7 +47,9 @@
 		07A9C6AF2AF1B78C00C3AED4 /* FourCorners+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A9C6AB2AF1B78C00C3AED4 /* FourCorners+CoreDataClass.swift */; };
 		07A9C6B02AF1B78C00C3AED4 /* FourCorners+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A9C6AC2AF1B78C00C3AED4 /* FourCorners+CoreDataProperties.swift */; };
 		07A9C6BA2AF1CA3300C3AED4 /* PhotoEditorV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A9C6B92AF1CA3300C3AED4 /* PhotoEditorV.swift */; };
+		07B82A3D2B1D479E00CC00D3 /* MarkerListItemV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B82A3C2B1D479E00CC00D3 /* MarkerListItemV.swift */; };
 		07B82A3F2B1D4B6E00CC00D3 /* MapMapListCoordsV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B82A3E2B1D4B6E00CC00D3 /* MapMapListCoordsV.swift */; };
+		07B82A412B1D54AE00CC00D3 /* CombineMarkerListItemsV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B82A402B1D54AE00CC00D3 /* CombineMarkerListItemsV.swift */; };
 		07BA6E342B000E460059310E /* CameraV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BA6E332B000E460059310E /* CameraV.swift */; };
 		07BA6E362B000EF20059310E /* CameraReviewV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BA6E352B000EF20059310E /* CameraReviewV.swift */; };
 		07BE4BB82B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BE4BB72B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift */; };
@@ -111,7 +113,9 @@
 		07A9C6AB2AF1B78C00C3AED4 /* FourCorners+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FourCorners+CoreDataClass.swift"; sourceTree = "<group>"; };
 		07A9C6AC2AF1B78C00C3AED4 /* FourCorners+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FourCorners+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07A9C6B92AF1CA3300C3AED4 /* PhotoEditorV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditorV.swift; sourceTree = "<group>"; };
+		07B82A3C2B1D479E00CC00D3 /* MarkerListItemV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerListItemV.swift; sourceTree = "<group>"; };
 		07B82A3E2B1D4B6E00CC00D3 /* MapMapListCoordsV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapListCoordsV.swift; sourceTree = "<group>"; };
+		07B82A402B1D54AE00CC00D3 /* CombineMarkerListItemsV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineMarkerListItemsV.swift; sourceTree = "<group>"; };
 		07BA6E332B000E460059310E /* CameraV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraV.swift; sourceTree = "<group>"; };
 		07BA6E352B000EF20059310E /* CameraReviewV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraReviewV.swift; sourceTree = "<group>"; };
 		07BE4BB72B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMapButtonsV.swift; sourceTree = "<group>"; };
@@ -215,9 +219,11 @@
 		077CBEAF2AD5088100741F27 /* MapMap List */ = {
 			isa = PBXGroup;
 			children = (
+				07B82A402B1D54AE00CC00D3 /* CombineMarkerListItemsV.swift */,
 				07B82A3E2B1D4B6E00CC00D3 /* MapMapListCoordsV.swift */,
 				07FD85602AE6DD1E0089652B /* MapMapListItemV.swift */,
 				07FCC8562AD3750F00F88186 /* MapMapsListV.swift */,
+				07B82A3C2B1D479E00CC00D3 /* MarkerListItemV.swift */,
 			);
 			path = "MapMap List";
 			sourceTree = "<group>";
@@ -403,6 +409,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07BA6E342B000E460059310E /* CameraV.swift in Sources */,
+				07B82A412B1D54AE00CC00D3 /* CombineMarkerListItemsV.swift in Sources */,
 				0773AED42B0B30E6007D7CDB /* MapMap+CoreDataProperties.swift in Sources */,
 				0776EB082B055C2200F89BFC /* GridOverlayV.swift in Sources */,
 				07FDC6252AB25DFD00D92113 /* ContentView.swift in Sources */,
@@ -451,6 +458,7 @@
 				07353A352ADCCB9700C698B0 /* BigButtonV.swift in Sources */,
 				07249C002B1672D50088B721 /* MarkerSymbolPickerV.swift in Sources */,
 				07CCDBB52AEB214400BA9D43 /* UserLocationM.swift in Sources */,
+				07B82A3D2B1D479E00CC00D3 /* MarkerListItemV.swift in Sources */,
 				07BA6E362B000EF20059310E /* CameraReviewV.swift in Sources */,
 				07A9C6B02AF1B78C00C3AED4 /* FourCorners+CoreDataProperties.swift in Sources */,
 				072DDB2E2AF426E000E74963 /* HandleV.swift in Sources */,
