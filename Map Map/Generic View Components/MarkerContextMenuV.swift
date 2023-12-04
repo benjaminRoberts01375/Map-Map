@@ -11,12 +11,14 @@ import SwiftUI
 struct MarkerContextMenuV: View {
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @Environment(\.managedObjectContext) var moc
-    @Binding var screenSpaceMarkerLocations: [Marker : CGPoint]
     let marker: FetchedResults<Marker>.Element
+    var onDelete: (() -> Void)? = nil
     
     var body: some View {
         Button(role: .destructive) {
-            self.screenSpaceMarkerLocations.removeValue(forKey: marker)
+            if let onDelete = onDelete {
+                onDelete()
+            }
             moc.delete(marker)
             try? moc.save()
         } label: {

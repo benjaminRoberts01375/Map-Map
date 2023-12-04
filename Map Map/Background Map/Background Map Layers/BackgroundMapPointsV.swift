@@ -33,7 +33,9 @@ struct BackgroundMapPointsV: View {
                         MarkerV(marker: marker)
                             .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: marker.lockRotationAngleDouble ?? 0))
                     }
-                    .contextMenu { MarkerContextMenuV(screenSpaceMarkerLocations: $screenSpaceMarkerLocations, marker: marker) }
+                    .contextMenu { MarkerContextMenuV(marker: marker) {
+                        screenSpaceMarkerLocations.removeValue(forKey: marker)
+                    }}
                     .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
                     if let markerName = marker.name, isOverMarker(marker) {
                         Text(markerName)
