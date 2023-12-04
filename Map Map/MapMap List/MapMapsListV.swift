@@ -30,7 +30,9 @@ struct MapMapList: View {
                     .background(colorScheme == .dark ? .gray20 : Color.white)
                     .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
                     Divider()
-                    CombineMarkerListItemsV(mapMap: mapMap)
+                    if !mapMap.formattedMarkers.isEmpty {
+                        CombineMarkerListItemsV(mapMap: mapMap)
+                    }
                 }
             }
             .background(colorScheme == .dark ? .gray20 : Color.white)
