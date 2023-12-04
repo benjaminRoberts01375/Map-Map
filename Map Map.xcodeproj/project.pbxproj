@@ -226,9 +226,9 @@
 				07FCC8562AD3750F00F88186 /* MapMapsListV.swift */,
 				07FD85602AE6DD1E0089652B /* MapMapListItemV.swift */,
 				07B82A402B1D54AE00CC00D3 /* CombineMarkerListItemsV.swift */,
+				07DFF79D2B1E4C640041551B /* MapMapListUnsortedMarkersV.swift */,
 				07DFF79F2B1E4E010041551B /* MarkerFormattedListItemV.swift */,
 				07B82A3C2B1D479E00CC00D3 /* MarkerListItemV.swift */,
-				07DFF79D2B1E4C640041551B /* MapMapListUnsortedMarkersV.swift */,
 				07B82A3E2B1D4B6E00CC00D3 /* MapMapListCoordsV.swift */,
 			);
 			path = "MapMap List";
