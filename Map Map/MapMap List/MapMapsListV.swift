@@ -11,6 +11,7 @@ import SwiftUI
 struct MapMapList: View {
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
+    @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
     @Environment(\.managedObjectContext) var moc
     @Environment(\.colorScheme) var colorScheme
     
@@ -38,17 +39,19 @@ struct MapMapList: View {
             .background(colorScheme == .dark ? .gray20 : Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 15))
             
-            Text("Unsorted Markers")
-                .font(.title)
-                .fontWeight(.bold)
-                .padding(.top)
-                .padding(.bottom, 5)
-            VStack {
-                MapMapListUnsortedMarkersV()
+            if markers.contains(where: { $0.formattedMapMaps.isEmpty }) {
+                Text("Unsorted Markers")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding(.top)
+                    .padding(.bottom, 5)
+                VStack {
+                    MapMapListUnsortedMarkersV()
+                }
+                .padding(.top, 5)
+                .background(colorScheme == .dark ? .gray20 : Color.white)
+                .clipShape(RoundedRectangle(cornerRadius: 15))
             }
-            .padding(.top, 5)
-            .background(colorScheme == .dark ? .gray20 : Color.white)
-            .clipShape(RoundedRectangle(cornerRadius: 15))
         }
         .ignoresSafeArea()
     }
