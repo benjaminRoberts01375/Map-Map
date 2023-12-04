@@ -51,6 +51,7 @@ struct MapMapList: View {
                 .padding(.top, 5)
                 .background(colorScheme == .dark ? .gray20 : Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 15))
+                .padding(.bottom)
             }
         }
         .ignoresSafeArea()
