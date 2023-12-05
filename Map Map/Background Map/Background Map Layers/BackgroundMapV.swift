@@ -27,7 +27,7 @@ struct BackgroundMap: View {
                 scope: mapScope
             ) {
                 ForEach(mapMaps) { mapMap in
-                    if let name = mapMap.mapMapName, mapMap.isSetup && !mapMap.isEditing {
+                    if let name = mapMap.mapMapName, mapMap.isSetup && !mapMap.isEditing && mapMap.shown {
                         Annotation(
                             "\(name)",
                             coordinate: mapMap.coordinates,
