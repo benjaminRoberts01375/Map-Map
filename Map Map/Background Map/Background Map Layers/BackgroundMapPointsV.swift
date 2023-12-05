@@ -51,6 +51,7 @@ struct BackgroundMapPointsV: View {
                             .offset(y: BackgroundMapPointsV.iconSize)
                     }
                 }
+                .ignoresSafeArea()
                 .position(position)
             }
         }
