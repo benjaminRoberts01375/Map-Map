@@ -20,6 +20,7 @@ struct MapMapContextMenuV: View {
         } label: {
             Label("Delete Map Map", systemImage: "trash.fill")
         }
+        
         Button {
             withAnimation {
                 backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: mapMap.coordinates, distance: mapMap.mapDistance, heading: -mapMap.mapMapRotation))
@@ -27,6 +28,13 @@ struct MapMapContextMenuV: View {
             mapMap.isEditing = true
         } label: {
             Label("Edit Map Map", systemImage: "pencil")
+        }
+        
+        Button {
+            mapMap.shown.toggle()
+        } label: {
+            if mapMap.shown { Label("Hide Map Map", systemImage: "eye.fill") }
+            else { Label("Show Map Map" , systemImage: "eye.slash.fill") }
         }
     }
 }
