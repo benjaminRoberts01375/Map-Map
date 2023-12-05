@@ -2,7 +2,7 @@
 //  MapMap+CoreDataProperties.swift
 //  Map Map
 //
-//  Created by Ben Roberts on 11/20/23.
+//  Created by Ben Roberts on 12/5/23.
 //
 //
 
@@ -29,6 +29,7 @@ extension MapMap {
     @NSManaged public var mapMapRawEncodedImage: Data?
     @NSManaged public var mapMapRotation: Double
     @NSManaged public var mapMapScale: Double
+    @NSManaged public var shown: Bool
     @NSManaged public var cropCorners: FourCorners?
     @NSManaged public var markers: NSSet?
 

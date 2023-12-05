@@ -21,6 +21,7 @@
         <attribute name="mapMapRawEncodedImage" optional="YES" attributeType="Binary"/>
         <attribute name="mapMapRotation" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="mapMapScale" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="shown" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <relationship name="cropCorners" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FourCorners" inverseName="mapMap" inverseEntity="FourCorners"/>
         <relationship name="markers" toMany="YES" deletionRule="Nullify" destinationEntity="Marker" inverseName="mapMap" inverseEntity="Marker"/>
     </entity>
@@ -30,6 +31,7 @@
         <attribute name="lockRotationAngle" optional="YES" attributeType="Decimal"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String" defaultValueString="Untitled Marker"/>
+        <attribute name="shown" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="thumbnailImage" optional="YES" attributeType="String"/>
         <relationship name="color" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MarkerColor" inverseName="marker" inverseEntity="MarkerColor"/>
         <relationship name="mapMap" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MapMap" inverseName="markers" inverseEntity="MapMap"/>

@@ -2,7 +2,7 @@
 //  Marker+CoreDataProperties.swift
 //  Map Map
 //
-//  Created by Ben Roberts on 11/29/23.
+//  Created by Ben Roberts on 12/5/23.
 //
 //
 
@@ -18,10 +18,11 @@ extension Marker {
 
     @NSManaged public var isEditing: Bool
     @NSManaged public var latitude: Double
+    @NSManaged public var lockRotationAngle: NSDecimalNumber?
     @NSManaged public var longitude: Double
     @NSManaged public var name: String?
     @NSManaged public var thumbnailImage: String?
-    @NSManaged public var lockRotationAngle: NSDecimalNumber?
+    @NSManaged public var shown: Bool
     @NSManaged public var color: MarkerColor?
     @NSManaged public var mapMap: NSSet?
 
