@@ -22,7 +22,7 @@ struct BackgroundMapPointsV: View {
     
     var body: some View {
         ForEach(markers) { marker in
-            if let position = screenSpaceMarkerLocations[marker], !marker.isEditing {
+            if let position = screenSpaceMarkerLocations[marker], !marker.isEditing && marker.shown {
                 ZStack {
                     Button {
                         let distance: Double = 6000
