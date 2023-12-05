@@ -52,5 +52,12 @@ struct MarkerContextMenuV: View {
         } label: {
             Label("Open in Maps", systemImage: "map.fill")
         }
+        
+        Button {
+            marker.shown.toggle()
+        } label: {
+            if marker.shown { Label("Hide Marker", systemImage: "eye.fill") }
+            else { Label("Show Marker" , systemImage: "eye.slash.fill") }
+        }
     }
 }
