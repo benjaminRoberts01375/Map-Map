@@ -11,7 +11,7 @@ import SwiftUI
 struct MarkerContextMenuV: View {
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @Environment(\.managedObjectContext) var moc
-    let marker: FetchedResults<Marker>.Element
+    @ObservedObject var marker: FetchedResults<Marker>.Element
     var onDelete: (() -> Void)? = nil
     
     var body: some View {
