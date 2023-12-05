@@ -21,42 +21,41 @@ struct BackgroundMapPointsV: View {
     let userLocationSize: CGFloat = 24
     
     var body: some View {
-        ZStack {
-            ForEach(markers) { marker in
-                if let position = screenSpaceMarkerLocations[marker], !marker.isEditing && marker.shown {
-                    ZStack {
-                        Button {
-                            let distance: Double = 6000
-                            withAnimation {
-                                backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: distance, heading: -(marker.lockRotationAngleDouble ?? 0)))
-                            }
-                        } label: {
-                            MarkerV(marker: marker)
-                                .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: marker.lockRotationAngleDouble ?? 0))
+        ForEach(markers) { marker in
+            if let position = screenSpaceMarkerLocations[marker], !marker.isEditing && marker.shown {
+                ZStack {
+                    Button {
+                        let distance: Double = 6000
+                        withAnimation {
+                            backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: distance, heading: -(marker.lockRotationAngleDouble ?? 0)))
                         }
-                        .contextMenu { MarkerContextMenuV(marker: marker) {
-                            screenSpaceMarkerLocations.removeValue(forKey: marker)
-                        }}
-                        .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
-                        if let markerName = marker.name, isOverMarker(marker) {
-                            Text(markerName)
-                                .shadow(color: .black.opacity(0.5), radius: 3)
-                                .padding(5)
-                                .background {
-                                    Color.black
-                                        .opacity(0.35)
-                                        .blur(radius: 10)
-                                }
-                                .foregroundStyle(.white)
-                                .allowsHitTesting(false)
-                                .offset(y: BackgroundMapPointsV.iconSize)
-                        }
+                    } label: {
+                        MarkerV(marker: marker)
+                            .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: marker.lockRotationAngleDouble ?? 0))
                     }
-                    .ignoresSafeArea()
-                    .position(position)
+                    .contextMenu { MarkerContextMenuV(marker: marker) {
+                        screenSpaceMarkerLocations.removeValue(forKey: marker)
+                    }}
+                    .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
+                    if let markerName = marker.name, isOverMarker(marker) {
+                        Text(markerName)
+                            .shadow(color: .black.opacity(0.5), radius: 3)
+                            .padding(5)
+                            .background {
+                                Color.black
+                                    .opacity(0.35)
+                                    .blur(radius: 10)
+                            }
+                            .foregroundStyle(.white)
+                            .allowsHitTesting(false)
+                            .offset(y: BackgroundMapPointsV.iconSize)
+                    }
                 }
+                .position(position)
             }
-            
+        }
+        
+        VStack {
             if let screenSpaceUserLocation = screenSpaceUserLocation {
                 MapUserIcon()
                     .frame(width: userLocationSize, height: userLocationSize)
