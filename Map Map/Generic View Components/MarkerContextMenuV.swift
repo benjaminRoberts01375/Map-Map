@@ -55,6 +55,7 @@ struct MarkerContextMenuV: View {
         
         Button {
             marker.shown.toggle()
+            try? moc.save()
         } label: {
             if marker.shown { Label("Hide Marker", systemImage: "eye.fill") }
             else { Label("Show Marker" , systemImage: "eye.slash.fill") }

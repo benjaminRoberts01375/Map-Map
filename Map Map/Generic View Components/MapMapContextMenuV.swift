@@ -32,6 +32,7 @@ struct MapMapContextMenuV: View {
         
         Button {
             mapMap.shown.toggle()
+            try? moc.save()
         } label: {
             if mapMap.shown { Label("Hide Map Map", systemImage: "eye.fill") }
             else { Label("Show Map Map" , systemImage: "eye.slash.fill") }
