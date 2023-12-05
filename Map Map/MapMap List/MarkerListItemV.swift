@@ -24,5 +24,6 @@ struct MarkerListItemV: View {
             }
             Spacer(minLength: 0)
         }
+        .opacity(marker.shown ? 1 : 0.5)
     }
 }

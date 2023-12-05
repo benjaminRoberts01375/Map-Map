@@ -34,5 +34,6 @@ struct MapMapListItemV: View {
                 Spacer(minLength: 0)
             }
         }
+        .opacity(mapMap.shown ? 1 : 0.5)
     }
 }
