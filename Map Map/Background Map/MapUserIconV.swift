@@ -12,6 +12,5 @@ struct MapUserIcon: View {
         Image(systemName: "person.circle.fill")
             .resizable()
             .foregroundStyle(.white, .blue)
-            .frame(width: 24, height: 24)
     }
 }
