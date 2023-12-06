@@ -14,7 +14,6 @@ struct BackgroundMapPointsV: View {
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
     @Environment(\.managedObjectContext) var moc
     @Environment(ScreenSpacePositionsM.self) var screenSpacePositions
-    @Binding var screenSpaceUserLocation: CGPoint?
     let screenSize: CGSize
     static let iconSize: CGFloat = 30
     let userLocationSize: CGFloat = 24
@@ -55,7 +54,7 @@ struct BackgroundMapPointsV: View {
         }
         
         VStack {
-            if let screenSpaceUserLocation = screenSpaceUserLocation {
+            if let screenSpaceUserLocation = screenSpacePositions.userLocation {
                 MapUserIcon()
                     .frame(width: userLocationSize, height: userLocationSize)
                     .position(screenSpaceUserLocation)

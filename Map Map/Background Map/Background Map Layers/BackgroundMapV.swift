@@ -13,7 +13,6 @@ struct BackgroundMap: View {
     @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @State var locationsHandler = LocationsHandler.shared
-    @Binding var screenSpaceUserLocation: CGPoint?
     @Environment(ScreenSpacePositionsM.self) var screenSpacePositions
     @State var tappableMapMaps = true
     let mapScope: Namespace.ID
@@ -62,7 +61,7 @@ struct BackgroundMap: View {
                 backgroundMapDetails.position = update.region.center
                 backgroundMapDetails.span = update.region.span
                 if let screenSpaceUserLocation = mapContext.convert(locationsHandler.lastLocation.coordinate, to: .local) {
-                    self.screenSpaceUserLocation = screenSpaceUserLocation
+                    self.screenSpacePositions.userLocation = screenSpaceUserLocation
                 }
                 var screenSpaceMarkerPositions: [Marker : CGPoint] = [:]
                 for marker in markers {
@@ -92,7 +91,7 @@ struct BackgroundMap: View {
             .onDisappear { locationsHandler.stopLocationTracking() }
             .onChange(of: $locationsHandler.lastLocation.wrappedValue) { _, newLocation in
                 if let screenSpaceUserLocation = mapContext.convert(newLocation.coordinate, to: .local) {
-                    self.screenSpaceUserLocation = screenSpaceUserLocation
+                    self.screenSpacePositions.userLocation = screenSpaceUserLocation
                 }
             }
             .onReceive(NotificationCenter.default.publisher(for: .addedMarker)) { notification in
@@ -105,7 +104,7 @@ struct BackgroundMap: View {
                     tappableMapMaps = !editingStatus
                 }
             }
-            .animation(.linear, value: screenSpaceUserLocation)
+            .animation(.linear, value: screenSpacePositions.userLocation)
         }
     }
 }

@@ -11,4 +11,5 @@ import SwiftUI
 final class ScreenSpacePositionsM {
     public var markerPositions: [Marker : CGPoint] = [:]
     public var mapMapPositions: [MapMap : CGRect] = [:]
+    public var userLocation: CGPoint? = nil
 }

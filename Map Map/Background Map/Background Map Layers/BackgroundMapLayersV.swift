@@ -13,15 +13,13 @@ struct BackgroundMapLayersV: View {
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @State var timer: Timer?
     @State var crosshairOpacity: Double = 0
-    @State var screenSpaceUserLocation: CGPoint?
     @Binding var displayType: LocationDisplayMode
     
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .center) {
-                BackgroundMap(screenSpaceUserLocation: $screenSpaceUserLocation, mapScope: mapScope)
+                BackgroundMap(mapScope: mapScope)
                 BackgroundMapPointsV(
-                    screenSpaceUserLocation: $screenSpaceUserLocation,
                     screenSize: CGSize(
                         width: geo.size.width + geo.safeAreaInsets.leading + geo.safeAreaInsets.trailing,
                         height: geo.size.height + geo.safeAreaInsets.top + geo.safeAreaInsets.bottom
