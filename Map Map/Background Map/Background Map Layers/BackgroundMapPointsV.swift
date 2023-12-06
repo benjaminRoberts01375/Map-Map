@@ -23,10 +23,7 @@ struct BackgroundMapPointsV: View {
             if let position = screenSpacePositions.markerPositions[marker], !marker.isEditing && marker.shown {
                 ZStack {
                     Button {
-                        let distance: Double = 6000
-                        withAnimation {
-                            backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: distance, heading: -(marker.lockRotationAngleDouble ?? 0)))
-                        }
+                        backgroundMapDetails.moveMapCameraTo(marker: marker)
                     } label: {
                         MarkerV(marker: marker)
                             .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: marker.lockRotationAngleDouble ?? 0))

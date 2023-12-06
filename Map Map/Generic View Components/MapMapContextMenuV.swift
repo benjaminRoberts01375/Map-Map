@@ -22,9 +22,7 @@ struct MapMapContextMenuV: View {
         }
         
         Button {
-            withAnimation {
-                backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: mapMap.coordinates, distance: mapMap.mapDistance, heading: -mapMap.mapMapRotation))
-            }
+            backgroundMapDetails.moveMapCameraTo(mapMap: mapMap)
             mapMap.isEditing = true
         } label: {
             Label("Edit Map Map", systemImage: "pencil")

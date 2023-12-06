@@ -35,9 +35,7 @@ struct BackgroundMap: View {
                         ) {
                             if tappableMapMaps {
                                 Button(action: {
-                                    withAnimation {
-                                        backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: mapMap.coordinates, distance: mapMap.mapDistance, heading: -mapMap.mapMapRotation))
-                                    }
+                                    backgroundMapDetails.moveMapCameraTo(mapMap: mapMap)
                                 }, label: {
                                     MapMapV(mapMap: mapMap, mapType: .fullImage)
                                         .frame(width: backgroundMapDetails.scale * mapMap.mapMapScale)

@@ -20,9 +20,7 @@ struct MapMapList: View {
             VStack(spacing: 0) {
                 ForEach(mapMaps) { mapMap in
                     Button(action: {
-                        withAnimation {
-                            backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: mapMap.coordinates, distance: mapMap.mapDistance, heading: -mapMap.mapMapRotation))
-                        }
+                        backgroundMapDetails.moveMapCameraTo(mapMap: mapMap)
                     }, label: {
                         MapMapListItemV(mapMap: mapMap)
                             .padding()

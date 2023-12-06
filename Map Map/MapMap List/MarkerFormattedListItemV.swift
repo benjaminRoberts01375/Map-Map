@@ -15,10 +15,7 @@ struct MarkerFormattedListItemV: View {
     
     var body: some View {
         Button {
-            let distance: Double = 6000
-            withAnimation {
-                backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: distance, heading: -(marker.lockRotationAngleDouble ?? 0)))
-            }
+            backgroundMapDetails.moveMapCameraTo(marker: marker)
         } label: {
             MarkerListItemV(marker: marker)
                 .padding([.trailing, .top, .bottom], 5)
