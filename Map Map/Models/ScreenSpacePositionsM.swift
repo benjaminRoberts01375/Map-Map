@@ -13,6 +13,22 @@ final class ScreenSpacePositionsM {
     public var mapMapPositions: [MapMap : CGRect] = [:]
     public var userLocation: CGPoint? = nil
     
+    func mapMapOverMarkers(_ mapMap: MapMap, backgroundMapRotation: Angle) -> [Marker]? {
+        guard let mapMapBounds = generateMapMapRotatedBounds(mapMap: mapMap, backgroundMapRotation: backgroundMapRotation)?.cgPath
+        else { return nil }
+        var markers: [Marker] = []
+        
+        for (marker, _) in markerPositions {
+            if let markerPosition = markerPositions[marker] {
+                let markerBounds = UIBezierPath(ovalIn: CGRect(origin: markerPosition, size: CGSize(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize))).cgPath
+                if mapMapBounds.intersects(markerBounds) {
+                    markers.append(marker)
+                }
+            }
+        }
+        
+        return markers
+    }
     
     func markerOverMapMaps(_ marker: Marker, backgroundMapRotation: Angle) -> [MapMap]? {
         guard let markerPosition = markerPositions[marker] else {
