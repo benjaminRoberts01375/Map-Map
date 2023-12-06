@@ -29,4 +29,17 @@ final class BackgroundMapDetailsM {
             mapCamera = MapCameraPosition.camera(camera)
         }
     }
+    
+    func moveMapCameraTo(marker: Marker) {
+        withAnimation {
+            let distance: Double = 6000
+            mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: distance, heading: -(marker.lockRotationAngleDouble ?? 0)))
+        }
+    }
+    
+    func moveMapCameraTo(mapMap: MapMap) {
+        withAnimation {
+            mapCamera = .camera(MapCamera(centerCoordinate: mapMap.coordinates, distance: mapMap.mapDistance, heading: -mapMap.mapMapRotation))
+        }
+    }
 }
