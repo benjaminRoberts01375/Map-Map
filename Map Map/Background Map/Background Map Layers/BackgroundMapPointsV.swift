@@ -13,16 +13,15 @@ struct BackgroundMapPointsV: View {
     @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
     @Environment(\.managedObjectContext) var moc
+    @Environment(ScreenSpacePositionsM.self) var screenSpacePositions
     @Binding var screenSpaceUserLocation: CGPoint?
-    @Binding var screenSpaceMarkerLocations: [Marker : CGPoint]
-    @Binding var screenSpaceMapMapLocations: [MapMap : CGRect]
     let screenSize: CGSize
     static let iconSize: CGFloat = 30
     let userLocationSize: CGFloat = 24
     
     var body: some View {
         ForEach(markers) { marker in
-            if let position = screenSpaceMarkerLocations[marker], !marker.isEditing && marker.shown {
+            if let position = screenSpacePositions.markerPositions[marker], !marker.isEditing && marker.shown {
                 ZStack {
                     Button {
                         let distance: Double = 6000
@@ -34,7 +33,7 @@ struct BackgroundMapPointsV: View {
                             .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: marker.lockRotationAngleDouble ?? 0))
                     }
                     .contextMenu { MarkerContextMenuV(marker: marker) {
-                        screenSpaceMarkerLocations.removeValue(forKey: marker)
+                        screenSpacePositions.markerPositions.removeValue(forKey: marker)
                     }}
                     .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
                     if let markerName = marker.name, isOverMarker(marker) {
@@ -67,7 +66,7 @@ struct BackgroundMapPointsV: View {
     }
     
     func isOverMarker(_ marker: Marker) -> Bool {
-        guard let markerPos = screenSpaceMarkerLocations[marker] else { return false }
+        guard let markerPos = screenSpacePositions.markerPositions[marker] else { return false }
         let xComponent = abs(markerPos.x - screenSize.width  / 2)
         let yComponent = abs(markerPos.y - screenSize.height / 2)
         let distance = sqrt(pow(xComponent, 2) + pow(yComponent, 2))

@@ -12,10 +12,9 @@ struct BackgroundMapButtonsV: View {
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
     @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
     @Environment(\.managedObjectContext) var moc
+    @Environment(ScreenSpacePositionsM.self) var screenSpacePositions
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @State var markerButton: MarkerButtonType = .add
-    @Binding var mapMapLocations: [MapMap : CGRect]
-    @Binding var markerPositions: [Marker : CGPoint]
     @Binding var displayType: LocationDisplayMode
     let screenSize: CGSize
     let mapScope: Namespace.ID
@@ -65,7 +64,7 @@ struct BackgroundMapButtonsV: View {
     
     func checkOverMarker() {
         for marker in markers {
-            if let markerPos = markerPositions[marker] {
+            if let markerPos = screenSpacePositions.markerPositions[marker] {
                 let xComponent = abs(markerPos.x - screenSize.width  / 2)
                 let yComponent = abs(markerPos.y - screenSize.height / 2)
                 let distance = sqrt(pow(xComponent, 2) + pow(yComponent, 2))
@@ -84,7 +83,7 @@ struct BackgroundMapButtonsV: View {
     }
     
     func checkOverMapMap(mapMap: MapMap) -> Bool {
-        guard let rect = mapMapLocations[mapMap]
+        guard let rect: CGRect = screenSpacePositions.mapMapPositions[mapMap]
         else { return false }
         
         let transform = CGAffineTransform(translationX: rect.midX - rect.width / 2, y: rect.midY - rect.height / 2)

@@ -14,8 +14,7 @@ struct BackgroundMap: View {
     @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @State var locationsHandler = LocationsHandler.shared
     @Binding var screenSpaceUserLocation: CGPoint?
-    @Binding var screenSpaceMapMapLocations: [MapMap : CGRect]
-    @Binding var screenSpaceMarkerLocations: [Marker : CGPoint]
+    @Environment(ScreenSpacePositionsM.self) var screenSpacePositions
     @State var tappableMapMaps = true
     let mapScope: Namespace.ID
     
@@ -71,7 +70,7 @@ struct BackgroundMap: View {
                     else { return }
                     screenSpaceMarkerPositions[marker] = screenSpaceMarkerPosition
                 }
-                self.screenSpaceMarkerLocations = screenSpaceMarkerPositions
+                self.screenSpacePositions.markerPositions = screenSpaceMarkerPositions
                 var screenSpaceMapMapPositions: [MapMap : CGRect] = [:]
                 for mapMap in mapMaps {
                     guard let center = mapContext.convert(mapMap.coordinates, to: .local)
@@ -86,7 +85,7 @@ struct BackgroundMap: View {
                     )
                     screenSpaceMapMapPositions[mapMap] = rect
                 }
-                self.screenSpaceMapMapLocations = screenSpaceMapMapPositions
+                self.screenSpacePositions.mapMapPositions = screenSpaceMapMapPositions
             }
             .mapStyle(.standard(elevation: .realistic))
             .onAppear { locationsHandler.startLocationTracking() }
@@ -98,7 +97,7 @@ struct BackgroundMap: View {
             }
             .onReceive(NotificationCenter.default.publisher(for: .addedMarker)) { notification in
                 if let marker = notification.userInfo?["marker"] as? Marker, let screenSpaceMarkerLocation = mapContext.convert(marker.coordinates, to: .local) {
-                    screenSpaceMarkerLocations[marker] = screenSpaceMarkerLocation
+                    screenSpacePositions.markerPositions[marker] = screenSpaceMarkerLocation
                 }
             }
             .onReceive(NotificationCenter.default.publisher(for: .editingMarker)) { notification in
