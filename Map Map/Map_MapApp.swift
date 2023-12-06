@@ -12,11 +12,14 @@ import SwiftUI
 struct Map_MapApp: App {
     @StateObject private var dataController = DataController()
     @StateObject private var mapDetails = BackgroundMapDetailsM()
+    @State private var positions = ScreenSpacePositionsM()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environmentObject(mapDetails)
+                .environment(positions)
         }
     }
 }

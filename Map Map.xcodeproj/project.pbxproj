@@ -23,6 +23,7 @@
 		073733432B096C10004B96D1 /* DoubleE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073733422B096C10004B96D1 /* DoubleE.swift */; };
 		073DA08E2B1FC04700E30208 /* Marker+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073DA08C2B1FC04700E30208 /* Marker+CoreDataProperties.swift */; };
 		073DA0922B1FC06100E30208 /* MapMap+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073DA0902B1FC06100E30208 /* MapMap+CoreDataProperties.swift */; };
+		073DA0942B20E8A100E30208 /* ScreenSpacePositionsM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073DA0932B20E8A100E30208 /* ScreenSpacePositionsM.swift */; };
 		073F91692B05C5A400AE56CB /* ToastInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073F91682B05C5A400AE56CB /* ToastInfo.swift */; };
 		073F916B2B06794000AE56CB /* FourCornersStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073F916A2B06794000AE56CB /* FourCornersStorage.swift */; };
 		0740B8152B1972DB005EA0D2 /* MarkerV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0740B8142B1972DB005EA0D2 /* MarkerV.swift */; };
@@ -93,6 +94,7 @@
 		073733422B096C10004B96D1 /* DoubleE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleE.swift; sourceTree = "<group>"; };
 		073DA08C2B1FC04700E30208 /* Marker+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Marker+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		073DA0902B1FC06100E30208 /* MapMap+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapMap+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		073DA0932B20E8A100E30208 /* ScreenSpacePositionsM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSpacePositionsM.swift; sourceTree = "<group>"; };
 		073F91682B05C5A400AE56CB /* ToastInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastInfo.swift; sourceTree = "<group>"; };
 		073F916A2B06794000AE56CB /* FourCornersStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourCornersStorage.swift; sourceTree = "<group>"; };
 		0740B8142B1972DB005EA0D2 /* MarkerV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerV.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				073DA08C2B1FC04700E30208 /* Marker+CoreDataProperties.swift */,
 				07249C202B1692610088B721 /* MarkerColor+CoreDataClass.swift */,
 				07249C212B1692610088B721 /* MarkerColor+CoreDataProperties.swift */,
+				073DA0932B20E8A100E30208 /* ScreenSpacePositionsM.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				07A9C6BA2AF1CA3300C3AED4 /* PhotoEditorV.swift in Sources */,
 				072DDB302AF42A3E00E74963 /* IrregularGridV.swift in Sources */,
 				07249C222B1692610088B721 /* MarkerColor+CoreDataClass.swift in Sources */,
+				073DA0942B20E8A100E30208 /* ScreenSpacePositionsM.swift in Sources */,
 				075C65682AF4C5C900864A34 /* CGSizeE.swift in Sources */,
 				07249C0B2B1681FF0088B721 /* WHStack.swift in Sources */,
 				07FCC8552AD3593F00F88186 /* DataController.swift in Sources */,
