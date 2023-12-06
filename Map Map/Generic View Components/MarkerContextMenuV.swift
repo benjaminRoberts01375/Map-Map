@@ -26,16 +26,17 @@ struct MarkerContextMenuV: View {
         }
         
         Button {
+            marker.shown.toggle()
+            try? moc.save()
+        } label: {
+            if marker.shown { Label("Hide Marker", systemImage: "eye.fill") }
+            else { Label("Show Marker" , systemImage: "eye.slash.fill") }
+        }
+        
+        Button {
             let distance: Double = 6000
-            if let rotation = marker.lockRotationAngleDouble {
-                withAnimation {
-                    backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: distance, heading: -rotation))
-                }
-            }
-            else {
-                withAnimation {
-                    backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: distance, heading: 0))
-                }
+            withAnimation {
+                backgroundMapDetails.mapCamera = .camera(MapCamera(centerCoordinate: marker.coordinates, distance: distance, heading: -(marker.lockRotationAngleDouble ?? 0)))
             }
             marker.isEditing = true
         } label: {
@@ -51,14 +52,6 @@ struct MarkerContextMenuV: View {
             mapItem.openInMaps(launchOptions: launchOptions)
         } label: {
             Label("Open in Maps", systemImage: "map.fill")
-        }
-        
-        Button {
-            marker.shown.toggle()
-            try? moc.save()
-        } label: {
-            if marker.shown { Label("Hide Marker", systemImage: "eye.fill") }
-            else { Label("Show Marker" , systemImage: "eye.slash.fill") }
         }
     }
 }
