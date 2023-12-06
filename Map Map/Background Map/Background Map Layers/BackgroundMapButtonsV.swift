@@ -82,45 +82,15 @@ struct BackgroundMapButtonsV: View {
         }
     }
     
-    func checkOverMapMap(mapMap: MapMap) -> Bool {
-        guard let rect: CGRect = screenSpacePositions.mapMapPositions[mapMap]
-        else { return false }
-        
-        let transform = CGAffineTransform(translationX: rect.midX - rect.width / 2, y: rect.midY - rect.height / 2)
-            .rotated(by: (backgroundMapDetails.rotation - Angle(degrees: mapMap.mapMapRotation)).radians)
-            .translatedBy(x: -rect.midX, y: -rect.midY)
-        
-        let offset: CGFloat = 50
-        
-        // Calculate rotated points
-        let rotatedPoints: [CGPoint] = [
-            CGPoint(x: rect.minX - offset, y: rect.minY - offset).applying(transform),
-            CGPoint(x: rect.maxX + offset, y: rect.minY - offset).applying(transform),
-            CGPoint(x: rect.maxX + offset, y: rect.maxY + offset).applying(transform),
-            CGPoint(x: rect.minX - offset, y: rect.maxY + offset).applying(transform)
-        ]
-        
-        // Check if the point is within the convex hull of rotated points
-        let convexHullPath = UIBezierPath()
-        convexHullPath.move(to: rotatedPoints[0])
-        convexHullPath.addLine(to: rotatedPoints[1])
-        convexHullPath.addLine(to: rotatedPoints[2])
-        convexHullPath.addLine(to: rotatedPoints[3])
-        convexHullPath.close()
-        
-        return convexHullPath.contains(CGPoint(size: screenSize / 2))
-    }
-    
     func addMarker() {
         let newMarker = Marker(coordinates: backgroundMapDetails.position, insertInto: moc)
-        
+        let centerPoint: CGPoint = CGPoint(size: screenSize / 2)
         for mapMap in mapMaps {
-            if checkOverMapMap(mapMap: mapMap) {
+            if let path = screenSpacePositions.generateMapMapRotatedBounds(mapMap: mapMap, backgroundMapRotation: backgroundMapDetails.rotation)?.cgPath, 
+                path.contains(centerPoint) {
                 newMarker.addToMapMap(mapMap)
-                return
             }
         }
-        
         try? moc.save()
     }
 }
