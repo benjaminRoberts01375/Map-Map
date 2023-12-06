@@ -9,7 +9,7 @@ import MapKit
 import SwiftUI
 
 struct MapMapContextMenuV: View {
-    @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
+    @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
     @Environment(\.managedObjectContext) var moc
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     

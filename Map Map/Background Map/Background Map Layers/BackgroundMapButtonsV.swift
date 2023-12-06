@@ -13,7 +13,7 @@ struct BackgroundMapButtonsV: View {
     @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
     @Environment(\.managedObjectContext) var moc
     @Environment(ScreenSpacePositionsM.self) var screenSpacePositions
-    @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
+    @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
     @State var markerButton: MarkerButtonType = .add
     @Binding var displayType: LocationDisplayMode
     let screenSize: CGSize

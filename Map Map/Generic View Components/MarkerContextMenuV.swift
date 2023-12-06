@@ -9,7 +9,7 @@ import MapKit
 import SwiftUI
 
 struct MarkerContextMenuV: View {
-    @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
+    @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
     @Environment(\.managedObjectContext) var moc
     @ObservedObject var marker: FetchedResults<Marker>.Element
     var onDelete: (() -> Void)? = nil

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MapMapEditor: View {
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
-    @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
+    @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
     @Environment(\.managedObjectContext) var moc
     @State var workingName: String = ""
     @State var mapMapWidth: CGFloat = .zero

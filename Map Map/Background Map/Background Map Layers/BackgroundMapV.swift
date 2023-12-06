@@ -11,13 +11,15 @@ import SwiftUI
 struct BackgroundMap: View {
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
     @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
-    @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
+    @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails: BackgroundMapDetailsM
     @State var locationsHandler = LocationsHandler.shared
     @Environment(ScreenSpacePositionsM.self) var screenSpacePositions
     @State var tappableMapMaps = true
     let mapScope: Namespace.ID
     
     var body: some View {
+        @Bindable var backgroundMapDetails = backgroundMapDetails
+        
         MapReader { mapContext in
             Map(
                 position: $backgroundMapDetails.mapCamera,

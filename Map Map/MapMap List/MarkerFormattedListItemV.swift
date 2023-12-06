@@ -9,7 +9,7 @@ import MapKit
 import SwiftUI
 
 struct MarkerFormattedListItemV: View {
-    @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
+    @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var marker: Marker
     

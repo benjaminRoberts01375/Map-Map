@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MapMapListItemV: View {
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
-    @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
     @Environment(\.locationDisplayMode) var displayType
     let mapMapSize: CGFloat = 100
     let cornerRadius: CGFloat = 10

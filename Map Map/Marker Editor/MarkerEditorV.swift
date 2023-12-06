@@ -14,7 +14,7 @@ struct MarkerEditorV: View {
     @State var showingImagePicker: Bool = false
     @Environment(\.managedObjectContext) var moc
     @ObservedObject var marker: FetchedResults<Marker>.Element
-    @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
+    @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
     
     init(marker: FetchedResults<Marker>.Element) {
         self.marker = marker

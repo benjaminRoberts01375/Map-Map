@@ -9,7 +9,7 @@ import MapKit
 import SwiftUI
 
 struct MapMapList: View {
-    @EnvironmentObject var backgroundMapDetails: BackgroundMapDetailsM
+    @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
     @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
     @Environment(\.managedObjectContext) var moc

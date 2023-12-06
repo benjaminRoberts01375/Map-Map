@@ -8,13 +8,17 @@
 import MapKit
 import SwiftUI
 
-final class BackgroundMapDetailsM: ObservableObject {
-    @Published public var position: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+@Observable
+final class BackgroundMapDetailsM {
+    public var position: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+    @ObservationIgnored
     public var scale: Double = 1
+    @ObservationIgnored
     public var rotation: Angle = .zero
-    @Published public var allowsInteraction: Bool = true
+    public var allowsInteraction: Bool = true
+    @ObservationIgnored
     public var span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0, longitudeDelta: 0)
-    @Published public var mapCamera: MapCameraPosition = .userLocation(fallback: .automatic)
+    public var mapCamera: MapCameraPosition = .userLocation(fallback: .automatic)
     public var userRotation: Angle {
         get { Angle(degrees: abs(rotation.degrees)) }
     }
