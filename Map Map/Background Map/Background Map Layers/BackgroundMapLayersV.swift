@@ -22,8 +22,15 @@ struct BackgroundMapLayersV: View {
         GeometryReader { geo in
             ZStack(alignment: .center) {
                 BackgroundMap(screenSpaceUserLocation: $screenSpaceUserLocation, screenSpaceMapMapLocations: $screenSpaceMapMapLocations, screenSpaceMarkerLocations: $screenSpaceMarkerLocations, mapScope: mapScope)
-                BackgroundMapPointsV(screenSpaceUserLocation: $screenSpaceUserLocation, screenSpaceMarkerLocations: $screenSpaceMarkerLocations, screenSpaceMapMapLocations: $screenSpaceMapMapLocations, screenSize: geo.size)
-                    .safeAreaPadding(geo.safeAreaInsets)
+                BackgroundMapPointsV(
+                    screenSpaceUserLocation: $screenSpaceUserLocation,
+                    screenSpaceMarkerLocations: $screenSpaceMarkerLocations,
+                    screenSpaceMapMapLocations: $screenSpaceMapMapLocations,
+                    screenSize: CGSize(
+                        width: geo.size.width + geo.safeAreaInsets.leading + geo.safeAreaInsets.trailing,
+                        height: geo.size.height + geo.safeAreaInsets.top + geo.safeAreaInsets.bottom
+                    )
+                )
                 BlurView()
                     .frame(width: geo.size.width, height: geo.safeAreaInsets.top)
                     .blur(radius: blurAmount)
@@ -47,9 +54,10 @@ struct BackgroundMapLayersV: View {
                     }
                 VStack(alignment: .trailing) {
                     BackgroundMapButtonsV(
-                        mapMapLocations: $screenSpaceMapMapLocations, 
+                        mapMapLocations: $screenSpaceMapMapLocations,
                         markerPositions: $screenSpaceMarkerLocations,
-                        displayType: $displayType, screenSize: CGSize(
+                        displayType: $displayType,
+                        screenSize: CGSize(
                             width: geo.size.width + geo.safeAreaInsets.leading + geo.safeAreaInsets.trailing,
                             height: geo.size.height + geo.safeAreaInsets.top + geo.safeAreaInsets.bottom
                         ),
