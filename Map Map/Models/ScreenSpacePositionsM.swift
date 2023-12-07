@@ -52,15 +52,14 @@ final class ScreenSpacePositionsM {
         let transform = CGAffineTransform(translationX: rect.midX - rect.width / 2, y: rect.midY - rect.height / 2)
             .rotated(by: (backgroundMapRotation - Angle(degrees: mapMap.mapMapRotation)).radians)
             .translatedBy(x: -rect.midX, y: -rect.midY)
-        
-        let offset: CGFloat = 50
+        let padding: CGFloat = 25
         
         // Calculate rotated points
         let rotatedPoints: [CGPoint] = [
-            CGPoint(x: rect.minX - offset, y: rect.minY - offset).applying(transform),
-            CGPoint(x: rect.maxX + offset, y: rect.minY - offset).applying(transform),
-            CGPoint(x: rect.maxX + offset, y: rect.maxY + offset).applying(transform),
-            CGPoint(x: rect.minX - offset, y: rect.maxY + offset).applying(transform)
+            CGPoint(x: rect.minX - padding, y: rect.minY - padding).applying(transform),
+            CGPoint(x: rect.maxX + padding, y: rect.minY - padding).applying(transform),
+            CGPoint(x: rect.maxX + padding, y: rect.maxY + padding).applying(transform),
+            CGPoint(x: rect.minX - padding, y: rect.maxY + padding).applying(transform)
         ]
         
         // Check if the point is within the convex hull of rotated points
