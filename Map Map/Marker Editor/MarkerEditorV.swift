@@ -77,17 +77,8 @@ struct MarkerEditorV: View {
                                 marker.name = workingName
                                 marker.coordinates = backgroundMapDetails.position
                                 marker.lockRotationAngleDouble = saveAngle ? backgroundMapDetails.rotation.degrees : nil
-                                screenSpacePositions.markerPositions[marker] = CGPoint(
-                                    x: geo.size.width / 2,
-                                    y: geo.size.height / 2 + geo.safeAreaInsets.top - 2
-                                )
-                                if let overlappingMapMaps = 
-                                    screenSpacePositions.markerOverMapMaps(marker, backgroundMapRotation: backgroundMapDetails.rotation) {
-                                    // Remove current marker from all MapMaps
-                                    for mapMap in marker.formattedMapMaps { mapMap.removeFromMarkers(marker) }
-                                    // Add Marker to relevant MapMaps
-                                    for mapMap in overlappingMapMaps { mapMap.addToMarkers(marker) }
-                                }
+                                determineMarkerSSLocation(geo: geo)
+                                determineMarkerOverlap()
                                 try? moc.save()
                             } label: {
                                 Text("Done")
@@ -95,6 +86,7 @@ struct MarkerEditorV: View {
                             }
                             Button {
                                 moc.reset()
+                                determineMarkerSSLocation(geo: geo)
                             } label: {
                                 Text("Cancel")
                                     .bigButton(backgroundColor: .gray)
@@ -105,5 +97,22 @@ struct MarkerEditorV: View {
             }
             .onDisappear { NotificationCenter.default.post(name: .editingMarker, object: nil, userInfo: ["editing":false]) }
         }
+    }
+    
+    func determineMarkerOverlap() {
+        if let overlappingMapMaps =
+            screenSpacePositions.markerOverMapMaps(marker, backgroundMapRotation: backgroundMapDetails.rotation) {
+            // Remove current marker from all MapMaps
+            for mapMap in marker.formattedMapMaps { mapMap.removeFromMarkers(marker) }
+            // Add Marker to relevant MapMaps
+            for mapMap in overlappingMapMaps { mapMap.addToMarkers(marker) }
+        }
+    }
+    
+    func determineMarkerSSLocation(geo: GeometryProxy) {
+        screenSpacePositions.markerPositions[marker] = CGPoint(
+            x: geo.size.width / 2,
+            y: geo.size.height / 2 + geo.safeAreaInsets.top - 2
+        )
     }
 }
