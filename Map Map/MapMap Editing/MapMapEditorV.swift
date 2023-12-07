@@ -12,8 +12,9 @@ struct MapMapEditor: View {
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
     @Environment(\.managedObjectContext) var moc
+    @Environment(ScreenSpacePositionsM.self) var screenSpacePositions
     @State var workingName: String = ""
-    @State var mapMapWidth: CGFloat = .zero
+    @State var mapMapPosition: CGRect = .zero
     @State var showingPhotoEditor = false
     
     var body: some View {
@@ -24,7 +25,7 @@ struct MapMapEditor: View {
                         GeometryReader { imageGeo in
                             Color.clear
                                 .onChange(of: imageGeo.size, initial: true) { _, update in
-                                    mapMapWidth = update.width
+                                    mapMapPosition = CGRect(origin: CGPoint(size: geo.size / 2), size: update)
                                 }
                         }
                     }
@@ -57,11 +58,16 @@ struct MapMapEditor: View {
                         Button(action: {
                             mapMap.coordinates = backgroundMapDetails.position
                             mapMap.mapMapRotation = backgroundMapDetails.rotation.degrees
-                            mapMap.mapMapScale = mapMapWidth / backgroundMapDetails.scale
+                            mapMap.mapMapScale = mapMapPosition.width / backgroundMapDetails.scale
                             mapMap.mapMapName = workingName
                             mapMap.mapDistance = 1 / backgroundMapDetails.scale
                             mapMap.isEditing = false
                             mapMap.isSetup = true
+                            screenSpacePositions.mapMapPositions[mapMap] = mapMapPosition
+                            guard let mapMapMarkers = screenSpacePositions.mapMapOverMarkers(mapMap, backgroundMapRotation: backgroundMapDetails.rotation)
+                            else { return }
+                            for marker in mapMap.formattedMarkers { mapMap.removeFromMarkers(marker) }
+                            for marker in mapMapMarkers { mapMap.addToMarkers(marker) }
                             try? moc.save()
                         }) {
                             Text("Done")
