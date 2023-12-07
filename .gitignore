@@ -89,3 +89,7 @@ fastlane/test_output
 
 iOSInjectionProject/
 .DS_Store
+
+# Pods
+Pods
+Map Map.xcworkspace
