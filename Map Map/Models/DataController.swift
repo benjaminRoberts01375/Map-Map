@@ -8,6 +8,7 @@
 import CoreData
 import SwiftUI
 
+/// Generates and manages a Managed Object Context
 class DataController: ObservableObject {
     let container = NSPersistentContainer(name: "Map_Map")
     

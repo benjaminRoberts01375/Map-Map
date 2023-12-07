@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Format the label of a button to appear as a large button for the bottom drawers.
 struct BigButton: ViewModifier {
     let background: Color
     
@@ -20,6 +21,7 @@ struct BigButton: ViewModifier {
 }
 
 extension View {
+    /// Format the label of a button to appear as a large button for the bottom drawers.
     func bigButton(backgroundColor background: Color) -> some View {
         return modifier(BigButton(background: background))
     }

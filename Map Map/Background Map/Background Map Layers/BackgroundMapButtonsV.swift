@@ -8,19 +8,32 @@
 import MapKit
 import SwiftUI
 
+/// Background Map button controls.
 struct BackgroundMapButtonsV: View {
+    /// All available MapMaps
     @FetchRequest(sortDescriptors: []) private var mapMaps: FetchedResults<MapMap>
+    /// All available Markers
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
+    /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
+    /// Screen-space positions of Markers, MapMaps, and the user's location.
     @Environment(ScreenSpacePositionsM.self) private var screenSpacePositions
+    /// Details about the background map.
     @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    /// Tracker for adding or removing markers.
     @State private var markerButton: MarkerButtonType = .add
+    /// Coordinate display type.
     @Binding var displayType: LocationDisplayMode
+    /// Size of parent view.
     let screenSize: CGSize
+    /// Background map ID.
     let mapScope: Namespace.ID
     
+    /// Type for tracking adding or removing markers.
     enum MarkerButtonType: Equatable {
+        /// Potentially add a Marker
         case add
+        /// Potentially delete this Marker.
         case delete(Marker)
     }
     

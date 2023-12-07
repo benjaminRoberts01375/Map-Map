@@ -8,13 +8,17 @@
 import CoreLocation
 import SwiftUI
 
+/// Handle user location updates.
 @Observable
 @MainActor
 final class LocationsHandler {
+    /// Setup singleton of the locations handler.
     static let shared = LocationsHandler()
+    /// Create a location manager to get the user location.
     private let locationManager: CLLocationManager = CLLocationManager()
     /// The last known location on Earth of the user.
     public var lastLocation = CLLocation()
+    /// Track if we're currently getting the user's location.
     private var updatesStarted: Bool = false
     
     internal func startLocationTracking() {

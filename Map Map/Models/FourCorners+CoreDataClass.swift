@@ -9,6 +9,7 @@
 import CoreData
 import Foundation
 
+/// Four corners that a MapMap is cropped on.
 @objc(FourCorners)
 public class FourCorners: NSManagedObject { }
 

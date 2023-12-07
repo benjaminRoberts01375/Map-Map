@@ -7,12 +7,19 @@
 
 import SwiftUI
 
+/// Handles all layering related to the background map being plotted on, including the background map.
 struct BackgroundMapLayersV: View {
+    /// Amount of blur to use with an effect blur.
     private let blurAmount: CGFloat = 10
+    /// mapScope for syncing background map buttons.
     @Namespace private var mapScope
+    /// Details about the background map.
     @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    /// Timer for tracking crosshair overlay.
     @State private var timer: Timer?
+    /// Current opacity of the crosshair.
     @State private var crosshairOpacity: Double = 0
+    /// Coordinate display type.
     @Binding var displayType: LocationDisplayMode
     
     var body: some View {

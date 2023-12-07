@@ -8,10 +8,15 @@
 import AVFoundation
 import SwiftUI
 
+/// Camera preview view mdeol to handle image processing.
 final class CameraPreviewVM {
+    /// Current camera session.
     private var session: AVCaptureSession?
+    /// Interface for AVFoundation
     private var delegate: AVCapturePhotoCaptureDelegate?
+    /// Output photo from camera.
     private let output: AVCapturePhotoOutput
+    /// Preview of the camera.
     let previewLayer = AVCaptureVideoPreviewLayer()
     
     init() {

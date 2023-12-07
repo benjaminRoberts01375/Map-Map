@@ -8,9 +8,13 @@
 import MapKit
 import SwiftUI
 
+/// Create a fully interactive Marker list item.
 struct MarkerFormattedListItemV: View {
+    /// Information about the background map being plotted on.
     @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    /// Current color scheme. Ex. Dark/Light mode.
     @Environment(\.colorScheme) private var colorScheme
+    /// Marker the list item is about.
     @ObservedObject var marker: Marker
     
     var body: some View {

@@ -7,7 +7,9 @@
 
 import SwiftUI
 
+/// List of all Markers that are unassociated with a MapMap.
 struct MapMapListUnsortedMarkersV: View {
+    /// All available markers to sort through.
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
     
     var body: some View {

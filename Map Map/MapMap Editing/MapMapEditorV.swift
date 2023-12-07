@@ -8,13 +8,21 @@
 import Bottom_Drawer
 import SwiftUI
 
+/// One-stop-shop for editing MapMaps.
 struct MapMapEditor: View {
+    /// MapMap being edited.
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
+    /// Details about the background map being plotted on.
     @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    /// Current Managed Object Context.
     @Environment(\.managedObjectContext) private var moc
+    /// All screen space positions for MapMaps, Markers, and the user location.
     @Environment(ScreenSpacePositionsM.self) private var screenSpacePositions
+    /// Desired name for the current MapMap.
     @State private var workingName: String = ""
+    /// Placement of the MapMap.
     @State private var mapMapPosition: CGRect = .zero
+    /// Tracker for showing the photo (not MapMap) editor.
     @State private var showingPhotoEditor = false
     
     var body: some View {

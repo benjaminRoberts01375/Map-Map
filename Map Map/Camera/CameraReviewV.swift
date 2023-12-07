@@ -8,9 +8,13 @@
 import Bottom_Drawer
 import SwiftUI
 
+/// Review taken photo.
 struct CameraReviewV: View {
+    /// Managed Object Context to insert new MapMaps into.
     @Environment(\.managedObjectContext) private var moc
+    /// Dismiss function for this view.
     @Environment(\.dismiss) private var dismiss
+    /// Photo taken from camera.
     @Binding var photoPassthrough: UIImage?
     
     var body: some View {

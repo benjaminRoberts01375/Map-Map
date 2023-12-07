@@ -7,13 +7,20 @@
 
 import SwiftUI
 
+/// Simple renderer for MapMaps
 struct MapMapV: View {
+    /// MapMap being rendered.
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
+    /// Type of MapMap photo.
     let mapType: MapType
     
+    /// What photo should be rendered for this MapMap
     public enum MapType {
+        /// Thumbnail image.
         case thumbnail
+        /// Full size MapMap with edits.
         case fullImage
+        /// Unedited original MapMap image.
         case original
     }
     

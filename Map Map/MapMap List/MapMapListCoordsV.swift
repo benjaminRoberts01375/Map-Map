@@ -8,8 +8,11 @@
 import MapKit
 import SwiftUI
 
+/// Handle layout of coordinates depending how much horizontal space is available to this view.
 struct MapMapListCoordsV: View {
+    /// Coordinate display type.
     @Environment(\.locationDisplayMode) var displayType
+    /// Coordinates to display.
     let coordinates: CLLocationCoordinate2D
     
     var body: some View {

@@ -8,9 +8,13 @@
 import MapKit
 import SwiftUI
 
+/// Context menu for MapMaps
 struct MapMapContextMenuV: View {
+    /// Details about the background map being plotted on.
     @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    /// Current managed object context.
     @Environment(\.managedObjectContext) private var moc
+    /// MapMap being interacted with.
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     
     var body: some View {

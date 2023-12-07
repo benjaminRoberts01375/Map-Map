@@ -8,10 +8,15 @@
 import PhotosUI
 import SwiftUI
 
+/// Information and buttons to display in the header of the default bottom drawer.
 struct DefaultDrawerHeaderV: View {
+    /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
+    /// Photos picked by the user from camera roll.
     @State private var rawPhotos: [PhotosPickerItem] = []
+    /// Tracker for showing the photo picker.
     @State private var photosPickerPresented = false
+    /// Tracker for showing the camera.
     @State private var cameraPresented = false
     
     var body: some View {

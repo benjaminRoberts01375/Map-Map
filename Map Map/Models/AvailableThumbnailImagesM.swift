@@ -5,6 +5,7 @@
 //  Created by Ben Roberts on 11/25/23.
 //
 
+/// All marker thumbnail images.
 struct AvailableThumbnailImagesM {
     let mappin = "mappin"
     let mappinAndEllipse = "mappin.and.ellipse"

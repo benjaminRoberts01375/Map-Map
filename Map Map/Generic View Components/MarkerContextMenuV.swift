@@ -8,10 +8,15 @@
 import MapKit
 import SwiftUI
 
+/// Context menu for Markers
 struct MarkerContextMenuV: View {
+    /// Details about the background map being plotted on.
     @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    /// Current managed object context.
     @Environment(\.managedObjectContext) private var moc
+    /// Marker being interacted with.
     @ObservedObject var marker: FetchedResults<Marker>.Element
+    /// Action to take when Marker is deleted.
     var onDelete: (() -> Void)?
     
     var body: some View {

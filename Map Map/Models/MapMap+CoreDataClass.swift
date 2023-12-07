@@ -11,11 +11,16 @@ import MapKit
 import PhotosUI
 import SwiftUI
 
+/// What the app is all about. Stores the GPS coordinates, scale, and more to place an image on the background map.
 @objc(MapMap)
 public class MapMap: NSManagedObject {
+    /// A rendered image for display.
     @Published public var image: ImageStatus = .empty { didSet { self.objectWillChange.send() } }
+    /// A rendered thumbnail for display.
     @Published public var thumbnail: ImageStatus = .empty
+    /// Resolution of the thumbnail.
     static let thumbnailSize: CGSize = CGSize(width: 300, height: 300)
+    /// Formatted coordinates of the MapMap.
     public var coordinates: CLLocationCoordinate2D {
         get { CLLocationCoordinate2D(latitude: self.mapMapLatitude, longitude: self.mapMapLongitude) }
         set(coordinates) {
@@ -24,11 +29,13 @@ public class MapMap: NSManagedObject {
         }
     }
     
+    /// Formatted Markers that are associated with this MapMap.
     var formattedMarkers: [Marker] {
         let markerSet = self.markers as? Set<Marker> ?? []
         return markerSet.sorted(by: { $0.latitude < $1.latitude })
     }
     
+    /// Current status type of this MapMap.
     public enum ImageStatus {
         case empty
         case loading
@@ -36,6 +43,7 @@ public class MapMap: NSManagedObject {
         case failure
     }
     
+    /// Load image from Core Data, and load/generate thumbnail where needed
     public func loadImageFromCD() {
         let workingImage: Data? = self.cropCorners == nil ? self.mapMapRawEncodedImage : self.mapMapPerspectiveFixedEncodedImage
         if let mapData = workingImage { // Available in Core Data
@@ -55,6 +63,8 @@ public class MapMap: NSManagedObject {
         }
     }
     
+    /// Creates a thumbnail from a UIImage.
+    /// - Parameter uiImage: UIImage to generate image from.
     private func generateThumbnailFromUIImage(_ uiImage: UIImage) {
         Task {
             if let generatedThumbnail = await uiImage.byPreparingThumbnail(ofSize: MapMap.thumbnailSize) {
@@ -69,6 +79,7 @@ public class MapMap: NSManagedObject {
         }
     }
     
+    /// Loads the thumbnail of this MapMap from Core Data
     private func loadThumbnailFromCD() {
         if let mapThumbnail = self.mapMapEncodedThumbnail {
             if let uiImage = UIImage(data: mapThumbnail) {
@@ -80,6 +91,7 @@ public class MapMap: NSManagedObject {
         DispatchQueue.main.async { self.thumbnail = .failure }
     }
     
+    /// Set the four corners.
     public func setAndApplyCorners(topLeading: CGSize, topTrailing: CGSize, bottomLeading: CGSize, bottomTrailing: CGSize) {
         if let cropCorners = cropCorners, // If crop corners exist, and they're equal to what's already defined...
            cropCorners.topLeading == topLeading.rounded() &&
@@ -172,6 +184,7 @@ extension MapMap {
 
 // MARK: Perspective correction
 extension MapMap {
+    /// Applies image correction based on the four corners of the MapMap.
     private func applyPerspectiveCorrectionWithCorners() {
         guard let mapMapRawEncodedImage = self.mapMapRawEncodedImage,   // Map map data
               let ciImage = CIImage(data: mapMapRawEncodedImage),       // Type ciImage

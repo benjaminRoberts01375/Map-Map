@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Crosshair that changes color slightly based on what's under it.
 struct CrosshairV: View {
     private let spacing: CGFloat = 15
     

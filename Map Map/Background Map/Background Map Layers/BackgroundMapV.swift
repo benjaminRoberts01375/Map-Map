@@ -8,13 +8,21 @@
 import MapKit
 import SwiftUI
 
+/// Background map to be plotted on top of.
 struct BackgroundMap: View {
+    /// All available MapMaps.
     @FetchRequest(sortDescriptors: []) private var mapMaps: FetchedResults<MapMap>
+    /// All available Markers.
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
+    /// Background map details to be updated by this map.
     @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails: BackgroundMapDetailsM
+    /// GPS user location.
     @State private var locationsHandler = LocationsHandler.shared
+    /// Screen-space positions of MapMaps, Markers, and the user location.
     @Environment(ScreenSpacePositionsM.self) private var screenSpacePositions
+    /// Track if MapMaps are tappable.
     @State private var tappableMapMaps = true
+    /// Background map ID.
     let mapScope: Namespace.ID
     
     var body: some View {

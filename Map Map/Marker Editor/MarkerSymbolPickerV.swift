@@ -7,8 +7,11 @@
 
 import SwiftUI
 
+/// Displays symbols and allows for selection of a symbol for a Marker. Highlights currently selected symbol.
 struct MarkerSymbolPickerV: View {
+    /// All available marker symbols.
     private let thumbnailImages: [String] = Mirror(reflecting: AvailableThumbnailImagesM()).children.map { $0.value as? String ?? "" }
+    /// Marker being edited.
     @ObservedObject var marker: FetchedResults<Marker>.Element
     
     var body: some View {

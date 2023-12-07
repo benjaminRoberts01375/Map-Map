@@ -8,13 +8,21 @@
 import Bottom_Drawer
 import SwiftUI
 
+/// A one-stop-shop for editing details about a Marker.
 struct MarkerEditorV: View {
+    /// Track if the marker's angle should be saved.
     @State private var saveAngle: Bool
+    /// Desired name for the Marker.
     @State private var workingName: String
+    /// Track if the marker symbol picker is being shown.
     @State private var showingImagePicker: Bool = false
+    /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
+    /// Screen space positions for plotted objects.
     @Environment(ScreenSpacePositionsM.self) private var screenSpacePositions
+    /// Marker being edited.
     @ObservedObject var marker: FetchedResults<Marker>.Element
+    /// Information about the background map being plotted on top of.
     @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
     
     init(marker: FetchedResults<Marker>.Element) {
@@ -62,7 +70,7 @@ struct MarkerEditorV: View {
                                     .fill(.gray)
                                     .frame(width: 32)
                                     .overlay {
-                                        marker.correctedThumbnailImage
+                                        marker.renderedThumbnailImage
                                             .scaledToFit()
                                             .scaleEffect(0.6)
                                             .foregroundStyle(.white)

@@ -7,7 +7,9 @@
 
 import SwiftUI
 
+/// Render grid with handles.
 struct GridOverlayV: View {
+    /// Grid corner positions.
     @Binding var handleTracker: HandleTrackerM
     
     var body: some View {

@@ -8,14 +8,19 @@
 import MapKit
 import SwiftUI
 
+/// Points that cannot be Annotations on the background map.
 struct BackgroundMapPointsV: View {
+    /// Information about the background map.
     @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    /// All available markers.
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
-    @FetchRequest(sortDescriptors: []) private var mapMaps: FetchedResults<MapMap>
-    @Environment(\.managedObjectContext) private var moc
+    /// Screen space positions of Markers, MapMaps, and user location.
     @Environment(ScreenSpacePositionsM.self) private var screenSpacePositions
+    /// Size of the parent view.
     let screenSize: CGSize
+    /// Marker icon size.
     static let iconSize: CGFloat = 30
+    /// User location icon size.
     private let userLocationSize: CGFloat = 24
     
     var body: some View {

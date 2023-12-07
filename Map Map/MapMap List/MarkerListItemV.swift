@@ -7,9 +7,13 @@
 
 import SwiftUI
 
+/// An uninteractive Marker list item.
 struct MarkerListItemV: View {
+    /// Marker to derrive the list item from.
     @ObservedObject var marker: FetchedResults<Marker>.Element
+    /// How to render coordinates from environment.
     @Environment(\.locationDisplayMode) private var displayType
+    /// Size of the Marker within the list.
     private let markerSize: CGFloat = 30
     
     var body: some View {

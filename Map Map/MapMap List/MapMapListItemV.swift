@@ -7,10 +7,15 @@
 
 import SwiftUI
 
+/// Interprets a MapMap to create a list item.
 struct MapMapListItemV: View {
+    /// All available MapMaps
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
+    /// Coordinate display type.
     @Environment(\.locationDisplayMode) var displayType
+    /// Size to render thumbnail of MapMap
     private let mapMapSize: CGFloat = 100
+    /// Corner radius to use for thumbnail.
     private let cornerRadius: CGFloat = 10
     
     var body: some View {

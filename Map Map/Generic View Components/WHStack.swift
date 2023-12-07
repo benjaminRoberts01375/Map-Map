@@ -27,6 +27,7 @@ fileprivate final class ViewRow {
     }
 }
 
+/// Wrapping HStack
 public struct WHStack: Layout {
     /// Deterrmine size of the WHStack
     /// - Parameters:

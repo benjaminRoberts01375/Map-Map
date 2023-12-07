@@ -8,11 +8,17 @@
 import MapKit
 import SwiftUI
 
+/// HUD to display information about the background map being plotted on.
 struct BackgroundMapHudV: View {
+    /// Information about the background map.
     @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    /// Environment value of the coordinate display type.
     @Environment(\.locationDisplayMode) private var locationDisplayMode
+    /// Controller for the environment value of the coordinate display type.
     @Binding var rawDisplayType: LocationDisplayMode
+    /// Tracker for showing the heading.
     @State private var showHeading: Bool = false
+    /// Control decimals when converted to a string.
     private let stringFormat: String = "%.4f"
     
     var tap: some Gesture {

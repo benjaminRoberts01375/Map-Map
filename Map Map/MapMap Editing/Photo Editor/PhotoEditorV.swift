@@ -9,15 +9,23 @@ import Bottom_Drawer
 import CoreImage
 import SwiftUI
 
+/// Make crop edits to the photo editor.
 struct PhotoEditorV: View {
+    /// Dismiss function for the view.
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.pixelLength) private var pixelLength
+    /// The current MapMap whos photo is being edited.
     private let mapMap: FetchedResults<MapMap>.Element
+    /// Crop handle positions.
     @State private var handleTracker: HandleTrackerM
+    /// Screen space image size.
     @State private var screenSpaceImageSize: CGSize = .zero
+    /// Track if image is being cropped and is taking a while.
     @State private var loading: Bool = false
+    /// Create a dispatch queue for multithreading
     private static let perspectiveQueue = DispatchQueue(label: "com.RobertsHousehold.MapMap.PerspectiveFixer", qos: .userInteractive)
     
+    /// Create an editor for fixing the perspective of MapMap photos.
+    /// - Parameter mapMap: MapMap to edit.
     init(mapMap: FetchedResults<MapMap>.Element) {
         self.mapMap = mapMap
         if let corners = mapMap.cropCorners { // If there are pre-defined corners, set those up

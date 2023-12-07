@@ -12,18 +12,18 @@ import SwiftUI
 
 @objc(Marker)
 public class Marker: NSManagedObject {
-    var correctedThumbnailImage: Image {
+    /// Handles rendering the thumbnail of this Marker.
+    var renderedThumbnailImage: Image {
         if let thumbnailImage = thumbnailImage {
             return Image(systemName: thumbnailImage)
                 .resizable()
         }
-        else {
-            self.thumbnailImage = "star.fill"
-            return Image(systemName: "star.fill")
-                .resizable()
-        }
+        self.thumbnailImage = "star.fill"
+        return Image(systemName: "star.fill")
+            .resizable()
     }
     
+    /// Formats the coordinates of the Marker.
     var coordinates: CLLocationCoordinate2D {
         get { CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude) }
         set(value) {
@@ -32,6 +32,7 @@ public class Marker: NSManagedObject {
         }
     }
     
+    /// Background color of the Marker.
     var backgroundColor: Color {
         get {
             if let color = self.color {
@@ -56,9 +57,10 @@ public class Marker: NSManagedObject {
         }
     }
     
+    /// Foreground color based on the background color.
     var forgroundColor: Color {
         if let backgroundColorComponents = self.color {
-            return Marker.calculateForgroundColor(
+            return Marker.calculateForegroundColor(
                 red: backgroundColorComponents.red,
                 green: backgroundColorComponents.green,
                 blue: backgroundColorComponents.blue
@@ -67,6 +69,7 @@ public class Marker: NSManagedObject {
         return .white
     }
     
+    /// Optional rotation angle as a double instead of NSDecimalNumber.
     var lockRotationAngleDouble: Double? {
         get { return self.lockRotationAngle?.doubleValue }
         set(newValue) {
@@ -77,25 +80,35 @@ public class Marker: NSManagedObject {
         }
     }
     
+    /// All associated MapMaps with this Marker.
     var formattedMapMaps: [MapMap] {
         let mapMapSet = self.mapMap as? Set<MapMap> ?? []
         return mapMapSet.sorted(by: { $0.coordinates < $1.coordinates })
     }
     
-    static func calculateForgroundColor(red: Double, green: Double, blue: Double) -> Color {
+    /// Determine what the foreground color of a Marker based on the provided RGB values.
+    /// - Parameters:
+    ///   - red: Red values 0 to 1.
+    ///   - green: Green values 0 to 1.
+    ///   - blue: Blue values 0 to 1.
+    /// - Returns: Resulting visible color.
+    static func calculateForegroundColor(red: Double, green: Double, blue: Double) -> Color {
         if red * 0.299 + green * 0.587 + blue * 0.114 > 0.5 { // Is a light color
             return .black
         }
         return .white
     }
     
+    /// Determine what the foreground color of a Marker based on the provided color.
+    /// - Parameter color: Color to base foreground color on.
+    /// - Returns: Resulting visible color.
     static func calculateForgroundColor(color: Color) -> Color {
         var red: CGFloat = 0.0
         var green: CGFloat = 0.0
         var blue: CGFloat = 0.0
         var alpha: CGFloat = 0.0
         _ = UIColor(color).getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-        return Marker.calculateForgroundColor(red: red, green: green, blue: blue)
+        return Marker.calculateForegroundColor(red: red, green: green, blue: blue)
     }
 }
 

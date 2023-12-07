@@ -8,7 +8,9 @@
 import MapKit
 import SwiftUI
 
+/// Render all MapMap formatted list items for a single MapMap.
 struct CombineMarkerListItemsV: View {
+    /// MapMap to render Markers from.
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     
     var body: some View {

@@ -8,6 +8,8 @@
 import SwiftUI
 
 extension CGPoint {
+    /// Create a CGPoint from a CGSize
+    /// - Parameter size: Base CGSize
     init(size: CGSize) {
         self.init(x: size.width, y: size.height)
     }

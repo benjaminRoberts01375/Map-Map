@@ -7,7 +7,9 @@
 
 import SwiftUI
 
+/// Handle switching between the live camera and the camera output.
 struct CameraV: View {
+    /// Output from the camera
     @State private var image: UIImage?
     
     var body: some View {

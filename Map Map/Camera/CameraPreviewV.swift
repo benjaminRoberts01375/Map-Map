@@ -9,11 +9,17 @@ import AVFoundation
 import Bottom_Drawer
 import SwiftUI
 
+/// Live preview of the camera.
 struct CameraPreviewV: View {
+    /// View model of the live camera.
     private let cameraService = CameraPreviewVM()
+    /// Dismiss function for this view.
     @Environment(\.dismiss) private var dismiss
+    /// Output photo from the live camera view.
     @Binding var finalPhoto: UIImage?
+    /// Current rotation of the device.
     @State private var rotationAngle: Angle = .zero
+    /// Control if the user's allowed to take a photo.
     @State private var allowsPhoto: Bool = true
     
     init(photoPassthrough: Binding<UIImage?>) {
@@ -89,6 +95,7 @@ struct CameraPreviewV: View {
     }
 }
 
+/// Backend component to the camera's live preview.
 struct CameraPreview: UIViewControllerRepresentable {
     let cameraService: CameraPreviewVM
     let didFinishProcessingPhoto: (Result<AVCapturePhoto, Error>) -> Void

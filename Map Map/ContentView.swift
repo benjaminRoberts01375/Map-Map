@@ -14,11 +14,17 @@ import SwiftUI
 struct ContentView: View {
     /// All available MapMaps
     @FetchRequest(sortDescriptors: []) private var mapMaps: FetchedResults<MapMap>
+    /// All available Markers
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
+    /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
+    /// MapMap being edited.
     @State private var editingMapMap: MapMap?
+    /// Marker being edited.
     @State private var editingMarker: Marker?
+    /// Information to display in a Toast notification.
     @State private var toastInfo: ToastInfo = ToastInfo()
+    /// Coordinate display type.
     @State private var displayType: LocationDisplayMode = .degrees
     
     var body: some View {

@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// A class that mirrors the functionality of the FourCorners core data class.
 @Observable
 final class FourCornersStorage {
     var topLeading: CGSize

@@ -7,11 +7,19 @@
 
 import SwiftUI
 
+/// A single symbol to render.
 struct MarkerSymbolPickerItemV: View {
+    /// SFSymbol to render.
     let symbol: String
+    /// Background/primary color of the symbol.
     let backgroundColor: Color
+    /// Foreground/accent color of the symbol.
     let foregroundColor: Color
     
+    /// Create and render an SFSymbol for selection.
+    /// - Parameters:
+    ///   - symbol: Symbol to render.
+    ///   - backgroundColor: Background color of the symbol.
     init(symbol: String, backgroundColor: Color) {
         self.symbol = symbol
         self.backgroundColor = backgroundColor

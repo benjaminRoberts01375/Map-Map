@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Basic done button.
 struct DoneButton: View {
     var enabled: Bool = true
     var action: () -> Void = { }

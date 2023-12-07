@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Icon to represent the user.
 struct MapUserIcon: View {
     var body: some View {
         Image(systemName: "person.circle.fill")

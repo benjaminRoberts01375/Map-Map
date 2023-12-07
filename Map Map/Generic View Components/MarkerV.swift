@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct MarkerV: View {
+    /// Simple renderer for Markers.
     @ObservedObject var marker: FetchedResults<Marker>.Element
     
     var body: some View {
         Circle()
             .fill(marker.backgroundColor)
             .overlay {
-                marker.correctedThumbnailImage
+                marker.renderedThumbnailImage
                     .resizable()
                     .scaledToFit()
                     .scaleEffect(0.6)
