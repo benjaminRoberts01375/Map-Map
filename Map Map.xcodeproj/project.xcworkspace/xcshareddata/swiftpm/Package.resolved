@@ -12,10 +12,10 @@
     {
       "identity" : "swiftui-bottom-drawer",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/benjaminRoberts01375/SwiftUI-Bottom-Drawer/",
+      "location" : "https://github.com/benjaminRoberts01375/SwiftUI-Bottom-Drawer",
       "state" : {
         "branch" : "main",
-        "revision" : "76268f241cfb4c761f46860acc830cbdaf900acf"
+        "revision" : "6a3f752ea3e003f34d1eca739b5faecdaf05ad28"
       }
     }
   ],
