@@ -352,7 +352,6 @@
 				5316FAC2DD1436EC2B935EB2 /* Pods-Map Map.debug.xcconfig */,
 				2BF969175838179562740CBB /* Pods-Map Map.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -372,6 +371,7 @@
 			buildConfigurationList = 07FDC6322AB25E0000D92113 /* Build configuration list for PBXNativeTarget "Map Map" */;
 			buildPhases = (
 				D00204F8BCE57E9865AB30F8 /* [CP] Check Pods Manifest.lock */,
+				077602832B217D1900D0090A /* ShellScript */,
 				07FDC61B2AB25DFD00D92113 /* Sources */,
 				07FDC61C2AB25DFD00D92113 /* Frameworks */,
 				07FDC61D2AB25DFD00D92113 /* Resources */,
@@ -415,7 +415,7 @@
 			mainGroup = 07FDC6162AB25DFD00D92113;
 			packageReferences = (
 				07A0D7152AD1C28400F462A0 /* XCRemoteSwiftPackageReference "SwiftUI-Bottom-Drawer" */,
-				0776EB092B056C0D00F89BFC /* XCRemoteSwiftPackageReference "AlertToast.git" */,
+				0776EB092B056C0D00F89BFC /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = 07FDC6202AB25DFD00D92113 /* Products */;
 			projectDirPath = "";
@@ -439,6 +439,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		077602832B217D1900D0090A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse \n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		D00204F8BCE57E9865AB30F8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -668,6 +686,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Map Map/Preview Content\"";
 				DEVELOPMENT_TEAM = 68A766T4GX;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Map-Map-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MapMap;
@@ -703,6 +722,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Map Map/Preview Content\"";
 				DEVELOPMENT_TEAM = 68A766T4GX;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Map-Map-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MapMap;
@@ -751,7 +771,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		0776EB092B056C0D00F89BFC /* XCRemoteSwiftPackageReference "AlertToast.git" */ = {
+		0776EB092B056C0D00F89BFC /* XCRemoteSwiftPackageReference "AlertToast" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/elai950/AlertToast.git";
 			requirement = {
@@ -772,7 +792,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		0776EB0A2B056C0D00F89BFC /* AlertToast */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0776EB092B056C0D00F89BFC /* XCRemoteSwiftPackageReference "AlertToast.git" */;
+			package = 0776EB092B056C0D00F89BFC /* XCRemoteSwiftPackageReference "AlertToast" */;
 			productName = AlertToast;
 		};
 		07A0D7162AD1C28400F462A0 /* Bottom Drawer */ = {
