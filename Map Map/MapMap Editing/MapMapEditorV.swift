@@ -33,6 +33,7 @@ struct MapMapEditor: View {
                     .opacity(0.5)
                     .allowsHitTesting(false)
                     .position(x: geo.frame(in: .global).midX, y: geo.frame(in: .global).midY)
+                    .offset(y: -7)
             }
             .ignoresSafeArea()
             
