@@ -9,8 +9,8 @@ import MapKit
 import SwiftUI
 
 struct MarkerFormattedListItemV: View {
-    @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    @Environment(\.colorScheme) private var colorScheme
     @ObservedObject var marker: Marker
     
     var body: some View {

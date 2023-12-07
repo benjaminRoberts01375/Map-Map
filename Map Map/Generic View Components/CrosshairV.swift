@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CrosshairV: View {
-    let spacing: CGFloat = 15
+    private let spacing: CGFloat = 15
     
     var body: some View {
         ZStack {

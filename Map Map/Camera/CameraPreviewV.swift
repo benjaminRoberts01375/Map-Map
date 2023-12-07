@@ -10,11 +10,11 @@ import Bottom_Drawer
 import SwiftUI
 
 struct CameraPreviewV: View {
-    let cameraService = CameraPreviewVM()
-    @Environment(\.dismiss) var dismiss
+    private let cameraService = CameraPreviewVM()
+    @Environment(\.dismiss) private var dismiss
     @Binding var finalPhoto: UIImage?
-    @State var rotationAngle: Angle = .zero
-    @State var allowsPhoto: Bool = true
+    @State private var rotationAngle: Angle = .zero
+    @State private var allowsPhoto: Bool = true
     
     init(photoPassthrough: Binding<UIImage?>) {
         self._finalPhoto = photoPassthrough
@@ -62,7 +62,6 @@ struct CameraPreviewV: View {
                             .bigButton(backgroundColor: .blue)
                     })
                     .disabled(!allowsPhoto)
-                    
                     Button(action: {
                         dismiss()
                     }, label: {
@@ -92,7 +91,7 @@ struct CameraPreviewV: View {
 
 struct CameraPreview: UIViewControllerRepresentable {
     let cameraService: CameraPreviewVM
-    let didFinishProcessingPhoto: (Result<AVCapturePhoto, Error>) -> ()
+    let didFinishProcessingPhoto: (Result<AVCapturePhoto, Error>) -> Void
     
     func makeUIViewController(context: Context) -> UIViewController {
         cameraService.start(delegate: context.coordinator) { error in
@@ -113,9 +112,9 @@ struct CameraPreview: UIViewControllerRepresentable {
     
     class Coordinator: NSObject, AVCapturePhotoCaptureDelegate {
         let parent: CameraPreview
-        private let didFinishProcessingPhoto: (Result<AVCapturePhoto, Error>) -> ()
+        private let didFinishProcessingPhoto: (Result<AVCapturePhoto, Error>) -> Void
         
-        init(parent: CameraPreview, didFinishProcessingPhoto: @escaping (Result<AVCapturePhoto, Error>) -> ()) {
+        init(parent: CameraPreview, didFinishProcessingPhoto: @escaping (Result<AVCapturePhoto, Error>) -> Void) {
             self.parent = parent
             self.didFinishProcessingPhoto = didFinishProcessingPhoto
         }

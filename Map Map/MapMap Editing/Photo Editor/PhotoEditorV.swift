@@ -10,14 +10,12 @@ import CoreImage
 import SwiftUI
 
 struct PhotoEditorV: View {
-    @Environment(\.dismiss) var dismiss
-    @Environment(\.pixelLength) var pixelLength
-    
-    let mapMap: FetchedResults<MapMap>.Element
-    @State var handleTracker: HandleTrackerM
-    @State var screenSpaceImageSize: CGSize = .zero
-    
-    @State var loading: Bool = false
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.pixelLength) private var pixelLength
+    private let mapMap: FetchedResults<MapMap>.Element
+    @State private var handleTracker: HandleTrackerM
+    @State private var screenSpaceImageSize: CGSize = .zero
+    @State private var loading: Bool = false
     private static let perspectiveQueue = DispatchQueue(label: "com.RobertsHousehold.MapMap.PerspectiveFixer", qos: .userInteractive)
     
     init(mapMap: FetchedResults<MapMap>.Element) {

@@ -10,8 +10,8 @@ import SwiftUI
 struct MapMapListItemV: View {
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     @Environment(\.locationDisplayMode) var displayType
-    let mapMapSize: CGFloat = 100
-    let cornerRadius: CGFloat = 10
+    private let mapMapSize: CGFloat = 100
+    private let cornerRadius: CGFloat = 10
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -25,7 +25,13 @@ struct MapMapListItemV: View {
             HStack(spacing: 0) {
                 MapMapV(mapMap: mapMap, mapType: .thumbnail)
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius / 2))
-                    .frame(minWidth: mapMapSize, idealWidth: mapMapSize, maxWidth: mapMapSize, minHeight: mapMapSize / 2, maxHeight: mapMapSize)
+                    .frame(
+                        minWidth: mapMapSize,
+                        idealWidth: mapMapSize,
+                        maxWidth: mapMapSize,
+                        minHeight: mapMapSize / 2,
+                        maxHeight: mapMapSize
+                    )
                     .background(.thickMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                     .padding(.trailing)

@@ -9,15 +9,17 @@ import Bottom_Drawer
 import SwiftUI
 
 struct CameraReviewV: View {
-    @Environment(\.managedObjectContext) var moc
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.managedObjectContext) private var moc
+    @Environment(\.dismiss) private var dismiss
     @Binding var photoPassthrough: UIImage?
+    
     var body: some View {
         if let image = photoPassthrough {
             ZStack {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
+                    .accessibilityLabel("Photo result from camera.")
                 BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center]) { _ in
                     HStack {
                         Button(action: {

@@ -8,14 +8,10 @@
 import SwiftUI
 
 struct CameraV: View {
-    @State var image: UIImage?
+    @State private var image: UIImage?
     
     var body: some View {
-        if let _ = image {
-            CameraReviewV(photoPassthrough: $image)
-        }
-        else {
-            CameraPreviewV(photoPassthrough: $image)
-        }
+        if image != nil { CameraReviewV(photoPassthrough: $image) }
+        else { CameraPreviewV(photoPassthrough: $image) }
     }
 }

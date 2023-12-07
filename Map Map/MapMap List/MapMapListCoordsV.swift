@@ -22,7 +22,6 @@ struct MapMapListCoordsV: View {
                 Text(displayType.degreesToString(longitude: coordinates.longitude))
                     .fontWidth(.condensed)
             }
-            
             VStack(alignment: .leading) {
                 Text("Latitude: ")
                 Text(displayType.degreesToString(latitude: coordinates.latitude))

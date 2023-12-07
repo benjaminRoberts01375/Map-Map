@@ -9,13 +9,13 @@ import Bottom_Drawer
 import SwiftUI
 
 struct MarkerEditorV: View {
-    @State var saveAngle: Bool
-    @State var workingName: String
-    @State var showingImagePicker: Bool = false
-    @Environment(\.managedObjectContext) var moc
-    @Environment(ScreenSpacePositionsM.self) var screenSpacePositions
+    @State private var saveAngle: Bool
+    @State private var workingName: String
+    @State private var showingImagePicker: Bool = false
+    @Environment(\.managedObjectContext) private var moc
+    @Environment(ScreenSpacePositionsM.self) private var screenSpacePositions
     @ObservedObject var marker: FetchedResults<Marker>.Element
-    @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
+    @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
     
     init(marker: FetchedResults<Marker>.Element) {
         self.marker = marker
@@ -81,9 +81,12 @@ struct MarkerEditorV: View {
                                     x: geo.size.width / 2,
                                     y: geo.size.height / 2 + geo.safeAreaInsets.top - 2
                                 )
-                                if let overlappingMapMaps = screenSpacePositions.markerOverMapMaps(marker, backgroundMapRotation: backgroundMapDetails.rotation) {
-                                    for mapMap in marker.formattedMapMaps { mapMap.removeFromMarkers(marker) } // Remove current marker from all MapMaps
-                                    for mapMap in overlappingMapMaps { mapMap.addToMarkers(marker) } // Add Marker to relevant MapMaps
+                                if let overlappingMapMaps = 
+                                    screenSpacePositions.markerOverMapMaps(marker, backgroundMapRotation: backgroundMapDetails.rotation) {
+                                    // Remove current marker from all MapMaps
+                                    for mapMap in marker.formattedMapMaps { mapMap.removeFromMarkers(marker) }
+                                    // Add Marker to relevant MapMaps
+                                    for mapMap in overlappingMapMaps { mapMap.addToMarkers(marker) }
                                 }
                                 try? moc.save()
                             } label: {
@@ -97,7 +100,6 @@ struct MarkerEditorV: View {
                                     .bigButton(backgroundColor: .gray)
                             }
                         }
-                        
                     }
                 }
             }

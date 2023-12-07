@@ -9,8 +9,8 @@ import SwiftUI
 
 struct HandleV: View {
     @Binding var position: CGSize
-    @State var previousFrameDragAmount: CGSize = .zero
-    let handleSize: CGFloat = 30
+    @State private var previousFrameDragAmount: CGSize = .zero
+    private let handleSize: CGFloat = 30
     
     var dragGesture: some Gesture {
         DragGesture(coordinateSpace: .global)

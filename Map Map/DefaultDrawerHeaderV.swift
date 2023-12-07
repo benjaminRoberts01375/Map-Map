@@ -9,10 +9,10 @@ import PhotosUI
 import SwiftUI
 
 struct DefaultDrawerHeaderV: View {
-    @Environment(\.managedObjectContext) var moc
-    @State var rawPhotos: [PhotosPickerItem] = []
-    @State var photosPickerPresented = false
-    @State var cameraPresented = false
+    @Environment(\.managedObjectContext) private var moc
+    @State private var rawPhotos: [PhotosPickerItem] = []
+    @State private var photosPickerPresented = false
+    @State private var cameraPresented = false
     
     var body: some View {
         HStack {
@@ -20,7 +20,6 @@ struct DefaultDrawerHeaderV: View {
                 .font(.title)
                 .fontWeight(.bold)
                 .padding([.leading])
-            
             Menu {
                 Button(action: {
                     cameraPresented = true
@@ -39,7 +38,6 @@ struct DefaultDrawerHeaderV: View {
                     .resizable()
                     .frame(width: 22, height: 22)
             }
-            
             Spacer()
         }
         .onChange(of: rawPhotos) { _, updatedRawPhotos in

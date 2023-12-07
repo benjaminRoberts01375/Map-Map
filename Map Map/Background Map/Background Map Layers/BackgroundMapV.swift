@@ -9,12 +9,12 @@ import MapKit
 import SwiftUI
 
 struct BackgroundMap: View {
-    @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
-    @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
+    @FetchRequest(sortDescriptors: []) private var mapMaps: FetchedResults<MapMap>
+    @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
     @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails: BackgroundMapDetailsM
-    @State var locationsHandler = LocationsHandler.shared
-    @Environment(ScreenSpacePositionsM.self) var screenSpacePositions
-    @State var tappableMapMaps = true
+    @State private var locationsHandler = LocationsHandler.shared
+    @Environment(ScreenSpacePositionsM.self) private var screenSpacePositions
+    @State private var tappableMapMaps = true
     let mapScope: Namespace.ID
     
     var body: some View {
@@ -95,7 +95,8 @@ struct BackgroundMap: View {
                 }
             }
             .onReceive(NotificationCenter.default.publisher(for: .addedMarker)) { notification in
-                if let marker = notification.userInfo?["marker"] as? Marker, let screenSpaceMarkerLocation = mapContext.convert(marker.coordinates, to: .local) {
+                if let marker = notification.userInfo?["marker"] as? Marker, 
+                    let screenSpaceMarkerLocation = mapContext.convert(marker.coordinates, to: .local) {
                     screenSpacePositions.markerPositions[marker] = screenSpaceMarkerLocation
                 }
             }

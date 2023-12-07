@@ -9,10 +9,10 @@ import MapKit
 import SwiftUI
 
 struct MarkerContextMenuV: View {
-    @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
-    @Environment(\.managedObjectContext) var moc
+    @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    @Environment(\.managedObjectContext) private var moc
     @ObservedObject var marker: FetchedResults<Marker>.Element
-    var onDelete: (() -> Void)? = nil
+    var onDelete: (() -> Void)?
     
     var body: some View {
         Button(role: .destructive) {
@@ -30,7 +30,7 @@ struct MarkerContextMenuV: View {
             try? moc.save()
         } label: {
             if marker.shown { Label("Hide Marker", systemImage: "eye.fill") }
-            else { Label("Show Marker" , systemImage: "eye.slash.fill") }
+            else { Label("Show Marker", systemImage: "eye.slash.fill") }
         }
         
         Button {

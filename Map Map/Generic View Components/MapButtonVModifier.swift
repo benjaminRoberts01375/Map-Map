@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct MapButtonV: ViewModifier {
-    let size: CGFloat = 45
+    private let size: CGFloat = 45
+    
     func body(content: Content) -> some View {
         content
             .scaledToFit()

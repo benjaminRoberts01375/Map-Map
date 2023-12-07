@@ -9,8 +9,8 @@ import MapKit
 import SwiftUI
 
 struct MapMapContextMenuV: View {
-    @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
-    @Environment(\.managedObjectContext) var moc
+    @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    @Environment(\.managedObjectContext) private var moc
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     
     var body: some View {
@@ -33,7 +33,7 @@ struct MapMapContextMenuV: View {
             try? moc.save()
         } label: {
             if mapMap.shown { Label("Hide Map Map", systemImage: "eye.fill") }
-            else { Label("Show Map Map" , systemImage: "eye.slash.fill") }
+            else { Label("Show Map Map", systemImage: "eye.slash.fill") }
         }
     }
 }

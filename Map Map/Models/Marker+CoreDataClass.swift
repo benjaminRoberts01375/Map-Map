@@ -100,7 +100,11 @@ public class Marker: NSManagedObject {
 }
 
 extension Marker {
-    convenience public init(coordinates: CLLocationCoordinate2D, insertInto context: NSManagedObjectContext) {
+    /// A convenience initializer for creating a Marker from a set of coordinates.
+    /// - Parameters:
+    ///   - coordinates: Coordinates to center the Marker on.
+    ///   - context: Managed Object Context to store the Marker into
+    public convenience init(coordinates: CLLocationCoordinate2D, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
         self.coordinates = coordinates
         NotificationCenter.default.post(name: .addedMarker, object: nil, userInfo: ["marker":self])

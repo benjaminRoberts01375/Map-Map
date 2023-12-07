@@ -9,12 +9,12 @@ import MapKit
 import SwiftUI
 
 struct BackgroundMapButtonsV: View {
-    @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
-    @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
-    @Environment(\.managedObjectContext) var moc
-    @Environment(ScreenSpacePositionsM.self) var screenSpacePositions
-    @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
-    @State var markerButton: MarkerButtonType = .add
+    @FetchRequest(sortDescriptors: []) private var mapMaps: FetchedResults<MapMap>
+    @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
+    @Environment(\.managedObjectContext) private var moc
+    @Environment(ScreenSpacePositionsM.self) private var screenSpacePositions
+    @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    @State private var markerButton: MarkerButtonType = .add
     @Binding var displayType: LocationDisplayMode
     let screenSize: CGSize
     let mapScope: Namespace.ID
@@ -65,7 +65,7 @@ struct BackgroundMapButtonsV: View {
     func checkOverMarker() {
         for marker in markers {
             if let markerPos = screenSpacePositions.markerPositions[marker] {
-                let xComponent = abs(markerPos.x - screenSize.width  / 2)
+                let xComponent = abs(markerPos.x - screenSize.width / 2)
                 let yComponent = abs(markerPos.y - screenSize.height / 2)
                 let distance = sqrt(pow(xComponent, 2) + pow(yComponent, 2))
                 if distance < BackgroundMapPointsV.iconSize / 2 {
@@ -86,7 +86,10 @@ struct BackgroundMapButtonsV: View {
         let newMarker = Marker(coordinates: backgroundMapDetails.position, insertInto: moc)
         let centerPoint: CGPoint = CGPoint(size: screenSize / 2)
         for mapMap in mapMaps {
-            if let path = screenSpacePositions.generateMapMapRotatedBounds(mapMap: mapMap, backgroundMapRotation: backgroundMapDetails.rotation)?.cgPath, 
+            if let path = screenSpacePositions.generateMapMapRotatedBounds(
+                mapMap: mapMap,
+                backgroundMapRotation: backgroundMapDetails.rotation
+            )?.cgPath, 
                 path.contains(centerPoint) {
                 newMarker.addToMapMap(mapMap)
             }

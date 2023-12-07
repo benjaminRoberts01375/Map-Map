@@ -9,32 +9,46 @@ import SwiftUI
 
 @Observable
 final class ScreenSpacePositionsM {
+    /// A dictionary of Markers and their associated background map screen-space positions.
     public var markerPositions: [Marker : CGPoint] = [:]
+    /// A dictionary of MapMaps and their associated background map screen-space positions and sizes.
     public var mapMapPositions: [MapMap : CGRect] = [:]
-    public var userLocation: CGPoint? = nil
+    /// Storage for the user's location in screen-space on the background map.
+    public var userLocation: CGPoint?
     
-    func mapMapOverMarkers(_ mapMap: MapMap, backgroundMapRotation: Angle) -> [Marker]? {
+    /// Determine all Markers that overlap a given MapMap
+    /// - Parameters:
+    ///   - mapMap: MapMap to check Marker positions against.
+    ///   - backgroundMapRotation: Background map rotation.
+    /// - Returns: If the MapMap's position in screen-space was not found, then nil is returned. 
+    /// Otherwise, all available Markers are returned.
+    public func mapMapOverMarkers(_ mapMap: MapMap, backgroundMapRotation: Angle) -> [Marker]? {
         guard let mapMapBounds = generateMapMapRotatedBounds(mapMap: mapMap, backgroundMapRotation: backgroundMapRotation)?.cgPath
         else { return nil }
         var markers: [Marker] = []
         
         for (marker, _) in markerPositions {
             if let markerPosition = markerPositions[marker] {
-                let markerBounds = UIBezierPath(ovalIn: CGRect(origin: markerPosition, size: CGSize(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize))).cgPath
+                let markerBounds = generateMarkerBoundingBox(markerPosition: markerPosition)
                 if mapMapBounds.intersects(markerBounds) {
                     markers.append(marker)
                 }
             }
         }
-        
         return markers
     }
     
-    func markerOverMapMaps(_ marker: Marker, backgroundMapRotation: Angle) -> [MapMap]? {
+    /// Determine all MapMaps that overlap a given Marker
+    /// - Parameters:
+    ///   - marker: Marker to check MapMap positions against.
+    ///   - backgroundMapRotation: Background map rotation.
+    /// - Returns: If the Marker's position in screen-space was not found, then nil is returned. 
+    /// Otherwise, all available MapMaps are returned.
+    public func markerOverMapMaps(_ marker: Marker, backgroundMapRotation: Angle) -> [MapMap]? {
         guard let markerPosition = markerPositions[marker] else {
             return nil
         }
-        let marker = UIBezierPath(ovalIn: CGRect(origin: markerPosition, size: CGSize(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize))).cgPath
+        let marker = generateMarkerBoundingBox(markerPosition: markerPosition)
         var mapMaps: [MapMap] = []
         for (mapMap, _) in mapMapPositions {
             if let mapMapBounds = generateMapMapRotatedBounds(mapMap: mapMap, backgroundMapRotation: backgroundMapRotation)?.cgPath,
@@ -45,23 +59,25 @@ final class ScreenSpacePositionsM {
         return mapMaps
     }
     
-    func generateMapMapRotatedBounds(mapMap: MapMap, backgroundMapRotation: Angle) -> UIBezierPath? {
+    /// Given a specific rotation and MapMap, a UIBezierPath is formed to allow for precise calculations.
+    /// - Parameters:
+    ///   - mapMap: MapMap to generate a rotated bounding box for.
+    ///   - backgroundMapRotation: Background map rotation.
+    /// - Returns: A bounding box of a MapMap that has been rotated to match the MapMap.
+    public func generateMapMapRotatedBounds(mapMap: MapMap, backgroundMapRotation: Angle) -> UIBezierPath? {
         guard let rect: CGRect = mapMapPositions[mapMap]
         else { return nil }
-        
         let transform = CGAffineTransform(translationX: rect.midX - rect.width / 2, y: rect.midY - rect.height / 2)
             .rotated(by: (backgroundMapRotation - Angle(degrees: mapMap.mapMapRotation)).radians)
             .translatedBy(x: -rect.midX, y: -rect.midY)
         let padding: CGFloat = 25
-        
-        // Calculate rotated points
-        let rotatedPoints: [CGPoint] = [
+        let rotatedPoints: [CGPoint] = // Calculate rotated points
+        [
             CGPoint(x: rect.minX - padding, y: rect.minY - padding).applying(transform),
             CGPoint(x: rect.maxX + padding, y: rect.minY - padding).applying(transform),
             CGPoint(x: rect.maxX + padding, y: rect.maxY + padding).applying(transform),
             CGPoint(x: rect.minX - padding, y: rect.maxY + padding).applying(transform)
         ]
-        
         // Check if the point is within the convex hull of rotated points
         let convexHullPath = UIBezierPath()
         convexHullPath.move(to: rotatedPoints[0])
@@ -69,7 +85,21 @@ final class ScreenSpacePositionsM {
         convexHullPath.addLine(to: rotatedPoints[2])
         convexHullPath.addLine(to: rotatedPoints[3])
         convexHullPath.close()
-        
         return convexHullPath
+    }
+    
+    /// Generate a Marker's bounding box
+    /// - Parameter markerPosition: Center point of the bounding box.
+    /// - Returns: A CGPath of a circle centered at the marker position.
+    private func generateMarkerBoundingBox(markerPosition: CGPoint) -> CGPath {
+        return UIBezierPath(
+            ovalIn: CGRect(
+                origin: markerPosition,
+                size: CGSize(
+                    width: BackgroundMapPointsV.iconSize,
+                    height: BackgroundMapPointsV.iconSize
+                )
+            )
+        ).cgPath
     }
 }

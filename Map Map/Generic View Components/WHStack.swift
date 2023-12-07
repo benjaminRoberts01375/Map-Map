@@ -11,9 +11,13 @@ fileprivate final class ViewRow {
     private(set) var subviews: [LayoutSubviews.Element] = []
     var size: CGSize = .zero
     
+    /// A function for adding a subview to a row and running neccessary calculations for cache.
+    /// - Parameter subview: Subview to add to row
     public func addSubview(_ subview: LayoutSubviews.Element) {
         let subviewSize = subview.sizeThatFits(.unspecified)
-        let previousSpacing: CGFloat = subviews.isEmpty ? 0 : subviews[subviews.count - 1].spacing.distance(to: subview.spacing, along: .horizontal)
+        let previousSpacing: CGFloat = 
+        if subviews.isEmpty { 0 }
+        else { subviews[subviews.count - 1].spacing.distance(to: subview.spacing, along: .horizontal) }
         
         size = CGSize(
             width: size.width + subviewSize.width + previousSpacing,
@@ -24,7 +28,6 @@ fileprivate final class ViewRow {
 }
 
 public struct WHStack: Layout {
-    
     /// Deterrmine size of the WHStack
     /// - Parameters:
     ///   - proposal: Proposed size for the WHStack

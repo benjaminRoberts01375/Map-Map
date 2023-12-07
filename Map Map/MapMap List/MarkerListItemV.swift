@@ -9,8 +9,9 @@ import SwiftUI
 
 struct MarkerListItemV: View {
     @ObservedObject var marker: FetchedResults<Marker>.Element
-    @Environment(\.locationDisplayMode) var displayType
-    let markerSize: CGFloat = 30
+    @Environment(\.locationDisplayMode) private var displayType
+    private let markerSize: CGFloat = 30
+    
     var body: some View {
         HStack(spacing: 0) {
             if let markerName = marker.name {

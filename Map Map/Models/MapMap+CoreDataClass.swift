@@ -13,12 +13,11 @@ import SwiftUI
 
 @objc(MapMap)
 public class MapMap: NSManagedObject {
-    @Published public var image: ImageStatus = .empty 
-    { didSet { self.objectWillChange.send() } }
+    @Published public var image: ImageStatus = .empty { didSet { self.objectWillChange.send() } }
     @Published public var thumbnail: ImageStatus = .empty
     static let thumbnailSize: CGSize = CGSize(width: 300, height: 300)
     public var coordinates: CLLocationCoordinate2D {
-        get { CLLocationCoordinate2D(latitude: self.mapMapLatitude , longitude: self.mapMapLongitude) }
+        get { CLLocationCoordinate2D(latitude: self.mapMapLatitude, longitude: self.mapMapLongitude) }
         set(coordinates) {
             self.mapMapLatitude = coordinates.latitude
             self.mapMapLongitude = coordinates.longitude
@@ -59,6 +58,7 @@ public class MapMap: NSManagedObject {
     private func generateThumbnailFromUIImage(_ uiImage: UIImage) {
         Task {
             if let generatedThumbnail = await uiImage.byPreparingThumbnail(ofSize: MapMap.thumbnailSize) {
+                let mapMapName = self.mapMapName
                 let outputImage = Image(uiImage: generatedThumbnail)
                 DispatchQueue.main.async { self.thumbnail = .success(outputImage) }
                 self.mapMapEncodedThumbnail = generatedThumbnail.jpegData(compressionQuality: 0.1)
@@ -114,7 +114,11 @@ public class MapMap: NSManagedObject {
 
 // MARK: Photo inits
 extension MapMap {
-    convenience public init(rawPhoto: PhotosPickerItem?, insertInto context: NSManagedObjectContext) {
+    /// A convenience initializer for creating a MapMap from a photo from a photo picker.
+    /// - Parameters:
+    ///   - rawPhoto: Photo picker photo to create MapMap from.
+    ///   - context: Managed Object Context to store the resulting MapMap in.
+    public convenience init(rawPhoto: PhotosPickerItem?, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
         thumbnail = .loading
         image = .loading
@@ -138,9 +142,14 @@ extension MapMap {
         }
     }
     
-    convenience public init(rawPhoto: UIImage, insertInto context: NSManagedObjectContext) {
+    /// A convenience initializer for creating a MapMap from a photo from a UIImage.
+    /// - Parameters:
+    ///   - rawPhoto: UIImage to create MapMap from.
+    ///   - context: Managed Object Context to store the resulting MapMap in.
+    public convenience init(rawPhoto: UIImage, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
-        image = .success(Image(uiImage: rawPhoto))
+        let outputImage = Image(uiImage: rawPhoto)
+        image = .success(outputImage)
         Task {
             thumbnail = .loading
             self.mapMapName = "Untitled map"
@@ -186,7 +195,8 @@ extension MapMap {
         else { return }
         
         let newUIImage = UIImage(cgImage: consume newCGImage)
-        let result: ImageStatus = .success(Image(uiImage: newUIImage))
+        let outputImage = Image(uiImage: newUIImage)
+        let result: ImageStatus = .success(outputImage)
         DispatchQueue.main.async {
             self.image = result
             self.objectWillChange.send()
@@ -194,7 +204,11 @@ extension MapMap {
         
         Task {
             DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .savingToastNotification, object: nil, userInfo: ["savingVal":true, "name":self.mapMapName ?? "Unknown map"])
+                NotificationCenter.default.post(
+                    name: .savingToastNotification,
+                    object: nil,
+                    userInfo: ["savingVal":true, "name":self.mapMapName ?? "Unknown map"]
+                )
             }
             let result = newUIImage.pngData()
             DispatchQueue.main.async {

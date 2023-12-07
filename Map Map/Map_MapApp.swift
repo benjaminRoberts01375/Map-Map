@@ -9,7 +9,7 @@ import MapKit
 import SwiftUI
 
 @main
-struct Map_MapApp: App {
+struct MapMapApp: App {
     @StateObject private var dataController = DataController()
     @State private var mapDetails = BackgroundMapDetailsM()
     @State private var positions = ScreenSpacePositionsM()

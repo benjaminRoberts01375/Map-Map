@@ -10,12 +10,12 @@ import SwiftUI
 
 struct MapMapEditor: View {
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
-    @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
-    @Environment(\.managedObjectContext) var moc
-    @Environment(ScreenSpacePositionsM.self) var screenSpacePositions
-    @State var workingName: String = ""
-    @State var mapMapPosition: CGRect = .zero
-    @State var showingPhotoEditor = false
+    @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    @Environment(\.managedObjectContext) private var moc
+    @Environment(ScreenSpacePositionsM.self) private var screenSpacePositions
+    @State private var workingName: String = ""
+    @State private var mapMapPosition: CGRect = .zero
+    @State private var showingPhotoEditor = false
     
     var body: some View {
         ZStack {
@@ -65,22 +65,23 @@ struct MapMapEditor: View {
                             mapMap.isEditing = false
                             mapMap.isSetup = true
                             screenSpacePositions.mapMapPositions[mapMap] = mapMapPosition
-                            if let overlappingMarkers = screenSpacePositions.mapMapOverMarkers(mapMap, backgroundMapRotation: backgroundMapDetails.rotation) {
+                            if let overlappingMarkers = 
+                                screenSpacePositions.mapMapOverMarkers(mapMap, backgroundMapRotation: backgroundMapDetails.rotation ) {
                                 for marker in mapMap.formattedMarkers { mapMap.removeFromMarkers(marker) } // Remove MapMap from all Markers
                                 for marker in overlappingMarkers { mapMap.addToMarkers(marker) } // Add MapMap to all
                             }
                             try? moc.save()
-                        }) {
+                        }, label: {
                             Text("Done")
                                 .bigButton(backgroundColor: .blue)
-                        }
+                        })
                         Button(action: {
                             if mapMap.isSetup { moc.reset() }
                             else { moc.delete(mapMap) }
-                        }) {
+                        }, label: {
                             Text("Cancel")
                                 .bigButton(backgroundColor: .gray)
-                        }
+                        })
                         if mapMap.isSetup {
                             Button( action: {
                                 moc.delete(mapMap)

@@ -6,16 +6,21 @@
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(FourCorners)
-public class FourCorners: NSManagedObject {
-    
-}
+public class FourCorners: NSManagedObject { }
 
 extension FourCorners {
-    convenience public init(
+    /// Create a FourCorners with the data populated
+    /// - Parameters:
+    ///   - topLeading: Top leading corner of the four corners.
+    ///   - topTrailing: Bottom trailing corner of the four corners.
+    ///   - bottomLeading: Bottom leading corner of the four corners.
+    ///   - bottomTrailing: Bottom trailing corner of the four corners.
+    ///   - context: Core Data managed object context to store the FourCorners into.
+    public convenience init(
         topLeading: CGSize,
         topTrailing: CGSize,
         bottomLeading: CGSize,

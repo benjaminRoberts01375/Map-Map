@@ -9,11 +9,11 @@ import MapKit
 import SwiftUI
 
 struct MapMapList: View {
-    @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
-    @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
-    @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
-    @Environment(\.managedObjectContext) var moc
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    @FetchRequest(sortDescriptors: []) private var mapMaps: FetchedResults<MapMap>
+    @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
+    @Environment(\.managedObjectContext) private var moc
+    @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {

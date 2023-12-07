@@ -9,10 +9,9 @@ import AVFoundation
 import SwiftUI
 
 final class CameraPreviewVM {
-    var session: AVCaptureSession?
-    var delegate: AVCapturePhotoCaptureDelegate?
-    
-    let output: AVCapturePhotoOutput
+    private var session: AVCaptureSession?
+    private var delegate: AVCapturePhotoCaptureDelegate?
+    private let output: AVCapturePhotoOutput
     let previewLayer = AVCaptureVideoPreviewLayer()
     
     init() {
@@ -20,12 +19,12 @@ final class CameraPreviewVM {
         output.maxPhotoQualityPrioritization = .quality
     }
     
-    func start(delegate: AVCapturePhotoCaptureDelegate, completion: @escaping (Error?) -> ()) {
+    func start(delegate: AVCapturePhotoCaptureDelegate, completion: @escaping (Error?) -> Void) {
         self.delegate = delegate
         checkPermissions(completion: completion)
     }
     
-    private func checkPermissions(completion: @escaping (Error?) -> ()) {
+    private func checkPermissions(completion: @escaping (Error?) -> Void) {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { _ in
@@ -40,7 +39,7 @@ final class CameraPreviewVM {
         }
     }
     
-    private func setupCamera(completion: @escaping (Error?) -> ()) async {
+    private func setupCamera(completion: @escaping (Error?) -> Void) async {
         let session = AVCaptureSession()
         if let device = AVCaptureDevice.default(for: .video) {
             do {

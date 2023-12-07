@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct BackgroundMapLayersV: View {
-    let blurAmount: CGFloat = 10
-    @Namespace var mapScope
-    @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
-    @State var timer: Timer?
-    @State var crosshairOpacity: Double = 0
+    private let blurAmount: CGFloat = 10
+    @Namespace private var mapScope
+    @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    @State private var timer: Timer?
+    @State private var crosshairOpacity: Double = 0
     @Binding var displayType: LocationDisplayMode
     
     var body: some View {

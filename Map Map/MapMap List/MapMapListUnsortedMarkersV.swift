@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MapMapListUnsortedMarkersV: View {
-    @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
+    @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
     
     var body: some View {
         ForEach(markers) { marker in

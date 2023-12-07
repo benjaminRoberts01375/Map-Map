@@ -9,14 +9,14 @@ import MapKit
 import SwiftUI
 
 struct BackgroundMapPointsV: View {
-    @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
-    @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
-    @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
-    @Environment(\.managedObjectContext) var moc
-    @Environment(ScreenSpacePositionsM.self) var screenSpacePositions
+    @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
+    @FetchRequest(sortDescriptors: []) private var mapMaps: FetchedResults<MapMap>
+    @Environment(\.managedObjectContext) private var moc
+    @Environment(ScreenSpacePositionsM.self) private var screenSpacePositions
     let screenSize: CGSize
     static let iconSize: CGFloat = 30
-    let userLocationSize: CGFloat = 24
+    private let userLocationSize: CGFloat = 24
     
     var body: some View {
         ForEach(markers) { marker in
@@ -26,11 +26,16 @@ struct BackgroundMapPointsV: View {
                         backgroundMapDetails.moveMapCameraTo(marker: marker)
                     } label: {
                         MarkerV(marker: marker)
-                            .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: marker.lockRotationAngleDouble ?? backgroundMapDetails.rotation.degrees))
+                            .rotationEffect(
+                                backgroundMapDetails.rotation -
+                                Angle(degrees: marker.lockRotationAngleDouble ?? backgroundMapDetails.rotation.degrees)
+                            )
                     }
-                    .contextMenu { MarkerContextMenuV(marker: marker) {
-                        screenSpacePositions.markerPositions.removeValue(forKey: marker)
-                    }}
+                    .contextMenu {
+                        MarkerContextMenuV(marker: marker) {
+                            screenSpacePositions.markerPositions.removeValue(forKey: marker)
+                        }
+                    }
                     .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
                     if let markerName = marker.name, isOverMarker(marker) {
                         Text(markerName)
@@ -49,7 +54,6 @@ struct BackgroundMapPointsV: View {
                 .position(position)
             }
         }
-        
         VStack {
             if let screenSpaceUserLocation = screenSpacePositions.userLocation {
                 MapUserIcon()
@@ -63,7 +67,7 @@ struct BackgroundMapPointsV: View {
     
     func isOverMarker(_ marker: Marker) -> Bool {
         guard let markerPos = screenSpacePositions.markerPositions[marker] else { return false }
-        let xComponent = abs(markerPos.x - screenSize.width  / 2)
+        let xComponent = abs(markerPos.x - screenSize.width / 2)
         let yComponent = abs(markerPos.y - screenSize.height / 2)
         let distance = sqrt(pow(xComponent, 2) + pow(yComponent, 2))
         return distance < BackgroundMapPointsV.iconSize / 2

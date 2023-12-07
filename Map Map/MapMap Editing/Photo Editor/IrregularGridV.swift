@@ -15,7 +15,6 @@ struct IrregularGridV: Shape {
     private let trailingHorizontalProportion: CGPoint
     private let leadingVerticalProportion: CGPoint
     private let trailingVerticalProportion: CGPoint
-    
     private let gridLineCount: CGFloat
     
     init(topLeading: CGSize, topTrailing: CGSize, bottomLeading: CGSize, bottomTrailing: CGSize, gridLineCount: CGFloat = 2) {
@@ -43,32 +42,32 @@ struct IrregularGridV: Shape {
     
     func path(in rect: CGRect) -> Path {
         var path = Path()
-        for i in stride(from: 0, through: gridLineCount, by: 1) {
+        for lineIndex in stride(from: 0, through: gridLineCount, by: 1) {
             // Horizontal lines
             path.move(
                 to: CGPoint(
-                    x: leadingHorizontalProportion.x * i + topLeading.width,
-                    y: leadingHorizontalProportion.y * i + topLeading.height
+                    x: leadingHorizontalProportion.x * lineIndex + topLeading.width,
+                    y: leadingHorizontalProportion.y * lineIndex + topLeading.height
                 )
             )
             path.addLine(
                 to: CGPoint(
-                    x: trailingHorizontalProportion.x * i + topTrailing.width,
-                    y: trailingHorizontalProportion.y * i + topTrailing.height
+                    x: trailingHorizontalProportion.x * lineIndex + topTrailing.width,
+                    y: trailingHorizontalProportion.y * lineIndex + topTrailing.height
                 )
             )
             
             // Vertical lines
             path.move(
                 to: CGPoint(
-                    x: leadingVerticalProportion.x * i + topLeading.width,
-                    y: leadingVerticalProportion.y * i + topLeading.height
+                    x: leadingVerticalProportion.x * lineIndex + topLeading.width,
+                    y: leadingVerticalProportion.y * lineIndex + topLeading.height
                 )
             )
             path.addLine(
                 to: CGPoint(
-                    x: trailingVerticalProportion.x * i + bottomLeading.width,
-                    y: trailingVerticalProportion.y * i + bottomLeading.height
+                    x: trailingVerticalProportion.x * lineIndex + bottomLeading.width,
+                    y: trailingVerticalProportion.y * lineIndex + bottomLeading.height
                 )
             )
         }

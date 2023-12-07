@@ -8,7 +8,10 @@
 import NotificationCenter
 
 extension Notification.Name {
-    static let savingToastNotification = Notification.Name("SavingData")
-    static let addedMarker = Notification.Name("NewMarker")
-    static let editingMarker = Notification.Name("EditingMarker")
+    /// Notification name to be sent when Core Data is saving data.
+    public static let savingToastNotification = Notification.Name("SavingData")
+    /// Notification name to be sent when a new Marker is added.
+    public static let addedMarker = Notification.Name("NewMarker")
+    /// Notification name to be sent when a Marker is being edited.
+    public static let editingMarker = Notification.Name("EditingMarker")
 }

@@ -8,15 +8,43 @@
 import UIKit
 
 extension UIImage {
-    func fixOrientation() -> UIImage {
-        if imageOrientation == .up { // Nothing todo
-            return self
+    /// Wipe any rotation or mirror from the UIImage.
+    /// - Returns: The corrected UIImage.
+    public func fixOrientation() -> UIImage {
+        // Nothing to do
+        if imageOrientation == .up { return self }
+        guard let cgImage = cgImage else { return self }
+        let width = size.width
+        let height = size.height
+        let transform = determineTransformForStandardImage()
+        if let colorSpace = cgImage.colorSpace, // Remake UIImage from CGImage
+            let context = CGContext(
+                data: nil,
+                width: Int(width),
+                height: Int(height),
+                bitsPerComponent: cgImage.bitsPerComponent,
+                bytesPerRow: 0,
+                space: colorSpace,
+                bitmapInfo: cgImage.bitmapInfo.rawValue
+            ) {
+            // Apply the calculated transform to the context.
+            context.concatenate(transform)
+            if imageOrientation == .left || // Draw the image into the context, taking care of the dimensions and orientation.
+                imageOrientation == .leftMirrored ||
+                imageOrientation == .right ||
+                imageOrientation == .rightMirrored {
+                context.draw(cgImage, in: CGRect(x: 0, y: 0, width: height, height: width))
+            } 
+            else { context.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height)) }
+            // Create a new UIImage from the context's CGImage.
+            if let correctedCGImage = context.makeImage() {
+                return UIImage(cgImage: correctedCGImage)
+            }
         }
-        
-        guard let cgImage = cgImage else { // Get CGImage
-            return self
-        }
-        
+        return self // Not able to recreate UIImage, abort
+    }
+    
+    private func determineTransformForStandardImage() -> CGAffineTransform {
         let width = size.width
         let height = size.height
         var transform = CGAffineTransform.identity
@@ -43,27 +71,6 @@ extension UIImage {
             transform = transform.translatedBy(x: height, y: 0)
             transform = transform.scaledBy(x: -1, y: 1)
         }
-        
-        // Remake UIImage from CGImage
-        if let colorSpace = cgImage.colorSpace,
-            let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: cgImage.bitsPerComponent, bytesPerRow: 0, space: colorSpace, bitmapInfo: cgImage.bitmapInfo.rawValue) {
-            // Apply the calculated transform to the context.
-            context.concatenate(transform)
-            
-            // Draw the image into the context, taking care of the dimensions and orientation.
-            if imageOrientation == .left || imageOrientation == .leftMirrored || imageOrientation == .right || imageOrientation == .rightMirrored {
-                context.draw(cgImage, in: CGRect(x: 0, y: 0, width: height, height: width))
-            } 
-            else {
-                context.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
-            }
-            
-            // Create a new UIImage from the context's CGImage.
-            if let correctedCGImage = context.makeImage() {
-                return UIImage(cgImage: correctedCGImage)
-            }
-        }
-        
-        return self // Not able to recreate UIImage, abort
+        return transform
     }
 }

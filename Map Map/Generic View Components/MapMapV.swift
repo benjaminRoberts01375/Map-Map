@@ -33,6 +33,7 @@ struct MapMapV: View {
                 img
                     .resizable()
                     .scaledToFit()
+                    .accessibilityLabel(mapMap.mapMapName ?? "Map Map")
             case .failure:
                 Image(systemName: "exclamationmark.triangle.fill")
                     .resizable()
@@ -42,6 +43,7 @@ struct MapMapV: View {
         }
     }
     
+    // swiftlint:disable accessibility_label_for_image
     private func getMapFromType(_ mapType: MapType) -> MapMap.ImageStatus {
         switch mapType {
         case .fullImage:
@@ -52,9 +54,8 @@ struct MapMapV: View {
             guard let mapData = mapMap.mapMapRawEncodedImage,
                   let uiImage = UIImage(data: mapData)
             else { return .failure }
-            return .success(
-                Image(uiImage: uiImage)
-            )
+            return .success(Image(uiImage: uiImage))
         }
     }
+    // swiftlint:enable accessibility_label_for_image
 }

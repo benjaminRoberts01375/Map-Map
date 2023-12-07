@@ -13,11 +13,11 @@ import SwiftUI
 final class LocationsHandler {
     static let shared = LocationsHandler()
     private let locationManager: CLLocationManager = CLLocationManager()
-    
+    /// The last known location on Earth of the user.
     public var lastLocation = CLLocation()
     private var updatesStarted: Bool = false
     
-    func startLocationTracking() {
+    internal func startLocationTracking() {
         Task {
             if locationManager.authorizationStatus == .notDetermined { locationManager.requestWhenInUseAuthorization() }
             self.updatesStarted = true
@@ -25,7 +25,7 @@ final class LocationsHandler {
             for try await update in updates {
                 if !self.updatesStarted { return }  // End location updates by breaking out of the loop.
                 if let loc = update.location {
-                    withAnimation() {
+                    withAnimation {
                         self.lastLocation = loc
                     }
                 }
@@ -34,7 +34,7 @@ final class LocationsHandler {
         }
     }
     
-    func stopLocationTracking() {
+    internal func stopLocationTracking() {
         self.updatesStarted = false
     }
 }
