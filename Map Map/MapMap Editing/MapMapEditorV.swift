@@ -64,10 +64,10 @@ struct MapMapEditor: View {
                             mapMap.isEditing = false
                             mapMap.isSetup = true
                             screenSpacePositions.mapMapPositions[mapMap] = mapMapPosition
-                            guard let mapMapMarkers = screenSpacePositions.mapMapOverMarkers(mapMap, backgroundMapRotation: backgroundMapDetails.rotation)
-                            else { return }
-                            for marker in mapMap.formattedMarkers { mapMap.removeFromMarkers(marker) }
-                            for marker in mapMapMarkers { mapMap.addToMarkers(marker) }
+                            if let mapMapMarkers = screenSpacePositions.mapMapOverMarkers(mapMap, backgroundMapRotation: backgroundMapDetails.rotation) {
+                                for marker in mapMap.formattedMarkers { mapMap.removeFromMarkers(marker) }
+                                for marker in mapMapMarkers { mapMap.addToMarkers(marker) }
+                            }
                             try? moc.save()
                         }) {
                             Text("Done")
