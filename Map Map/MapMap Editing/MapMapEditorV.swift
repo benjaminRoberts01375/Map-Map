@@ -64,9 +64,9 @@ struct MapMapEditor: View {
                             mapMap.isEditing = false
                             mapMap.isSetup = true
                             screenSpacePositions.mapMapPositions[mapMap] = mapMapPosition
-                            if let mapMapMarkers = screenSpacePositions.mapMapOverMarkers(mapMap, backgroundMapRotation: backgroundMapDetails.rotation) {
-                                for marker in mapMap.formattedMarkers { mapMap.removeFromMarkers(marker) }
-                                for marker in mapMapMarkers { mapMap.addToMarkers(marker) }
+                            if let overlappingMarkers = screenSpacePositions.mapMapOverMarkers(mapMap, backgroundMapRotation: backgroundMapDetails.rotation) {
+                                for marker in mapMap.formattedMarkers { mapMap.removeFromMarkers(marker) } // Remove MapMap from all Markers
+                                for marker in overlappingMarkers { mapMap.addToMarkers(marker) } // Add MapMap to all
                             }
                             try? moc.save()
                         }) {
