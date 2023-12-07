@@ -68,18 +68,19 @@ struct MarkerEditorV: View {
                                             .foregroundStyle(.white)
                                     }
                             }
-                            .popover(isPresented: $showingImagePicker) {
-                                MarkerSymbolPickerV(marker: marker)
-                            }
+                            .popover(isPresented: $showingImagePicker) { MarkerSymbolPickerV(marker: marker) }
                             .presentationCompactAdaptation(.popover)
                         }
                         HStack {
                             Button {
+                                marker.isEditing = false
                                 marker.name = workingName
                                 marker.coordinates = backgroundMapDetails.position
                                 marker.lockRotationAngleDouble = backgroundMapDetails.rotation.degrees
-                                marker.isEditing = false
-                                screenSpacePositions.markerPositions[marker] = CGPoint(size: geo.size / 2)
+                                screenSpacePositions.markerPositions[marker] = CGPoint(
+                                    x: geo.size.width / 2,
+                                    y: geo.size.height / 2 + geo.safeAreaInsets.top - 2
+                                )
                                 if let overlappingMapMaps = screenSpacePositions.markerOverMapMaps(marker, backgroundMapRotation: backgroundMapDetails.rotation) {
                                     for mapMap in marker.formattedMapMaps { mapMap.removeFromMarkers(marker) } // Remove current marker from all MapMaps
                                     for mapMap in overlappingMapMaps { mapMap.addToMarkers(marker) } // Add Marker to relevant MapMaps
@@ -97,6 +98,7 @@ struct MarkerEditorV: View {
                                     .bigButton(backgroundColor: .gray)
                             }
                         }
+                        
                     }
                 }
             }
