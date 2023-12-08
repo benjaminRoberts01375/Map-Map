@@ -47,12 +47,11 @@ struct MarkerEditorV: View {
                     }
                     Color.clear
                 }
-                .padding(.leading, 8)
+                .padding(.leading, max(BackgroundMapLayersV.minSafeAreaDistance, geo.safeAreaInsets.leading))
+                .padding(.top, max(BackgroundMapLayersV.minSafeAreaDistance, geo.safeAreaInsets.top))
                 MarkerV(marker: marker)
                     .allowsHitTesting(false)
                     .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
-                    .ignoresSafeArea()
-                    .offset(y: -2)
                 BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                     VStack {
                         HStack {
@@ -109,6 +108,7 @@ struct MarkerEditorV: View {
                     .padding(.bottom, isShortCard ? 0 : 10)
                 }
             }
+            .ignoresSafeArea()
             .onDisappear { NotificationCenter.default.post(name: .editingMarker, object: nil, userInfo: ["editing":false]) }
         }
     }

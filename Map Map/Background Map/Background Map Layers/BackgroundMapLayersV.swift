@@ -21,6 +21,8 @@ struct BackgroundMapLayersV: View {
     @State private var crosshairOpacity: Double = 0
     /// Coordinate display type.
     @Binding var displayType: LocationDisplayMode
+    /// The minimum distance between the edge of the device and a UI element
+    static var minSafeAreaDistance: CGFloat = 8
     
     var body: some View {
         GeometryReader { geo in
@@ -62,7 +64,9 @@ struct BackgroundMapLayersV: View {
                         ),
                         mapScope: mapScope
                     )
-                    .padding(.trailing, 8)
+                    .ignoresSafeArea()
+                    .padding(.trailing, max(BackgroundMapLayersV.minSafeAreaDistance, geo.safeAreaInsets.trailing))
+                    .padding(.top, max(BackgroundMapLayersV.minSafeAreaDistance, geo.safeAreaInsets.top))
                     .background {
                         BlurView()
                             .blur(radius: blurAmount)
@@ -71,7 +75,6 @@ struct BackgroundMapLayersV: View {
                     }
                     Color.clear
                 }
-                .safeAreaPadding(geo.safeAreaInsets)
             }
             .ignoresSafeArea()
         }
