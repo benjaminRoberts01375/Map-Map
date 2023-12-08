@@ -76,9 +76,11 @@ struct MarkerEditorV: View {
                                             .foregroundStyle(.white)
                                     }
                             }
-                            .popover(isPresented: $showingImagePicker) { MarkerSymbolPickerV(marker: marker) }
-                            .presentationCompactAdaptation(.popover)
+                            .popover(isPresented: $showingImagePicker) {
+                                MarkerSymbolPickerV(marker: marker)
                                     .frame(minWidth: 335, minHeight: 300, maxHeight: geo.size.height / 2)
+                                    .presentationCompactAdaptation(.popover)
+                            }
                         }
                         HStack {
                             Button {
