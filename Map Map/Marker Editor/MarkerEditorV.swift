@@ -53,7 +53,7 @@ struct MarkerEditorV: View {
                     .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
                     .ignoresSafeArea()
                     .offset(y: -2)
-                BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
+                BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                     VStack {
                         HStack {
                             TextField("Marker name", text: $workingName)
@@ -104,6 +104,7 @@ struct MarkerEditorV: View {
                             }
                         }
                     }
+                    .padding(.bottom, isShortCard ? 0 : 10)
                 }
             }
             .onDisappear { NotificationCenter.default.post(name: .editingMarker, object: nil, userInfo: ["editing":false]) }
