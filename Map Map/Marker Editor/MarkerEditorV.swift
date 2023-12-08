@@ -78,6 +78,7 @@ struct MarkerEditorV: View {
                             }
                             .popover(isPresented: $showingImagePicker) { MarkerSymbolPickerV(marker: marker) }
                             .presentationCompactAdaptation(.popover)
+                                    .frame(minWidth: 335, minHeight: 300, maxHeight: geo.size.height / 2)
                         }
                         HStack {
                             Button {

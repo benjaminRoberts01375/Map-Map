@@ -38,6 +38,5 @@ struct MarkerSymbolPickerV: View {
             Color.clear
                 .frame(height: 10)
         }
-        .frame(width: 335, height: 300)
     }
 }
