@@ -71,7 +71,7 @@ struct PhotoEditorV: View {
             .ignoresSafeArea()
             .background(.black)
             
-            BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
+            BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                 HStack {
                     Button {
                         loading = true
@@ -117,6 +117,7 @@ struct PhotoEditorV: View {
                     }
                     .disabled(loading)
                 }
+                .padding(.bottom, isShortCard ? 0 : 10)
             }
         }
         .animation(.easeInOut, value: loading)

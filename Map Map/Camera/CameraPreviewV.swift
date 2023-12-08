@@ -58,7 +58,7 @@ struct CameraPreviewV: View {
                 }
             }
             .background(.black)
-            BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center]) { _ in
+            BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center]) { isShortCard in
                 HStack {
                     Button(action: {
                         allowsPhoto = false
@@ -75,6 +75,7 @@ struct CameraPreviewV: View {
                             .bigButton(backgroundColor: .gray)
                     })
                 }
+                .padding(.bottom, isShortCard ? 0 : 10)
             }
         }
     }

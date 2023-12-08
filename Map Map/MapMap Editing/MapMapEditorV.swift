@@ -45,7 +45,7 @@ struct MapMapEditor: View {
             }
             .ignoresSafeArea()
             
-            BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
+            BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                 VStack {
                     HStack {
                         TextField("Map Map name", text: $workingName)
@@ -101,6 +101,7 @@ struct MapMapEditor: View {
                         }
                     }
                 }
+                .padding(.bottom, isShortCard ? 0 : 10)
             }
         }
         .onAppear { workingName = mapMap.mapMapName ?? "Untitled Map" }

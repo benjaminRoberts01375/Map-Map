@@ -24,7 +24,7 @@ struct CameraReviewV: View {
                     .resizable()
                     .scaledToFit()
                     .accessibilityLabel("Photo result from camera.")
-                BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center]) { _ in
+                BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center]) { isShortCard in
                     HStack {
                         Button(action: {
                             guard let generatedImage = photoPassthrough else { return }
@@ -47,6 +47,7 @@ struct CameraReviewV: View {
                                 .bigButton(backgroundColor: .gray)
                         })
                     }
+                    .padding(.bottom, isShortCard ? 0 : 10)
                 }
             }
             .background(.black)
