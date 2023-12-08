@@ -68,7 +68,6 @@ public class MapMap: NSManagedObject {
     private func generateThumbnailFromUIImage(_ uiImage: UIImage) {
         Task {
             if let generatedThumbnail = await uiImage.byPreparingThumbnail(ofSize: MapMap.thumbnailSize) {
-                let mapMapName = self.mapMapName
                 let outputImage = Image(uiImage: generatedThumbnail)
                 DispatchQueue.main.async { self.thumbnail = .success(outputImage) }
                 self.mapMapEncodedThumbnail = generatedThumbnail.jpegData(compressionQuality: 0.1)
