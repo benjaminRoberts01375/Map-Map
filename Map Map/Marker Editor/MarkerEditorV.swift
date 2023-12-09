@@ -97,6 +97,11 @@ struct MarkerEditorV: View {
                             Button {
                                 moc.reset()
                                 guard let refetchedMarker = try? moc.existingObject(with: marker.objectID) as? Marker else { return }
+                                NotificationCenter.default.post(
+                                    name: .editedMarkerLocation,
+                                    object: nil,
+                                    userInfo: ["marker" : refetchedMarker]
+                                )
                             } label: {
                                 Text("Cancel")
                                     .bigButton(backgroundColor: .gray)
