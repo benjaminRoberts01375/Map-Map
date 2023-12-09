@@ -87,7 +87,7 @@ struct MarkerEditorV: View {
                                 marker.name = workingName
                                 marker.coordinates = backgroundMapDetails.position
                                 marker.lockRotationAngleDouble = saveAngle ? backgroundMapDetails.rotation.degrees : nil
-                                determineMarkerSSLocation(geo: geo, marker: marker)
+                                determineMarkerSSLocation(geo: geo)
                                 determineMarkerOverlap()
                                 try? moc.save()
                             } label: {
@@ -97,8 +97,6 @@ struct MarkerEditorV: View {
                             Button {
                                 moc.reset()
                                 guard let refetchedMarker = try? moc.existingObject(with: marker.objectID) as? Marker else { return }
-                                determineMarkerSSLocation(geo: geo, marker: refetchedMarker)
-                                refetchedMarker.isEditing = false
                             } label: {
                                 Text("Cancel")
                                     .bigButton(backgroundColor: .gray)
@@ -124,7 +122,7 @@ struct MarkerEditorV: View {
         }
     }
     
-    func determineMarkerSSLocation(geo: GeometryProxy, marker: Marker) {
+    func determineMarkerSSLocation(geo: GeometryProxy) {
         screenSpacePositions.markerPositions[marker] = CGPoint(
             x: geo.size.width / 2,
             y: geo.size.height / 2 + geo.safeAreaInsets.top - 2
