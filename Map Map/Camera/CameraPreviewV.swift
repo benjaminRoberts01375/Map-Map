@@ -90,7 +90,6 @@ struct CameraPreviewV: View {
                 @unknown default:
                     permissionsEnabled = false
                 }
-                print("Permissions:", permissionsEnabled)
             }
         }
     }
