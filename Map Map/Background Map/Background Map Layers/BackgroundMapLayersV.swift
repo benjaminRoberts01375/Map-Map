@@ -64,9 +64,9 @@ struct BackgroundMapLayersV: View {
                         ),
                         mapScope: mapScope
                     )
-                    .ignoresSafeArea()
                     .padding(.trailing, max(BackgroundMapLayersV.minSafeAreaDistance, geo.safeAreaInsets.trailing))
                     .padding(.top, max(BackgroundMapLayersV.minSafeAreaDistance, geo.safeAreaInsets.top))
+                    .ignoresSafeArea()
                     .background {
                         BlurView()
                             .blur(radius: blurAmount)

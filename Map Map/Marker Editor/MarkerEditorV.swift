@@ -107,6 +107,7 @@ struct MarkerEditorV: View {
                     }
                     .padding(.bottom, isShortCard ? 0 : 10)
                 }
+                .safeAreaPadding(geo.safeAreaInsets)
             }
             .ignoresSafeArea()
             .onDisappear { NotificationCenter.default.post(name: .editingMarker, object: nil, userInfo: ["editing":false]) }

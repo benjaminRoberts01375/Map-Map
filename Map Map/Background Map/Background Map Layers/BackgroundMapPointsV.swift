@@ -23,6 +23,8 @@ struct BackgroundMapPointsV: View {
     /// User location icon size.
     private let userLocationSize: CGFloat = 24
     
+    private let markerOffset: CGFloat = -2
+    
     var body: some View {
         ForEach(markers) { marker in
             if let position = screenSpacePositions.markerPositions[marker], !marker.isEditing && marker.shown {
@@ -35,6 +37,7 @@ struct BackgroundMapPointsV: View {
                                 backgroundMapDetails.rotation -
                                 Angle(degrees: marker.lockRotationAngleDouble ?? backgroundMapDetails.rotation.degrees)
                             )
+                            .offset(y: markerOffset)
                     }
                     .contextMenu {
                         MarkerContextMenuV(marker: marker) {
@@ -73,7 +76,7 @@ struct BackgroundMapPointsV: View {
     func isOverMarker(_ marker: Marker) -> Bool {
         guard let markerPos = screenSpacePositions.markerPositions[marker] else { return false }
         let xComponent = abs(markerPos.x - screenSize.width / 2)
-        let yComponent = abs(markerPos.y - screenSize.height / 2)
+        let yComponent = abs(markerPos.y - (screenSize.height / 2 - markerOffset))
         let distance = sqrt(pow(xComponent, 2) + pow(yComponent, 2))
         return distance < BackgroundMapPointsV.iconSize / 2
     }
