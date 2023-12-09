@@ -32,40 +32,32 @@ struct CameraPreviewV: View {
     var body: some View {
         ZStack {
             GeometryReader { geo in
-                CameraPreview(cameraService: cameraService) { result in
-                    switch result {
-                    case .success(let photo):
-                        guard let photoData = photo.cgImageRepresentation() else { return }
-                        switch UIDevice.current.orientation {
-                        case .landscapeLeft:
-                            finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .up)
-                        case .landscapeRight:
-                            finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .down).fixOrientation()
-                        case .portrait:
-                            finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .right).fixOrientation()
-                        case .portraitUpsideDown:
-                            finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .left).fixOrientation()
-                        default:
-                            finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .right).fixOrientation()
+                if permissionsEnabled {
+                    CameraPreview(cameraService: cameraService) { result in
+                        switch result {
+                        case .success(let photo):
+                            guard let photoData = photo.cgImageRepresentation() else { return }
+                            switch UIDevice.current.orientation {
+                            case .landscapeLeft:
+                                finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .up)
+                            case .landscapeRight:
+                                finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .down).fixOrientation()
+                            case .portrait:
+                                finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .right).fixOrientation()
+                            case .portraitUpsideDown:
+                                finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .left).fixOrientation()
+                            default:
+                                finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .right).fixOrientation()
+                            }
+                        case .failure(let error):
+                            print(error.localizedDescription)
                         }
-                    case .failure(let error):
-                        print(error.localizedDescription)
+                        allowsPhoto = true
                     }
-                    allowsPhoto = true
-                }
-                .rotationEffect(rotationAngle)
-                .onChange(of: geo.size, initial: true) { _, update in
-                    cameraService.previewLayer.frame = CGRect(x: 0, y: 0, width: update.width, height: update.height)
-                    adjustAngle()
-                }
-                .onChange(of: AVCaptureDevice.authorizationStatus(for: .video), initial: true) { _, update in
-                    switch update {
-                    case .authorized:
-                        permissionsEnabled = true
-                    case .notDetermined, .restricted, .denied:
-                        permissionsEnabled = false
-                    @unknown default:
-                        permissionsEnabled = false
+                    .rotationEffect(rotationAngle)
+                    .onChange(of: geo.size, initial: true) { _, update in
+                        cameraService.previewLayer.frame = CGRect(x: 0, y: 0, width: update.width, height: update.height)
+                        adjustAngle()
                     }
                 }
             }
@@ -77,9 +69,9 @@ struct CameraPreviewV: View {
                         cameraService.capturePhoto()
                     }, label: {
                         Text("Capture")
-                            .bigButton(backgroundColor: .blue)
+                            .bigButton(backgroundColor: .blue.opacity(permissionsEnabled ? 1 : 0.35))
                     })
-                    .disabled(!allowsPhoto && permissionsEnabled)
+                    .disabled(!allowsPhoto || !permissionsEnabled)
                     Button(action: {
                         dismiss()
                     }, label: {
@@ -88,6 +80,17 @@ struct CameraPreviewV: View {
                     })
                 }
                 .padding(.bottom, isShortCard ? 0 : 10)
+            }
+            .onChange(of: AVCaptureDevice.authorizationStatus(for: .video), initial: true) { _, update in
+                switch update {
+                case .authorized:
+                    permissionsEnabled = true
+                case .notDetermined, .restricted, .denied:
+                    permissionsEnabled = false
+                @unknown default:
+                    permissionsEnabled = false
+                }
+                print("Permissions:", permissionsEnabled)
             }
         }
     }
