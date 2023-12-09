@@ -22,6 +22,8 @@ struct CameraPreviewV: View {
     /// Control if the user's allowed to take a photo.
     @State private var allowsPhoto: Bool = true
     
+    @State private var permissionsEnabled: Bool = false
+    
     init(photoPassthrough: Binding<UIImage?>) {
         self._finalPhoto = photoPassthrough
         adjustAngle()
@@ -56,6 +58,16 @@ struct CameraPreviewV: View {
                     cameraService.previewLayer.frame = CGRect(x: 0, y: 0, width: update.width, height: update.height)
                     adjustAngle()
                 }
+                .onChange(of: AVCaptureDevice.authorizationStatus(for: .video), initial: true) { _, update in
+                    switch update {
+                    case .authorized:
+                        permissionsEnabled = true
+                    case .notDetermined, .restricted, .denied:
+                        permissionsEnabled = false
+                    @unknown default:
+                        permissionsEnabled = false
+                    }
+                }
             }
             .background(.black)
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center]) { isShortCard in
@@ -67,7 +79,7 @@ struct CameraPreviewV: View {
                         Text("Capture")
                             .bigButton(backgroundColor: .blue)
                     })
-                    .disabled(!allowsPhoto)
+                    .disabled(!allowsPhoto && permissionsEnabled)
                     Button(action: {
                         dismiss()
                     }, label: {
