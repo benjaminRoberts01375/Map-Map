@@ -102,8 +102,8 @@ struct BackgroundMap: View {
                     self.screenSpacePositions.userLocation = screenSpaceUserLocation
                 }
             }
-            .onReceive(NotificationCenter.default.publisher(for: .addedMarker)) { notification in
-                if let marker = notification.userInfo?["marker"] as? Marker, 
+            .onReceive(NotificationCenter.default.publisher(for: .editedMarkerLocation)) { notification in
+                if let marker = notification.userInfo?["marker"] as? Marker,
                     let screenSpaceMarkerLocation = mapContext.convert(marker.coordinates, to: .local) {
                     screenSpacePositions.markerPositions[marker] = screenSpaceMarkerLocation
                 }

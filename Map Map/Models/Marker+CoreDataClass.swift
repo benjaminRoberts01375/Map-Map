@@ -120,6 +120,6 @@ extension Marker {
     public convenience init(coordinates: CLLocationCoordinate2D, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
         self.coordinates = coordinates
-        NotificationCenter.default.post(name: .addedMarker, object: nil, userInfo: ["marker":self])
+        NotificationCenter.default.post(name: .editedMarkerLocation, object: nil, userInfo: ["marker":self])
     }
 }
