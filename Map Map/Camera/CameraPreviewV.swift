@@ -12,17 +12,13 @@ import SwiftUI
 /// Live preview of the camera.
 struct CameraPreviewV: View {
     /// View model of the live camera.
-    private let cameraService = CameraPreviewVM()
+    @State private var cameraService = CameraPreviewVM()
     /// Dismiss function for this view.
     @Environment(\.dismiss) private var dismiss
     /// Output photo from the live camera view.
     @Binding var finalPhoto: UIImage?
     /// Current rotation of the device.
     @State private var rotationAngle: Angle = .zero
-    /// Control if the user's allowed to take a photo.
-    @State private var allowsPhoto: Bool = true
-    
-    @State private var permissionsEnabled: Bool = false
     
     init(photoPassthrough: Binding<UIImage?>) {
         self._finalPhoto = photoPassthrough
@@ -32,7 +28,7 @@ struct CameraPreviewV: View {
     var body: some View {
         ZStack {
             GeometryReader { geo in
-                if permissionsEnabled {
+                if cameraService.permissionsEnabled {
                     CameraPreview(cameraService: cameraService) { result in
                         switch result {
                         case .success(let photo):
@@ -52,7 +48,6 @@ struct CameraPreviewV: View {
                         case .failure(let error):
                             print(error.localizedDescription)
                         }
-                        allowsPhoto = true
                     }
                     .rotationEffect(rotationAngle)
                     .onChange(of: geo.size, initial: true) { _, update in
@@ -60,18 +55,26 @@ struct CameraPreviewV: View {
                         adjustAngle()
                     }
                 }
+                else {
+                    ZStack(alignment: .center) {
+                        Color.clear
+                        VStack {
+                            Text("Camera permissions are not enabled.")
+                            Text("Open Settings to optionally enable the camera for MapMap.")
+                        }
+                    }
+                }
             }
             .background(.black)
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center]) { isShortCard in
                 HStack {
                     Button(action: {
-                        allowsPhoto = false
                         cameraService.capturePhoto()
                     }, label: {
                         Text("Capture")
-                            .bigButton(backgroundColor: .blue.opacity(permissionsEnabled ? 1 : 0.35))
+                            .bigButton(backgroundColor: .blue.opacity(cameraService.permissionsEnabled ? 1 : 0.35))
                     })
-                    .disabled(!allowsPhoto || !permissionsEnabled)
+                    .disabled(!cameraService.permissionsEnabled)
                     Button(action: {
                         dismiss()
                     }, label: {
@@ -81,15 +84,15 @@ struct CameraPreviewV: View {
                 }
                 .padding(.bottom, isShortCard ? 0 : 10)
             }
-            .onChange(of: AVCaptureDevice.authorizationStatus(for: .video), initial: true) { _, update in
-                switch update {
-                case .authorized:
-                    permissionsEnabled = true
-                case .notDetermined, .restricted, .denied:
-                    permissionsEnabled = false
-                @unknown default:
-                    permissionsEnabled = false
-                }
+        }
+        .onChange(of: AVCaptureDevice.authorizationStatus(for: .video), initial: true) { _, authorizationUpdate in
+            switch authorizationUpdate {
+            case .notDetermined, .restricted, .denied:
+                cameraService.permissionsEnabled = false
+            case .authorized:
+                cameraService.permissionsEnabled = true
+            @unknown default:
+                cameraService.permissionsEnabled = false
             }
         }
     }

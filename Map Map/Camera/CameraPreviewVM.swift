@@ -9,6 +9,7 @@ import AVFoundation
 import SwiftUI
 
 /// Camera preview view mdeol to handle image processing.
+@Observable
 final class CameraPreviewVM {
     /// Current camera session.
     private var session: AVCaptureSession?
@@ -18,6 +19,8 @@ final class CameraPreviewVM {
     private let output: AVCapturePhotoOutput
     /// Preview of the camera.
     let previewLayer = AVCaptureVideoPreviewLayer()
+    /// Track current permission status of the camera
+    var permissionsEnabled: Bool = true
     
     init() {
         output = AVCapturePhotoOutput()
@@ -32,15 +35,19 @@ final class CameraPreviewVM {
     private func checkPermissions(completion: @escaping (Error?) -> Void) {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .notDetermined:
-            AVCaptureDevice.requestAccess(for: .video) { _ in
-                Task { await self.setupCamera(completion: completion) }
+            AVCaptureDevice.requestAccess(for: .video) { allowedAccess in
+                if allowedAccess {
+                    Task { await self.setupCamera(completion: completion) }
+                }
+                DispatchQueue.main.async { self.permissionsEnabled = allowedAccess }
             }
         case .authorized:
+            permissionsEnabled = true
             Task { await setupCamera(completion: completion) }
         case .denied, .restricted:
-            break
+            permissionsEnabled = false
         @unknown default:
-            break
+            permissionsEnabled = false
         }
     }
     
