@@ -10,9 +10,9 @@ import SwiftUI
 @Observable
 final class ScreenSpacePositionsM {
     /// A dictionary of Markers and their associated background map screen-space positions.
-    public var markerPositions: [Marker : CGPoint] = [:]
+    private var markerPositions: [Marker : CGPoint] = [:]
     /// A dictionary of MapMaps and their associated background map screen-space positions and sizes.
-    public var mapMapPositions: [MapMap : CGRect] = [:]
+    private var mapMapPositions: [MapMap : CGRect] = [:]
     /// Storage for the user's location in screen-space on the background map.
     public var userLocation: CGPoint?
     
