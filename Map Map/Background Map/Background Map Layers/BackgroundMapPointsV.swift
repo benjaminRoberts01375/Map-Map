@@ -27,7 +27,7 @@ struct BackgroundMapPointsV: View {
     
     var body: some View {
         ForEach(markers) { marker in
-            if let position = screenSpacePositions.markerPositions[marker], !marker.isEditing && marker.shown {
+            if let position = screenSpacePositions[marker], !marker.isEditing && marker.shown {
                 ZStack {
                     Button {
                         backgroundMapDetails.moveMapCameraTo(marker: marker)
@@ -41,7 +41,7 @@ struct BackgroundMapPointsV: View {
                     }
                     .contextMenu {
                         MarkerContextMenuV(marker: marker) {
-                            screenSpacePositions.markerPositions.removeValue(forKey: marker)
+                            screenSpacePositions.removeValue(forKey: marker)
                         }
                     }
                     .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
@@ -74,7 +74,7 @@ struct BackgroundMapPointsV: View {
     }
     
     func isOverMarker(_ marker: Marker) -> Bool {
-        guard let markerPos = screenSpacePositions.markerPositions[marker] else { return false }
+        guard let markerPos = screenSpacePositions[marker] else { return false }
         let xComponent = abs(markerPos.x - screenSize.width / 2)
         let yComponent = abs(markerPos.y - (screenSize.height / 2 - markerOffset))
         let distance = sqrt(pow(xComponent, 2) + pow(yComponent, 2))

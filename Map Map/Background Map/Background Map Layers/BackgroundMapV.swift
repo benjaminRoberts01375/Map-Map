@@ -77,7 +77,7 @@ struct BackgroundMap: View {
                     else { return }
                     screenSpaceMarkerPositions[marker] = screenSpaceMarkerPosition
                 }
-                self.screenSpacePositions.markerPositions = screenSpaceMarkerPositions
+                self.screenSpacePositions.setPositions(screenSpaceMarkerPositions)
                 var screenSpaceMapMapPositions: [MapMap : CGRect] = [:]
                 for mapMap in mapMaps {
                     guard let center = mapContext.convert(mapMap.coordinates, to: .local)
@@ -92,7 +92,7 @@ struct BackgroundMap: View {
                     )
                     screenSpaceMapMapPositions[mapMap] = rect
                 }
-                self.screenSpacePositions.mapMapPositions = screenSpaceMapMapPositions
+                self.screenSpacePositions.setPositions(screenSpaceMapMapPositions)
             }
             .mapStyle(.standard(elevation: .realistic))
             .onAppear { locationsHandler.startLocationTracking() }
@@ -105,7 +105,7 @@ struct BackgroundMap: View {
             .onReceive(NotificationCenter.default.publisher(for: .editedMarkerLocation)) { notification in
                 if let marker = notification.userInfo?["marker"] as? Marker,
                     let screenSpaceMarkerLocation = mapContext.convert(marker.coordinates, to: .local) {
-                    screenSpacePositions.markerPositions[marker] = screenSpaceMarkerLocation
+                    screenSpacePositions[marker] = screenSpaceMarkerLocation
                 }
             }
             .onReceive(NotificationCenter.default.publisher(for: .editingMarker)) { notification in

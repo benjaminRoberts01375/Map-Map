@@ -72,7 +72,7 @@ struct MapMapEditor: View {
                             mapMap.mapDistance = 1 / backgroundMapDetails.scale
                             mapMap.isEditing = false
                             mapMap.isSetup = true
-                            screenSpacePositions.mapMapPositions[mapMap] = mapMapPosition
+                            screenSpacePositions[mapMap] = mapMapPosition
                             if let overlappingMarkers = 
                                 screenSpacePositions.mapMapOverMarkers(mapMap, backgroundMapRotation: backgroundMapDetails.rotation ) {
                                 for marker in mapMap.formattedMarkers { mapMap.removeFromMarkers(marker) } // Remove MapMap from all Markers
