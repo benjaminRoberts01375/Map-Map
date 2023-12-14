@@ -25,6 +25,18 @@ final class ScreenSpacePositionsM {
         set(newMapMapPos) { mapMapPositions[mapMap] = newMapMapPos }
     }
     
+    func removeValue(forKey marker: Marker) {
+        markerPositions.removeValue(forKey: marker)
+    }
+    
+    func setPositions(_ updatedPositions: [Marker : CGPoint]) {
+        self.markerPositions = updatedPositions
+    }
+    
+    func setPositions(_ updatedPositions: [MapMap : CGRect]) {
+        self.mapMapPositions = updatedPositions
+    }
+    
     /// Determine all Markers that overlap a given MapMap
     /// - Parameters:
     ///   - mapMap: MapMap to check Marker positions against.
