@@ -16,6 +16,15 @@ final class ScreenSpacePositionsM {
     /// Storage for the user's location in screen-space on the background map.
     public var userLocation: CGPoint?
     
+    subscript(marker: Marker) -> CGPoint? {
+        get { return markerPositions[marker] }
+        set(newMarkerPos) { markerPositions[marker] = newMarkerPos }
+    }    
+    subscript(mapMap: MapMap) -> CGRect? {
+        get { return mapMapPositions[mapMap] }
+        set(newMapMapPos) { mapMapPositions[mapMap] = newMapMapPos }
+    }
+    
     /// Determine all Markers that overlap a given MapMap
     /// - Parameters:
     ///   - mapMap: MapMap to check Marker positions against.
