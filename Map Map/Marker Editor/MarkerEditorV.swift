@@ -128,7 +128,7 @@ struct MarkerEditorV: View {
     }
     
     func determineMarkerSSLocation(geo: GeometryProxy) {
-        screenSpacePositions.markerPositions[marker] = CGPoint(
+        screenSpacePositions[marker] = CGPoint(
             x: geo.size.width / 2,
             y: geo.size.height / 2 + geo.safeAreaInsets.top - 2
         )
