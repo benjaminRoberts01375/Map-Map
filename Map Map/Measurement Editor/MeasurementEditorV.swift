@@ -11,8 +11,8 @@ import SwiftUI
 struct MeasurementEditorV: View {
     @ObservedObject var measurement: FetchedResults<MapMeasurement>.Element
     @Environment(\.managedObjectContext) var moc
-    @State var startingPos: CGSize?
-    @State var endingPos: CGSize?
+    @State var startingPos: CGSize = .zero
+    @State var endingPos: CGSize = .zero
     @State var isDragging: Bool = false
     
     var drawGesture: some Gesture {
@@ -35,24 +35,18 @@ struct MeasurementEditorV: View {
                 .opacity(0.5)
                 .ignoresSafeArea()
                 .gesture(drawGesture)
-            ZStack {
-                if let startingPos = startingPos, let endingPos = endingPos {
+            if endingPos != startingPos {
+                ZStack {
                     Line(startingPos: startingPos, endingPos: endingPos)
                         .stroke(lineWidth: 5.0)
                         .foregroundStyle(.white)
                         .shadow(radius: 2)
+                    HandleV(position: $startingPos)
+                    HandleV(position: $endingPos)
                 }
-                if let checkedStartingPos = startingPos {
-                    let convertedStartingPos = Binding { checkedStartingPos } set: { startingPos = $0 }
-                    HandleV(position: convertedStartingPos)
-                }
-                if let checkedEndingPos = endingPos {
-                    let convertedEndingPos = Binding { checkedEndingPos } set: { endingPos = $0 }
-                    HandleV(position: convertedEndingPos)
-                }
+                .ignoresSafeArea()
             }
-            .ignoresSafeArea()
-                
+            
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                 Button {
                     try? moc.save()
