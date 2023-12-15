@@ -65,6 +65,14 @@ struct BackgroundMapButtonsV: View {
                             .mapButton()
                     }
                 }
+                
+                Button {
+                    let newMeasurement = MapMeasurement(context: moc)
+                    newMeasurement.isEditing = true
+                } label: {
+                    Image(systemName: "ruler")
+                        .mapButton()
+                }
             }
         }
         .animation(.easeInOut, value: markerButton)
