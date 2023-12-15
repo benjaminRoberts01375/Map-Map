@@ -35,22 +35,24 @@ struct MeasurementEditorV: View {
                 .opacity(0.5)
                 .ignoresSafeArea()
                 .gesture(drawGesture)
-            
-            if let startingPos = startingPos, let endingPos = endingPos {
-                Line(startingPos: startingPos, endingPos: endingPos)
-                    .stroke(lineWidth: 5.0)
-                    .foregroundStyle(.white)
-                    .shadow(radius: 2)
+            ZStack {
+                if let startingPos = startingPos, let endingPos = endingPos {
+                    Line(startingPos: startingPos, endingPos: endingPos)
+                        .stroke(lineWidth: 5.0)
+                        .foregroundStyle(.white)
+                        .shadow(radius: 2)
+                }
+                if let checkedStartingPos = startingPos {
+                    let convertedStartingPos = Binding { checkedStartingPos } set: { startingPos = $0 }
+                    HandleV(position: convertedStartingPos)
+                }
+                if let checkedEndingPos = endingPos {
+                    let convertedEndingPos = Binding { checkedEndingPos } set: { endingPos = $0 }
+                    HandleV(position: convertedEndingPos)
+                }
             }
-            if let checkedStartingPos = startingPos {
-                let convertedStartingPos = Binding { checkedStartingPos } set: { startingPos = $0 }
-                HandleV(position: convertedStartingPos)
-            }
-            if let checkedEndingPos = endingPos {
-                let convertedEndingPos = Binding { checkedEndingPos } set: { endingPos = $0 }
-                HandleV(position: convertedEndingPos)
-            }
-            
+            .ignoresSafeArea()
+                
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                 Button {
                     try? moc.save()
