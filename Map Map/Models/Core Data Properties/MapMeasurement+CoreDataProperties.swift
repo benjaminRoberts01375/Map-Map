@@ -17,7 +17,7 @@ extension MapMeasurement {
     }
 
     @NSManaged public var startingLongitude: Double
-    @NSManaged public var startingLatitude: NSDecimalNumber?
+    @NSManaged public var startingLatitude: Double
     @NSManaged public var endingLongitude: Double
     @NSManaged public var endingLatitude: Double
     @NSManaged public var isEditing: Bool
