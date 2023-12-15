@@ -222,6 +222,17 @@
 			path = "Core Data Properties";
 			sourceTree = "<group>";
 		};
+		07656CEF2B2BF70200C087C9 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				07C2E07A2B128F9C003C292E /* AvailableThumbnailImagesM.swift */,
+				07D742C02ADB67CB0087FFC5 /* BackgroundMapDetailsM.swift */,
+				073F916A2B06794000AE56CB /* FourCornersStorage.swift */,
+				073DA0932B20E8A100E30208 /* ScreenSpacePositionsM.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
 		076F18AC2AEF79B300779E1D /* Non-Map Map Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,15 +288,11 @@
 			isa = PBXGroup;
 			children = (
 				07656CE62B2BB06800C087C9 /* Core Data Properties */,
-				07C2E07A2B128F9C003C292E /* AvailableThumbnailImagesM.swift */,
-				07D742C02ADB67CB0087FFC5 /* BackgroundMapDetailsM.swift */,
 				07FCC8542AD3593F00F88186 /* DataController.swift */,
 				07A9C6AB2AF1B78C00C3AED4 /* FourCorners+CoreDataClass.swift */,
-				073F916A2B06794000AE56CB /* FourCornersStorage.swift */,
 				0762DD1D2AD37A1300C36D33 /* MapMap+CoreDataClass.swift */,
 				0773AED92B0BDE94007D7CDB /* Marker+CoreDataClass.swift */,
 				07249C202B1692610088B721 /* MarkerColor+CoreDataClass.swift */,
-				073DA0932B20E8A100E30208 /* ScreenSpacePositionsM.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -333,6 +340,7 @@
 				070159D82AD505300031647F /* MapMap Editing */,
 				07249BFE2B16725E0088B721 /* Marker Editor */,
 				07FCC85A2AD3759500F88186 /* Models */,
+				07656CEF2B2BF70200C087C9 /* Types */,
 				0762DD662AD46CFA00C36D33 /* Generic View Components */,
 				076F18AC2AEF79B300779E1D /* Non-Map Map Extensions */,
 				07FDC6262AB25E0000D92113 /* Assets.xcassets */,
