@@ -31,10 +31,9 @@ struct HandleV: View {
     var body: some View {
         Circle()
             .frame(width: handleSize, height: handleSize)
-            .foregroundStyle(.white)
+            .foregroundStyle(.white.opacity(0.5))
             .position(x: position.width, y: position.height)
             .gesture(dragGesture)
-            .opacity(0.5)
             .shadow(radius: 2)
     }
 }
