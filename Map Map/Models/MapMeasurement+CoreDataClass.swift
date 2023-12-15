@@ -29,4 +29,11 @@ public class MapMeasurement: NSManagedObject {
             self.endingLongitude = newCoords.longitude
         }
     }
+    
+    /// Distance between starting and ending coordinates in meters.
+    var distance: Measurement<UnitLength> {
+        let starting = CLLocation(latitude: self.startingLatitude, longitude: self.startingLongitude)
+        let ending = CLLocation(latitude: self.endingLatitude, longitude: self.endingLongitude)
+        return Measurement(value: ending.distance(from: starting), unit: .meters)
+    }
 }
