@@ -16,12 +16,16 @@ struct ContentView: View {
     @FetchRequest(sortDescriptors: []) private var mapMaps: FetchedResults<MapMap>
     /// All available Markers
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
+    /// All available Measurements
+    @FetchRequest(sortDescriptors: []) private var measurements: FetchedResults<MapMeasurement>
     /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
     /// MapMap being edited.
     @State private var editingMapMap: MapMap?
     /// Marker being edited.
     @State private var editingMarker: Marker?
+    /// Measurement being edited.
+    @State private var editingMeasurement: MapMeasurement?
     /// Information to display in a Toast notification.
     @State private var toastInfo: ToastInfo = ToastInfo()
     /// Coordinate display type.
@@ -36,6 +40,9 @@ struct ContentView: View {
             }
             else if let editingMarker = editingMarker {
                 MarkerEditorV(marker: editingMarker)
+            }
+            else if let editingMeasurement = editingMeasurement {
+                MeasurementEditorV(measurement: editingMeasurement)
             }
             else {
                 BottomDrawer(
@@ -59,6 +66,8 @@ struct ContentView: View {
             if self.editingMapMap != editingMapMap { self.editingMapMap = editingMapMap }
             let editingMarker = markers.first(where: { $0.isEditing })
             if self.editingMarker != editingMarker { self.editingMarker = editingMarker }
+            let editingMeasurement = measurements.first(where: { $0.isEditing })
+            if self.editingMeasurement != editingMeasurement { self.editingMeasurement = editingMeasurement }
         }
         .onReceive(NotificationCenter.default.publisher(for: .savingToastNotification)) { notification in
             if let showing = notification.userInfo?["savingVal"] as? Bool {
