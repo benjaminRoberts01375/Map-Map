@@ -36,6 +36,12 @@ struct MeasurementEditorV: View {
                 .ignoresSafeArea()
                 .gesture(drawGesture)
             
+            if let startingPos = startingPos, let endingPos = endingPos {
+                Line(startingPos: startingPos, endingPos: endingPos)
+                    .stroke(lineWidth: 5.0)
+                    .foregroundStyle(.white)
+                    .shadow(radius: 2)
+            }
             if let checkedStartingPos = startingPos {
                 let convertedStartingPos = Binding { checkedStartingPos } set: { startingPos = $0 }
                 HandleV(position: convertedStartingPos)
