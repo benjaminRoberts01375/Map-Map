@@ -2,7 +2,7 @@
 name: Cleanup
 about: Tidy up some code without much change to MapMap.
 title: ''
-labels: developer enhancement
+labels: cleanup
 assignees: benjaminRoberts01375
 
 ---
