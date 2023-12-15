@@ -288,8 +288,8 @@
 			isa = PBXGroup;
 			children = (
 				07FDC62D2AB25E0000D92113 /* Map_Map.xcdatamodeld */,
-				07656CE62B2BB06800C087C9 /* Core Data Properties */,
 				07FCC8542AD3593F00F88186 /* DataController.swift */,
+				07656CE62B2BB06800C087C9 /* Core Data Properties */,
 				07A9C6AB2AF1B78C00C3AED4 /* FourCorners+CoreDataClass.swift */,
 				0762DD1D2AD37A1300C36D33 /* MapMap+CoreDataClass.swift */,
 				0773AED92B0BDE94007D7CDB /* Marker+CoreDataClass.swift */,
