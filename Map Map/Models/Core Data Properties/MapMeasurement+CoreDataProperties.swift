@@ -23,3 +23,5 @@ extension MapMeasurement {
     @NSManaged public var isEditing: Bool
 
 }
+
+extension MapMeasurement: Identifiable { }
