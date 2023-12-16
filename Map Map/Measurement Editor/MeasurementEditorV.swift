@@ -57,16 +57,16 @@ struct MeasurementEditorV: View {
                             .shadow(radius: 2)
                         switch lineOrientation {
                         case .leftVertical:
-                            Text("\(distance.converted(to: .feet).value) ft")
+                            Text(generateMeasurementText())
                                 .position(lineOrigin, alignment: .trailing)
                         case .rightVertical:
-                            Text("\(distance.converted(to: .feet).value) ft")
+                            Text(generateMeasurementText())
                                 .position(lineOrigin, alignment: .leading)
                         case .topHorizontal:
-                            Text("\(distance.converted(to: .feet).value) ft")
+                            Text(generateMeasurementText())
                                 .position(lineOrigin, alignment: .bottom)
                         case .bottomHorizontal:
-                            Text("\(distance.converted(to: .feet).value) ft")
+                            Text(generateMeasurementText())
                                 .position(lineOrigin, alignment: .top)
                         }
                         HandleV(position: $startingPos)
@@ -97,7 +97,7 @@ struct MeasurementEditorV: View {
         }
     }
     
-    func calculateDistance() {
+    private func calculateDistance() {
         guard let startingCoord = mapContext.convert(CGPoint(size: startingPos), from: .global),
               let endingCoord = mapContext.convert(CGPoint(size: endingPos), from: .global)
         else { return }
@@ -106,7 +106,7 @@ struct MeasurementEditorV: View {
         self.distance = Measurement(value: endLoc.distance(from: startLoc), unit: .meters)
     }
     
-    func calculateLineOrientation(canvasSize: CGSize) {
+    private func calculateLineOrientation(canvasSize: CGSize) {
         let lineWidth = abs(startingPos.width - endingPos.width)
         let lineHeight = abs(startingPos.height - endingPos.height)
         let lineHorizontalCenter = (startingPos.width + endingPos.width) / 2
@@ -121,8 +121,34 @@ struct MeasurementEditorV: View {
         }
     }
     
-    func isValidMeasurement() -> Bool {
+    private func isValidMeasurement() -> Bool {
         if startingPos == endingPos { return false }
         return true
+    }
+    
+    private func generateMeasurementText() -> String {
+        let singleDecimal = "%.1f"
+        let noDecimal = "%.0f"
+        
+        if Locale.current.measurementSystem == .us { // Imperial
+            if distance.value > 150 {
+                let formattedDistance = String(format: singleDecimal, distance.converted(to: .miles).value)
+                return "\(formattedDistance) mi"
+            }
+            else {
+                let formattedDistance = String(format: noDecimal, distance.converted(to: .feet).value)
+                return "\(formattedDistance) ft"
+            }
+        }
+        else { // Metric
+            if distance.value > 100 {
+                let formattedDistance = String(format: singleDecimal, distance.converted(to: .meters).value)
+                return "\(formattedDistance) km"
+            }
+            else {
+                let formattedDistance = String(format: noDecimal, distance.converted(to: .meters).value)
+                return "\(formattedDistance) m"
+            }
+        }
     }
 }
