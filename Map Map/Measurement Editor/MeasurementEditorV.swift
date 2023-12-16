@@ -18,6 +18,7 @@ struct MeasurementEditorV: View {
     @State var isDragging: Bool = false
     @State var distance: Measurement<UnitLength> = Measurement(value: .zero, unit: .meters)
     @State var lineOrientation: Orientation = .leftVertical
+    @State var lineOrigin: CGPoint = .zero
     var mapContext: MapProxy
     
     enum Orientation {
@@ -54,6 +55,20 @@ struct MeasurementEditorV: View {
                             .stroke(lineWidth: 5.0)
                             .foregroundStyle(.white)
                             .shadow(radius: 2)
+                        switch lineOrientation {
+                        case .leftVertical:
+                            Text("\(distance.converted(to: .feet).value) ft")
+                                .position(lineOrigin, alignment: .trailing)
+                        case .rightVertical:
+                            Text("\(distance.converted(to: .feet).value) ft")
+                                .position(lineOrigin, alignment: .leading)
+                        case .topHorizontal:
+                            Text("\(distance.converted(to: .feet).value) ft")
+                                .position(lineOrigin, alignment: .bottom)
+                        case .bottomHorizontal:
+                            Text("\(distance.converted(to: .feet).value) ft")
+                                .position(lineOrigin, alignment: .top)
+                        }
                         HandleV(position: $startingPos)
                         HandleV(position: $endingPos)
                     }
@@ -93,15 +108,16 @@ struct MeasurementEditorV: View {
     
     func calculateLineOrientation(canvasSize: CGSize) {
         let lineWidth = abs(startingPos.width - endingPos.width)
-        let lineHeight = abs(endingPos.width - endingPos.height)
+        let lineHeight = abs(startingPos.height - endingPos.height)
         let lineHorizontalCenter = (startingPos.width + endingPos.width) / 2
         let lineVerticalCenter = (startingPos.height + endingPos.height) / 2
+        self.lineOrigin = CGPoint(x: lineHorizontalCenter, y: lineVerticalCenter)
         
         if lineWidth > lineHeight { // Horizontal line
             self.lineOrientation = lineVerticalCenter >= canvasSize.height / 2 ? .bottomHorizontal : .topHorizontal
         }
         else { // Vertical line
-            self.lineOrientation = lineVerticalCenter >= canvasSize.width / 2 ? .rightVertical : .leftVertical
+            self.lineOrientation = lineHorizontalCenter >= canvasSize.width / 2 ? .rightVertical : .leftVertical
         }
     }
     
