@@ -44,7 +44,7 @@ struct ContentView: View {
                     MarkerEditorV(marker: editingMarker)
                 }
                 else if let editingMeasurement = editingMeasurement {
-                    MeasurementEditorV(measurement: editingMeasurement)
+                    MeasurementEditorV(measurement: editingMeasurement, mapContext: mapContext)
                 }
                 else {
                     BottomDrawer(

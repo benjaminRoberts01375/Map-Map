@@ -6,14 +6,18 @@
 //
 
 import Bottom_Drawer
+import MapKit
 import SwiftUI
 
 struct MeasurementEditorV: View {
     @ObservedObject var measurement: FetchedResults<MapMeasurement>.Element
     @Environment(\.managedObjectContext) var moc
+    @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
     @State var startingPos: CGSize = .zero
     @State var endingPos: CGSize = .zero
     @State var isDragging: Bool = false
+    @State var distance: Measurement<UnitLength> = Measurement(value: .zero, unit: .meters)
+    var mapContext: MapProxy
     
     var drawGesture: some Gesture {
         DragGesture(coordinateSpace: .global)
@@ -47,15 +51,28 @@ struct MeasurementEditorV: View {
                 .ignoresSafeArea()
             }
             
-            BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
+            BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
                 Button {
                     try? moc.save()
                     measurement.isEditing = false
+                    
                 } label: {
                     Text("Done")
                         .bigButton(backgroundColor: .blue)
                 }
             }
+            Text("\(self.distance.converted(to: .feet).value)")
         }
+        .onChange(of: startingPos) { calculateDistance() }
+        .onChange(of: endingPos) { calculateDistance() }
+    }
+    
+    func calculateDistance() {
+        guard let startingCoord = mapContext.convert(CGPoint(size: startingPos), from: .global),
+              let endingCoord = mapContext.convert(CGPoint(size: endingPos), from: .global)
+        else { return }
+        let startLoc = CLLocation(latitude: startingCoord.latitude, longitude: startingCoord.longitude)
+        let endLoc = CLLocation(latitude: endingCoord.latitude, longitude: endingCoord.longitude)
+        self.distance = Measurement(value: endLoc.distance(from: startLoc), unit: .meters)
     }
 }
