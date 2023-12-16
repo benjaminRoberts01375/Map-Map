@@ -17,7 +17,15 @@ struct MeasurementEditorV: View {
     @State var endingPos: CGSize = .zero
     @State var isDragging: Bool = false
     @State var distance: Measurement<UnitLength> = Measurement(value: .zero, unit: .meters)
+    @State var lineOrientation: Orientation = .leftVertical
     var mapContext: MapProxy
+    
+    enum Orientation {
+        case leftVertical
+        case rightVertical
+        case topHorizontal
+        case bottomHorizontal
+    }
     
     var drawGesture: some Gesture {
         DragGesture(coordinateSpace: .global)
@@ -34,37 +42,44 @@ struct MeasurementEditorV: View {
     }
     
     var body: some View {
-        ZStack {
-            Color.black
-                .opacity(0.5)
-                .ignoresSafeArea()
-                .gesture(drawGesture)
-            if endingPos != startingPos {
-                ZStack {
-                    Line(startingPos: startingPos, endingPos: endingPos)
-                        .stroke(lineWidth: 5.0)
-                        .foregroundStyle(.white)
-                        .shadow(radius: 2)
-                    HandleV(position: $startingPos)
-                    HandleV(position: $endingPos)
+        GeometryReader { geo in
+            ZStack {
+                Color.black
+                    .opacity(0.5)
+                    .ignoresSafeArea()
+                    .gesture(drawGesture)
+                if endingPos != startingPos {
+                    ZStack {
+                        Line(startingPos: startingPos, endingPos: endingPos)
+                            .stroke(lineWidth: 5.0)
+                            .foregroundStyle(.white)
+                            .shadow(radius: 2)
+                        HandleV(position: $startingPos)
+                        HandleV(position: $endingPos)
+                    }
+                    .ignoresSafeArea()
                 }
-                .ignoresSafeArea()
-            }
-            
-            BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
-                Button {
-                    try? moc.save()
-                    measurement.isEditing = false
-                } label: {
-                    Text("Done")
-                        .bigButton(backgroundColor: .blue.opacity(isValidMeasurement() ? 1 : 0.5))
+                
+                BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
+                    Button {
+                        try? moc.save()
+                        measurement.isEditing = false
+                    } label: {
+                        Text("Done")
+                            .bigButton(backgroundColor: .blue.opacity(isValidMeasurement() ? 1 : 0.5))
+                    }
+                    .disabled(!isValidMeasurement())
                 }
-                .disabled(!isValidMeasurement())
             }
-            Text("\(self.distance.converted(to: .feet).value)")
+            .onChange(of: startingPos) {
+                calculateDistance()
+                calculateLineOrientation(canvasSize: geo.size)
+            }
+            .onChange(of: endingPos) {
+                calculateDistance()
+                calculateLineOrientation(canvasSize: geo.size)
+            }
         }
-        .onChange(of: startingPos) { calculateDistance() }
-        .onChange(of: endingPos) { calculateDistance() }
     }
     
     func calculateDistance() {
@@ -74,6 +89,20 @@ struct MeasurementEditorV: View {
         let startLoc = CLLocation(latitude: startingCoord.latitude, longitude: startingCoord.longitude)
         let endLoc = CLLocation(latitude: endingCoord.latitude, longitude: endingCoord.longitude)
         self.distance = Measurement(value: endLoc.distance(from: startLoc), unit: .meters)
+    }
+    
+    func calculateLineOrientation(canvasSize: CGSize) {
+        let lineWidth = abs(startingPos.width - endingPos.width)
+        let lineHeight = abs(endingPos.width - endingPos.height)
+        let lineHorizontalCenter = (startingPos.width + endingPos.width) / 2
+        let lineVerticalCenter = (startingPos.height + endingPos.height) / 2
+        
+        if lineWidth > lineHeight { // Horizontal line
+            self.lineOrientation = lineVerticalCenter >= canvasSize.height / 2 ? .bottomHorizontal : .topHorizontal
+        }
+        else { // Vertical line
+            self.lineOrientation = lineVerticalCenter >= canvasSize.width / 2 ? .rightVertical : .leftVertical
+        }
     }
     
     func isValidMeasurement() -> Bool {
