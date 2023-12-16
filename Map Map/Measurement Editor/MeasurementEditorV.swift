@@ -31,7 +31,7 @@ struct MeasurementEditorV: View {
     
     var body: some View {
         ZStack {
-            Color.primary
+            Color.black
                 .opacity(0.5)
                 .ignoresSafeArea()
                 .gesture(drawGesture)
