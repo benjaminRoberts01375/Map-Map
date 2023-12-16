@@ -55,11 +55,11 @@ struct MeasurementEditorV: View {
                 Button {
                     try? moc.save()
                     measurement.isEditing = false
-                    
                 } label: {
                     Text("Done")
-                        .bigButton(backgroundColor: .blue)
+                        .bigButton(backgroundColor: .blue.opacity(isValidMeasurement() ? 1 : 0.5))
                 }
+                .disabled(!isValidMeasurement())
             }
             Text("\(self.distance.converted(to: .feet).value)")
         }
@@ -74,5 +74,10 @@ struct MeasurementEditorV: View {
         let startLoc = CLLocation(latitude: startingCoord.latitude, longitude: startingCoord.longitude)
         let endLoc = CLLocation(latitude: endingCoord.latitude, longitude: endingCoord.longitude)
         self.distance = Measurement(value: endLoc.distance(from: startLoc), unit: .meters)
+    }
+    
+    func isValidMeasurement() -> Bool {
+        if startingPos == endingPos { return false }
+        return true
     }
 }
