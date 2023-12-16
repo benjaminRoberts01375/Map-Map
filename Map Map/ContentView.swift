@@ -8,6 +8,7 @@
 import AlertToast
 import Bottom_Drawer
 import CoreData
+import MapKit
 import SwiftUI
 
 /// First displayed view in MapMap
@@ -32,30 +33,32 @@ struct ContentView: View {
     @State private var displayType: LocationDisplayMode = .degrees
     
     var body: some View {
-        ZStack(alignment: .top) {
-            BackgroundMapLayersV(displayType: $displayType)
-                .environment(\.locationDisplayMode, displayType)
-            if let editingMapMap = editingMapMap {
-                MapMapEditor(mapMap: editingMapMap)
-            }
-            else if let editingMarker = editingMarker {
-                MarkerEditorV(marker: editingMarker)
-            }
-            else if let editingMeasurement = editingMeasurement {
-                MeasurementEditorV(measurement: editingMeasurement)
-            }
-            else {
-                BottomDrawer(
-                    verticalDetents: [.medium, .large, .header],
-                    horizontalDetents: [.left, .right],
-                    shortCardSize: 315,
-                    header: { _ in DefaultDrawerHeaderV() },
-                    content: { _ in
-                        MapMapList()
-                            .environment(\.locationDisplayMode, displayType)
-                            .padding(.horizontal)
-                    }
-                )
+        MapReader { mapContext in
+            ZStack(alignment: .top) {
+                BackgroundMapLayersV(displayType: $displayType, mapContext: mapContext)
+                    .environment(\.locationDisplayMode, displayType)
+                if let editingMapMap = editingMapMap {
+                    MapMapEditor(mapMap: editingMapMap)
+                }
+                else if let editingMarker = editingMarker {
+                    MarkerEditorV(marker: editingMarker)
+                }
+                else if let editingMeasurement = editingMeasurement {
+                    MeasurementEditorV(measurement: editingMeasurement)
+                }
+                else {
+                    BottomDrawer(
+                        verticalDetents: [.medium, .large, .header],
+                        horizontalDetents: [.left, .right],
+                        shortCardSize: 315,
+                        header: { _ in DefaultDrawerHeaderV() },
+                        content: { _ in
+                            MapMapList()
+                                .environment(\.locationDisplayMode, displayType)
+                                .padding(.horizontal)
+                        }
+                    )
+                }
             }
         }
         .toast(isPresenting: $toastInfo.showing, tapToDismiss: false, alert: {
