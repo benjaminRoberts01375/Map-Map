@@ -56,10 +56,6 @@ struct MeasurementEditorV: View {
                 .gesture(drawGesture)
             if endingPos != startingPos {
                 ZStack {
-                    Line(startingPos: startingPos, endingPos: endingPos)
-                        .stroke(lineWidth: 5.0)
-                        .foregroundStyle(.white)
-                        .shadow(radius: 2)
                     LabeledLineV(startingPos: startingPos, endingPos: endingPos, distance: distance)
                     HandleV(position: $startingPos)
                     HandleV(position: $endingPos)
