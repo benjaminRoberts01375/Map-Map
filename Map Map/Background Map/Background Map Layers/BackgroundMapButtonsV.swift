@@ -38,10 +38,17 @@ struct BackgroundMapButtonsV: View {
     }
     
     var body: some View {
-        HStack(alignment: .top) {
+        HStack(alignment: .top, spacing: 0) {
             VStack {
                 BackgroundMapHudV(rawDisplayType: $displayType)
                 MapScaleView(scope: mapScope)
+            }
+            .padding(.trailing, BackgroundMapLayersV.minSafeAreaDistance)
+            .background {
+                BlurView()
+                    .blur(radius: BackgroundMapLayersV.blurAmount)
+                    .ignoresSafeArea()
+                    .allowsHitTesting(false)
             }
             VStack {
                 MapUserLocationButton(scope: mapScope)
@@ -73,6 +80,12 @@ struct BackgroundMapButtonsV: View {
                     Image(systemName: "ruler")
                         .mapButton()
                 }
+            }
+            .background {
+                BlurView()
+                    .blur(radius: BackgroundMapLayersV.blurAmount)
+                    .ignoresSafeArea()
+                    .allowsHitTesting(false)
             }
         }
         .animation(.easeInOut, value: markerButton)

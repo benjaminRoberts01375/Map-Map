@@ -11,7 +11,7 @@ import SwiftUI
 /// Handles all layering related to the background map being plotted on, including the background map.
 struct BackgroundMapLayersV: View {
     /// Amount of blur to use with an effect blur.
-    private let blurAmount: CGFloat = 10
+    static let blurAmount: CGFloat = 10
     /// mapScope for syncing background map buttons.
     @Namespace private var mapScope
     /// Details about the background map.
@@ -40,7 +40,7 @@ struct BackgroundMapLayersV: View {
                 )
                 BlurView()
                     .frame(width: geo.size.width, height: geo.safeAreaInsets.top)
-                    .blur(radius: blurAmount)
+                    .blur(radius: BackgroundMapLayersV.blurAmount)
                     .allowsHitTesting(false)
                     .position(y: 0)
                 CrosshairV()
@@ -71,12 +71,6 @@ struct BackgroundMapLayersV: View {
                     .padding(.trailing, max(BackgroundMapLayersV.minSafeAreaDistance, geo.safeAreaInsets.trailing))
                     .padding(.top, max(BackgroundMapLayersV.minSafeAreaDistance, geo.safeAreaInsets.top))
                     .ignoresSafeArea()
-                    .background {
-                        BlurView()
-                            .blur(radius: blurAmount)
-                            .ignoresSafeArea()
-                            .allowsHitTesting(false)
-                    }
                     Color.clear
                 }
             }
