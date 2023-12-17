@@ -47,13 +47,7 @@ struct BackgroundMapPointsV: View {
                     .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
                     if let markerName = marker.name, isOverMarker(marker) {
                         Text(markerName)
-                            .shadow(color: .black.opacity(0.5), radius: 3)
-                            .padding(5)
-                            .background {
-                                Color.black
-                                    .opacity(0.35)
-                                    .blur(radius: 10)
-                            }
+                            .mapLabel()
                             .foregroundStyle(.white)
                             .allowsHitTesting(false)
                             .offset(y: BackgroundMapPointsV.iconSize)

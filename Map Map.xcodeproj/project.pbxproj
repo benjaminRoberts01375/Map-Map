@@ -21,6 +21,7 @@
 		07353A352ADCCB9700C698B0 /* BigButtonVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07353A342ADCCB9700C698B0 /* BigButtonVModifier.swift */; };
 		073733432B096C10004B96D1 /* DoubleE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073733422B096C10004B96D1 /* DoubleE.swift */; };
 		073CCDED2B2E080800ECCD7B /* LabeledLineV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073CCDEC2B2E080800ECCD7B /* LabeledLineV.swift */; };
+		073CCDEF2B2E577F00ECCD7B /* MapLabelVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073CCDEE2B2E577F00ECCD7B /* MapLabelVModifier.swift */; };
 		073DA08E2B1FC04700E30208 /* Marker+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073DA08C2B1FC04700E30208 /* Marker+CoreDataProperties.swift */; };
 		073DA0922B1FC06100E30208 /* MapMap+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073DA0902B1FC06100E30208 /* MapMap+CoreDataProperties.swift */; };
 		073DA0942B20E8A100E30208 /* ScreenSpacePositions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073DA0932B20E8A100E30208 /* ScreenSpacePositions.swift */; };
@@ -98,6 +99,7 @@
 		07353A342ADCCB9700C698B0 /* BigButtonVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonVModifier.swift; sourceTree = "<group>"; };
 		073733422B096C10004B96D1 /* DoubleE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleE.swift; sourceTree = "<group>"; };
 		073CCDEC2B2E080800ECCD7B /* LabeledLineV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledLineV.swift; sourceTree = "<group>"; };
+		073CCDEE2B2E577F00ECCD7B /* MapLabelVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLabelVModifier.swift; sourceTree = "<group>"; };
 		073DA08C2B1FC04700E30208 /* Marker+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Marker+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		073DA0902B1FC06100E30208 /* MapMap+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapMap+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		073DA0932B20E8A100E30208 /* ScreenSpacePositions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSpacePositions.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				073CCDEC2B2E080800ECCD7B /* LabeledLineV.swift */,
 				079B603F2B2CC71D0073E936 /* LineShape.swift */,
 				078C6DC72B0A9448001AD131 /* MapButtonVModifier.swift */,
+				073CCDEE2B2E577F00ECCD7B /* MapLabelVModifier.swift */,
 				076F18AA2AEF77FA00779E1D /* MapMapContextMenuV.swift */,
 				0776EB052B05586B00F89BFC /* MapMapV.swift */,
 				07E465522B0C34C9005193F1 /* MarkerContextMenuV.swift */,
@@ -570,6 +573,7 @@
 				07134EB92B099FEB00D23A18 /* BackgroundMapHudV.swift in Sources */,
 				0784CF0D2B07D8D6007EABB6 /* BackgroundMapLayersV.swift in Sources */,
 				07D742C12ADB67CB0087FFC5 /* BackgroundMapDetails.swift in Sources */,
+				073CCDEF2B2E577F00ECCD7B /* MapLabelVModifier.swift in Sources */,
 				079B60422B2D589E0073E936 /* PositionAlignmentVModifier.swift in Sources */,
 				073DA0922B1FC06100E30208 /* MapMap+CoreDataProperties.swift in Sources */,
 				079B603D2B2CBD150073E936 /* MeasurementEditorV.swift in Sources */,

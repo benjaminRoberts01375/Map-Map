@@ -29,24 +29,29 @@ struct LabeledLineV: View {
         GeometryReader { geo in
             ZStack {
                 Line(startingPos: startingPos, endingPos: endingPos)
-                    .stroke(lineWidth: 5.0)
+                    .stroke(style: StrokeStyle(lineWidth: 5, lineCap: .round))
+                    .shadow(radius: 2)
                 switch lineOrientation {
                 case .leftVertical:
                     Text(generateMeasurementText())
+                        .mapLabel()
                         .position(lineOrigin, alignment: .trailing)
                 case .rightVertical:
                     Text(generateMeasurementText())
+                        .mapLabel()
                         .position(lineOrigin, alignment: .leading)
                 case .topHorizontal:
                     Text(generateMeasurementText())
+                        .mapLabel()
                         .position(lineOrigin, alignment: .bottom)
                 case .bottomHorizontal:
                     Text(generateMeasurementText())
+                        .mapLabel()
                         .position(lineOrigin, alignment: .top)
                 }
             }
             .foregroundStyle(.white)
-            .shadow(radius: 2)
+            .fontWeight(.heavy)
             .onChange(of: startingPos, initial: true) { calculateLineOrientation(canvasSize: geo.size) }
             .onChange(of: endingPos, initial: true) { calculateLineOrientation(canvasSize: geo.size) }
         }
