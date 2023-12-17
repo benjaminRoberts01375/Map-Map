@@ -35,7 +35,8 @@ struct BackgroundMapLayersV: View {
                     screenSize: CGSize(
                         width: geo.size.width + geo.safeAreaInsets.leading + geo.safeAreaInsets.trailing,
                         height: geo.size.height + geo.safeAreaInsets.top + geo.safeAreaInsets.bottom
-                    )
+                    ), 
+                    mapContext: mapContext
                 )
                 BlurView()
                     .frame(width: geo.size.width, height: geo.safeAreaInsets.top)
