@@ -67,19 +67,41 @@ struct MeasurementEditorV: View {
             }
             
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
-                Button {
-                    try? moc.save()
-                    guard let startingCoord = mapContext.convert(CGPoint(size: startingPos), from: .global),
-                          let endingCoord = mapContext.convert(CGPoint(size: endingPos), from: .global)
-                    else { return }
-                    measurement.startingCoordinates = startingCoord
-                    measurement.endingCoordinates = endingCoord
-                    measurement.isEditing = false
-                } label: {
-                    Text("Done")
-                        .bigButton(backgroundColor: .blue.opacity(isValidMeasurement() ? 1 : 0.5))
+                VStack {
+                    HStack {
+                        // Done button
+                        Button {
+                            guard let startingCoord = mapContext.convert(CGPoint(size: startingPos), from: .global),
+                                  let endingCoord = mapContext.convert(CGPoint(size: endingPos), from: .global)
+                            else { return }
+                            measurement.startingCoordinates = startingCoord
+                            measurement.endingCoordinates = endingCoord
+                            measurement.isEditing = false
+                            try? moc.save()
+                        } label: {
+                            Text("Done")
+                                .bigButton(backgroundColor: .blue.opacity(isValidMeasurement() ? 1 : 0.5))
+                        }
+                        .disabled(!isValidMeasurement())
+                        
+                        // Cancel button
+                        Button(action: {
+                            moc.reset()
+                        }, label: {
+                            Text("Cancel")
+                                .bigButton(backgroundColor: .gray)
+                        })
+                        
+                        // Delete button
+                        Button( action: {
+                            moc.delete(measurement)
+                            try? moc.save()
+                        }, label: {
+                            Text("Delete")
+                                .bigButton(backgroundColor: .red)
+                        })
+                    }
                 }
-                .disabled(!isValidMeasurement())
             }
         }
         .onChange(of: startingPos) { calculateDistance() }
