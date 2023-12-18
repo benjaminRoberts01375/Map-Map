@@ -1,6 +1,6 @@
 ---
 name: Refactor
-about: Improve code without the user even noticing.
+about: Improve code without anyone noticing.
 title: ''
 labels: performance
 assignees: benjaminRoberts01375
