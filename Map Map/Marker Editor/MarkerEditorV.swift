@@ -121,7 +121,12 @@ struct MarkerEditorV: View {
     }
     
     func determineMarkerOverlap() {
-        if let overlappingMapMaps = MarkerEditorV.markerOverMapMaps(marker, backgroundMapDetails: backgroundMapDetails, mapContext: mapContext, mapMaps: mapMaps)
+        if let overlappingMapMaps = MarkerEditorV.markerOverMapMaps(
+            marker,
+            backgroundMapDetails: backgroundMapDetails,
+            mapContext: mapContext,
+            mapMaps: mapMaps
+        )
             /*screenSpacePositions.markerOverMapMaps(marker, backgroundMapRotation: backgroundMapDetails.rotation)*/ {
             // Remove current marker from all MapMaps
             for mapMap in marker.formattedMapMaps { mapMap.removeFromMarkers(marker) }
@@ -136,13 +141,22 @@ struct MarkerEditorV: View {
     ///   - backgroundMapRotation: Background map rotation.
     /// - Returns: If the Marker's position in screen-space was not found, then nil is returned.
     /// Otherwise, all available MapMaps are returned.
-    public static func markerOverMapMaps(_ marker: Marker, backgroundMapDetails: BackgroundMapDetailsM, mapContext: MapProxy, mapMaps: FetchedResults<MapMap>) -> [MapMap]? {
+    public static func markerOverMapMaps(
+        _ marker: Marker,
+        backgroundMapDetails: BackgroundMapDetailsM,
+        mapContext: MapProxy,
+        mapMaps: FetchedResults<MapMap>
+    ) -> [MapMap]? {
         guard let markerPosition = mapContext.convert(marker.coordinates, to: .global)
         else { return nil }
         let marker = MarkerEditorV.generateMarkerBoundingBox(markerPosition: markerPosition)
         var mapMaps: [MapMap] = []
         for mapMap in mapMaps {
-            if let mapMapBounds = BackgroundMap.generateMapMapRotatedConvexHull(mapMap: mapMap, backgroundMapDetails: backgroundMapDetails, mapContext: mapContext)?.cgPath,
+            if let mapMapBounds = BackgroundMap.generateMapMapRotatedConvexHull(
+                mapMap: mapMap,
+                backgroundMapDetails: backgroundMapDetails,
+                mapContext: mapContext
+            )?.cgPath,
                 mapMapBounds.intersects(marker) {
                 mapMaps.append(mapMap)
             }

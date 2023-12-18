@@ -18,6 +18,8 @@ struct BackgroundMapPointsV: View {
     @FetchRequest(sortDescriptors: []) private var measurements: FetchedResults<MapMeasurement>
     /// GPS user location.
     @State private var locationsHandler = LocationsHandler.shared
+    /// The user's location in screen-space
+    @State private var ssUserLocation: CGPoint?
     /// Size of the parent view.
     let screenSize: CGSize
     /// Marker icon size.
@@ -111,6 +113,14 @@ struct BackgroundMapPointsV: View {
         .ignoresSafeArea()
         .onAppear { locationsHandler.startLocationTracking() }
         .onDisappear { locationsHandler.stopLocationTracking() }
+        .onChange(of: locationsHandler.lastLocation) { _, update in
+            let userCoords = CLLocationCoordinate2D(
+                latitude: update.coordinate.latitude,
+                longitude: update.coordinate.longitude
+            )
+            ssUserLocation = mapContext.convert(userCoords, to: .global)
+        }
+        .animation(.linear, value: ssUserLocation)
     }
     
     func isOverMarker(_ marker: Marker) -> Bool {

@@ -120,7 +120,11 @@ struct BackgroundMapButtonsV: View {
         let newMarker = Marker(coordinates: backgroundMapDetails.position, insertInto: moc)
         let centerPoint: CGPoint = CGPoint(size: screenSize / 2)
         for mapMap in mapMaps {
-            if let path = BackgroundMap.generateMapMapRotatedConvexHull(mapMap: mapMap, backgroundMapDetails: backgroundMapDetails, mapContext: mapContext)?.cgPath,
+            if let path = BackgroundMap.generateMapMapRotatedConvexHull(
+                mapMap: mapMap,
+                backgroundMapDetails: backgroundMapDetails,
+                mapContext: mapContext
+            )?.cgPath,
                path.contains(centerPoint) {
                 newMarker.addToMapMap(mapMap)
             }

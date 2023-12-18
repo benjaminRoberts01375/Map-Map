@@ -75,7 +75,11 @@ struct MapMapEditor: View {
                             mapMap.mapDistance = 1 / backgroundMapDetails.scale
                             mapMap.isEditing = false
                             mapMap.isSetup = true
-                            if let overlappingMarkers = MapMapEditor.mapMapOverMarkers(mapMap, backgroundMapDetails: backgroundMapDetails, mapContext: mapContext) {
+                            if let overlappingMarkers = MapMapEditor.mapMapOverMarkers(
+                                mapMap,
+                                backgroundMapDetails: backgroundMapDetails,
+                                mapContext: mapContext
+                            ) {
                                 for marker in mapMap.formattedMarkers { mapMap.removeFromMarkers(marker) } // Remove MapMap from all Markers
                                 for marker in overlappingMarkers { mapMap.addToMarkers(marker) } // Add MapMap to all
                             }
@@ -118,7 +122,11 @@ struct MapMapEditor: View {
     /// - Returns: If the MapMap's position in screen-space was not found, then nil is returned.
     /// Otherwise, all available Markers are returned.
     public static func mapMapOverMarkers(_ mapMap: MapMap, backgroundMapDetails: BackgroundMapDetailsM, mapContext: MapProxy) -> [Marker]? {
-        guard let mapMapBounds = BackgroundMap.generateMapMapRotatedConvexHull(mapMap: mapMap, backgroundMapDetails: backgroundMapDetails, mapContext: mapContext)?.cgPath
+        guard let mapMapBounds = BackgroundMap.generateMapMapRotatedConvexHull(
+            mapMap: mapMap, 
+            backgroundMapDetails: backgroundMapDetails,
+            mapContext: mapContext
+        )?.cgPath
         else { return nil }
         var markers: [Marker] = []
         

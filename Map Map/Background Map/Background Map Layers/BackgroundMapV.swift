@@ -79,8 +79,16 @@ struct BackgroundMap: View {
     ///   - mapMap: MapMap to generate a rotated bounding box for.
     ///   - backgroundMapRotation: Background map rotation.
     /// - Returns: A bounding box of a MapMap that has been rotated to match the MapMap.
-    public static func generateMapMapRotatedConvexHull(mapMap: MapMap, backgroundMapDetails: BackgroundMapDetailsM, mapContext: MapProxy) -> UIBezierPath? {
-        guard let rect: CGRect = BackgroundMap.generateMapMapBounds(mapMap, mapContext: mapContext, backgroundMapScale: backgroundMapDetails.scale)
+    public static func generateMapMapRotatedConvexHull(
+        mapMap: MapMap,
+        backgroundMapDetails: BackgroundMapDetailsM,
+        mapContext: MapProxy
+    ) -> UIBezierPath? {
+        guard let rect: CGRect = BackgroundMap.generateMapMapBounds(
+            mapMap,
+            mapContext: mapContext,
+            backgroundMapScale: backgroundMapDetails.scale
+        )
         else { return nil }
         let transform = CGAffineTransform(translationX: rect.midX - rect.width / 2, y: rect.midY - rect.height / 2)
             .rotated(by: (backgroundMapDetails.rotation - Angle(degrees: mapMap.mapMapRotation)).radians)
