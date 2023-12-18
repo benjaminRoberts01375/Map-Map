@@ -62,6 +62,11 @@ struct BackgroundMapPointsV: View {
                         x: (startingPos.x + endingPos.x) / 2,
                         y: (startingPos.y + endingPos.y) / 2
                     )
+                    .lineLabel(
+                        startingPos: startingPos,
+                        endingPos: endingPos,
+                        distance: measurement.distance
+                    )
                 }
             }
         }

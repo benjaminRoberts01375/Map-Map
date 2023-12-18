@@ -1,16 +1,16 @@
 //
-//  LabeledLine.swift
+//  LineLabelVModifier.swift
 //  Map Map
 //
-//  Created by Ben Roberts on 12/16/23.
+//  Created by Ben Roberts on 12/17/23.
 //
 
 import SwiftUI
 
-struct LabeledLineV: View {
-    let startingPos: CGSize
-    let endingPos: CGSize
-    var distance: Measurement<UnitLength>
+struct LineLabelVModifier: ViewModifier {
+    let startingPos: CGPoint
+    let endingPos: CGPoint
+    let distance: Measurement<UnitLength>
     
     /// Determine the line's orientation.
     @State private var lineOrientation: Orientation = .leftVertical
@@ -25,12 +25,10 @@ struct LabeledLineV: View {
         case bottomHorizontal
     }
     
-    var body: some View {
+    func body(content: Content) -> some View {
         GeometryReader { geo in
             ZStack {
-                Line(startingPos: startingPos, endingPos: endingPos)
-                    .stroke(style: StrokeStyle(lineWidth: 5, lineCap: .round))
-                    .shadow(radius: 2)
+                content
                 switch lineOrientation {
                 case .leftVertical:
                     Text(generateMeasurementText())
@@ -56,14 +54,13 @@ struct LabeledLineV: View {
             .onChange(of: endingPos, initial: true) { calculateLineOrientation(canvasSize: geo.size) }
         }
     }
-    
     /// Determine how the line is oriented and positioned on screen.
     /// - Parameter canvasSize: Dimensions of the screen.
     private func calculateLineOrientation(canvasSize: CGSize) {
-        let lineWidth = abs(startingPos.width - endingPos.width)
-        let lineHeight = abs(startingPos.height - endingPos.height)
-        let lineHorizontalCenter = (startingPos.width + endingPos.width) / 2
-        let lineVerticalCenter = (startingPos.height + endingPos.height) / 2
+        let lineWidth = abs(startingPos.x - endingPos.x)
+        let lineHeight = abs(startingPos.y - endingPos.y)
+        let lineHorizontalCenter = (startingPos.x + endingPos.x) / 2
+        let lineVerticalCenter = (startingPos.y + endingPos.y) / 2
         self.lineOrigin = CGPoint(x: lineHorizontalCenter, y: lineVerticalCenter)
         
         if lineWidth > lineHeight { // Horizontal line
@@ -100,5 +97,11 @@ struct LabeledLineV: View {
                 return "\(formattedDistance) m"
             }
         }
+    }
+}
+
+extension View {
+    func lineLabel(startingPos: CGPoint, endingPos: CGPoint, distance: Measurement<UnitLength>) -> some View {
+        modifier(LineLabelVModifier(startingPos: startingPos, endingPos: endingPos, distance: distance))
     }
 }
