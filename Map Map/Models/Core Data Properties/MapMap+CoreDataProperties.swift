@@ -49,6 +49,8 @@ extension MapMap {
     @NSManaged public var cropCorners: FourCorners?
     /// Markers associated with this MapMap
     @NSManaged public var markers: NSSet?
+    /// Measurements taken on this MapMap
+    @NSManaged public var measurements: NSSet?
 }
 
 // MARK: Generated accessors for markers
@@ -76,6 +78,21 @@ extension MapMap {
 
 }
 
-extension MapMap : Identifiable {
+// MARK: Generated accessors for measurements
+extension MapMap {
+
+    @objc(addMeasurementsObject:)
+    @NSManaged public func addToMeasurements(_ value: MapMeasurement)
+
+    @objc(removeMeasurementsObject:)
+    @NSManaged public func removeFromMeasurements(_ value: MapMeasurement)
+
+    @objc(addMeasurements:)
+    @NSManaged public func addToMeasurements(_ values: NSSet)
+
+    @objc(removeMeasurements:)
+    @NSManaged public func removeFromMeasurements(_ values: NSSet)
 
 }
+
+extension MapMap : Identifiable { }

@@ -21,7 +21,7 @@ extension MapMeasurement {
     @NSManaged public var endingLongitude: Double
     @NSManaged public var endingLatitude: Double
     @NSManaged public var isEditing: Bool
-
+    @NSManaged public var mapMap: MapMap?
 }
 
 extension MapMeasurement: Identifiable { }
