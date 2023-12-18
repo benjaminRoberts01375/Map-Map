@@ -22,6 +22,7 @@
 		073733432B096C10004B96D1 /* DoubleE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073733422B096C10004B96D1 /* DoubleE.swift */; };
 		073CCDED2B2E080800ECCD7B /* LabeledLineV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073CCDEC2B2E080800ECCD7B /* LabeledLineV.swift */; };
 		073CCDEF2B2E577F00ECCD7B /* MapLabelVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073CCDEE2B2E577F00ECCD7B /* MapLabelVModifier.swift */; };
+		073CCDF22B2F604C00ECCD7B /* MapMeasurementV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073CCDF12B2F604C00ECCD7B /* MapMeasurementV.swift */; };
 		073DA08E2B1FC04700E30208 /* Marker+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073DA08C2B1FC04700E30208 /* Marker+CoreDataProperties.swift */; };
 		073DA0922B1FC06100E30208 /* MapMap+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073DA0902B1FC06100E30208 /* MapMap+CoreDataProperties.swift */; };
 		073DA0942B20E8A100E30208 /* ScreenSpacePositions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073DA0932B20E8A100E30208 /* ScreenSpacePositions.swift */; };
@@ -100,6 +101,7 @@
 		073733422B096C10004B96D1 /* DoubleE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleE.swift; sourceTree = "<group>"; };
 		073CCDEC2B2E080800ECCD7B /* LabeledLineV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledLineV.swift; sourceTree = "<group>"; };
 		073CCDEE2B2E577F00ECCD7B /* MapLabelVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLabelVModifier.swift; sourceTree = "<group>"; };
+		073CCDF12B2F604C00ECCD7B /* MapMeasurementV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMeasurementV.swift; sourceTree = "<group>"; };
 		073DA08C2B1FC04700E30208 /* Marker+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Marker+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		073DA0902B1FC06100E30208 /* MapMap+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapMap+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		073DA0932B20E8A100E30208 /* ScreenSpacePositions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSpacePositions.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				076F18AA2AEF77FA00779E1D /* MapMapContextMenuV.swift */,
+				073CCDF12B2F604C00ECCD7B /* MapMeasurementV.swift */,
 				07E465522B0C34C9005193F1 /* MarkerContextMenuV.swift */,
 			);
 			path = "Context Menus";
@@ -571,6 +574,7 @@
 				07E24D432B05C1240049F5EB /* Notifications.swift in Sources */,
 				07FDC6362AB26ADB00D92113 /* BackgroundMapV.swift in Sources */,
 				07FDC62F2AB25E0000D92113 /* Map_Map.xcdatamodeld in Sources */,
+				073CCDF22B2F604C00ECCD7B /* MapMeasurementV.swift in Sources */,
 				07DFF7A02B1E4E010041551B /* MarkerFormattedListItemV.swift in Sources */,
 				073CCDED2B2E080800ECCD7B /* LabeledLineV.swift in Sources */,
 				07249C232B1692610088B721 /* MarkerColor+CoreDataProperties.swift in Sources */,

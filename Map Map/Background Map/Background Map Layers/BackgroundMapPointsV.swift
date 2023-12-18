@@ -34,10 +34,33 @@ struct BackgroundMapPointsV: View {
             ForEach(measurements) { measurement in
                 if let startingPos = mapContext.convert(measurement.startingCoordinates, to: .global),
                    let endingPos = mapContext.convert(measurement.endingCoordinates, to: .global) {
-                    LabeledLineV(
-                        startingPos: CGSize(cgPoint: startingPos),
-                        endingPos: CGSize(cgPoint: endingPos),
-                        distance: measurement.distance
+                    let distance = sqrt(pow(abs(startingPos.x - endingPos.x), 2) + pow(abs(startingPos.y - endingPos.y), 2))
+                    let rotation = atan2(startingPos.y - endingPos.y, startingPos.x - endingPos.x)
+                    Button {
+                        backgroundMapDetails.moveMapCameraTo(measurement: measurement)
+                    } label: {
+                        Capsule()
+                            .frame(
+                                width: distance,
+                                height: 5
+                            )
+                            .padding(15)
+                            .foregroundStyle(.white)
+                            .shadow(radius: 2)
+                    }
+                    .rotationEffect(Angle(radians: rotation))
+                    .contextMenu {
+                        MapMeasurementContextMenuV(measurement: measurement)
+                    } preview: {
+                        Color.white
+                            .frame(
+                                width: distance,
+                                height: 5
+                            )
+                    }
+                    .position(
+                        x: (startingPos.x + endingPos.x) / 2,
+                        y: (startingPos.y + endingPos.y) / 2
                     )
                 }
             }
