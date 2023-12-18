@@ -30,6 +30,10 @@
 		0743138F2B2FC45300909B7A /* LineLabelVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0743138E2B2FC45300909B7A /* LineLabelVModifier.swift */; };
 		0744E7172AFB203D00D9F0B5 /* CameraPreviewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0744E7162AFB203D00D9F0B5 /* CameraPreviewVM.swift */; };
 		075C65682AF4C5C900864A34 /* CGSizeE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C65672AF4C5C900864A34 /* CGSizeE.swift */; };
+		0761A8882B2FF2A000D2B030 /* MapMeasurementListItemV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0761A8872B2FF2A000D2B030 /* MapMeasurementListItemV.swift */; };
+		0761A88A2B2FF4CF00D2B030 /* MapMapListUnsortedMeasurementsV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0761A8892B2FF4CF00D2B030 /* MapMapListUnsortedMeasurementsV.swift */; };
+		0761A88C2B2FF55200D2B030 /* CombineMapMeasurementListItemsV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0761A88B2B2FF55200D2B030 /* CombineMapMeasurementListItemsV.swift */; };
+		0761A88E2B2FF66A00D2B030 /* MapMeasurementFormattedListItemV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0761A88D2B2FF66A00D2B030 /* MapMeasurementFormattedListItemV.swift */; };
 		0762DD1F2AD37A1300C36D33 /* MapMap+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762DD1D2AD37A1300C36D33 /* MapMap+CoreDataClass.swift */; };
 		0762DD652AD4696B00C36D33 /* DoneButtonV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762DD642AD4696B00C36D33 /* DoneButtonV.swift */; };
 		0762DD682AD4713200C36D33 /* MapMapEditorV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762DD672AD4713200C36D33 /* MapMapEditorV.swift */; };
@@ -108,6 +112,10 @@
 		0743138E2B2FC45300909B7A /* LineLabelVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineLabelVModifier.swift; sourceTree = "<group>"; };
 		0744E7162AFB203D00D9F0B5 /* CameraPreviewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewVM.swift; sourceTree = "<group>"; };
 		075C65672AF4C5C900864A34 /* CGSizeE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSizeE.swift; sourceTree = "<group>"; };
+		0761A8872B2FF2A000D2B030 /* MapMeasurementListItemV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMeasurementListItemV.swift; sourceTree = "<group>"; };
+		0761A8892B2FF4CF00D2B030 /* MapMapListUnsortedMeasurementsV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapListUnsortedMeasurementsV.swift; sourceTree = "<group>"; };
+		0761A88B2B2FF55200D2B030 /* CombineMapMeasurementListItemsV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineMapMeasurementListItemsV.swift; sourceTree = "<group>"; };
+		0761A88D2B2FF66A00D2B030 /* MapMeasurementFormattedListItemV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMeasurementFormattedListItemV.swift; sourceTree = "<group>"; };
 		0762DD1D2AD37A1300C36D33 /* MapMap+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapMap+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0762DD642AD4696B00C36D33 /* DoneButtonV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButtonV.swift; sourceTree = "<group>"; };
 		0762DD672AD4713200C36D33 /* MapMapEditorV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapEditorV.swift; sourceTree = "<group>"; };
@@ -283,6 +291,10 @@
 				07DFF79F2B1E4E010041551B /* MarkerFormattedListItemV.swift */,
 				07B82A3C2B1D479E00CC00D3 /* MarkerListItemV.swift */,
 				07B82A3E2B1D4B6E00CC00D3 /* MapMapListCoordsV.swift */,
+				0761A88B2B2FF55200D2B030 /* CombineMapMeasurementListItemsV.swift */,
+				0761A8892B2FF4CF00D2B030 /* MapMapListUnsortedMeasurementsV.swift */,
+				0761A8872B2FF2A000D2B030 /* MapMeasurementListItemV.swift */,
+				0761A88D2B2FF66A00D2B030 /* MapMeasurementFormattedListItemV.swift */,
 			);
 			path = "MapMap List";
 			sourceTree = "<group>";
@@ -541,12 +553,14 @@
 				079B60392B2CBAD70073E936 /* MapMeasurement+CoreDataProperties.swift in Sources */,
 				07B82A412B1D54AE00CC00D3 /* CombineMarkerListItemsV.swift in Sources */,
 				0776EB082B055C2200F89BFC /* GridOverlayV.swift in Sources */,
+				0761A8882B2FF2A000D2B030 /* MapMeasurementListItemV.swift in Sources */,
 				07FDC6252AB25DFD00D92113 /* ContentView.swift in Sources */,
 				0711E5B22AB39ABD0056AB4B /* BlurView.swift in Sources */,
 				073DA08E2B1FC04700E30208 /* Marker+CoreDataProperties.swift in Sources */,
 				07FDC6232AB25DFD00D92113 /* Map_MapApp.swift in Sources */,
 				0776EB062B05586B00F89BFC /* MapMapV.swift in Sources */,
 				07249C0D2B1682970088B721 /* MarkerSymbolPickerItemV.swift in Sources */,
+				0761A88C2B2FF55200D2B030 /* CombineMapMeasurementListItemsV.swift in Sources */,
 				07BE4BB82B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift in Sources */,
 				07D522F32AE5CCCF009364B3 /* CLLocationDegreesE.swift in Sources */,
 				07A9C6AF2AF1B78C00C3AED4 /* FourCorners+CoreDataClass.swift in Sources */,
@@ -581,6 +595,7 @@
 				07134EB92B099FEB00D23A18 /* BackgroundMapHudV.swift in Sources */,
 				0784CF0D2B07D8D6007EABB6 /* BackgroundMapLayersV.swift in Sources */,
 				07D742C12ADB67CB0087FFC5 /* BackgroundMapDetails.swift in Sources */,
+				0761A88E2B2FF66A00D2B030 /* MapMeasurementFormattedListItemV.swift in Sources */,
 				073CCDEF2B2E577F00ECCD7B /* MapLabelVModifier.swift in Sources */,
 				079B60422B2D589E0073E936 /* PositionAlignmentVModifier.swift in Sources */,
 				073DA0922B1FC06100E30208 /* MapMap+CoreDataProperties.swift in Sources */,
@@ -602,6 +617,7 @@
 				07CCDBB72AEC7E8600BA9D43 /* MapUserIconV.swift in Sources */,
 				07FCC8572AD3750F00F88186 /* MapMapsListV.swift in Sources */,
 				076F18AB2AEF77FA00779E1D /* MapMapContextMenuV.swift in Sources */,
+				0761A88A2B2FF4CF00D2B030 /* MapMapListUnsortedMeasurementsV.swift in Sources */,
 				07FD85612AE6DD1E0089652B /* MapMapListItemV.swift in Sources */,
 				07764B422AF96DFA0009525E /* DefaultDrawerHeaderV.swift in Sources */,
 				078C6DCB2B0B0100001AD131 /* CrosshairV.swift in Sources */,
