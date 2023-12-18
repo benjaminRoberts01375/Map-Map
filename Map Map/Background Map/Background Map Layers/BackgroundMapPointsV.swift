@@ -46,7 +46,7 @@ struct BackgroundMapPointsV: View {
                                 width: distance,
                                 height: 5
                             )
-                            .padding(15)
+                            .padding(25)
                             .foregroundStyle(.white)
                             .shadow(radius: 2)
                     }
