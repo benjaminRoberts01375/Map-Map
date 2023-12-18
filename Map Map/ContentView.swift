@@ -38,10 +38,10 @@ struct ContentView: View {
                 BackgroundMapLayersV(displayType: $displayType, mapContext: mapContext)
                     .environment(\.locationDisplayMode, displayType)
                 if let editingMapMap = editingMapMap {
-                    MapMapEditor(mapMap: editingMapMap)
+                    MapMapEditor(mapMap: editingMapMap, mapContext: mapContext)
                 }
                 else if let editingMarker = editingMarker {
-                    MarkerEditorV(marker: editingMarker)
+                    MarkerEditorV(marker: editingMarker, mapContext: mapContext)
                 }
                 else if let editingMeasurement = editingMeasurement {
                     MeasurementEditorV(measurement: editingMeasurement, mapContext: mapContext)

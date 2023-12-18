@@ -16,8 +16,8 @@ struct BackgroundMapPointsV: View {
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
     /// All available measurements.
     @FetchRequest(sortDescriptors: []) private var measurements: FetchedResults<MapMeasurement>
-    /// Screen space positions of Markers, MapMaps, and user location.
-    @Environment(ScreenSpacePositionsM.self) private var screenSpacePositions
+    /// GPS user location.
+    @State private var locationsHandler = LocationsHandler.shared
     /// Size of the parent view.
     let screenSize: CGSize
     /// Marker icon size.
@@ -71,7 +71,7 @@ struct BackgroundMapPointsV: View {
             }
         }
         ForEach(markers) { marker in
-            if let position = screenSpacePositions[marker], !marker.isEditing && marker.shown {
+            if let position = mapContext.convert(marker.coordinates, to: .global), !marker.isEditing && marker.shown {
                 ZStack {
                     Button {
                         backgroundMapDetails.moveMapCameraTo(marker: marker)
@@ -83,11 +83,7 @@ struct BackgroundMapPointsV: View {
                             )
                             .offset(y: markerOffset)
                     }
-                    .contextMenu {
-                        MarkerContextMenuV(marker: marker) {
-                            screenSpacePositions.removeValue(forKey: marker)
-                        }
-                    }
+                    .contextMenu { MarkerContextMenuV(marker: marker) }
                     .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
                     if let markerName = marker.name, isOverMarker(marker) {
                         Text(markerName)
@@ -101,7 +97,11 @@ struct BackgroundMapPointsV: View {
             }
         }
         VStack {
-            if let screenSpaceUserLocation = screenSpacePositions.userLocation {
+            let userLocation = CLLocationCoordinate2D(
+                latitude: locationsHandler.lastLocation.coordinate.latitude,
+                longitude: locationsHandler.lastLocation.coordinate.longitude
+            )
+            if let screenSpaceUserLocation = mapContext.convert(userLocation, to: .global) {
                 MapUserIcon()
                     .frame(width: userLocationSize, height: userLocationSize)
                     .position(screenSpaceUserLocation)
@@ -109,10 +109,12 @@ struct BackgroundMapPointsV: View {
             else { EmptyView() }
         }
         .ignoresSafeArea()
+        .onAppear { locationsHandler.startLocationTracking() }
+        .onDisappear { locationsHandler.stopLocationTracking() }
     }
     
     func isOverMarker(_ marker: Marker) -> Bool {
-        guard let markerPos = screenSpacePositions[marker] else { return false }
+        guard let markerPos = mapContext.convert(marker.coordinates, to: .global) else { return false }
         let xComponent = abs(markerPos.x - screenSize.width / 2)
         let yComponent = abs(markerPos.y - (screenSize.height / 2 - markerOffset))
         let distance = sqrt(pow(xComponent, 2) + pow(yComponent, 2))

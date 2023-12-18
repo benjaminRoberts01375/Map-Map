@@ -66,7 +66,8 @@ struct BackgroundMapLayersV: View {
                             width: geo.size.width + geo.safeAreaInsets.leading + geo.safeAreaInsets.trailing,
                             height: geo.size.height + geo.safeAreaInsets.top + geo.safeAreaInsets.bottom
                         ),
-                        mapScope: mapScope
+                        mapScope: mapScope, 
+                        mapContext: mapContext
                     )
                     .padding(.trailing, max(BackgroundMapLayersV.minSafeAreaDistance, geo.safeAreaInsets.trailing))
                     .padding(.top, max(BackgroundMapLayersV.minSafeAreaDistance, geo.safeAreaInsets.top))
