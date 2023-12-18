@@ -71,56 +71,57 @@ struct BackgroundMapPointsV: View {
                     )
                 }
             }
-        }
-        ForEach(markers) { marker in
-            if let position = mapContext.convert(marker.coordinates, to: .global), !marker.isEditing && marker.shown {
-                ZStack {
-                    Button {
-                        backgroundMapDetails.moveMapCameraTo(marker: marker)
-                    } label: {
-                        MarkerV(marker: marker)
-                            .rotationEffect(
-                                backgroundMapDetails.rotation -
-                                Angle(degrees: marker.lockRotationAngleDouble ?? backgroundMapDetails.rotation.degrees)
-                            )
-                            .offset(y: markerOffset)
+            
+            ForEach(markers) { marker in
+                if let position = mapContext.convert(marker.coordinates, to: .global), !marker.isEditing && marker.shown {
+                    ZStack {
+                        Button {
+                            backgroundMapDetails.moveMapCameraTo(marker: marker)
+                        } label: {
+                            MarkerV(marker: marker)
+                                .rotationEffect(
+                                    backgroundMapDetails.rotation -
+                                    Angle(degrees: marker.lockRotationAngleDouble ?? backgroundMapDetails.rotation.degrees)
+                                )
+                                .offset(y: markerOffset)
+                        }
+                        .contextMenu { MarkerContextMenuV(marker: marker) }
+                        .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
+                        if let markerName = marker.name, isOverMarker(marker) {
+                            Text(markerName)
+                                .mapLabel()
+                                .foregroundStyle(.white)
+                                .allowsHitTesting(false)
+                                .offset(y: BackgroundMapPointsV.iconSize)
+                        }
                     }
-                    .contextMenu { MarkerContextMenuV(marker: marker) }
-                    .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
-                    if let markerName = marker.name, isOverMarker(marker) {
-                        Text(markerName)
-                            .mapLabel()
-                            .foregroundStyle(.white)
-                            .allowsHitTesting(false)
-                            .offset(y: BackgroundMapPointsV.iconSize)
-                    }
+                    .position(position)
                 }
-                .position(position)
             }
-        }
-        VStack {
-            let userLocation = CLLocationCoordinate2D(
-                latitude: locationsHandler.lastLocation.coordinate.latitude,
-                longitude: locationsHandler.lastLocation.coordinate.longitude
-            )
-            if let screenSpaceUserLocation = mapContext.convert(userLocation, to: .global) {
-                MapUserIcon()
-                    .frame(width: userLocationSize, height: userLocationSize)
-                    .position(screenSpaceUserLocation)
+            VStack {
+                let userLocation = CLLocationCoordinate2D(
+                    latitude: locationsHandler.lastLocation.coordinate.latitude,
+                    longitude: locationsHandler.lastLocation.coordinate.longitude
+                )
+                if let screenSpaceUserLocation = mapContext.convert(userLocation, to: .global) {
+                    MapUserIcon()
+                        .frame(width: userLocationSize, height: userLocationSize)
+                        .position(screenSpaceUserLocation)
+                }
+                else { EmptyView() }
             }
-            else { EmptyView() }
+            .ignoresSafeArea()
+            .onAppear { locationsHandler.startLocationTracking() }
+            .onDisappear { locationsHandler.stopLocationTracking() }
+            .onChange(of: locationsHandler.lastLocation) { _, update in
+                let userCoords = CLLocationCoordinate2D(
+                    latitude: update.coordinate.latitude,
+                    longitude: update.coordinate.longitude
+                )
+                ssUserLocation = mapContext.convert(userCoords, to: .global)
+            }
+            .animation(.linear, value: ssUserLocation)
         }
-        .ignoresSafeArea()
-        .onAppear { locationsHandler.startLocationTracking() }
-        .onDisappear { locationsHandler.stopLocationTracking() }
-        .onChange(of: locationsHandler.lastLocation) { _, update in
-            let userCoords = CLLocationCoordinate2D(
-                latitude: update.coordinate.latitude,
-                longitude: update.coordinate.longitude
-            )
-            ssUserLocation = mapContext.convert(userCoords, to: .global)
-        }
-        .animation(.linear, value: ssUserLocation)
     }
     
     func isOverMarker(_ marker: Marker) -> Bool {
