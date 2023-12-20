@@ -31,19 +31,19 @@ struct LineLabelVModifier: ViewModifier {
                 content
                 switch lineOrientation {
                 case .leftVertical:
-                    Text(generateMeasurementText())
+                    Text(LineLabelVModifier.generateMeasurementText(distance: distance))
                         .mapLabel()
                         .position(lineOrigin, alignment: .trailing)
                 case .rightVertical:
-                    Text(generateMeasurementText())
+                    Text(LineLabelVModifier.generateMeasurementText(distance: distance))
                         .mapLabel()
                         .position(lineOrigin, alignment: .leading)
                 case .topHorizontal:
-                    Text(generateMeasurementText())
+                    Text(LineLabelVModifier.generateMeasurementText(distance: distance))
                         .mapLabel()
                         .position(lineOrigin, alignment: .bottom)
                 case .bottomHorizontal:
-                    Text(generateMeasurementText())
+                    Text(LineLabelVModifier.generateMeasurementText(distance: distance))
                         .mapLabel()
                         .position(lineOrigin, alignment: .top)
                 }
@@ -73,7 +73,7 @@ struct LineLabelVModifier: ViewModifier {
     
     /// Handle small/large distances across metric and imperial and format into a string.
     /// - Returns: Distance formatted into a human-readable string.
-    private func generateMeasurementText() -> String {
+    public static func generateMeasurementText(distance: Measurement<UnitLength>) -> String {
         let singleDecimal = "%.1f"
         let noDecimal = "%.0f"
         

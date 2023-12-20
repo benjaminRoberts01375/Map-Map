@@ -17,15 +17,14 @@ struct MapMeasurementListItemV: View {
     
     var body: some View {
         HStack(spacing: 0) {
-                Image(systemName: "ruler.fill")
-                    .frame(width: markerSize)
-                    .padding(.trailing)
-                VStack(alignment: .leading) {
-                    Text("Start")
-                    MapMapListCoordsV(coordinates: measurement.startingCoordinates)
-                    Text("End")
-                    MapMapListCoordsV(coordinates: measurement.endingCoordinates)
-                }
+            Image(systemName: "ruler.fill")
+                .rotationEffect(Angle(degrees: 45))
+                .frame(width: markerSize)
+                .padding(.trailing)
+            VStack(alignment: .leading) {
+                Text(LineLabelVModifier.generateMeasurementText(distance: measurement.distance))
+                MapMapListCoordsV(coordinates: measurement.startingCoordinates)
+            }
             Spacer(minLength: 0)
         }
         .opacity(measurement.mapMap?.shown ?? true ? 1 : 0.5)
