@@ -78,6 +78,7 @@ struct BackgroundMapButtonsV: View {
                     newMeasurement.isEditing = true
                 } label: {
                     Image(systemName: "ruler")
+                        .rotationEffect(Angle(degrees: -45))
                         .mapButton()
                 }
             }
