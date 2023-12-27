@@ -23,9 +23,9 @@ struct MarkerEditorV: View {
     @ObservedObject var marker: FetchedResults<Marker>.Element
     /// Information about the background map being plotted on top of.
     @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
-    
+    /// All available MapMaps
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
-    
+    /// Map context for converting coordiantes to screen-space and back.
     let mapContext: MapProxy
     
     init(marker: FetchedResults<Marker>.Element, mapContext: MapProxy) {

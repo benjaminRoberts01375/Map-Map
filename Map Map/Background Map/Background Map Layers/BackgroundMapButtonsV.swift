@@ -22,6 +22,8 @@ struct BackgroundMapButtonsV: View {
     @State private var markerButton: MarkerButtonType = .add
     /// Coordinate display type.
     @Binding var displayType: LocationDisplayMode
+    /// Current editor being used.
+    @Binding var editor: Editor
     /// Size of parent view.
     let screenSize: CGSize
     /// Background map ID.
@@ -74,8 +76,7 @@ struct BackgroundMapButtonsV: View {
                 }
                 
                 Button {
-                    let newMeasurement = MapMeasurement(context: moc)
-                    newMeasurement.isEditing = true
+                    editor = .measurement
                 } label: {
                     Image(systemName: "ruler")
                         .rotationEffect(Angle(degrees: -45))

@@ -23,9 +23,9 @@ struct MapMapEditor: View {
     @State private var mapMapPosition: CGRect = .zero
     /// Tracker for showing the photo (not MapMap) editor.
     @State private var showingPhotoEditor = false
-    
+    /// All available markers.
     @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
-    
+    /// Map context for converting coordiantes to screen-space and back.
     let mapContext: MapProxy
     
     var body: some View {

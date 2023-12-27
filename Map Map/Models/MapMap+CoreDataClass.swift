@@ -34,12 +34,6 @@ public class MapMap: NSManagedObject {
         let markerSet = self.markers as? Set<Marker> ?? []
         return markerSet.sorted(by: { $0.latitude < $1.latitude })
     }
-
-    /// Formatted Markers that are associated with this MapMap.
-    var formattedMeasurements: [MapMeasurement] {
-        let markerSet = self.measurements as? Set<MapMeasurement> ?? []
-        return markerSet.sorted(by: { $0.startingLatitude < $1.startingLatitude })
-    }
     
     /// Current status type of this MapMap.
     public enum ImageStatus {
@@ -236,3 +230,5 @@ extension MapMap {
         }
     }
 }
+
+extension MapMap: Identifiable { }

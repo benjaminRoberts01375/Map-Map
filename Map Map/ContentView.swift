@@ -17,16 +17,10 @@ struct ContentView: View {
     @FetchRequest(sortDescriptors: []) private var mapMaps: FetchedResults<MapMap>
     /// All available Markers
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
-    /// All available Measurements
-    @FetchRequest(sortDescriptors: []) private var measurements: FetchedResults<MapMeasurement>
     /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
-    /// MapMap being edited.
-    @State private var editingMapMap: MapMap?
-    /// Marker being edited.
-    @State private var editingMarker: Marker?
-    /// Measurement being edited.
-    @State private var editingMeasurement: MapMeasurement?
+    /// Object being edited
+    @State var editing: Editor = .nothing
     /// Information to display in a Toast notification.
     @State private var toastInfo: ToastInfo = ToastInfo()
     /// Coordinate display type.
@@ -35,18 +29,13 @@ struct ContentView: View {
     var body: some View {
         MapReader { mapContext in
             ZStack(alignment: .top) {
-                BackgroundMapLayersV(displayType: $displayType, mapContext: mapContext)
+                BackgroundMapLayersV(displayType: $displayType, editor: $editing, mapContext: mapContext)
                     .environment(\.locationDisplayMode, displayType)
-                if let editingMapMap = editingMapMap {
-                    MapMapEditor(mapMap: editingMapMap, mapContext: mapContext)
-                }
-                else if let editingMarker = editingMarker {
-                    MarkerEditorV(marker: editingMarker, mapContext: mapContext)
-                }
-                else if let editingMeasurement = editingMeasurement {
-                    MeasurementEditorV(measurement: editingMeasurement, mapContext: mapContext)
-                }
-                else {
+                switch editing {
+                case .mapMap(let mapMap): MapMapEditor(mapMap: mapMap, mapContext: mapContext)
+                case .marker(let marker): MarkerEditorV(marker: marker, mapContext: mapContext)
+                case .measurement: MeasurementEditorV(editing: $editing, mapContext: mapContext)
+                case .nothing:
                     BottomDrawer(
                         verticalDetents: [.medium, .large, .header],
                         horizontalDetents: [.left, .right],
@@ -65,12 +54,14 @@ struct ContentView: View {
             AlertToast(displayMode: .hud, type: .loading, title: "Saving", subTitle: toastInfo.info)
         })
         .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { _ in
-            let editingMapMap = mapMaps.first(where: { $0.isEditing })
-            if self.editingMapMap != editingMapMap { self.editingMapMap = editingMapMap }
-            let editingMarker = markers.first(where: { $0.isEditing })
-            if self.editingMarker != editingMarker { self.editingMarker = editingMarker }
-            let editingMeasurement = measurements.first(where: { $0.isEditing })
-            if self.editingMeasurement != editingMeasurement { self.editingMeasurement = editingMeasurement }
+            if let editingMapMap = mapMaps.first(where: { $0.isEditing }) {
+                self.editing = .mapMap(editingMapMap)
+                return
+            }
+            if let editingMarker = markers.first(where: { $0.isEditing }) {
+                self.editing = .marker(editingMarker)
+                return
+            }
         }
         .onReceive(NotificationCenter.default.publisher(for: .savingToastNotification)) { notification in
             if let showing = notification.userInfo?["savingVal"] as? Bool {

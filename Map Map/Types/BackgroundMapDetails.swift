@@ -68,23 +68,4 @@ final class BackgroundMapDetailsM {
             )
         }
     }
-    
-    /// Translate the background map to the desired MapMeasurement location and scale.
-    func moveMapCameraTo(measurement: MapMeasurement) {
-        let centerLatitude = (measurement.startingLatitude + measurement.endingLatitude) / 2
-        let centerLongitude = (measurement.startingLongitude + measurement.endingLongitude) / 2
-        
-        withAnimation {
-            mapCamera = .region(MKCoordinateRegion(
-                center: CLLocationCoordinate2D(
-                    latitude: centerLatitude,
-                    longitude: centerLongitude
-                ),
-                span: MKCoordinateSpan(
-                    latitudeDelta: abs(measurement.startingLatitude - measurement.endingLatitude) * 1.5,
-                    longitudeDelta: abs(measurement.startingLongitude - measurement.endingLongitude) * 1.2
-                )
-            ))
-        }
-    }
 }

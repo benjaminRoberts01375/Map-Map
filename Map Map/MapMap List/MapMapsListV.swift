@@ -17,7 +17,7 @@ struct MapMapList: View {
     /// All available Markers.
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
     /// All available Map Measurements.
-    @FetchRequest(sortDescriptors: []) private var measurements: FetchedResults<MapMeasurement>
+    @FetchRequest(sortDescriptors: []) private var measurements: FetchedResults<MapMeasurementCoordinate>
     /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
     /// Current color scheme. Ex. Dark or Light mode.
@@ -40,9 +40,6 @@ struct MapMapList: View {
                     if !mapMap.formattedMarkers.isEmpty {
                         CombineMarkerListItemsV(mapMap: mapMap)
                     }
-                    if !mapMap.formattedMeasurements.isEmpty {
-                        CombineMapMeasurementListItemsV(mapMap: mapMap)
-                    }
                 }
             }
             .background(colorScheme == .dark ? .gray20 : Color.white)
@@ -56,21 +53,6 @@ struct MapMapList: View {
                     .padding(.bottom, 5)
                 VStack {
                     MapMapListUnsortedMarkersV()
-                }
-                .padding(.top, 5)
-                .background(colorScheme == .dark ? .gray20 : Color.white)
-                .clipShape(RoundedRectangle(cornerRadius: 15))
-                .padding(.bottom)
-            }
-            
-            if measurements.contains(where: { $0.mapMap == nil }) {
-                Text("Unsorted Measurements")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding(.top)
-                    .padding(.bottom, 5)
-                VStack {
-                    MapMapListUnsortedMeasurementsV()
                 }
                 .padding(.top, 5)
                 .background(colorScheme == .dark ? .gray20 : Color.white)
