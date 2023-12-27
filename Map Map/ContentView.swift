@@ -58,10 +58,11 @@ struct ContentView: View {
                 self.editing = .mapMap(editingMapMap)
                 return
             }
-            if let editingMarker = markers.first(where: { $0.isEditing }) {
+            else if let editingMarker = markers.first(where: { $0.isEditing }) {
                 self.editing = .marker(editingMarker)
                 return
             }
+            else { self.editing = .nothing }
         }
         .onReceive(NotificationCenter.default.publisher(for: .savingToastNotification)) { notification in
             if let showing = notification.userInfo?["savingVal"] as? Bool {
