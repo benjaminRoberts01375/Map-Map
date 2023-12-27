@@ -11,10 +11,7 @@ struct MapLabelVModifier: ViewModifier {
     private let shadowRadius: CGFloat = 8
     func body(content: Content) -> some View {
         content
-            .shadow(radius: shadowRadius)
-            .shadow(radius: shadowRadius)
-            .shadow(radius: shadowRadius)
-            .shadow(radius: shadowRadius)
+            .shadow(color: .black, radius: shadowRadius)
     }
 }
 
