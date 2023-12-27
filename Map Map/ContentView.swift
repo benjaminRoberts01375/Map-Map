@@ -53,7 +53,7 @@ struct ContentView: View {
         .toast(isPresenting: $toastInfo.showing, tapToDismiss: false, alert: {
             AlertToast(displayMode: .hud, type: .loading, title: "Saving", subTitle: toastInfo.info)
         })
-        .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { _ in
+        .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)) { _ in
             if let editingMapMap = mapMaps.first(where: { $0.isEditing }) {
                 self.editing = .mapMap(editingMapMap)
                 return
