@@ -7,5 +7,5 @@ assignees: benjaminRoberts01375
 
 ---
 
-**Areas of cleanup:**
+**Areas to cleanup:**
 - 
