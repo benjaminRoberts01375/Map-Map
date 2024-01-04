@@ -11,11 +11,11 @@ import SwiftUI
 /// A basic struct to track the connection between two measurement points.
 struct Connection: Identifiable {
     /// Supposed starting position of the connection.
-    public let start: MapMeasurementCoordinate
+    public var start: MapMeasurementCoordinate
     /// Supposed ending position of the connection
-    public let end: MapMeasurementCoordinate
+    public var end: MapMeasurementCoordinate
     /// Distance between the start and end position.
-    public let distance: Measurement<UnitLength>
+    public var distance: Measurement<UnitLength>
     /// ID for Identifiable conformance.
     let id = UUID()
     
