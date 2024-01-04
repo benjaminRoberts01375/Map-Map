@@ -69,11 +69,11 @@ struct MapMapEditor: View {
                     }
                     HStack {
                         Button(action: {
-                            mapMap.coordinates = backgroundMapDetails.position
-                            mapMap.mapMapRotation = backgroundMapDetails.rotation.degrees
-                            mapMap.mapMapScale = mapMapPosition.width / backgroundMapDetails.scale
+                            mapMap.coordinates = backgroundMapDetails.region.center
+                            mapMap.mapMapRotation = -backgroundMapDetails.mapCamera.heading
+                            mapMap.mapMapScale = mapMapPosition.width * backgroundMapDetails.mapCamera.distance
                             mapMap.mapMapName = workingName
-                            mapMap.mapDistance = 1 / backgroundMapDetails.scale
+                            mapMap.mapDistance = backgroundMapDetails.mapCamera.distance
                             mapMap.isEditing = false
                             mapMap.isSetup = true
                             if let overlappingMarkers = MapMapEditor.mapMapOverMarkers(
