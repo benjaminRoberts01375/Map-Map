@@ -113,19 +113,7 @@ struct BackgroundMapPointsV: View {
             .animation(.linear, value: ssUserLocation)
         }
         .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { interpretCDNotification($0) }
-        .onChange(of: backgroundMapDetails.region.center) {
-            Task {
-                let positions = await calculateSSlineEndPos()
-                DispatchQueue.main.async { self.lineEnds = positions }
-            }
-        }
-        .onChange(of: backgroundMapDetails.mapCamera.heading) {
-            Task {
-                let positions = await calculateSSlineEndPos()
-                DispatchQueue.main.async { self.lineEnds = positions }
-            }
-        }
-        .onChange(of: backgroundMapDetails.mapCamera.distance) {
+        .onChange(of: backgroundMapDetails.mapCamera) {
             Task {
                 let positions = await calculateSSlineEndPos()
                 DispatchQueue.main.async { self.lineEnds = positions }
