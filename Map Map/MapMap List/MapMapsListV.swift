@@ -12,10 +12,12 @@ import SwiftUI
 struct MapMapList: View {
     /// Information about the background map being plotted on.
     @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
-    /// All available MapMaps
+    /// All available MapMaps.
     @FetchRequest(sortDescriptors: []) private var mapMaps: FetchedResults<MapMap>
-    /// All available Markers
+    /// All available Markers.
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
+    /// All available Map Measurements.
+    @FetchRequest(sortDescriptors: []) private var measurements: FetchedResults<MapMeasurementCoordinate>
     /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
     /// Current color scheme. Ex. Dark or Light mode.

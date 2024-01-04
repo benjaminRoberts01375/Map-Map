@@ -8,6 +8,7 @@
 import AlertToast
 import Bottom_Drawer
 import CoreData
+import MapKit
 import SwiftUI
 
 /// First displayed view in MapMap
@@ -18,47 +19,50 @@ struct ContentView: View {
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
     /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
-    /// MapMap being edited.
-    @State private var editingMapMap: MapMap?
-    /// Marker being edited.
-    @State private var editingMarker: Marker?
+    /// Object being edited
+    @State var editing: Editor = .nothing
     /// Information to display in a Toast notification.
     @State private var toastInfo: ToastInfo = ToastInfo()
     /// Coordinate display type.
     @State private var displayType: LocationDisplayMode = .degrees
     
     var body: some View {
-        ZStack(alignment: .top) {
-            BackgroundMapLayersV(displayType: $displayType)
-                .environment(\.locationDisplayMode, displayType)
-            if let editingMapMap = editingMapMap {
-                MapMapEditor(mapMap: editingMapMap)
-            }
-            else if let editingMarker = editingMarker {
-                MarkerEditorV(marker: editingMarker)
-            }
-            else {
-                BottomDrawer(
-                    verticalDetents: [.medium, .large, .header],
-                    horizontalDetents: [.left, .right],
-                    shortCardSize: 315,
-                    header: { _ in DefaultDrawerHeaderV() },
-                    content: { _ in
-                        MapMapList()
-                            .environment(\.locationDisplayMode, displayType)
-                            .padding(.horizontal)
-                    }
-                )
+        MapReader { mapContext in
+            ZStack(alignment: .top) {
+                BackgroundMapLayersV(displayType: $displayType, editor: $editing, mapContext: mapContext)
+                    .environment(\.locationDisplayMode, displayType)
+                switch editing {
+                case .mapMap(let mapMap): MapMapEditor(mapMap: mapMap, mapContext: mapContext)
+                case .marker(let marker): MarkerEditorV(marker: marker, mapContext: mapContext)
+                case .measurement: MeasurementEditorV(editing: $editing, mapContext: mapContext)
+                case .nothing:
+                    BottomDrawer(
+                        verticalDetents: [.medium, .large, .header],
+                        horizontalDetents: [.left, .right],
+                        shortCardSize: 315,
+                        header: { _ in DefaultDrawerHeaderV() },
+                        content: { _ in
+                            MapMapList()
+                                .environment(\.locationDisplayMode, displayType)
+                                .padding(.horizontal)
+                        }
+                    )
+                }
             }
         }
         .toast(isPresenting: $toastInfo.showing, tapToDismiss: false, alert: {
             AlertToast(displayMode: .hud, type: .loading, title: "Saving", subTitle: toastInfo.info)
         })
-        .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { _ in
-            let editingMapMap = mapMaps.first(where: { $0.isEditing })
-            if self.editingMapMap != editingMapMap { self.editingMapMap = editingMapMap }
-            let editingMarker = markers.first(where: { $0.isEditing })
-            if self.editingMarker != editingMarker { self.editingMarker = editingMarker }
+        .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)) { _ in
+            if let editingMapMap = mapMaps.first(where: { $0.isEditing }) {
+                self.editing = .mapMap(editingMapMap)
+                return
+            }
+            else if let editingMarker = markers.first(where: { $0.isEditing }) {
+                self.editing = .marker(editingMarker)
+                return
+            }
+            else { self.editing = .nothing }
         }
         .onReceive(NotificationCenter.default.publisher(for: .savingToastNotification)) { notification in
             if let showing = notification.userInfo?["savingVal"] as? Bool {

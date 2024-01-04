@@ -13,5 +13,6 @@ struct MapUserIcon: View {
         Image(systemName: "person.circle.fill")
             .resizable()
             .foregroundStyle(.white, .blue)
+            .accessibilityLabel("Your current location")
     }
 }

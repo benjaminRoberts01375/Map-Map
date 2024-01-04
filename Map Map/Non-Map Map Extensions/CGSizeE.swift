@@ -8,6 +8,12 @@
 import Foundation
 
 extension CGSize {
+    /// Create a CGSize from a CGPoint.
+    /// - Parameter cgPoint: CGPoint to convert.
+    init(cgPoint: CGPoint) {
+        self.init(width: cgPoint.x, height: cgPoint.y)
+    }
+    
     static func * (lhs: CGSize, rhs: CGSize) -> CGSize {
         return CGSize(width: lhs.width * rhs.width, height: lhs.height * rhs.height)
     }

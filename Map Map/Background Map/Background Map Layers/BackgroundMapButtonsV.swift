@@ -16,18 +16,20 @@ struct BackgroundMapButtonsV: View {
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
     /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
-    /// Screen-space positions of Markers, MapMaps, and the user's location.
-    @Environment(ScreenSpacePositionsM.self) private var screenSpacePositions
     /// Details about the background map.
     @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
     /// Tracker for adding or removing markers.
     @State private var markerButton: MarkerButtonType = .add
     /// Coordinate display type.
     @Binding var displayType: LocationDisplayMode
+    /// Current editor being used.
+    @Binding var editor: Editor
     /// Size of parent view.
     let screenSize: CGSize
     /// Background map ID.
     let mapScope: Namespace.ID
+    
+    let mapContext: MapProxy
     
     /// Type for tracking adding or removing markers.
     enum MarkerButtonType: Equatable {
@@ -38,10 +40,17 @@ struct BackgroundMapButtonsV: View {
     }
     
     var body: some View {
-        HStack(alignment: .top) {
+        HStack(alignment: .top, spacing: 0) {
             VStack {
                 BackgroundMapHudV(rawDisplayType: $displayType)
                 MapScaleView(scope: mapScope)
+            }
+            .padding(.trailing, BackgroundMapLayersV.minSafeAreaDistance)
+            .background {
+                BlurView()
+                    .blur(radius: BackgroundMapLayersV.blurAmount)
+                    .ignoresSafeArea()
+                    .allowsHitTesting(false)
             }
             VStack {
                 MapUserLocationButton(scope: mapScope)
@@ -54,6 +63,7 @@ struct BackgroundMapButtonsV: View {
                         addMarker()
                     } label: {
                         Image(systemName: "mappin.and.ellipse")
+                            .accessibilityLabel("Add Marker Button")
                             .mapButton()
                     }
                 case .delete(let marker):
@@ -62,9 +72,25 @@ struct BackgroundMapButtonsV: View {
                         try? moc.save()
                     } label: {
                         Image(systemName: "mappin.slash")
+                            .accessibilityLabel("Remove Marker Button")
                             .mapButton()
                     }
                 }
+                
+                Button {
+                    editor = .measurement
+                } label: {
+                    Image(systemName: "ruler")
+                        .accessibilityLabel("Edit Measurements Button")
+                        .rotationEffect(Angle(degrees: -45))
+                        .mapButton()
+                }
+            }
+            .background {
+                BlurView()
+                    .blur(radius: BackgroundMapLayersV.blurAmount)
+                    .ignoresSafeArea()
+                    .allowsHitTesting(false)
             }
         }
         .animation(.easeInOut, value: markerButton)
@@ -77,7 +103,7 @@ struct BackgroundMapButtonsV: View {
     
     func checkOverMarker() {
         for marker in markers {
-            if let markerPos = screenSpacePositions[marker] {
+            if let markerPos = mapContext.convert(marker.coordinates, to: .global) {
                 let xComponent = abs(markerPos.x - screenSize.width / 2)
                 let yComponent = abs(markerPos.y - screenSize.height / 2)
                 let distance = sqrt(pow(xComponent, 2) + pow(yComponent, 2))
@@ -99,11 +125,12 @@ struct BackgroundMapButtonsV: View {
         let newMarker = Marker(coordinates: backgroundMapDetails.position, insertInto: moc)
         let centerPoint: CGPoint = CGPoint(size: screenSize / 2)
         for mapMap in mapMaps {
-            if let path = screenSpacePositions.generateMapMapRotatedBounds(
+            if let path = BackgroundMap.generateMapMapRotatedConvexHull(
                 mapMap: mapMap,
-                backgroundMapRotation: backgroundMapDetails.rotation
-            )?.cgPath, 
-                path.contains(centerPoint) {
+                backgroundMapDetails: backgroundMapDetails,
+                mapContext: mapContext
+            )?.cgPath,
+               path.contains(centerPoint) {
                 newMarker.addToMapMap(mapMap)
             }
         }

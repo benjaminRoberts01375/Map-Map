@@ -36,6 +36,7 @@ struct MarkerSymbolPickerItemV: View {
                     .scaledToFit()
                     .foregroundStyle(foregroundColor)
                     .scaleEffect(0.6)
+                    .accessibilityLabel("\(symbol) marker icon")
             }
     }
 }

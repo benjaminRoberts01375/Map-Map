@@ -46,6 +46,7 @@ struct MapMapV: View {
                     .resizable()
                     .scaledToFit()
                     .foregroundStyle(.yellow)
+                    .accessibilityLabel("Could not load Map Map")
             }
         }
     }
