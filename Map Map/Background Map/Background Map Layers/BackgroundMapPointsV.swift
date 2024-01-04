@@ -112,8 +112,37 @@ struct BackgroundMapPointsV: View {
             }
             .animation(.linear, value: ssUserLocation)
         }
-        .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { _ in
-            self.lines = connectionsToDraw()
+        .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { notification in
+            for userInfoElement in notification.userInfo ?? [:] {
+                if let message = userInfoElement.key as? String {
+                    if message == .invalidatedAll || message == .deleted || message == .inserted {
+                        self.lines = connectionsToDraw()
+                        break
+                    }
+                    else if message == .update {
+                        if let mapCoordinates = userInfoElement.value as? Set<MapMeasurementCoordinate> {
+                            for mapCoordinate in mapCoordinates {
+                                for (lineIndex, _) in lines.enumerated() {
+                                    if lines[lineIndex].start == mapCoordinate {
+                                        let startLocation = CLLocation(latitude: mapCoordinate.latitude, longitude: mapCoordinate.longitude)
+                                        let endLocation = CLLocation(latitude: lines[lineIndex].end.latitude, longitude: lines[lineIndex].end.longitude)
+                                        lines[lineIndex].distance = Measurement(value: endLocation.distance(from: startLocation), unit: .meters)
+                                    }
+                                    else if lines[lineIndex].end == mapCoordinate {
+                                        let startLocation = CLLocation(latitude: mapCoordinate.latitude, longitude: mapCoordinate.longitude)
+                                        let endLocation = CLLocation(latitude: lines[lineIndex].start.latitude, longitude: lines[lineIndex].start.longitude)
+                                        lines[lineIndex].distance = Measurement(value: endLocation.distance(from: startLocation), unit: .meters)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            Task {
+                let positions = await calculateSSlineEndPos()
+                DispatchQueue.main.async { self.lineEnds = positions }
+            }
         }
         .onChange(of: backgroundMapDetails.position) {
             Task {
