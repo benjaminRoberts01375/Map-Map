@@ -172,12 +172,14 @@ struct MeasurementEditorV: View {
     func binding(for key: MapMeasurementCoordinate) -> Binding<CGSize> {
         Binding<CGSize>(
             get: { self.handlePositions[key] ?? .zero },
-            set: {
-                guard let mapCoords = mapContext.convert(CGPoint(size: $0), from: .global)
-                else { return }
-                self.handlePositions[key] = $0
-                key.coordinates = mapCoords
+            set: { newVal in
+                self.handlePositions[key] = newVal
                 self.selectedMeasurement = key
+                Task {
+                    guard let mapCoords = mapContext.convert(CGPoint(size: newVal), from: .global)
+                    else { return }
+                    key.coordinates = mapCoords
+                }
             }
         )
     }
