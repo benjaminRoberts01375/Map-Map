@@ -112,6 +112,8 @@ struct MeasurementEditorV: View {
                 
                 BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
                     VStack {
+                        Text("Drag to measure.")
+                            .foregroundStyle(.secondary)
                         HStack {
                             // Done button
                             Button {
