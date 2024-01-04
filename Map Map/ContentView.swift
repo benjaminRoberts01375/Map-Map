@@ -76,16 +76,6 @@ struct ContentView: View {
                 toastInfo.info = info
             }
         }
-        .task {
-            for mapMap in mapMaps {
-                if !mapMap.isSetup { moc.delete(mapMap) }
-                else if mapMap.isEditing == true { mapMap.isEditing = false }
-            }
-            for marker in markers where marker.isEditing {
-                marker.isEditing = false
-            }
-            try? moc.save()
-        }
     }
 }
 
