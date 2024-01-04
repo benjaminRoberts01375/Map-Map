@@ -48,6 +48,7 @@ struct MarkerEditorV: View {
                             .opacity(saveAngle ? 1 : 0.75)
                             .mapButton()
                             .saturation(saveAngle ? 1 : 0)
+                            .accessibilityLabel(saveAngle ? "Unlock marker rotation" : "Lock marker rotation")
                     }
                     Color.clear
                 }

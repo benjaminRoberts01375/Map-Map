@@ -122,7 +122,7 @@ struct BackgroundMapPointsV: View {
                     else if message == .update {
                         if let mapCoordinates = userInfoElement.value as? Set<MapMeasurementCoordinate> {
                             for mapCoordinate in mapCoordinates {
-                                for (lineIndex, _) in lines.enumerated() {
+                                for lineIndex in lines.indices {
                                     if lines[lineIndex].start == mapCoordinate {
                                         let startLocation = CLLocation(latitude: mapCoordinate.latitude, longitude: mapCoordinate.longitude)
                                         let endLocation = CLLocation(latitude: lines[lineIndex].end.latitude, longitude: lines[lineIndex].end.longitude)
@@ -203,6 +203,9 @@ struct BackgroundMapPointsV: View {
     
     func pointIsInBounds(_ point: CGPoint, screenSize: CGSize) -> Bool {
         let padding = 1.3
-        return (point.x > -screenSize.width * padding) && (point.x < screenSize.width * padding) && (point.y > -screenSize.height * padding) && (point.y < screenSize.height * padding)
+        return (point.x > -screenSize.width * padding) && 
+        (point.x < screenSize.width * padding) &&
+        (point.y > -screenSize.height * padding) &&
+        (point.y < screenSize.height * padding)
     }
 }

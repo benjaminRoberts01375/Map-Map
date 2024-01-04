@@ -41,6 +41,7 @@ struct DefaultDrawerHeaderV: View {
                 Image(systemName: "plus.circle.fill")
                     .symbolRenderingMode(.hierarchical)
                     .resizable()
+                    .accessibilityLabel("Add Map Map Button")
                     .frame(width: 22, height: 22)
             }
             Spacer()

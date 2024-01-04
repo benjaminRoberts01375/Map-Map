@@ -60,6 +60,7 @@ struct MapMapEditor: View {
                             showingPhotoEditor = true
                         }, label: {
                             Image(systemName: "crop")
+                                .accessibilityLabel("Crop MapMap Button")
                                 .padding(4)
                                 .background(.gray)
                                 .clipShape(Circle())

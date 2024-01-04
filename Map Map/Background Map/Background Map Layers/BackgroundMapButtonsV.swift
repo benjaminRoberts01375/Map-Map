@@ -63,6 +63,7 @@ struct BackgroundMapButtonsV: View {
                         addMarker()
                     } label: {
                         Image(systemName: "mappin.and.ellipse")
+                            .accessibilityLabel("Add Marker Button")
                             .mapButton()
                     }
                 case .delete(let marker):
@@ -71,6 +72,7 @@ struct BackgroundMapButtonsV: View {
                         try? moc.save()
                     } label: {
                         Image(systemName: "mappin.slash")
+                            .accessibilityLabel("Remove Marker Button")
                             .mapButton()
                     }
                 }
@@ -79,6 +81,7 @@ struct BackgroundMapButtonsV: View {
                     editor = .measurement
                 } label: {
                     Image(systemName: "ruler")
+                        .accessibilityLabel("Edit Measurements Button")
                         .rotationEffect(Angle(degrees: -45))
                         .mapButton()
                 }
