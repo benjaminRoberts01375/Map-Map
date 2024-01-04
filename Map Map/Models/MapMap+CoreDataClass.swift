@@ -131,8 +131,9 @@ extension MapMap {
     ///   - context: Managed Object Context to store the resulting MapMap in.
     public convenience init(rawPhoto: PhotosPickerItem?, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
-        thumbnail = .loading
-        image = .loading
+        self.thumbnail = .loading
+        self.image = .loading
+        self.isEditing = true
         self.mapMapName = "Untitled map"
         Task {
             if let mapData = try? await rawPhoto?.loadTransferable(type: Data.self) {
