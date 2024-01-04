@@ -83,6 +83,7 @@
 		B51655CC2B3BCC15006FBE67 /* MapMeasurementCoordinate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51655CB2B3BCC15006FBE67 /* MapMeasurementCoordinate+CoreDataProperties.swift */; };
 		B51655CE2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51655CD2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift */; };
 		B51655D02B3CB5A4006FBE67 /* MapConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51655CF2B3CB5A4006FBE67 /* MapConnection.swift */; };
+		B587C2752B46517C001DD4F9 /* StringE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B587C2742B46517C001DD4F9 /* StringE.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -163,6 +164,7 @@
 		B51655CB2B3BCC15006FBE67 /* MapMeasurementCoordinate+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MapMeasurementCoordinate+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B51655CD2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MapMeasurementCoordinate+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B51655CF2B3CB5A4006FBE67 /* MapConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapConnection.swift; sourceTree = "<group>"; };
+		B587C2742B46517C001DD4F9 /* StringE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringE.swift; sourceTree = "<group>"; };
 		F9F51AE19721651D3510199A /* Pods_Map_Map.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Map_Map.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -271,6 +273,7 @@
 				078C6DCF2B0B0996001AD131 /* CLLocationCoordinate2DE.swift */,
 				07D522F22AE5CCCF009364B3 /* CLLocationDegreesE.swift */,
 				073733422B096C10004B96D1 /* DoubleE.swift */,
+				B587C2742B46517C001DD4F9 /* StringE.swift */,
 				07EB79E62B01A7F600DC2699 /* UIImageE.swift */,
 			);
 			path = "Non-Map Map Extensions";
@@ -586,6 +589,7 @@
 				07D742C12ADB67CB0087FFC5 /* BackgroundMapDetails.swift in Sources */,
 				073CCDEF2B2E577F00ECCD7B /* MapLabelVModifier.swift in Sources */,
 				079B60422B2D589E0073E936 /* PositionAlignmentVModifier.swift in Sources */,
+				B587C2752B46517C001DD4F9 /* StringE.swift in Sources */,
 				079B603D2B2CBD150073E936 /* MeasurementEditorV.swift in Sources */,
 				0744E7172AFB203D00D9F0B5 /* CameraPreviewVM.swift in Sources */,
 				07E465532B0C34C9005193F1 /* MarkerContextMenuV.swift in Sources */,
