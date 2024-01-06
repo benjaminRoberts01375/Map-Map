@@ -123,16 +123,13 @@ struct BackgroundMapButtonsV: View {
     
     func addMarker() {
         let newMarker = Marker(coordinates: backgroundMapDetails.position, insertInto: moc)
-        let centerPoint: CGPoint = CGPoint(size: screenSize / 2)
-        for mapMap in mapMaps {
-            if let path = BackgroundMap.generateMapMapRotatedConvexHull(
-                mapMap: mapMap,
-                backgroundMapDetails: backgroundMapDetails,
-                mapContext: mapContext
-            )?.cgPath,
-               path.contains(centerPoint) {
-                newMarker.addToMapMap(mapMap)
-            }
+        if let overlappedMapMaps = MarkerEditorV.markerOverMapMaps(
+            newMarker,
+            backgroundMapDetails: backgroundMapDetails,
+            mapContext: mapContext,
+            mapMaps: mapMaps
+        ) {
+            for mapMap in overlappedMapMaps { newMarker.addToMapMap(mapMap) }
         }
         try? moc.save()
     }
