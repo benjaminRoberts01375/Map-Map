@@ -60,10 +60,10 @@ struct DefaultDrawerHeaderV: View {
             rawPhotos = []
         }
         .photosPicker(isPresented: $photosPickerPresented, selection: $rawPhotos, maxSelectionCount: 1, matching: .images)
-        .fileImporter(isPresented: $filePickerPresented, allowedContentTypes: [.png, .jpeg]) { result in
+        .fileImporter(isPresented: $filePickerPresented, allowedContentTypes: [.png, .jpeg, .pdf]) { result in
             switch result {
             case .success(let url): generateMapMapFromURL(url)
-            case .failure(let error): return
+            case .failure(_): return
             }
         }
         .sheet(isPresented: $cameraPresented, content: {
