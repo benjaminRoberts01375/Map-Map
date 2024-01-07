@@ -62,30 +62,34 @@ struct DefaultDrawerHeaderV: View {
         .photosPicker(isPresented: $photosPickerPresented, selection: $rawPhotos, maxSelectionCount: 1, matching: .images)
         .fileImporter(isPresented: $filePickerPresented, allowedContentTypes: [.png, .jpeg]) { result in
             switch result {
-            case .success(let url):
-                // Get file permissions
-                if !url.startAccessingSecurityScopedResource() { print("No access"); return }
-                defer { url.stopAccessingSecurityScopedResource() }
-                
-                // Read file data
-                let data: Data
-                do { data = try Data(contentsOf: url) }
-                catch { return }
-                
-                // Determine file type
-                guard let fileType = UTType(filenameExtension: url.pathExtension)
-                else { return }
-                switch fileType {
-                case .png, .jpeg:
-                    if let image = UIImage(data: data) { _ = MapMap(rawPhoto: image, insertInto: moc) }
-                default: return
-                }
-                
+            case .success(let url): generateMapMapFromURL(url)
             case .failure(let error): return
             }
         }
         .sheet(isPresented: $cameraPresented, content: {
             CameraV()
         })
+    }
+    
+    /// Creates a MapMap from a URL if the resulting data is a `PNG` or `JPEG`.
+    /// - Parameter url: URL to pull data from.
+    private func generateMapMapFromURL(_ url: URL) {
+        // Get file permissions
+        if !url.startAccessingSecurityScopedResource() { return }
+        defer { url.stopAccessingSecurityScopedResource() }
+        
+        // Read file data
+        let data: Data
+        do { data = try Data(contentsOf: url) }
+        catch { return }
+        
+        // Determine file type
+        guard let fileType = UTType(filenameExtension: url.pathExtension)
+        else { return }
+        switch fileType {
+        case .png, .jpeg:
+            if let image = UIImage(data: data) { _ = MapMap(rawPhoto: image, insertInto: moc) }
+        default: return
+        }
     }
 }
