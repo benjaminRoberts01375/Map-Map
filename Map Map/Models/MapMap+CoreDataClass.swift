@@ -162,6 +162,7 @@ extension MapMap {
         self.init(context: context)
         let outputImage = Image(uiImage: rawPhoto)
         image = .success(outputImage)
+        isEditing = true
         Task {
             thumbnail = .loading
             self.mapMapName = "Untitled map"
