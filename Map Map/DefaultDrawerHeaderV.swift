@@ -60,31 +60,30 @@ struct DefaultDrawerHeaderV: View {
             rawPhotos = []
         }
         .photosPicker(isPresented: $photosPickerPresented, selection: $rawPhotos, maxSelectionCount: 1, matching: .images)
-        .fileImporter(isPresented: $filePickerPresented, allowedContentTypes: [.png, .jpeg, .pdf], onCompletion: { result in
+        .fileImporter(isPresented: $filePickerPresented, allowedContentTypes: [.png, .jpeg]) { result in
             switch result {
             case .success(let url):
-                // Setup security access
-                let gotAccess = url.startAccessingSecurityScopedResource()
+                // Get file permissions
+                if !url.startAccessingSecurityScopedResource() { print("No access"); return }
                 defer { url.stopAccessingSecurityScopedResource() }
-                if !gotAccess { return }
+                
+                // Read file data
+                let data: Data
+                do { data = try Data(contentsOf: url) }
+                catch { return }
                 
                 // Determine file type
                 guard let fileType = UTType(filenameExtension: url.pathExtension)
                 else { return }
-                
                 switch fileType {
-                case .pdf:
-                    print("PDF!")
                 case .png, .jpeg:
-                    print("Photo!")
-                default:
-                    print("Unknown")
+                    if let image = UIImage(data: data) { _ = MapMap(rawPhoto: image, insertInto: moc) }
+                default: return
                 }
                 
-            case .failure(let error): // Nope
-                print("Error", error.localizedDescription)
+            case .failure(let error): return
             }
-        })
+        }
         .sheet(isPresented: $cameraPresented, content: {
             CameraV()
         })
