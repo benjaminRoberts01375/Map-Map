@@ -16,6 +16,8 @@ struct DefaultDrawerHeaderV: View {
     @State private var rawPhotos: [PhotosPickerItem] = []
     /// Tracker for showing the photo picker.
     @State private var photosPickerPresented = false
+    /// Tracker for showing the file picker
+    @State private var filePickerPresented = false
     /// Tracker for showing the camera.
     @State private var cameraPresented = false
     
@@ -37,6 +39,11 @@ struct DefaultDrawerHeaderV: View {
                     Label("Photo Library", systemImage: "photo.on.rectangle.angled")
                         .symbolRenderingMode(.hierarchical)
                 }
+                Button {
+                    filePickerPresented = true
+                } label: {
+                    Label("Files", systemImage: "folder.fill")
+                }
             } label: {
                 Image(systemName: "plus.circle.fill")
                     .symbolRenderingMode(.hierarchical)
@@ -52,6 +59,18 @@ struct DefaultDrawerHeaderV: View {
             rawPhotos = []
         }
         .photosPicker(isPresented: $photosPickerPresented, selection: $rawPhotos, maxSelectionCount: 1, matching: .images)
+        .fileImporter(isPresented: $filePickerPresented, allowedContentTypes: [.png, .jpeg], onCompletion: { result in
+            switch result {
+            case .success(let url):
+                let gotAccess = url.startAccessingSecurityScopedResource()
+                if !gotAccess { print("No access"); return } // No clearance
+                print("We good")
+                // Do stuff
+                url.stopAccessingSecurityScopedResource()
+            case .failure(let error): // Nope
+                print("Error", error.localizedDescription)
+            }
+        })
         .sheet(isPresented: $cameraPresented, content: {
             CameraV()
         })
