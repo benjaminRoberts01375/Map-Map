@@ -22,6 +22,10 @@ struct DefaultDrawerHeaderV: View {
     @State private var filePickerPresented = false
     /// Tracker for showing the camera.
     @State private var cameraPresented = false
+    /// An error message to display when needed.
+    @State private var errorMessage: String = ""
+    /// Trakcer for showing errors.
+    @State private var errorPresented = false
     
     var body: some View {
         HStack {
@@ -60,11 +64,16 @@ struct DefaultDrawerHeaderV: View {
             for rawPhoto in updatedRawPhotos { _ = MapMap(rawPhoto: rawPhoto, insertInto: moc) }
             rawPhotos = []
         }
+        .alert("Oh no!", isPresented: $errorPresented, actions: {
+            Button("Ok ( ͡° ͜ʖ ͡°)7", role: .cancel) { errorPresented = false }
+        }, message: {
+            Text("\(errorMessage) Sorry!")
+        })
         .photosPicker(isPresented: $photosPickerPresented, selection: $rawPhotos, maxSelectionCount: 1, matching: .images)
         .fileImporter(isPresented: $filePickerPresented, allowedContentTypes: [.png, .jpeg, .pdf]) { result in
             switch result {
             case .success(let url): generateMapMapFromURL(url)
-            case .failure(_): return
+            case .failure: return
             }
         }
         .sheet(isPresented: $cameraPresented, content: {
@@ -76,14 +85,20 @@ struct DefaultDrawerHeaderV: View {
     /// - Parameter url: URL to pull data from.
     private func generateMapMapFromURL(_ url: URL) {
         // Get file permissions
-        if !url.startAccessingSecurityScopedResource() { return }
+        if !url.startAccessingSecurityScopedResource() {
+            errorMessage = "We're not able to get permission to open your file."
+            return
+        }
         defer { url.stopAccessingSecurityScopedResource() }
         
         // Read file data
         let data: Data
         do { data = try Data(contentsOf: url) }
-        catch { return }
-        
+        catch {
+            errorMessage = "We're not able to read your file."
+            errorPresented = true
+            return
+        }
         // Determine file type
         guard let fileType = UTType(filenameExtension: url.pathExtension)
         else { return }
@@ -91,7 +106,10 @@ struct DefaultDrawerHeaderV: View {
         case .pdf: importPDF(data)
         case .png, .jpeg:
             if let image = UIImage(data: data) { _ = MapMap(rawPhoto: image, insertInto: moc) }
-        default: return
+        default:
+            errorMessage = "We're not sure what kind of file this is. Import only PDFs, JPEGs, and PNGs."
+            errorPresented = true
+            return
         }
     }
     
@@ -100,7 +118,11 @@ struct DefaultDrawerHeaderV: View {
     private func importPDF(_ rawData: Data) {
         guard let document = PDFDocument(data: rawData),
               let firstPage = document.page(at: 0) 
-        else { return }
+        else {
+            errorMessage = "We're not able to read your PDF."
+            errorPresented = true
+            return
+        }
 
         let bounds = firstPage.bounds(for: .cropBox)
         let renderer = UIGraphicsImageRenderer(bounds: bounds)
