@@ -7,6 +7,7 @@
 
 import PhotosUI
 import SwiftUI
+import MobileCoreServices
 
 /// Information and buttons to display in the header of the default bottom drawer.
 struct DefaultDrawerHeaderV: View {
@@ -59,14 +60,27 @@ struct DefaultDrawerHeaderV: View {
             rawPhotos = []
         }
         .photosPicker(isPresented: $photosPickerPresented, selection: $rawPhotos, maxSelectionCount: 1, matching: .images)
-        .fileImporter(isPresented: $filePickerPresented, allowedContentTypes: [.png, .jpeg], onCompletion: { result in
+        .fileImporter(isPresented: $filePickerPresented, allowedContentTypes: [.png, .jpeg, .pdf], onCompletion: { result in
             switch result {
             case .success(let url):
+                // Setup security access
                 let gotAccess = url.startAccessingSecurityScopedResource()
-                if !gotAccess { print("No access"); return } // No clearance
-                print("We good")
-                // Do stuff
-                url.stopAccessingSecurityScopedResource()
+                defer { url.stopAccessingSecurityScopedResource() }
+                if !gotAccess { return }
+                
+                // Determine file type
+                guard let fileType = UTType(filenameExtension: url.pathExtension)
+                else { return }
+                
+                switch fileType {
+                case .pdf:
+                    print("PDF!")
+                case .png, .jpeg:
+                    print("Photo!")
+                default:
+                    print("Unknown")
+                }
+                
             case .failure(let error): // Nope
                 print("Error", error.localizedDescription)
             }
