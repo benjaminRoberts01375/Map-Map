@@ -169,10 +169,4 @@ struct MarkerEditorV: View {
         determineMarkerOverlap()
         try? moc.save()
     }
-    
-    /// Revert the Marker to the previous status before entering the Marker Editor.
-    private func cancelMarker() {
-        moc.reset()
-        guard let refetchedMarker = try? moc.existingObject(with: marker.objectID) as? Marker else { return }
-    }
 }
