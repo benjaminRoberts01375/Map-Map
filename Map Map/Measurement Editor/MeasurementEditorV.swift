@@ -48,7 +48,11 @@ struct MeasurementEditorV: View {
         DragGesture(coordinateSpace: .global)
             .onChanged { update in
                 if !isDragging {
-                    startingPos = CGSize(cgPoint: update.startLocation)
+                    if let selectedMeasurement = selectedMeasurement,
+                        let measurementPos = mapContext.convert(selectedMeasurement.coordinates, to: .global) {
+                        startingPos = CGSize(cgPoint: measurementPos)
+                    }
+                    else { startingPos = CGSize(cgPoint: update.startLocation) }
                     isDragging = true
                 }
                 endingPos = CGSize(cgPoint: update.location)
@@ -64,8 +68,12 @@ struct MeasurementEditorV: View {
                 guard let startingCoord = mapContext.convert(CGPoint(size: startingPos), from: .global),
                       let endingCoord = mapContext.convert(CGPoint(size: endingPos), from: .global)
                 else { return }
-                let starting = MapMeasurementCoordinate(coordinate: startingCoord, insertInto: moc)
                 let ending = MapMeasurementCoordinate(coordinate: endingCoord, insertInto: moc)
+                if let selectedMeasurement = selectedMeasurement {
+                    selectedMeasurement.addToNeighbors(ending)
+                    return
+                }
+                let starting = MapMeasurementCoordinate(coordinate: startingCoord, insertInto: moc)
                 starting.addToNeighbors(ending)
                 selectedMeasurement = ending
                 startingPos = .zero
@@ -89,8 +97,8 @@ struct MeasurementEditorV: View {
                             .stroke(style: StrokeStyle(lineWidth: 5, lineCap: .round))
                             .shadow(radius: 2)
                             .lineLabel(startingPos: CGPoint(size: startingPos), endingPos: CGPoint(size: endingPos), distance: distance)
-                        HandleV(position: $startingPos)
-                        HandleV(position: $endingPos, color: .highlightBlue)
+                        if selectedMeasurement == nil { HandleV(position: $startingPos) }
+                        HandleV(position: $endingPos)
                     }
                     .ignoresSafeArea()
                 }
