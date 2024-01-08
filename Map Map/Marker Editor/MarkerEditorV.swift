@@ -87,29 +87,14 @@ struct MarkerEditorV: View {
                             }
                         }
                         HStack {
-                            Button {
-                                marker.isEditing = false
-                                marker.name = workingName
-                                marker.coordinates = backgroundMapDetails.region.center
-                                marker.lockRotationAngleDouble = saveAngle ? -backgroundMapDetails.mapCamera.heading : nil
-                                determineMarkerOverlap()
-                                try? moc.save()
-                            } label: {
-                                Text("Done")
-                                    .bigButton(backgroundColor: .blue)
-                            }
-                            Button {
-                                moc.reset()
-                                guard let refetchedMarker = try? moc.existingObject(with: marker.objectID) as? Marker else { return }
-                                NotificationCenter.default.post(
-                                    name: .editedMarkerLocation,
-                                    object: nil,
-                                    userInfo: ["marker" : refetchedMarker]
-                                )
-                            } label: {
-                                Text("Cancel")
-                                    .bigButton(backgroundColor: .gray)
-                            }
+                            Button(
+                                action: { updateMarker() },
+                                label: { Text("Done").bigButton(backgroundColor: .blue) }
+                            )
+                            Button(
+                                action: { cancelMarker() },
+                                label: { Text("Cancel").bigButton(backgroundColor: .gray) }
+                            )
                         }
                     }
                     .padding(.bottom, isShortCard ? 0 : 10)
@@ -178,5 +163,26 @@ struct MarkerEditorV: View {
                 )
             )
         ).cgPath
+    }
+    
+    /// Update the marker to the current status of the Marker Editor.
+    private func updateMarker() {
+        marker.isEditing = false
+        marker.name = workingName
+        marker.coordinates = backgroundMapDetails.region.center
+        marker.lockRotationAngleDouble = saveAngle ? -backgroundMapDetails.mapCamera.heading : nil
+        determineMarkerOverlap()
+        try? moc.save()
+    }
+    
+    /// Revert the Marker to the previous status before entering the Marker Editor.
+    private func cancelMarker() {
+        moc.reset()
+        guard let refetchedMarker = try? moc.existingObject(with: marker.objectID) as? Marker else { return }
+        NotificationCenter.default.post(
+            name: .editedMarkerLocation,
+            object: nil,
+            userInfo: ["marker" : refetchedMarker]
+        )
     }
 }

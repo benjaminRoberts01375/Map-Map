@@ -32,14 +32,7 @@ struct MapMapEditor: View {
         ZStack {
             GeometryReader { geo in
                 MapMapV(mapMap: mapMap, mapType: .fullImage)
-                    .background {
-                        GeometryReader { imageGeo in
-                            Color.clear
-                                .onChange(of: imageGeo.size, initial: true) { _, update in
-                                    mapMapPosition = CGRect(origin: CGPoint(size: geo.size / 2), size: update)
-                                }
-                        }
-                    }
+                    .onViewResizes { mapMapPosition = CGRect(origin: CGPoint(size: geo.size / 2), size: $1) }
                     .frame(width: geo.size.width * 0.75, height: geo.size.height * 0.75)
                     .opacity(0.5)
                     .allowsHitTesting(false)
@@ -68,27 +61,10 @@ struct MapMapEditor: View {
                         .buttonStyle(.plain)
                     }
                     HStack {
-                        Button(action: {
-                            mapMap.coordinates = backgroundMapDetails.region.center
-                            mapMap.mapMapRotation = -backgroundMapDetails.mapCamera.heading
-                            mapMap.mapMapScale = mapMapPosition.width * backgroundMapDetails.mapCamera.distance
-                            mapMap.mapMapName = workingName
-                            mapMap.mapDistance = backgroundMapDetails.mapCamera.distance
-                            mapMap.isEditing = false
-                            mapMap.isSetup = true
-                            if let overlappingMarkers = MapMapEditor.mapMapOverMarkers(
-                                mapMap,
-                                backgroundMapDetails: backgroundMapDetails,
-                                mapContext: mapContext
-                            ) {
-                                for marker in mapMap.formattedMarkers { mapMap.removeFromMarkers(marker) } // Remove MapMap from all Markers
-                                for marker in overlappingMarkers { mapMap.addToMarkers(marker) } // Add MapMap to all
-                            }
-                            try? moc.save()
-                        }, label: {
-                            Text("Done")
-                                .bigButton(backgroundColor: .blue)
-                        })
+                        Button(
+                            action: { updateMapMapInfo() },
+                            label: { Text("Done").bigButton(backgroundColor: .blue) }
+                        )
                         Button(action: {
                             if mapMap.isSetup { moc.reset() }
                             else { moc.delete(mapMap) }
@@ -141,5 +117,25 @@ struct MapMapEditor: View {
             }
         }
         return markers
+    }
+    
+    /// Updates Map Map information based on the current state of the editor.
+    private func updateMapMapInfo() {
+        mapMap.coordinates = backgroundMapDetails.region.center
+        mapMap.mapMapRotation = -backgroundMapDetails.mapCamera.heading
+        mapMap.mapMapScale = mapMapPosition.width * backgroundMapDetails.mapCamera.distance
+        mapMap.mapMapName = workingName
+        mapMap.mapDistance = backgroundMapDetails.mapCamera.distance
+        mapMap.isEditing = false
+        mapMap.isSetup = true
+        if let overlappingMarkers = MapMapEditor.mapMapOverMarkers(
+            mapMap,
+            backgroundMapDetails: backgroundMapDetails,
+            mapContext: mapContext
+        ) {
+            for marker in mapMap.formattedMarkers { mapMap.removeFromMarkers(marker) } // Remove MapMap from all Markers
+            for marker in overlappingMarkers { mapMap.addToMarkers(marker) } // Add MapMap to all
+        }
+        try? moc.save()
     }
 }

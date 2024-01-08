@@ -15,6 +15,17 @@ final class FourCornersStorage {
     var bottomLeading: CGSize
     var bottomTrailing: CGSize
     
+    /// Allows for multiplying a FourCornersStorage by some CGSize
+    /// - Parameters:
+    ///   - storage: Base.
+    ///   - scalar: Multiplier.
+    static func *= (storage: FourCornersStorage, scalar: CGSize) {
+        storage.topLeading *= scalar
+        storage.topTrailing *= scalar
+        storage.bottomLeading *= scalar
+        storage.bottomTrailing *= scalar
+    }
+    
     init(topLeading: CGSize, topTrailing: CGSize, bottomLeading: CGSize, bottomTrailing: CGSize) {
         self.topLeading = topLeading
         self.topTrailing = topTrailing

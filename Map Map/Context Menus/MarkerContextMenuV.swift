@@ -21,11 +21,7 @@ struct MarkerContextMenuV: View {
     
     var body: some View {
         Button(role: .destructive) {
-            if let onDelete = onDelete {
-                onDelete()
-            }
-            moc.delete(marker)
-            try? moc.save()
+            deleteMarker()
         } label: {
             Label("Delete Marker", systemImage: "trash.fill")
         }
@@ -48,12 +44,18 @@ struct MarkerContextMenuV: View {
         Button {
             let placemark = MKPlacemark(coordinate: marker.coordinates)
             let mapItem = MKMapItem(placemark: placemark)
-            let launchOptions: [String : Any] = [
-                MKLaunchOptionsMapCenterKey: marker.coordinates
-            ]
-            mapItem.openInMaps(launchOptions: launchOptions)
+            mapItem.openInMaps(launchOptions: [ MKLaunchOptionsMapCenterKey: marker.coordinates ])
         } label: {
             Label("Open in Maps", systemImage: "map.fill")
         }
+    }
+    
+    /// Delete marker and run closure code.
+    func deleteMarker() {
+        if let onDelete = onDelete {
+            onDelete()
+        }
+        moc.delete(marker)
+        try? moc.save()
     }
 }
