@@ -65,30 +65,23 @@ struct PhotoEditorV: View {
             
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                 HStack {
-                    Button { triggerCrop() }
-                label:
-                    {
-                        if loading { ProgressView().bigButton(backgroundColor: .blue.opacity(0.5)) }
-                        else { Text("Crop").bigButton(backgroundColor: .blue) }
-                    }
-                .disabled(loading)
-                    Button {
-                        handleTracker.corners.topLeading = .zero
-                        handleTracker.corners.topTrailing = CGSize(width: screenSpaceImageSize.width, height: .zero)
-                        handleTracker.corners.bottomLeading = CGSize(width: .zero, height: screenSpaceImageSize.height)
-                        handleTracker.corners.bottomTrailing = screenSpaceImageSize
-                        mapMap.cropCorners = nil
-                    } label: {
-                        Text("Reset")
-                            .bigButton(backgroundColor: .gray.opacity(loading ? 0.5 : 1))
-                    }
+                    Button(
+                        action: { triggerCrop() },
+                        label: {
+                            if loading { ProgressView().bigButton(backgroundColor: .blue.opacity(0.5)) }
+                            else { Text("Crop").bigButton(backgroundColor: .blue) }
+                        }
+                    )
                     .disabled(loading)
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Cancel")
-                            .bigButton(backgroundColor: .gray.opacity(loading ? 0.5 : 1))
-                    }
+                    Button(
+                        action: { reset() },
+                        label: { Text("Reset").bigButton(backgroundColor: .gray.opacity(loading ? 0.5 : 1)) }
+                    )
+                    .disabled(loading)
+                    Button(
+                        action: { dismiss() },
+                        label: { Text("Cancel").bigButton(backgroundColor: .gray.opacity(loading ? 0.5 : 1)) }
+                    )
                     .disabled(loading)
                 }
                 .padding(.bottom, isShortCard ? 0 : 10)
@@ -112,5 +105,14 @@ struct PhotoEditorV: View {
                 dismiss()
             }
         }
+    }
+    
+    /// Reset the MapMap crop back to none.
+    private func reset() {
+        handleTracker.corners.topLeading = .zero
+        handleTracker.corners.topTrailing = CGSize(width: screenSpaceImageSize.width, height: .zero)
+        handleTracker.corners.bottomLeading = CGSize(width: .zero, height: screenSpaceImageSize.height)
+        handleTracker.corners.bottomTrailing = screenSpaceImageSize
+        mapMap.cropCorners = nil
     }
 }
