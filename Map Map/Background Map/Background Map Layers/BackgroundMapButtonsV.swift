@@ -95,7 +95,7 @@ struct BackgroundMapButtonsV: View {
         }
         .animation(.easeInOut, value: markerButton)
         .mapScope(mapScope)
-        .onChange(of: backgroundMapDetails.position) { checkOverMarker() }
+        .onChange(of: backgroundMapDetails.region.center) { checkOverMarker() }
         .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)) { _ in
             checkOverMarker()
         }
@@ -122,7 +122,7 @@ struct BackgroundMapButtonsV: View {
     }
     
     func addMarker() {
-        let newMarker = Marker(coordinates: backgroundMapDetails.position, insertInto: moc)
+        let newMarker = Marker(coordinates: backgroundMapDetails.region.center, insertInto: moc)
         if let overlappedMapMaps = MarkerEditorV.markerOverMapMaps(
             newMarker,
             backgroundMapDetails: backgroundMapDetails,

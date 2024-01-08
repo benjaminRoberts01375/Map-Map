@@ -90,8 +90,8 @@ struct MarkerEditorV: View {
                             Button {
                                 marker.isEditing = false
                                 marker.name = workingName
-                                marker.coordinates = backgroundMapDetails.position
-                                marker.lockRotationAngleDouble = saveAngle ? backgroundMapDetails.rotation.degrees : nil
+                                marker.coordinates = backgroundMapDetails.region.center
+                                marker.lockRotationAngleDouble = saveAngle ? -backgroundMapDetails.mapCamera.heading : nil
                                 determineMarkerOverlap()
                                 try? moc.save()
                             } label: {

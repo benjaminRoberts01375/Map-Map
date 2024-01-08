@@ -32,11 +32,11 @@ struct BackgroundMapHudV: View {
         HStack(spacing: 0) {
             VStack(alignment: .leading) {
                 Text("Latitude: ") +
-                Text(locationDisplayMode.degreesToString(latitude: backgroundMapDetails.position.latitude))
+                Text(locationDisplayMode.degreesToString(latitude: backgroundMapDetails.region.center.latitude))
                     .fontWidth(.condensed)
                 
                 Text("Longitude: ") +
-                Text(locationDisplayMode.degreesToString(longitude: backgroundMapDetails.position.longitude))
+                Text(locationDisplayMode.degreesToString(longitude: backgroundMapDetails.region.center.longitude))
                     .fontWidth(.condensed)
                 if showHeading {
                     Text("Heading: ") +
@@ -52,11 +52,11 @@ struct BackgroundMapHudV: View {
         .clipShape(RoundedRectangle(cornerRadius: 11))
         .contextMenu {
             Button {
-                let placemark = MKPlacemark(coordinate: backgroundMapDetails.position)
+                let placemark = MKPlacemark(coordinate: backgroundMapDetails.region.center)
                 let mapItem = MKMapItem(placemark: placemark)
                 let launchOptions: [String : Any] = [
-                    MKLaunchOptionsMapCenterKey: backgroundMapDetails.position,
-                    MKLaunchOptionsMapSpanKey: backgroundMapDetails.span
+                    MKLaunchOptionsMapCenterKey: backgroundMapDetails.region.center,
+                    MKLaunchOptionsMapSpanKey: backgroundMapDetails.region.span
                 ]
                 mapItem.openInMaps(launchOptions: launchOptions)
             } label: {
@@ -79,9 +79,9 @@ struct BackgroundMapHudV: View {
             }
 
         }
-        .onChange(of: backgroundMapDetails.rotation) { _, update in
+        .onChange(of: backgroundMapDetails.mapCamera) { _, update in
             withAnimation {
-                showHeading = update.degrees != .zero
+                showHeading = -update.heading != 0
             }
         }
         .gesture(tap)

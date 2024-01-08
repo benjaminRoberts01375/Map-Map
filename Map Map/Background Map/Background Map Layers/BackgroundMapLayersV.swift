@@ -48,7 +48,7 @@ struct BackgroundMapLayersV: View {
                 CrosshairV()
                     .allowsHitTesting(false)
                     .opacity(crosshairOpacity)
-                    .onChange(of: backgroundMapDetails.position) {
+                    .onChange(of: backgroundMapDetails.region.center) {
                         if timer != nil {
                             withAnimation(.easeInOut(duration: 0.1)) {
                                 crosshairOpacity = 1

@@ -8,35 +8,36 @@
 import MapKit
 import SwiftUI
 
-/// Details about the background map being plotted on.
 @Observable
+/// Details about the background map being plotted on.
 final class BackgroundMapDetailsM {
-    /// The last updated position of the map.
-    public var position: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
-    /// The last updated "scale" of the map, which is determined by calculating 1 divided by the mapCamera distance.
-    @ObservationIgnored
-    public var scale: Double = 1
-    /// The last updated rotation of the map.
-    @ObservationIgnored
-    public var rotation: Angle = .zero
     /// Controller for preventing or allowing interaction of the background map
     public var allowsInteraction: Bool = true
-    /// The last updated span of the map, providing how much map is being shown at the current moment.
-    @ObservationIgnored
-    public var span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0, longitudeDelta: 0)
-    /// The live camera for the map
-    public var mapCamera: MapCameraPosition = .userLocation(fallback: .automatic)
     /// A corrected version of the background map's rotation.
-    public var userRotation: Angle {
-        Angle(degrees: abs(rotation.degrees))
-    }
+    public var userRotation: Angle { Angle(degrees: abs(self.mapCamera.heading)) }
+    /// The live camera for the map
+    public var liveMapController: MapCameraPosition = .userLocation(fallback: .automatic)
+    /// Current camera for the background map.
+    public var mapCamera: MapCamera = MapCamera(
+        MKMapCamera(
+            lookingAtCenter: CLLocationCoordinate2D(latitude: 0, longitude: 0),
+            fromDistance: 0,
+            pitch: 0,
+            heading: 0
+        )
+    )
+    /// Current region for the background map.
+    public var region: MKCoordinateRegion = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: .zero, longitude: .zero),
+        span: MKCoordinateSpan(latitudeDelta: .zero, longitudeDelta: .zero)
+    )
     
     /// Set the rotation of the background map with animation.
     /// - Parameter newRotation: Rotation to set to
     func setMapRotation(newRotation: CGFloat) {
-        let camera = MapCamera(centerCoordinate: position, distance: 1 / scale, heading: newRotation)
+        let camera = MapCamera(centerCoordinate: self.region.center, distance: self.mapCamera.distance, heading: newRotation)
         withAnimation {
-            mapCamera = MapCameraPosition.camera(camera)
+            liveMapController = MapCameraPosition.camera(camera)
         }
     }
     
@@ -45,7 +46,7 @@ final class BackgroundMapDetailsM {
     func moveMapCameraTo(marker: Marker) {
         withAnimation {
             let distance: Double = 6000
-            mapCamera = .camera(
+            liveMapController = .camera(
                 MapCamera(
                     centerCoordinate: marker.coordinates,
                     distance: distance,
@@ -59,7 +60,7 @@ final class BackgroundMapDetailsM {
     /// - Parameter mapMap: MapMap to move to.
     func moveMapCameraTo(mapMap: MapMap) {
         withAnimation {
-            mapCamera = .camera(
+            liveMapController = .camera(
                 MapCamera(
                     centerCoordinate: mapMap.coordinates,
                     distance: mapMap.mapDistance,

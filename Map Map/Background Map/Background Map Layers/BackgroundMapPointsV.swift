@@ -67,8 +67,8 @@ struct BackgroundMapPointsV: View {
                         } label: {
                             MarkerV(marker: marker)
                                 .rotationEffect(
-                                    backgroundMapDetails.rotation -
-                                    Angle(degrees: marker.lockRotationAngleDouble ?? backgroundMapDetails.rotation.degrees)
+                                    Angle(degrees: -backgroundMapDetails.mapCamera.heading -
+                                          (marker.lockRotationAngleDouble ?? -backgroundMapDetails.mapCamera.heading))
                                 )
                                 .offset(y: markerOffset)
                         }
@@ -113,19 +113,7 @@ struct BackgroundMapPointsV: View {
             .animation(.linear, value: ssUserLocation)
         }
         .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { interpretCDNotification($0) }
-        .onChange(of: backgroundMapDetails.position) {
-            Task {
-                let positions = await calculateSSlineEndPos()
-                DispatchQueue.main.async { self.lineEnds = positions }
-            }
-        }
-        .onChange(of: backgroundMapDetails.rotation) {
-            Task {
-                let positions = await calculateSSlineEndPos()
-                DispatchQueue.main.async { self.lineEnds = positions }
-            }
-        }
-        .onChange(of: backgroundMapDetails.scale) {
+        .onChange(of: backgroundMapDetails.mapCamera) {
             Task {
                 let positions = await calculateSSlineEndPos()
                 DispatchQueue.main.async { self.lineEnds = positions }
