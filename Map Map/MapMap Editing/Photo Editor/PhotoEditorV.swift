@@ -65,31 +65,13 @@ struct PhotoEditorV: View {
             
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                 HStack {
-                    Button {
-                        loading = true
-                        PhotoEditorV.perspectiveQueue.async {
-                            let inverseRatio = CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight) / screenSpaceImageSize
-                            mapMap.setAndApplyCorners(
-                                topLeading: handleTracker.corners.topLeading * inverseRatio,
-                                topTrailing: handleTracker.corners.topTrailing * inverseRatio,
-                                bottomLeading: handleTracker.corners.bottomLeading * inverseRatio,
-                                bottomTrailing: handleTracker.corners.bottomTrailing * inverseRatio
-                            )
-                            DispatchQueue.main.async {
-                                dismiss()
-                            }
-                        }
-                    } label: {
-                        if loading {
-                            ProgressView()
-                                .bigButton(backgroundColor: .blue.opacity(0.5))
-                        }
-                        else {
-                            Text("Crop")
-                                .bigButton(backgroundColor: .blue)
-                        }
+                    Button { triggerCrop() }
+                label:
+                    {
+                        if loading { ProgressView().bigButton(backgroundColor: .blue.opacity(0.5)) }
+                        else { Text("Crop").bigButton(backgroundColor: .blue) }
                     }
-                    .disabled(loading)
+                .disabled(loading)
                     Button {
                         handleTracker.corners.topLeading = .zero
                         handleTracker.corners.topTrailing = CGSize(width: screenSpaceImageSize.width, height: .zero)
@@ -113,5 +95,22 @@ struct PhotoEditorV: View {
             }
         }
         .animation(.easeInOut, value: loading)
+    }
+    
+    /// Sets up and triggers the crop function for a Map Map.
+    private func triggerCrop() {
+        loading = true
+        PhotoEditorV.perspectiveQueue.async {
+            let inverseRatio = CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight) / screenSpaceImageSize
+            mapMap.setAndApplyCorners(
+                topLeading: handleTracker.corners.topLeading * inverseRatio,
+                topTrailing: handleTracker.corners.topTrailing * inverseRatio,
+                bottomLeading: handleTracker.corners.bottomLeading * inverseRatio,
+                bottomTrailing: handleTracker.corners.bottomTrailing * inverseRatio
+            )
+            DispatchQueue.main.async {
+                dismiss()
+            }
+        }
     }
 }
