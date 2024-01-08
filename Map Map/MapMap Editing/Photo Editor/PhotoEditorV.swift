@@ -41,15 +41,10 @@ struct PhotoEditorV: View {
             GeometryReader { geo in
                 ZStack(alignment: .center) {
                     MapMapV(mapMap: mapMap, mapType: .original)
-                        .background {
-                            GeometryReader { imageGeo in
-                                Color.clear
-                                    .onChange(of: imageGeo.size, initial: true) { _, update in
-                                        screenSpaceImageSize = update
-                                        let scaleRatio = screenSpaceImageSize / CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight)
-                                        handleTracker.corners *= scaleRatio
-                                    }
-                            }
+                        .onViewResizes { _, update in
+                            screenSpaceImageSize = update
+                            let scaleRatio = screenSpaceImageSize / CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight)
+                            handleTracker.corners *= scaleRatio
                         }
                         .frame(
                             width: geo.size.width - 100,

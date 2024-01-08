@@ -32,14 +32,7 @@ struct MapMapEditor: View {
         ZStack {
             GeometryReader { geo in
                 MapMapV(mapMap: mapMap, mapType: .fullImage)
-                    .background {
-                        GeometryReader { imageGeo in
-                            Color.clear
-                                .onChange(of: imageGeo.size, initial: true) { _, update in
-                                    mapMapPosition = CGRect(origin: CGPoint(size: geo.size / 2), size: update)
-                                }
-                        }
-                    }
+                    .onViewResizes { mapMapPosition = CGRect(origin: CGPoint(size: geo.size / 2), size: $1) }
                     .frame(width: geo.size.width * 0.75, height: geo.size.height * 0.75)
                     .opacity(0.5)
                     .allowsHitTesting(false)
