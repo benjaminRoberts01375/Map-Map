@@ -9,7 +9,7 @@ import CoreData
 import SwiftUI
 
 /// Available editors.
-public enum Editor {
+public enum Editor: Equatable {
     /// Editor case where editing this specific Map Map.
     case mapMap(FetchedResults<MapMap>.Element)
     /// Editor case where editing this specific Marker.
