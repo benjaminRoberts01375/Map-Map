@@ -41,9 +41,11 @@ struct BackgroundMapPointsV: View {
         GeometryReader { geo in
             ZStack {
                 ForEach(lines) { connection in
-                    if let startingPos = lineEnds[connection.start],
-                       let endingPos = lineEnds[connection.end],
-                       pointIsInBounds(startingPos, screenSize: geo.size) || pointIsInBounds(endingPos, screenSize: geo.size) {
+                    if let startingPos = lineEnds[connection.start], // Valid starting point
+                       let endingPos = lineEnds[connection.end], // Valid ending point
+                       sqrt(pow(startingPos.x - endingPos.x, 2) + pow(startingPos.y - endingPos.y, 2)) > 70 && // SS Dist. is high enough
+                       (pointIsInBounds(startingPos, screenSize: geo.size) || // Point is within threshold
+                        pointIsInBounds(endingPos, screenSize: geo.size)) { // Point is within threshold
                         Line(startingPos: CGSize(cgPoint: startingPos), endingPos: CGSize(cgPoint: endingPos)) // Outline line
                             .stroke(style: StrokeStyle(lineWidth: 6, lineCap: .round))
                             .foregroundStyle(.black.opacity(0.5))
@@ -160,7 +162,7 @@ struct BackgroundMapPointsV: View {
     
     func pointIsInBounds(_ point: CGPoint, screenSize: CGSize) -> Bool {
         let padding = 1.3
-        return (point.x > -screenSize.width * padding) && 
+        return (point.x > -screenSize.width * padding) &&
         (point.x < screenSize.width * padding) &&
         (point.y > -screenSize.height * padding) &&
         (point.y < screenSize.height * padding)
