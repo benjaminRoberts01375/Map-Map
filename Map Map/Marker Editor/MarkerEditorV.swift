@@ -34,7 +34,6 @@ struct MarkerEditorV: View {
         else { self._workingName = State(initialValue: "") }
         self._saveAngle = State(initialValue: marker.lockRotationAngleDouble != nil)
         self.mapContext = mapContext
-        NotificationCenter.default.post(name: .editingMarker, object: nil, userInfo: ["editing":true])
     }
     
     var body: some View {
@@ -91,10 +90,7 @@ struct MarkerEditorV: View {
                                 action: { updateMarker() },
                                 label: { Text("Done").bigButton(backgroundColor: .blue) }
                             )
-                            Button(
-                                action: { cancelMarker() },
-                                label: { Text("Cancel").bigButton(backgroundColor: .gray) }
-                            )
+                            Button { moc.reset() } label: { Text("Cancel").bigButton(backgroundColor: .gray) }
                         }
                     }
                     .padding(.bottom, isShortCard ? 0 : 10)
@@ -102,7 +98,6 @@ struct MarkerEditorV: View {
                 .safeAreaPadding(geo.safeAreaInsets)
             }
             .ignoresSafeArea()
-            .onDisappear { NotificationCenter.default.post(name: .editingMarker, object: nil, userInfo: ["editing":false]) }
         }
     }
     
@@ -179,10 +174,5 @@ struct MarkerEditorV: View {
     private func cancelMarker() {
         moc.reset()
         guard let refetchedMarker = try? moc.existingObject(with: marker.objectID) as? Marker else { return }
-        NotificationCenter.default.post(
-            name: .editedMarkerLocation,
-            object: nil,
-            userInfo: ["marker" : refetchedMarker]
-        )
     }
 }
