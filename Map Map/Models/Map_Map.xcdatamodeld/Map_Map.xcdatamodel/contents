@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23B2073" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="FourCorners" representedClassName="FourCorners" syncable="YES">
         <attribute name="rawBottomLeading" attributeType="String" defaultValueString="{0, 0}"/>
         <attribute name="rawBottomTrailing" attributeType="String" defaultValueString="{0, 0}"/>
@@ -10,7 +10,7 @@
     <entity name="MapMap" representedClassName="MapMap" syncable="YES">
         <attribute name="imageHeight" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="imageWidth" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="isEditing" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="isEditing" transient="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isSetup" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="mapDistance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="mapMapEncodedThumbnail" optional="YES" attributeType="Binary"/>
@@ -31,7 +31,7 @@
         <relationship name="neighbors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MapMeasurementCoordinate" inverseName="neighbors" inverseEntity="MapMeasurementCoordinate"/>
     </entity>
     <entity name="Marker" representedClassName="Marker" syncable="YES">
-        <attribute name="isEditing" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isEditing" transient="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="lockRotationAngle" optional="YES" attributeType="Decimal"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>

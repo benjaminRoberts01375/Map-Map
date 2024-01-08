@@ -53,16 +53,20 @@ struct ContentView: View {
         .toast(isPresenting: $toastInfo.showing, tapToDismiss: false, alert: {
             AlertToast(displayMode: .hud, type: .loading, title: "Saving", subTitle: toastInfo.info)
         })
-        .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)) { _ in
-            if let editingMapMap = mapMaps.first(where: { $0.isEditing }) {
-                self.editing = .mapMap(editingMapMap)
-                return
+        .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { _ in
+            switch self.editing {
+            case .measurement: return
+            default:
+                if let editingMapMap = mapMaps.first(where: { $0.isEditing }) {
+                    self.editing = .mapMap(editingMapMap)
+                    return
+                }
+                else if let editingMarker = markers.first(where: { $0.isEditing }) {
+                    self.editing = .marker(editingMarker)
+                    return
+                }
+                else { self.editing = .nothing }
             }
-            else if let editingMarker = markers.first(where: { $0.isEditing }) {
-                self.editing = .marker(editingMarker)
-                return
-            }
-            else { self.editing = .nothing }
         }
         .onReceive(NotificationCenter.default.publisher(for: .savingToastNotification)) { notification in
             if let showing = notification.userInfo?["savingVal"] as? Bool {
@@ -71,16 +75,6 @@ struct ContentView: View {
             if let info = notification.userInfo?["name"] as? String {
                 toastInfo.info = info
             }
-        }
-        .task {
-            for mapMap in mapMaps {
-                if !mapMap.isSetup { moc.delete(mapMap) }
-                else if mapMap.isEditing == true { mapMap.isEditing = false }
-            }
-            for marker in markers where marker.isEditing {
-                marker.isEditing = false
-            }
-            try? moc.save()
         }
     }
 }
