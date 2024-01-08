@@ -52,13 +52,7 @@ struct BackgroundMapHudV: View {
         .clipShape(RoundedRectangle(cornerRadius: 11))
         .contextMenu {
             Button {
-                let placemark = MKPlacemark(coordinate: backgroundMapDetails.position)
-                let mapItem = MKMapItem(placemark: placemark)
-                let launchOptions: [String : Any] = [
-                    MKLaunchOptionsMapCenterKey: backgroundMapDetails.position,
-                    MKLaunchOptionsMapSpanKey: backgroundMapDetails.span
-                ]
-                mapItem.openInMaps(launchOptions: launchOptions)
+                openCurrentLocationInMaps()
             } label: {
                 Label("Open in Maps", systemImage: "map.fill")
             }
@@ -109,6 +103,17 @@ struct BackgroundMapHudV: View {
         }
         
         return label
+    }
+    
+    /// Allows for opening the map's current location in Apple Maps.
+    private func openCurrentLocationInMaps() {
+        let placemark = MKPlacemark(coordinate: backgroundMapDetails.position)
+        let mapItem = MKMapItem(placemark: placemark)
+        let launchOptions: [String : Any] = [
+            MKLaunchOptionsMapCenterKey: backgroundMapDetails.position,
+            MKLaunchOptionsMapSpanKey: backgroundMapDetails.span
+        ]
+        mapItem.openInMaps(launchOptions: launchOptions)
     }
 }
 
