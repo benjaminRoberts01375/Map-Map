@@ -82,7 +82,8 @@ struct BackgroundMapHudV: View {
         .animation(.easeInOut, value: rawDisplayType)
     }
     
-    func determineHeadingLabel() -> String {
+    /// Determine the heading label for the background map's current rotation.
+    private func determineHeadingLabel() -> String {
         var label = ""
         let shareOfThePie = 67.5
         let quarter: Double = 90
