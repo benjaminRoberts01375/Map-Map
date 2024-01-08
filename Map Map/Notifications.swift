@@ -11,6 +11,4 @@ import NotificationCenter
 extension Notification.Name {
     /// Notification name to be sent when Core Data is saving data.
     public static let savingToastNotification = Notification.Name("SavingData")
-    /// Notification name to be sent when a new Marker is added.
-    public static let editedMarkerLocation = Notification.Name("NewMarker")
 }
