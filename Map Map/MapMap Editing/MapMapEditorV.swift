@@ -68,27 +68,10 @@ struct MapMapEditor: View {
                         .buttonStyle(.plain)
                     }
                     HStack {
-                        Button(action: {
-                            mapMap.coordinates = backgroundMapDetails.position
-                            mapMap.mapMapRotation = backgroundMapDetails.rotation.degrees
-                            mapMap.mapMapScale = mapMapPosition.width / backgroundMapDetails.scale
-                            mapMap.mapMapName = workingName
-                            mapMap.mapDistance = 1 / backgroundMapDetails.scale
-                            mapMap.isEditing = false
-                            mapMap.isSetup = true
-                            if let overlappingMarkers = MapMapEditor.mapMapOverMarkers(
-                                mapMap,
-                                backgroundMapDetails: backgroundMapDetails,
-                                mapContext: mapContext
-                            ) {
-                                for marker in mapMap.formattedMarkers { mapMap.removeFromMarkers(marker) } // Remove MapMap from all Markers
-                                for marker in overlappingMarkers { mapMap.addToMarkers(marker) } // Add MapMap to all
-                            }
-                            try? moc.save()
-                        }, label: {
-                            Text("Done")
-                                .bigButton(backgroundColor: .blue)
-                        })
+                        Button(
+                            action: { updateMapMapInfo() },
+                            label: { Text("Done").bigButton(backgroundColor: .blue) }
+                        )
                         Button(action: {
                             if mapMap.isSetup { moc.reset() }
                             else { moc.delete(mapMap) }
@@ -141,5 +124,25 @@ struct MapMapEditor: View {
             }
         }
         return markers
+    }
+    
+    /// Updates Map Map information based on the current state of the editor.
+    private func updateMapMapInfo() {
+        mapMap.mapMapName = workingName
+        mapMap.coordinates = backgroundMapDetails.position
+        mapMap.mapMapRotation = backgroundMapDetails.rotation.degrees
+        mapMap.mapDistance = 1 / backgroundMapDetails.scale
+        mapMap.mapMapScale = mapMapPosition.width / backgroundMapDetails.scale
+        mapMap.isSetup = true
+        mapMap.isEditing = false
+        
+        if let overlappingMarkers = MapMapEditor.mapMapOverMarkers(
+            mapMap,
+            backgroundMapDetails: backgroundMapDetails,
+            mapContext: mapContext
+        ) {
+            for marker in mapMap.formattedMarkers { mapMap.removeFromMarkers(marker) } // Remove MapMap from all Markers
+            for marker in overlappingMarkers { mapMap.addToMarkers(marker) } // Add MapMap to all
+        }
     }
 }
