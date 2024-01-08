@@ -43,7 +43,7 @@ struct BackgroundMapPointsV: View {
                 ForEach(lines) { connection in
                     if let startingPos = lineEnds[connection.start], // Valid starting point
                        let endingPos = lineEnds[connection.end], // Valid ending point
-                       sqrt(pow(startingPos.x - endingPos.x, 2) + pow(startingPos.y - endingPos.y, 2)) > BackgroundMapPointsV.minLineLength &&
+                       startingPos.distanceTo(endingPos) > BackgroundMapPointsV.minLineLength && // Distance is greater than min
                        (pointIsInBounds(startingPos, screenSize: geo.size) || // Point is within threshold
                         pointIsInBounds(endingPos, screenSize: geo.size)) { // Point is within threshold
                         Line(startingPos: CGSize(cgPoint: startingPos), endingPos: CGSize(cgPoint: endingPos)) // Outline line
