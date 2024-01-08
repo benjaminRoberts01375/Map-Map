@@ -41,7 +41,7 @@ extension CGSize {
     ///   - lhs: CGSize being multiplied.
     ///   - rhs: Multiplier.
     static func *= (lhs: inout CGSize, rhs: CGSize) {
-        lhs.width *= rhs.height
+        lhs.width *= rhs.width
         lhs.height *= rhs.height
     }
     
