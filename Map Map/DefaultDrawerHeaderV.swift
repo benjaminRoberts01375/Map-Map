@@ -64,11 +64,12 @@ struct DefaultDrawerHeaderV: View {
             for rawPhoto in updatedRawPhotos { _ = MapMap(rawPhoto: rawPhoto, insertInto: moc) }
             rawPhotos = []
         }
-        .alert("Oh no!", isPresented: $errorPresented, actions: {
-            Button("Ok ( ͡° ͜ʖ ͡°)7", role: .cancel) { errorPresented = false }
-        }, message: {
-            Text("\(errorMessage) Sorry!")
-        })
+        .alert(
+            "Oh no!",
+            isPresented: $errorPresented,
+            actions: { Button("Ok ( ͡° ͜ʖ ͡°)7", role: .cancel) { errorPresented = false } },
+            message: { Text("\(errorMessage) Sorry!") }
+        )
         .photosPicker(isPresented: $photosPickerPresented, selection: $rawPhotos, maxSelectionCount: 1, matching: .images)
         .fileImporter(isPresented: $filePickerPresented, allowedContentTypes: [.png, .jpeg, .pdf]) { result in
             switch result {
