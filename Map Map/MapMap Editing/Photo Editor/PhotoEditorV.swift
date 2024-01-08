@@ -47,10 +47,7 @@ struct PhotoEditorV: View {
                                     .onChange(of: imageGeo.size, initial: true) { _, update in
                                         screenSpaceImageSize = update
                                         let scaleRatio = screenSpaceImageSize / CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight)
-                                        handleTracker.corners.topLeading *= scaleRatio
-                                        handleTracker.corners.topTrailing *= scaleRatio
-                                        handleTracker.corners.bottomLeading *= scaleRatio
-                                        handleTracker.corners.bottomTrailing *= scaleRatio
+                                        handleTracker.corners *= scaleRatio
                                     }
                             }
                         }
