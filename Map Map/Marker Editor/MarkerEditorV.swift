@@ -34,7 +34,6 @@ struct MarkerEditorV: View {
         else { self._workingName = State(initialValue: "") }
         self._saveAngle = State(initialValue: marker.lockRotationAngleDouble != nil)
         self.mapContext = mapContext
-        NotificationCenter.default.post(name: .editingMarker, object: nil, userInfo: ["editing":true])
     }
     
     var body: some View {
@@ -102,7 +101,6 @@ struct MarkerEditorV: View {
                 .safeAreaPadding(geo.safeAreaInsets)
             }
             .ignoresSafeArea()
-            .onDisappear { NotificationCenter.default.post(name: .editingMarker, object: nil, userInfo: ["editing":false]) }
         }
     }
     

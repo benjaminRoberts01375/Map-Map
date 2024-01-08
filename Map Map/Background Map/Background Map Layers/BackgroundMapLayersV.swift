@@ -32,7 +32,7 @@ struct BackgroundMapLayersV: View {
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .center) {
-                BackgroundMap(mapScope: mapScope, mapContext: mapContext)
+                BackgroundMap(editor: $editor, mapScope: mapScope, mapContext: mapContext)
                 BackgroundMapPointsV(
                     screenSize: CGSize(
                         width: geo.size.width + geo.safeAreaInsets.leading + geo.safeAreaInsets.trailing,
