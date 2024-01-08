@@ -26,7 +26,7 @@ struct BackgroundMap: View {
     var body: some View {
         @Bindable var backgroundMapDetails = backgroundMapDetails
         Map(
-            position: $backgroundMapDetails.mapCamera,
+            position: $backgroundMapDetails.liveMapController,
             interactionModes: backgroundMapDetails.allowsInteraction ? [.pan, .rotate, .zoom] : [],
             scope: mapScope
         ) {
@@ -42,16 +42,16 @@ struct BackgroundMap: View {
                                 backgroundMapDetails.moveMapCameraTo(mapMap: mapMap)
                             }, label: {
                                 MapMapV(mapMap: mapMap, mapType: .fullImage)
-                                    .frame(width: backgroundMapDetails.scale * mapMap.mapMapScale)
-                                    .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: mapMap.mapMapRotation))
+                                    .frame(width: 1 / backgroundMapDetails.mapCamera.distance * mapMap.mapMapScale)
+                                    .rotationEffect(Angle(degrees: -backgroundMapDetails.mapCamera.heading - mapMap.mapMapRotation))
                                     .offset(y: -7)
                             })
                             .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
                         }
                         else {
                             MapMapV(mapMap: mapMap, mapType: .fullImage)
-                                .frame(width: backgroundMapDetails.scale * mapMap.mapMapScale)
-                                .rotationEffect(backgroundMapDetails.rotation - Angle(degrees: mapMap.mapMapRotation))
+                                .frame(width: 1 / backgroundMapDetails.mapCamera.distance * mapMap.mapMapScale)
+                                .rotationEffect(Angle(degrees: -backgroundMapDetails.mapCamera.heading - mapMap.mapMapRotation))
                                 .offset(y: -7)
                         }
                     }
@@ -60,11 +60,10 @@ struct BackgroundMap: View {
         }
         .mapControlVisibility(.hidden)
         .onMapCameraChange(frequency: .continuous) { update in
-            backgroundMapDetails.scale = 1 / update.camera.distance
-            backgroundMapDetails.rotation = Angle(degrees: -update.camera.heading)
-            backgroundMapDetails.position = update.region.center
-            backgroundMapDetails.span = update.region.span
-            MKMetersPerMapPointAtLatitude(update.region.center.latitude)
+            backgroundMapDetails.region.span = update.region.span
+            
+            backgroundMapDetails.region = update.region
+            backgroundMapDetails.mapCamera = update.camera
         }
         .mapStyle(.standard(elevation: .realistic))
         .onReceive(NotificationCenter.default.publisher(for: .editingMarker)) { notification in
@@ -88,11 +87,11 @@ struct BackgroundMap: View {
         guard let rect: CGRect = BackgroundMap.generateMapMapBounds(
             mapMap,
             mapContext: mapContext,
-            backgroundMapScale: backgroundMapDetails.scale
+            backgroundMapScale: 1 / backgroundMapDetails.mapCamera.distance
         )
         else { return nil }
         let transform = CGAffineTransform(translationX: rect.midX - rect.width / 2, y: rect.midY - rect.height / 2)
-            .rotated(by: (backgroundMapDetails.rotation - Angle(degrees: mapMap.mapMapRotation)).radians)
+            .rotated(by: Angle(degrees: -backgroundMapDetails.mapCamera.heading - mapMap.mapMapRotation).radians)
             .translatedBy(x: -rect.midX, y: -rect.midY)
         let padding: CGFloat = 25
         let rotatedPoints: [CGPoint] = // Calculate rotated points

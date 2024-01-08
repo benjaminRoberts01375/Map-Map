@@ -121,14 +121,13 @@ struct MapMapEditor: View {
     
     /// Updates Map Map information based on the current state of the editor.
     private func updateMapMapInfo() {
+        mapMap.coordinates = backgroundMapDetails.region.center
+        mapMap.mapMapRotation = -backgroundMapDetails.mapCamera.heading
+        mapMap.mapMapScale = mapMapPosition.width * backgroundMapDetails.mapCamera.distance
         mapMap.mapMapName = workingName
-        mapMap.coordinates = backgroundMapDetails.position
-        mapMap.mapMapRotation = backgroundMapDetails.rotation.degrees
-        mapMap.mapDistance = 1 / backgroundMapDetails.scale
-        mapMap.mapMapScale = mapMapPosition.width / backgroundMapDetails.scale
-        mapMap.isSetup = true
+        mapMap.mapDistance = backgroundMapDetails.mapCamera.distance
         mapMap.isEditing = false
-        
+        mapMap.isSetup = true
         if let overlappingMarkers = MapMapEditor.mapMapOverMarkers(
             mapMap,
             backgroundMapDetails: backgroundMapDetails,
@@ -137,5 +136,6 @@ struct MapMapEditor: View {
             for marker in mapMap.formattedMarkers { mapMap.removeFromMarkers(marker) } // Remove MapMap from all Markers
             for marker in overlappingMarkers { mapMap.addToMarkers(marker) } // Add MapMap to all
         }
+        try? moc.save()
     }
 }
