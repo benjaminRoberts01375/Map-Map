@@ -80,6 +80,8 @@ struct MeasurementEditorV: View {
                 Color.black
                     .opacity(0.5)
                     .ignoresSafeArea()
+                    .onTapGesture { selectedMeasurement = nil }
+                    .accessibilityAddTraits(.isButton)
                     .gesture(drawGesture)
                 if endingPos != startingPos {
                     ZStack {
