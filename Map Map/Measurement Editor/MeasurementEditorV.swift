@@ -69,12 +69,16 @@ struct MeasurementEditorV: View {
             .onEnded { _ in
                 isDragging = false
                 if let startingMeasurement = selectedMeasurement {
-                    if let endingMeasurement = snap(endingPos) { startingMeasurement.addToNeighbors(endingMeasurement.0) }
+                    if let endingMeasurement = snap(endingPos) {
+                        startingMeasurement.addToNeighbors(endingMeasurement.0)
+                        self.selectedMeasurement = endingMeasurement.0
+                    }
                     else {
                         guard let endingCoordinate = mapContext.convert(CGPoint(size: endingPos), from: .global)
                         else { return }
                         let endingMeasurement = MapMeasurementCoordinate(coordinate: endingCoordinate, insertInto: moc)
                         startingMeasurement.addToNeighbors(endingMeasurement)
+                        self.selectedMeasurement = endingMeasurement
                     }
                 }
                 else {
@@ -83,6 +87,7 @@ struct MeasurementEditorV: View {
                         else { return }
                         let startingMeasurement = MapMeasurementCoordinate(coordinate: startingCoordinate, insertInto: moc)
                         startingMeasurement.addToNeighbors(endingMeasurement.0)
+                        self.selectedMeasurement = endingMeasurement.0
                     }
                     else {
                         guard let startingCoordinate = mapContext.convert(CGPoint(size: startingPos), from: .global),
@@ -91,6 +96,7 @@ struct MeasurementEditorV: View {
                         let startingMeasurement = MapMeasurementCoordinate(coordinate: startingCoordinate, insertInto: moc)
                         let endingMeasurement = MapMeasurementCoordinate(coordinate: endingCoordinate, insertInto: moc)
                         startingMeasurement.addToNeighbors(endingMeasurement)
+                        self.selectedMeasurement = endingMeasurement
                     }
                 }
                 startingPos = .zero
