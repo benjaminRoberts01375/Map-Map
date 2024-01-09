@@ -48,10 +48,17 @@ struct MeasurementEditorV: View {
         DragGesture(coordinateSpace: .global)
             .onChanged { update in
                 if !isDragging {
-                    startingPos = CGSize(cgPoint: update.startLocation)
+                    if let selectedMeasurement = selectedMeasurement,
+                        let measurementPos = mapContext.convert(selectedMeasurement.coordinates, to: .global) {
+                        startingPos = CGSize(cgPoint: measurementPos)
+                    }
+                    else { startingPos = CGSize(cgPoint: update.startLocation) }
                     isDragging = true
                 }
-                endingPos = CGSize(cgPoint: update.location)
+                let currentEndingPos = CGSize(cgPoint: update.location)
+                if let snapPos = snap(currentEndingPos) { endingPos = snapPos.1 }
+                else { endingPos = currentEndingPos }
+                
                 guard let startingCoord = mapContext.convert(CGPoint(size: startingPos), from: .global),
                       let endingCoord = mapContext.convert(CGPoint(size: endingPos), from: .global)
                 else { return }
@@ -61,13 +68,37 @@ struct MeasurementEditorV: View {
             }
             .onEnded { _ in
                 isDragging = false
-                guard let startingCoord = mapContext.convert(CGPoint(size: startingPos), from: .global),
-                      let endingCoord = mapContext.convert(CGPoint(size: endingPos), from: .global)
-                else { return }
-                let starting = MapMeasurementCoordinate(coordinate: startingCoord, insertInto: moc)
-                let ending = MapMeasurementCoordinate(coordinate: endingCoord, insertInto: moc)
-                starting.addToNeighbors(ending)
-                selectedMeasurement = ending
+                if let startingMeasurement = selectedMeasurement {
+                    if let endingMeasurement = snap(endingPos) {
+                        startingMeasurement.addToNeighbors(endingMeasurement.0)
+                        self.selectedMeasurement = endingMeasurement.0
+                    }
+                    else {
+                        guard let endingCoordinate = mapContext.convert(CGPoint(size: endingPos), from: .global)
+                        else { return }
+                        let endingMeasurement = MapMeasurementCoordinate(coordinate: endingCoordinate, insertInto: moc)
+                        startingMeasurement.addToNeighbors(endingMeasurement)
+                        self.selectedMeasurement = endingMeasurement
+                    }
+                }
+                else {
+                    if let endingMeasurement = snap(endingPos) {
+                        guard let startingCoordinate = mapContext.convert(CGPoint(size: startingPos), from: .global)
+                        else { return }
+                        let startingMeasurement = MapMeasurementCoordinate(coordinate: startingCoordinate, insertInto: moc)
+                        startingMeasurement.addToNeighbors(endingMeasurement.0)
+                        self.selectedMeasurement = endingMeasurement.0
+                    }
+                    else {
+                        guard let startingCoordinate = mapContext.convert(CGPoint(size: startingPos), from: .global),
+                              let endingCoordinate = mapContext.convert(CGPoint(size: endingPos), from: .global)
+                        else { return }
+                        let startingMeasurement = MapMeasurementCoordinate(coordinate: startingCoordinate, insertInto: moc)
+                        let endingMeasurement = MapMeasurementCoordinate(coordinate: endingCoordinate, insertInto: moc)
+                        startingMeasurement.addToNeighbors(endingMeasurement)
+                        self.selectedMeasurement = endingMeasurement
+                    }
+                }
                 startingPos = .zero
                 endingPos = .zero
                 cleanupMeasurements()
@@ -80,6 +111,8 @@ struct MeasurementEditorV: View {
                 Color.black
                     .opacity(0.5)
                     .ignoresSafeArea()
+                    .onTapGesture { selectedMeasurement = nil }
+                    .accessibilityAddTraits(.isButton)
                     .gesture(drawGesture)
                 if endingPos != startingPos {
                     ZStack {
@@ -87,8 +120,8 @@ struct MeasurementEditorV: View {
                             .stroke(style: StrokeStyle(lineWidth: 5, lineCap: .round))
                             .shadow(radius: 2)
                             .lineLabel(startingPos: CGPoint(size: startingPos), endingPos: CGPoint(size: endingPos), distance: distance)
-                        HandleV(position: $startingPos)
-                        HandleV(position: $endingPos, color: .highlightBlue)
+                        if selectedMeasurement == nil { HandleV(position: $startingPos) }
+                        HandleV(position: $endingPos)
                     }
                     .ignoresSafeArea()
                 }
@@ -110,7 +143,7 @@ struct MeasurementEditorV: View {
                 }
                 .ignoresSafeArea()
                 
-                BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
+                BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center]) { _ in
                     VStack {
                         Text("Drag to measure.")
                             .foregroundStyle(.secondary)
@@ -124,15 +157,6 @@ struct MeasurementEditorV: View {
                                 Text("Done")
                                     .bigButton(backgroundColor: .blue)
                             }
-                            
-                            // Cancel button
-                            Button(action: {
-                                editing = .nothing
-                                moc.reset()
-                            }, label: {
-                                Text("Cancel")
-                                    .bigButton(backgroundColor: .gray)
-                            })
                             
                             // Delete button
                             Button( action: {
@@ -190,5 +214,19 @@ struct MeasurementEditorV: View {
         for measurement in measurements where measurement.formattedNeighbors.count == .zero {
             moc.delete(measurement)
         }
+    }
+    
+    /// Check a CGSize position against other MapMeasurementCoordinate SS positions to see if it's within snapping range.
+    /// - Parameter point: Point to check against other MapMeasurementCoordinate SS positions.
+    /// - Returns: The first found MapMeasurementCoordinate and it's position on screen.
+    private func snap(_ point: CGSize) -> (MapMeasurementCoordinate, CGSize)? {
+        for measurement in measurements {
+            guard let handlePosition = handlePositions[measurement]
+            else { continue }
+            if handlePosition.distanceTo(point) < HandleV.handleSize {
+                return (measurement, handlePosition)
+            }
+        }
+        return nil
     }
 }
