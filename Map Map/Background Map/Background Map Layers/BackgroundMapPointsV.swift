@@ -181,6 +181,7 @@ struct BackgroundMapPointsV: View {
                     break
                 }
                 else if message == .update, let mapCoordinates = userInfoElement.value as? Set<MapMeasurementCoordinate> {
+                    if mapCoordinates.count > 1 { self.lines = connectionsToDraw() }
                     updateCoordinate(mapCoordinates)
                 }
             }
