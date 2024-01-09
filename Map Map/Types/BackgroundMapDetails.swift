@@ -69,4 +69,7 @@ final class BackgroundMapDetailsM {
             )
         }
     }
+    
+    /// A simple wrapper to prevent the background map from following the user's loc and rot.
+    func preventFollowingUser() { self.liveMapController = .region(self.region) }
 }
