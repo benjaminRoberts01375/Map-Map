@@ -32,7 +32,7 @@ struct PhotoEditorV: View {
             self._handleTracker = State(initialValue: HandleTrackerM(corners: corners))
         }
         else { // No predefined corners, set corners to the actual corners of the photo
-            self._handleTracker = State(initialValue: HandleTrackerM(width: mapMap.imageWidth, height: mapMap.imageHeight))
+            self._handleTracker = State(initialValue: HandleTrackerM(corners: .zero))
         }
     }
     
