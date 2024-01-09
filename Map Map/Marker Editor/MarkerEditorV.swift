@@ -99,6 +99,7 @@ struct MarkerEditorV: View {
             }
             .ignoresSafeArea()
         }
+        .onAppear { backgroundMapDetails.preventFollowingUser() }
     }
     
     func determineMarkerOverlap() {

@@ -57,14 +57,8 @@ struct ContentView: View {
             switch self.editing {
             case .measurement: return
             default:
-                if let editingMapMap = mapMaps.first(where: { $0.isEditing }) {
-                    self.editing = .mapMap(editingMapMap)
-                    return
-                }
-                else if let editingMarker = markers.first(where: { $0.isEditing }) {
-                    self.editing = .marker(editingMarker)
-                    return
-                }
+                if let editingMapMap = mapMaps.first(where: { $0.isEditing }) { self.editing = .mapMap(editingMapMap) }
+                else if let editingMarker = markers.first(where: { $0.isEditing }) { self.editing = .marker(editingMarker) }
                 else { self.editing = .nothing }
             }
         }
