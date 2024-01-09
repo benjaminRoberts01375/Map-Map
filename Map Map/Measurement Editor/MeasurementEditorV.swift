@@ -56,7 +56,7 @@ struct MeasurementEditorV: View {
                     isDragging = true
                 }
                 let currentEndingPos = CGSize(cgPoint: update.location)
-                if let snapPos = snap(currentEndingPos) { endingPos = snapPos.1 }
+                if let snapPos = snapToMeasurement(currentEndingPos) { endingPos = snapPos.1 }
                 else { endingPos = currentEndingPos }
                 
                 guard let startingCoord = mapContext.convert(CGPoint(size: startingPos), from: .global),
@@ -69,7 +69,7 @@ struct MeasurementEditorV: View {
             .onEnded { _ in
                 isDragging = false
                 if let startingMeasurement = selectedMeasurement {
-                    if let endingMeasurement = snap(endingPos) {
+                    if let endingMeasurement = snapToMeasurement(endingPos) {
                         startingMeasurement.addToNeighbors(endingMeasurement.0)
                         self.selectedMeasurement = endingMeasurement.0
                     }
@@ -82,7 +82,7 @@ struct MeasurementEditorV: View {
                     }
                 }
                 else {
-                    if let endingMeasurement = snap(endingPos) {
+                    if let endingMeasurement = snapToMeasurement(endingPos) {
                         guard let startingCoordinate = mapContext.convert(CGPoint(size: startingPos), from: .global)
                         else { return }
                         let startingMeasurement = MapMeasurementCoordinate(coordinate: startingCoordinate, insertInto: moc)
@@ -219,7 +219,7 @@ struct MeasurementEditorV: View {
     /// Check a CGSize position against other MapMeasurementCoordinate SS positions to see if it's within snapping range.
     /// - Parameter point: Point to check against other MapMeasurementCoordinate SS positions.
     /// - Returns: The first found MapMeasurementCoordinate and it's position on screen.
-    private func snap(_ point: CGSize) -> (MapMeasurementCoordinate, CGSize)? {
+    private func snapToMeasurement(_ point: CGSize) -> (MapMeasurementCoordinate, CGSize)? {
         for measurement in measurements {
             guard let handlePosition = handlePositions[measurement]
             else { continue }
