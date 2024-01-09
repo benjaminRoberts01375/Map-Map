@@ -57,6 +57,7 @@ struct MeasurementEditorV: View {
                 }
                 let currentEndingPos = CGSize(cgPoint: update.location)
                 if let snapPos = snapToMeasurement(currentEndingPos) { endingPos = snapPos.1 }
+                else if let snapPos = snapToMarker(currentEndingPos) { endingPos = snapPos.1 }
                 else { endingPos = currentEndingPos }
                 
                 guard let startingCoord = mapContext.convert(CGPoint(size: startingPos), from: .global),
@@ -225,6 +226,21 @@ struct MeasurementEditorV: View {
             else { continue }
             if handlePosition.distanceTo(point) < HandleV.handleSize {
                 return (measurement, handlePosition)
+            }
+        }
+        return nil
+    }
+    
+    /// Check a CGSize position against other Marker SS positions to see if it's within snapping range.
+    /// - Parameter point: Point to check against other Marker SS positions.
+    /// - Returns: The first found Marker and it's position on screen.
+    private func snapToMarker(_ point: CGSize) -> (Marker, CGSize)? {
+        for marker in markers {
+            guard let markerPoint = mapContext.convert(marker.coordinates, to: .global)
+            else { continue }
+            let markerPosition = CGSize(cgPoint: markerPoint)
+            if markerPosition.distanceTo(point) < HandleV.handleSize {
+                return (marker, markerPosition)
             }
         }
         return nil
