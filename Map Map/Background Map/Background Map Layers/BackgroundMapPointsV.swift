@@ -175,6 +175,7 @@ struct BackgroundMapPointsV: View {
     private func interpretCDNotification(_ notification: NotificationCenter.Publisher.Output) {
         for userInfoElement in notification.userInfo ?? [:] {
             if let message = userInfoElement.key as? String {
+                print("MESSAGE:", userInfoElement.value)
                 if message == .invalidatedAll || message == .deleted || message == .inserted {
                     self.lines = connectionsToDraw()
                     break

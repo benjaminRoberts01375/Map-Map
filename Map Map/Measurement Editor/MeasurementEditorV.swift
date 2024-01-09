@@ -120,7 +120,7 @@ struct MeasurementEditorV: View {
                 }
                 .ignoresSafeArea()
                 
-                BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { _ in
+                BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center]) { _ in
                     VStack {
                         Text("Drag to measure.")
                             .foregroundStyle(.secondary)
@@ -134,15 +134,6 @@ struct MeasurementEditorV: View {
                                 Text("Done")
                                     .bigButton(backgroundColor: .blue)
                             }
-                            
-                            // Cancel button
-                            Button(action: {
-                                editing = .nothing
-                                moc.reset()
-                            }, label: {
-                                Text("Cancel")
-                                    .bigButton(backgroundColor: .gray)
-                            })
                             
                             // Delete button
                             Button( action: {

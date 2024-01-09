@@ -15,6 +15,8 @@ struct HandleV: View {
     @State private var previousFrameDragAmount: CGSize = .zero
     /// Default color to make the handle
     public static var defaultColor: Color = .white.opacity(0.5)
+    /// Diameter of the handle
+    public static var handleSize: CGFloat = HandleVModifier.handleSize + HandleVModifier.handlePadding
     /// Actual color of the handle
     public var color: Color = HandleV.defaultColor
     /// Defer moving the handle to caller view.

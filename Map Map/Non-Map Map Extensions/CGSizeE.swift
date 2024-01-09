@@ -50,4 +50,11 @@ extension CGSize {
     func rounded() -> CGSize {
         return CGSize(width: width.rounded(), height: height.rounded())
     }
+    
+    /// Calculate the distance to another CGSize.
+    /// - Parameter destination: Destination CGSize.
+    /// - Returns: Distance between the two CGSizes.
+    func distanceTo(_ destination: CGSize) -> CGFloat {
+        return sqrt(pow(self.width - destination.width, 2) + pow(self.height - destination.height, 2))
+    }
 }
