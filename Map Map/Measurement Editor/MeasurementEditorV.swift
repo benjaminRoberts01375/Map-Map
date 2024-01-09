@@ -12,8 +12,8 @@ import SwiftUI
 struct MeasurementEditorV: View {
     /// Information about the background map being plotted on top of.
     @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
-    /// All available MapMaps.
-    @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
+    /// All available Markers.
+    @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
     /// Measurement to edit.
     @FetchRequest(sortDescriptors: []) var measurements: FetchedResults<MapMeasurementCoordinate>
     /// Managed object context the measurement is stored in.
