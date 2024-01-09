@@ -12,8 +12,8 @@ import SwiftUI
 struct MeasurementEditorV: View {
     /// Information about the background map being plotted on top of.
     @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
-    /// All available MapMaps.
-    @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
+    /// All available Markers.
+    @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
     /// Measurement to edit.
     @FetchRequest(sortDescriptors: []) var measurements: FetchedResults<MapMeasurementCoordinate>
     /// Managed object context the measurement is stored in.
@@ -56,7 +56,8 @@ struct MeasurementEditorV: View {
                     isDragging = true
                 }
                 let currentEndingPos = CGSize(cgPoint: update.location)
-                if let snapPos = snap(currentEndingPos) { endingPos = snapPos.1 }
+                if let snapPos = snapToMeasurement(currentEndingPos) { endingPos = snapPos.1 }
+                else if let snapPos = snapToMarker(currentEndingPos) { endingPos = snapPos.1 }
                 else { endingPos = currentEndingPos }
                 
                 guard let startingCoord = mapContext.convert(CGPoint(size: startingPos), from: .global),
@@ -69,7 +70,7 @@ struct MeasurementEditorV: View {
             .onEnded { _ in
                 isDragging = false
                 if let startingMeasurement = selectedMeasurement {
-                    if let endingMeasurement = snap(endingPos) {
+                    if let endingMeasurement = snapToMeasurement(endingPos) {
                         startingMeasurement.addToNeighbors(endingMeasurement.0)
                         self.selectedMeasurement = endingMeasurement.0
                     }
@@ -82,7 +83,7 @@ struct MeasurementEditorV: View {
                     }
                 }
                 else {
-                    if let endingMeasurement = snap(endingPos) {
+                    if let endingMeasurement = snapToMeasurement(endingPos) {
                         guard let startingCoordinate = mapContext.convert(CGPoint(size: startingPos), from: .global)
                         else { return }
                         let startingMeasurement = MapMeasurementCoordinate(coordinate: startingCoordinate, insertInto: moc)
@@ -190,7 +191,9 @@ struct MeasurementEditorV: View {
         for measurement in measurements {
             guard let ssPosition = mapContext.convert(measurement.coordinates, to: .global)
             else { continue }
-            handlePositions[measurement] = CGSize(cgPoint: ssPosition)
+            var updatedHandlePosition = CGSize(cgPoint: ssPosition)
+            if let snapPoint = snapToMarker(updatedHandlePosition) { updatedHandlePosition = snapPoint.1 }
+            handlePositions[measurement] = updatedHandlePosition
         }
         self.handlePositions = handlePositions
     }
@@ -219,12 +222,27 @@ struct MeasurementEditorV: View {
     /// Check a CGSize position against other MapMeasurementCoordinate SS positions to see if it's within snapping range.
     /// - Parameter point: Point to check against other MapMeasurementCoordinate SS positions.
     /// - Returns: The first found MapMeasurementCoordinate and it's position on screen.
-    private func snap(_ point: CGSize) -> (MapMeasurementCoordinate, CGSize)? {
+    private func snapToMeasurement(_ point: CGSize) -> (MapMeasurementCoordinate, CGSize)? {
         for measurement in measurements {
             guard let handlePosition = handlePositions[measurement]
             else { continue }
             if handlePosition.distanceTo(point) < HandleV.handleSize {
                 return (measurement, handlePosition)
+            }
+        }
+        return nil
+    }
+    
+    /// Check a CGSize position against other Marker SS positions to see if it's within snapping range.
+    /// - Parameter point: Point to check against other Marker SS positions.
+    /// - Returns: The first found Marker and it's position on screen.
+    private func snapToMarker(_ point: CGSize) -> (Marker, CGSize)? {
+        for marker in markers {
+            guard let markerPoint = mapContext.convert(marker.coordinates, to: .global)
+            else { continue }
+            let markerPosition = CGSize(cgPoint: markerPoint)
+            if markerPosition.distanceTo(point) < HandleV.handleSize {
+                return (marker, markerPosition)
             }
         }
         return nil
