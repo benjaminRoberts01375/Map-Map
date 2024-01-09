@@ -191,7 +191,9 @@ struct MeasurementEditorV: View {
         for measurement in measurements {
             guard let ssPosition = mapContext.convert(measurement.coordinates, to: .global)
             else { continue }
-            handlePositions[measurement] = CGSize(cgPoint: ssPosition)
+            var updatedHandlePosition = CGSize(cgPoint: ssPosition)
+            if let snapPoint = snapToMarker(updatedHandlePosition) { updatedHandlePosition = snapPoint.1 }
+            handlePositions[measurement] = updatedHandlePosition
         }
         self.handlePositions = handlePositions
     }
