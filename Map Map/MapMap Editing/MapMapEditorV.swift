@@ -86,7 +86,10 @@ struct MapMapEditor: View {
                 .padding(.bottom, isShortCard ? 0 : 10)
             }
         }
-        .onAppear { workingName = mapMap.mapMapName ?? "Untitled Map" }
+        .onAppear {
+            backgroundMapDetails.preventFollowingUser()
+            workingName = mapMap.mapMapName ?? "Untitled Map"
+        }
         .fullScreenCover(isPresented: $showingPhotoEditor, content: {
             PhotoEditorV(mapMap: mapMap)
         })
