@@ -176,7 +176,10 @@ struct MeasurementEditorV: View {
                 }
             }
         }
-        .onAppear { generateSSHandlePositions() }
+        .onAppear {
+            generateSSHandlePositions()
+            backgroundMapDetails.preventFollowingUser()
+        }
         .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { _ in
             generateSSHandlePositions()
         }
