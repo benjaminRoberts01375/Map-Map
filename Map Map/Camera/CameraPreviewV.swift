@@ -86,15 +86,11 @@ struct CameraPreviewV: View {
                 .padding(.bottom, isShortCard ? 0 : 10)
             }
         }
-        .onChange(of: AVCaptureDevice.authorizationStatus(for: .video), initial: true) { _, authorizationUpdate in
-            switch authorizationUpdate {
-            case .notDetermined, .restricted, .denied:
-                cameraService.permissionsEnabled = false
-            case .authorized:
-                cameraService.permissionsEnabled = true
-            @unknown default:
-                cameraService.permissionsEnabled = false
-            }
+        .onReceive(NotificationCenter.default.publisher(for: .AVCaptureDeviceWasConnected)) { _ in
+            cameraService.permissionsEnabled = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .AVCaptureDeviceWasDisconnected)) { _ in
+            cameraService.permissionsEnabled = false
         }
     }
     
