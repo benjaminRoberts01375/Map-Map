@@ -21,6 +21,7 @@ struct GridOverlayV: View {
                 bottomTrailing: handleTracker.corners.bottomTrailing
             )
             .fill(.clear)
+            .stroke(.black.opacity(0.75), lineWidth: 3)
             .stroke(.white.opacity(0.75), lineWidth: 2)
             
             HandleV(position: $handleTracker.corners.topLeading)
