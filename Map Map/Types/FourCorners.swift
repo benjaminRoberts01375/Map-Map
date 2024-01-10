@@ -10,6 +10,9 @@ import Foundation
 /// A class that mirrors the functionality of the FourCorners core data class.
 @Observable
 final class FourCornersStorage {
+    /// A FourCornersStorage where every value is zero'ed.
+    static var zero = FourCornersStorage(topLeading: .zero, topTrailing: .zero, bottomLeading: .zero, bottomTrailing: .zero)
+    
     var topLeading: CGSize
     var topTrailing: CGSize
     var bottomLeading: CGSize
