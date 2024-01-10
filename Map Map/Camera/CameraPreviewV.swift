@@ -62,6 +62,7 @@ struct CameraPreviewV: View {
                             Text("Camera permissions are not enabled.")
                             Text("Open Settings to optionally enable the camera for MapMap.")
                         }
+                        .foregroundStyle(.white)
                     }
                 }
             }
