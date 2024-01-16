@@ -52,7 +52,7 @@ struct PhotoEditorV: View {
                             handleTracker.corners *= previous / update
                         }
                         .frame(
-                            width: geo.size.width - 100,
+                            width: geo.size.width * 0.95,
                             height: geo.size.height * 0.72
                         )
                     
