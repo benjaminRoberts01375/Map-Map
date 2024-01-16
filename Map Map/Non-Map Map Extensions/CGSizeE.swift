@@ -14,6 +14,15 @@ extension CGSize {
         self.init(width: cgPoint.x, height: cgPoint.y)
     }
     
+    /// Allows adding two CGSizes.
+    /// - Parameters:
+    ///   - lhs: CGSize to start.
+    ///   - rhs: CGSize to add.
+    /// - Returns: Combined CGSize..
+    static func + (lhs: CGSize, rhs: CGSize) -> CGSize {
+        return CGSize(width: lhs.width + rhs.width, height: lhs.height + rhs.height)
+    }
+    
     static func * (lhs: CGSize, rhs: CGSize) -> CGSize {
         return CGSize(width: lhs.width * rhs.width, height: lhs.height * rhs.height)
     }
