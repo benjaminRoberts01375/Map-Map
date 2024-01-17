@@ -23,12 +23,16 @@ struct CropGrabberV: View {
             )
         )
     }
+    /// Position of the CropGrabber
+    var position: CGPoint {
+        CGPoint(size: ((leadingPoint + trailingPoint) / 2))
+    }
     
     var body: some View {
         RoundedRectangle(cornerRadius: 25.0)
             .foregroundStyle(.white)
             .frame(width: 60, height: 10)
             .rotationEffect(rotationAngle)
-            .position(CGPoint(size: ((leadingPoint + trailingPoint) / 2)))
+            .position(position)
     }
 }
