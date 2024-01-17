@@ -28,6 +28,10 @@ struct GridOverlayV: View {
             HandleV(position: $handleTracker.corners.topTrailing)
             HandleV(position: $handleTracker.corners.bottomLeading)
             HandleV(position: $handleTracker.corners.bottomTrailing)
+            CropGrabberV(leadingPoint: $handleTracker.corners.topLeading, trailingPoint: $handleTracker.corners.topTrailing)
+            CropGrabberV(leadingPoint: $handleTracker.corners.topLeading, trailingPoint: $handleTracker.corners.bottomLeading)
+            CropGrabberV(leadingPoint: $handleTracker.corners.topTrailing, trailingPoint: $handleTracker.corners.bottomTrailing)
+            CropGrabberV(leadingPoint: $handleTracker.corners.bottomLeading, trailingPoint: $handleTracker.corners.bottomTrailing)
         }
     }
 }

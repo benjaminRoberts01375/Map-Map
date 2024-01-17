@@ -14,6 +14,24 @@ extension CGSize {
         self.init(width: cgPoint.x, height: cgPoint.y)
     }
     
+    /// Allows adding two CGSizes.
+    /// - Parameters:
+    ///   - lhs: CGSize to start.
+    ///   - rhs: CGSize to add.
+    /// - Returns: Combined CGSize..
+    static func + (lhs: CGSize, rhs: CGSize) -> CGSize {
+        return CGSize(width: lhs.width + rhs.width, height: lhs.height + rhs.height)
+    }
+    
+    /// Allows subtracting two CGSizes.
+    /// - Parameters:
+    ///   - lhs: CGSize to start.
+    ///   - rhs: CGSize to subtract.
+    /// - Returns: Subtracted CGSize.
+    static func - (lhs: CGSize, rhs: CGSize) -> CGSize {
+        return CGSize(width: lhs.width - rhs.width, height: lhs.height - rhs.height)
+    }
+    
     static func * (lhs: CGSize, rhs: CGSize) -> CGSize {
         return CGSize(width: lhs.width * rhs.width, height: lhs.height * rhs.height)
     }
@@ -45,6 +63,14 @@ extension CGSize {
         lhs.height *= rhs.height
     }
     
+    /// Allow \*= operation of of CGSize
+    /// - Parameters:
+    ///   - lhs: CGSize being multiplied.
+    ///   - rhs: Multiplier.
+    static func += (lhs: inout CGSize, rhs: CGSize) {
+        lhs.width += rhs.width
+        lhs.height += rhs.height
+    }
     /// Allow rounding of CGSizes
     /// - Returns: A rounded CGSize
     func rounded() -> CGSize {
