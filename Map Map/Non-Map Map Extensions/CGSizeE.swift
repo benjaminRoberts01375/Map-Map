@@ -23,6 +23,15 @@ extension CGSize {
         return CGSize(width: lhs.width + rhs.width, height: lhs.height + rhs.height)
     }
     
+    /// Allows subtracting two CGSizes.
+    /// - Parameters:
+    ///   - lhs: CGSize to start.
+    ///   - rhs: CGSize to subtract.
+    /// - Returns: Subtracted CGSize.
+    static func - (lhs: CGSize, rhs: CGSize) -> CGSize {
+        return CGSize(width: lhs.width - rhs.width, height: lhs.height - rhs.height)
+    }
+    
     static func * (lhs: CGSize, rhs: CGSize) -> CGSize {
         return CGSize(width: lhs.width * rhs.width, height: lhs.height * rhs.height)
     }
