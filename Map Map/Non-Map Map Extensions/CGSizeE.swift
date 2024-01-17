@@ -54,6 +54,14 @@ extension CGSize {
         lhs.height *= rhs.height
     }
     
+    /// Allow \*= operation of of CGSize
+    /// - Parameters:
+    ///   - lhs: CGSize being multiplied.
+    ///   - rhs: Multiplier.
+    static func += (lhs: inout CGSize, rhs: CGSize) {
+        lhs.width += rhs.width
+        lhs.height += rhs.height
+    }
     /// Allow rounding of CGSizes
     /// - Returns: A rounded CGSize
     func rounded() -> CGSize {
