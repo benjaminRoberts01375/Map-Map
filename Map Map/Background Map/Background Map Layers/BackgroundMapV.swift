@@ -62,8 +62,6 @@ struct BackgroundMap: View {
         }
         .mapControlVisibility(.hidden)
         .onMapCameraChange(frequency: .continuous) { update in
-            backgroundMapDetails.region.span = update.region.span
-            
             backgroundMapDetails.region = update.region
             backgroundMapDetails.mapCamera = update.camera
         }
