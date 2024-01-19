@@ -10,6 +10,8 @@ import SwiftUI
 
 /// Background map to be plotted on top of.
 struct BackgroundMap: View {
+    /// Current Core Data managed object context.
+    @Environment(\.managedObjectContext) private var moc
     /// All available MapMaps.
     @FetchRequest(sortDescriptors: []) private var mapMaps: FetchedResults<MapMap>
     /// All available Markers.
@@ -18,6 +20,8 @@ struct BackgroundMap: View {
     @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails: BackgroundMapDetailsM
     /// Track if MapMaps are tappable.
     @State private var tappableMapMaps = true
+    /// Track if a drag and drop action may occur on this view.
+    @State private var dragAndDropTargeted: Bool = false
     /// Current editor
     @Binding var editor: Editor
     /// Background map ID.
@@ -74,6 +78,22 @@ struct BackgroundMap: View {
                 tappableMapMaps = false
             }
         })
+        .onDrop(of: [.image], isTargeted: $dragAndDropTargeted) { dropImage(providers: $0) }
+    }
+    
+    /// Handles drag and drop of images from outside of Map Map.
+    /// - Parameter providers: All arguments given from drag and drop.
+    /// - Returns: Success boolean.
+    private func dropImage(providers: [NSItemProvider]) -> Bool {
+        guard let provider = providers.first
+        else { return false }
+        if !provider.hasItemConformingToTypeIdentifier("public.image") { return false }
+        _ = provider.loadObject(ofClass: UIImage.self) { image, _ in
+            guard let image = image as? UIImage
+            else { return }
+            DispatchQueue.main.async { _ = MapMap(rawPhoto: image, insertInto: moc) }
+        }
+        return true
     }
     
     /// Given a specific rotation and MapMap, a UIBezierPath is formed to allow for precise calculations.
