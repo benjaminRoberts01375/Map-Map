@@ -10,8 +10,6 @@ import SwiftUI
 
 /// Background map to be plotted on top of.
 struct BackgroundMap: View {
-    /// Current Core Data managed object context.
-    @Environment(\.managedObjectContext) private var moc
     /// All available MapMaps.
     @FetchRequest(sortDescriptors: []) private var mapMaps: FetchedResults<MapMap>
     /// All available Markers.
