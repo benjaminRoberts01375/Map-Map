@@ -25,12 +25,29 @@ struct ContentView: View {
     @State private var toastInfo: ToastInfo = ToastInfo()
     /// Coordinate display type.
     @State private var displayType: LocationDisplayMode = .degrees
+    /// Track if a drag and drop action may occur on this view.
+    @State private var dragAndDropTargeted: Bool = false
+    /// Control the opacity of the dark shade overlay.
+    @State private var shadeOpacity: CGFloat = 0
     
     var body: some View {
         MapReader { mapContext in
             ZStack(alignment: .top) {
-                BackgroundMapLayersV(displayType: $displayType, editor: $editing, mapContext: mapContext)
-                    .environment(\.locationDisplayMode, displayType)
+                ZStack {
+                    BackgroundMapLayersV(displayType: $displayType, editor: $editing, mapContext: mapContext)
+                        .environment(\.locationDisplayMode, displayType)
+                        .onDrop(of: [.image], isTargeted: $dragAndDropTargeted) { dropImage(providers: $0) }
+                    
+                    if dragAndDropTargeted {
+                        Color.black
+                            .opacity(shadeOpacity)
+                            .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true))
+                            .onAppear { withAnimation { shadeOpacity = 0.25 } }
+                            .onDisappear { withAnimation { shadeOpacity = 0 } }
+                            .allowsHitTesting(false)
+                            .ignoresSafeArea()
+                    }
+                }
                 switch editing {
                 case .mapMap(let mapMap): MapMapEditor(mapMap: mapMap, mapContext: mapContext)
                 case .marker(let marker): MarkerEditorV(marker: marker, mapContext: mapContext)
@@ -70,6 +87,21 @@ struct ContentView: View {
                 toastInfo.info = info
             }
         }
+    }
+    
+    /// Handles drag and drop of images from outside of Map Map.
+    /// - Parameter providers: All arguments given from drag and drop.
+    /// - Returns: Success boolean.
+    private func dropImage(providers: [NSItemProvider]) -> Bool {
+        guard let provider = providers.first
+        else { return false }
+        if !provider.hasItemConformingToTypeIdentifier("public.image") { return false }
+        _ = provider.loadObject(ofClass: UIImage.self) { image, _ in
+            guard let image = image as? UIImage
+            else { return }
+            DispatchQueue.main.async { _ = MapMap(rawPhoto: image, insertInto: moc) }
+        }
+        return true
     }
 }
 
