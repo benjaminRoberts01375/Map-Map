@@ -86,6 +86,7 @@
 		B53C948C2B57162400768C66 /* CropGrabberV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53C948B2B57162400768C66 /* CropGrabberV.swift */; };
 		B587C2752B46517C001DD4F9 /* StringE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B587C2742B46517C001DD4F9 /* StringE.swift */; };
 		B5B6D3772B4B89AA00861770 /* ViewSizeVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6D3762B4B89AA00861770 /* ViewSizeVModifier.swift */; };
+		B5FADE572B5C6F0600AD933C /* MarkupV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FADE562B5C6F0600AD933C /* MarkupV.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -169,6 +170,7 @@
 		B53C948B2B57162400768C66 /* CropGrabberV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropGrabberV.swift; sourceTree = "<group>"; };
 		B587C2742B46517C001DD4F9 /* StringE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringE.swift; sourceTree = "<group>"; };
 		B5B6D3762B4B89AA00861770 /* ViewSizeVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSizeVModifier.swift; sourceTree = "<group>"; };
+		B5FADE562B5C6F0600AD933C /* MarkupV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupV.swift; sourceTree = "<group>"; };
 		F9F51AE19721651D3510199A /* Pods_Map_Map.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Map_Map.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -190,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				0762DD672AD4713200C36D33 /* MapMapEditorV.swift */,
+				B5FADE582B5C6F2F00AD933C /* Markup Editor */,
 				0790A2142B01C7EF00863B29 /* Photo Editor */,
 			);
 			path = "MapMap Editing";
@@ -425,6 +428,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B5FADE582B5C6F2F00AD933C /* Markup Editor */ = {
+			isa = PBXGroup;
+			children = (
+				B5FADE562B5C6F0600AD933C /* MarkupV.swift */,
+			);
+			path = "Markup Editor";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -597,6 +608,7 @@
 				073CCDEF2B2E577F00ECCD7B /* MapLabelVModifier.swift in Sources */,
 				B5B6D3772B4B89AA00861770 /* ViewSizeVModifier.swift in Sources */,
 				079B60422B2D589E0073E936 /* PositionAlignmentVModifier.swift in Sources */,
+				B5FADE572B5C6F0600AD933C /* MarkupV.swift in Sources */,
 				B587C2752B46517C001DD4F9 /* StringE.swift in Sources */,
 				079B603D2B2CBD150073E936 /* MeasurementEditorV.swift in Sources */,
 				0744E7172AFB203D00D9F0B5 /* CameraPreviewVM.swift in Sources */,
