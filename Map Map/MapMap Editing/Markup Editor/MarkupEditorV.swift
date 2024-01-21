@@ -12,9 +12,19 @@ import SwiftUI
 struct MarkupEditorV: View {
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     @Environment(\.managedObjectContext) var moc
-    @State private var canvasView = PKCanvasView()
+    @Environment(\.dismiss) var dismiss
+    @State private var canvasView: PKCanvasView
     @State private var toolPicker = PKToolPicker()
     @State private var mapMapSize: CGSize = .zero
+    
+    init(mapMap: FetchedResults<MapMap>.Element) {
+        self.mapMap = mapMap
+        let canvasView = PKCanvasView()
+        if let drawing = mapMap.drawing?.pkDrawing {
+            canvasView.drawing = drawing
+        }
+        self._canvasView = State(initialValue: canvasView)
+    }
     
     var body: some View {
         ZStack {
@@ -35,13 +45,14 @@ struct MarkupEditorV: View {
                         .background(.blue.opacity(0.5))
                 }
             }
-            BottomDrawer(verticalDetents: [.exactly(180)], horizontalDetents: [.center]) { isShortCard in
+            BottomDrawer(verticalDetents: [.exactly(200)], horizontalDetents: [.center]) { _ in
                 Button {
                     if let drawing = mapMap.drawing { drawing.drawingData = canvasView.drawing.dataRepresentation() }
                     else { _ = Drawing(context: moc, mapMap: mapMap, drawingData: canvasView.drawing.dataRepresentation()) }
+                    dismiss()
                 } label: {
                     Text("Done")
-                        .bigButton(backgroundColor: .blue.opacity(0.5))
+                        .bigButton(backgroundColor: .blue)
                 }
             }
         }
