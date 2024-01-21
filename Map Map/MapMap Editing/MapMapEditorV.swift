@@ -103,7 +103,7 @@ struct MapMapEditor: View {
             workingName = mapMap.mapMapName ?? "Untitled Map"
         }
         .fullScreenCover(isPresented: $showingPhotoEditor) { PhotoEditorV(mapMap: mapMap) }
-        .fullScreenCover(isPresented: $showingMarkupEditor) { MarkupEditorV() }
+        .fullScreenCover(isPresented: $showingMarkupEditor) { MarkupEditorV(mapMap: mapMap) }
     }
     
     /// Determine all Markers that overlap a given MapMap
