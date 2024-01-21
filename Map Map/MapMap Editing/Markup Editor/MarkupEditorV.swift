@@ -11,6 +11,7 @@ import SwiftUI
 
 struct MarkupEditorV: View {
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
+    @Environment(\.managedObjectContext) var moc
     @State private var canvasView = PKCanvasView()
     @State private var toolPicker = PKToolPicker()
     @State private var mapMapSize: CGSize = .zero
@@ -35,7 +36,13 @@ struct MarkupEditorV: View {
                 }
             }
             BottomDrawer(verticalDetents: [.exactly(180)], horizontalDetents: [.center]) { isShortCard in
-                Text("Temp")
+                Button {
+                    if let drawing = mapMap.drawing { drawing.drawingData = canvasView.drawing.dataRepresentation() }
+                    else { _ = Drawing(context: moc, mapMap: mapMap, drawingData: canvasView.drawing.dataRepresentation()) }
+                } label: {
+                    Text("Done")
+                        .bigButton(backgroundColor: .blue.opacity(0.5))
+                }
             }
         }
     }
