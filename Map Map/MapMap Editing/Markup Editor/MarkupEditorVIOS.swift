@@ -10,6 +10,7 @@ import PencilKit
 import SwiftUI
 
 struct MarkupEditorVIOS: View {
+    @Environment(\.undoManager) var undoer
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     @Binding var canvasView: PKCanvasView
     
@@ -20,7 +21,7 @@ struct MarkupEditorVIOS: View {
             HStack {
                 Spacer()
                 Button {
-                    
+                    undoer?.undo()
                 } label: {
                     Image(systemName: "arrow.counterclockwise")
                         .resizable()
@@ -29,7 +30,7 @@ struct MarkupEditorVIOS: View {
                         .accessibilityLabel("Undo")
                 }
                 Button {
-                    
+                    undoer?.redo()
                 } label: {
                     Image(systemName: "arrow.clockwise")
                         .resizable()
