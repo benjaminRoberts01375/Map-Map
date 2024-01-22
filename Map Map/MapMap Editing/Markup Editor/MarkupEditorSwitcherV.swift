@@ -16,17 +16,19 @@ struct MarkupEditorSwitcherV: View {
     @State private var canvasView: PKCanvasView = PKCanvasView()
     @State private var toolPicker = PKToolPicker()
     static let phoneDrawerHeight: CGFloat = 190
+    private let isPhone: Bool
+    
+    init(mapMap: FetchedResults<MapMap>.Element) {
+        self.mapMap = mapMap
+        self.isPhone = UIDevice.current.userInterfaceIdiom == .phone
+    }
     
     var body: some View {
         ZStack {
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                MarkupEditorVIOS(mapMap: mapMap, canvasView: $canvasView)
-            }
-            else {
-                MarkupEditorVIPadOS(mapMap: mapMap, canvasView: $canvasView)
-            }
+            if isPhone { MarkupEditorVIOS(mapMap: mapMap, canvasView: $canvasView) }
+            else { MarkupEditorVIPadOS(mapMap: mapMap, canvasView: $canvasView) }
             BottomDrawer(
-                verticalDetents: [UIDevice.current.userInterfaceIdiom == .pad ? .content : .exactly(MarkupEditorSwitcherV.phoneDrawerHeight)],
+                verticalDetents: [self.isPhone ? .exactly(MarkupEditorSwitcherV.phoneDrawerHeight) : .content],
                 horizontalDetents: [.left, .right],
                 shortCardSize: 350
             ) { _ in
