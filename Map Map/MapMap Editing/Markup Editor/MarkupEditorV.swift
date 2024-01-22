@@ -17,6 +17,8 @@ struct MarkupEditorV: View {
     @State private var toolPicker = PKToolPicker()
     @State private var mapMapSize: CGSize = .zero
     
+    static let phoneDrawerHeight: CGFloat = 210
+    
     init(mapMap: FetchedResults<MapMap>.Element) {
         self.mapMap = mapMap
         let canvasView = PKCanvasView()
@@ -29,41 +31,61 @@ struct MarkupEditorV: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                MapMapV(mapMap: mapMap, mapType: .fullImage)
-                    .onViewResizes { self.mapMapSize = $1 }
-                    .frame(
-                        width: geo.size.width,
-                        height: geo.size.height * 0.72
-                    )
-                DrawingView(canvasView: $canvasView)
-                    .frame(
-                        width: mapMapSize.width,
-                        height: mapMapSize.height
-                    )
-                    .onAppear { self.setupToolPicker() }
-                    .background(.blue.opacity(0.5))
-                BottomDrawer(verticalDetents: [.content], horizontalDetents: [.left, .right], shortCardSize: 350) { _ in
-                    HStack {
-                        Button {
-                            if let drawing = mapMap.drawing { drawing.drawingData = canvasView.drawing.dataRepresentation() }
-                            else { _ = Drawing(context: moc, mapMap: mapMap, drawingData: canvasView.drawing.dataRepresentation()) }
-                            dismiss()
-                        } label: {
-                            Text("Done")
-                                .bigButton(backgroundColor: .blue)
+                ZStack(alignment: .top) {
+                    MapMapV(mapMap: mapMap, mapType: .fullImage)
+                        .overlay {
+                            DrawingView(canvasView: $canvasView)
+                                .onAppear { self.setupToolPicker() }
+                                .background(.blue.opacity(0.5))
                         }
-                        Button {
-                            dismiss()
-                        } label: {
-                            Text("Cancel")
-                                .bigButton(backgroundColor: .gray)
+                }
+                .frame(
+                    width: geo.size.width,
+                    height: geo.size.height * 0.78
+                )
+                .offset(y: UIDevice.current.userInterfaceIdiom == .pad ? 0 : MarkupEditorV.phoneDrawerHeight / 2 - 5)
+                BottomDrawer(
+                    verticalDetents: [UIDevice.current.userInterfaceIdiom == .pad ? .content : .exactly(MarkupEditorV.phoneDrawerHeight)],
+                    horizontalDetents: [.left, .right],
+                    shortCardSize: 350
+                ) { _ in
+                    VStack {
+                        HStack {
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "arrow.counterclockwise")
+                                    .accessibilityLabel("Undo")
+                            }
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "arrow.clockwise")
+                                    .accessibilityLabel("Redo")
+                            }
                         }
-                        Button {
-                            mapMap.drawing = nil
-                            dismiss()
-                        } label: {
-                            Text("Delete")
-                                .bigButton(backgroundColor: .red)
+                        HStack {
+                            Button {
+                                if let drawing = mapMap.drawing { drawing.drawingData = canvasView.drawing.dataRepresentation() }
+                                else { _ = Drawing(context: moc, mapMap: mapMap, drawingData: canvasView.drawing.dataRepresentation()) }
+                                dismiss()
+                            } label: {
+                                Text("Done")
+                                    .bigButton(backgroundColor: .blue)
+                            }
+                            Button {
+                                dismiss()
+                            } label: {
+                                Text("Cancel")
+                                    .bigButton(backgroundColor: .gray)
+                            }
+                            Button {
+                                mapMap.drawing = nil
+                                dismiss()
+                            } label: {
+                                Text("Delete")
+                                    .bigButton(backgroundColor: .red)
+                            }
                         }
                     }
                 }
