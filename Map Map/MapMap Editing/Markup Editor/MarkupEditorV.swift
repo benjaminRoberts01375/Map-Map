@@ -17,7 +17,7 @@ struct MarkupEditorV: View {
     @State private var toolPicker = PKToolPicker()
     @State private var mapMapSize: CGSize = .zero
     
-    static let phoneDrawerHeight: CGFloat = 210
+    static let phoneDrawerHeight: CGFloat = 190
     
     init(mapMap: FetchedResults<MapMap>.Element) {
         self.mapMap = mapMap
@@ -29,41 +29,49 @@ struct MarkupEditorV: View {
     }
     
     var body: some View {
-        GeometryReader { geo in
-            ZStack {
-                ZStack(alignment: .top) {
-                    MapMapV(mapMap: mapMap, mapType: .fullImage)
-                        .overlay {
-                            DrawingView(canvasView: $canvasView)
-                                .onAppear { self.setupToolPicker() }
-                                .background(.blue.opacity(0.5))
-                        }
+        VStack {
+            HStack {
+                Spacer()
+                Button {
+                    
+                } label: {
+                    Image(systemName: "arrow.counterclockwise")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .padding(.all, 10)
+                        .accessibilityLabel("Undo")
                 }
-                .frame(
-                    width: geo.size.width,
-                    height: geo.size.height * 0.78
-                )
-                .offset(y: UIDevice.current.userInterfaceIdiom == .pad ? 0 : MarkupEditorV.phoneDrawerHeight / 2 - 5)
+                Button {
+                    
+                } label: {
+                    Image(systemName: "arrow.clockwise")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .padding(.all, 10)
+                        .accessibilityLabel("Redo")
+                }
+            }
+            .padding(.trailing)
+            ZStack {
+                Color.clear
+                VStack {
+                    ZStack {
+                        MapMapV(mapMap: mapMap, mapType: .fullImage)
+                            .overlay {
+                                DrawingView(canvasView: $canvasView)
+                                    .onAppear { self.setupToolPicker() }
+                                    .background(.blue.opacity(0.5))
+                            }
+                    }
+                    Color.clear
+                        .frame(height: MarkupEditorV.phoneDrawerHeight)
+                }
                 BottomDrawer(
                     verticalDetents: [UIDevice.current.userInterfaceIdiom == .pad ? .content : .exactly(MarkupEditorV.phoneDrawerHeight)],
                     horizontalDetents: [.left, .right],
                     shortCardSize: 350
                 ) { _ in
                     VStack {
-                        HStack {
-                            Button {
-                                
-                            } label: {
-                                Image(systemName: "arrow.counterclockwise")
-                                    .accessibilityLabel("Undo")
-                            }
-                            Button {
-                                
-                            } label: {
-                                Image(systemName: "arrow.clockwise")
-                                    .accessibilityLabel("Redo")
-                            }
-                        }
                         HStack {
                             Button {
                                 if let drawing = mapMap.drawing { drawing.drawingData = canvasView.drawing.dataRepresentation() }
