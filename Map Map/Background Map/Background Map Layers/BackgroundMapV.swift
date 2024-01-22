@@ -39,22 +39,20 @@ struct BackgroundMap: View {
                         coordinate: mapMap.coordinates,
                         anchor: .center
                     ) {
+                        let rotation = Angle(degrees: -backgroundMapDetails.mapCamera.heading - mapMap.mapMapRotation)
+                        let width = 1 / backgroundMapDetails.mapCamera.distance * mapMap.mapMapScale
                         if tappableMapMaps {
-                            Button(action: {
+                            Button {
                                 backgroundMapDetails.moveMapCameraTo(mapMap: mapMap)
-                            }, label: {
+                            } label: {
                                 MapMapV(mapMap: mapMap, mapType: .fullImage)
-                                    .frame(width: 1 / backgroundMapDetails.mapCamera.distance * mapMap.mapMapScale)
-                                    .rotationEffect(Angle(degrees: -backgroundMapDetails.mapCamera.heading - mapMap.mapMapRotation))
-                                    .offset(y: -7)
-                            })
+                                    .stickToMap( rotation: rotation, width: width )
+                            }
                             .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
                         }
                         else {
                             MapMapV(mapMap: mapMap, mapType: .fullImage)
-                                .frame(width: 1 / backgroundMapDetails.mapCamera.distance * mapMap.mapMapScale)
-                                .rotationEffect(Angle(degrees: -backgroundMapDetails.mapCamera.heading - mapMap.mapMapRotation))
-                                .offset(y: -7)
+                                .stickToMap( rotation: rotation, width: width )
                         }
                     }
                 }

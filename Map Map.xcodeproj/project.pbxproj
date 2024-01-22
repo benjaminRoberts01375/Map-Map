@@ -88,6 +88,7 @@
 		B57D8A512B5DC827002B9F7C /* MapMap+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A502B5DC827002B9F7C /* MapMap+CoreDataProperties.swift */; };
 		B57D8A532B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A522B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift */; };
 		B57D8A552B5E112C002B9F7C /* MarkupEditorSwitcherV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A542B5E112C002B9F7C /* MarkupEditorSwitcherV.swift */; };
+		B57D8A592B5EC609002B9F7C /* StickToMapVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A582B5EC609002B9F7C /* StickToMapVModifier.swift */; };
 		B587C2752B46517C001DD4F9 /* StringE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B587C2742B46517C001DD4F9 /* StringE.swift */; };
 		B5B6D3772B4B89AA00861770 /* ViewSizeVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6D3762B4B89AA00861770 /* ViewSizeVModifier.swift */; };
 		B5FADE572B5C6F0600AD933C /* MarkupV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FADE562B5C6F0600AD933C /* MarkupV.swift */; };
@@ -177,6 +178,7 @@
 		B57D8A502B5DC827002B9F7C /* MapMap+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MapMap+CoreDataProperties.swift"; path = "/Users/ben/Desktop/Map Map/Map Map/Models/Core Data Properties/MapMap+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		B57D8A522B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupEditorVIPadOS.swift; sourceTree = "<group>"; };
 		B57D8A542B5E112C002B9F7C /* MarkupEditorSwitcherV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupEditorSwitcherV.swift; sourceTree = "<group>"; };
+		B57D8A582B5EC609002B9F7C /* StickToMapVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickToMapVModifier.swift; sourceTree = "<group>"; };
 		B587C2742B46517C001DD4F9 /* StringE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringE.swift; sourceTree = "<group>"; };
 		B5B6D3762B4B89AA00861770 /* ViewSizeVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSizeVModifier.swift; sourceTree = "<group>"; };
 		B5FADE562B5C6F0600AD933C /* MarkupV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupV.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 				07134EB82B099FEB00D23A18 /* BackgroundMapHudV.swift */,
 				07E465502B0C11A5005193F1 /* BackgroundMapPointsV.swift */,
 				07FDC6352AB26ADB00D92113 /* BackgroundMapV.swift */,
+				B57D8A582B5EC609002B9F7C /* StickToMapVModifier.swift */,
 			);
 			path = "Background Map Layers";
 			sourceTree = "<group>";
@@ -627,6 +630,7 @@
 				B5B6D3772B4B89AA00861770 /* ViewSizeVModifier.swift in Sources */,
 				079B60422B2D589E0073E936 /* PositionAlignmentVModifier.swift in Sources */,
 				B5FADE572B5C6F0600AD933C /* MarkupV.swift in Sources */,
+				B57D8A592B5EC609002B9F7C /* StickToMapVModifier.swift in Sources */,
 				B587C2752B46517C001DD4F9 /* StringE.swift in Sources */,
 				B57D8A512B5DC827002B9F7C /* MapMap+CoreDataProperties.swift in Sources */,
 				079B603D2B2CBD150073E936 /* MeasurementEditorV.swift in Sources */,
