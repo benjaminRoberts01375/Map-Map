@@ -9,7 +9,7 @@ import Bottom_Drawer
 import PencilKit
 import SwiftUI
 
-struct MarkupEditorV: View {
+struct MarkupEditorVIOS: View {
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
