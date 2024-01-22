@@ -27,32 +27,45 @@ struct MarkupEditorV: View {
     }
     
     var body: some View {
-        ZStack {
-            GeometryReader { geo in
-                ZStack {
-                    MapMapV(mapMap: mapMap, mapType: .fullImage)
-                        .onViewResizes { self.mapMapSize = $1 }
-                        .frame(
-                            width: geo.size.width,
-                            height: geo.size.height * 0.72
-                        )
-                    DrawingView(canvasView: $canvasView)
-                        .frame(
-                            width: mapMapSize.width,
-                            height: mapMapSize.height
-                        )
-                        .onAppear { self.setupToolPicker() }
-                        .background(.blue.opacity(0.5))
-                }
-            }
-            BottomDrawer(verticalDetents: [.exactly(200)], horizontalDetents: [.center]) { _ in
-                Button {
-                    if let drawing = mapMap.drawing { drawing.drawingData = canvasView.drawing.dataRepresentation() }
-                    else { _ = Drawing(context: moc, mapMap: mapMap, drawingData: canvasView.drawing.dataRepresentation()) }
-                    dismiss()
-                } label: {
-                    Text("Done")
-                        .bigButton(backgroundColor: .blue)
+        GeometryReader { geo in
+            ZStack {
+                MapMapV(mapMap: mapMap, mapType: .fullImage)
+                    .onViewResizes { self.mapMapSize = $1 }
+                    .frame(
+                        width: geo.size.width,
+                        height: geo.size.height * 0.72
+                    )
+                DrawingView(canvasView: $canvasView)
+                    .frame(
+                        width: mapMapSize.width,
+                        height: mapMapSize.height
+                    )
+                    .onAppear { self.setupToolPicker() }
+                    .background(.blue.opacity(0.5))
+                BottomDrawer(verticalDetents: [.content], horizontalDetents: [.left, .right], shortCardSize: 350) { _ in
+                    HStack {
+                        Button {
+                            if let drawing = mapMap.drawing { drawing.drawingData = canvasView.drawing.dataRepresentation() }
+                            else { _ = Drawing(context: moc, mapMap: mapMap, drawingData: canvasView.drawing.dataRepresentation()) }
+                            dismiss()
+                        } label: {
+                            Text("Done")
+                                .bigButton(backgroundColor: .blue)
+                        }
+                        Button {
+                            dismiss()
+                        } label: {
+                            Text("Cancel")
+                                .bigButton(backgroundColor: .gray)
+                        }
+                        Button {
+                            mapMap.drawing = nil
+                            dismiss()
+                        } label: {
+                            Text("Delete")
+                                .bigButton(backgroundColor: .red)
+                        }
+                    }
                 }
             }
         }
@@ -63,5 +76,6 @@ struct MarkupEditorV: View {
         toolPicker.addObserver(canvasView)
         toolPicker.isRulerActive = true
         canvasView.becomeFirstResponder()
+        toolPicker.addObserver(canvasView)
     }
 }
