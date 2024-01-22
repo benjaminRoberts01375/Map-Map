@@ -11,22 +11,9 @@ import SwiftUI
 
 struct MarkupEditorVIOS: View {
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
-    @Environment(\.managedObjectContext) var moc
-    @Environment(\.dismiss) var dismiss
-    @State private var canvasView: PKCanvasView
-    @State private var toolPicker = PKToolPicker()
-    @State private var mapMapSize: CGSize = .zero
+    @Binding var canvasView: PKCanvasView
     
     static let phoneDrawerHeight: CGFloat = 190
-    
-    init(mapMap: FetchedResults<MapMap>.Element) {
-        self.mapMap = mapMap
-        let canvasView = PKCanvasView()
-        if let drawing = mapMap.drawing?.pkDrawing {
-            canvasView.drawing = drawing
-        }
-        self._canvasView = State(initialValue: canvasView)
-    }
     
     var body: some View {
         VStack {
@@ -59,53 +46,13 @@ struct MarkupEditorVIOS: View {
                         MapMapV(mapMap: mapMap, mapType: .fullImage)
                             .overlay {
                                 DrawingView(canvasView: $canvasView)
-                                    .onAppear { self.setupToolPicker() }
                                     .background(.blue.opacity(0.5))
                             }
                     }
                     Color.clear
-                        .frame(height: MarkupEditorV.phoneDrawerHeight)
-                }
-                BottomDrawer(
-                    verticalDetents: [UIDevice.current.userInterfaceIdiom == .pad ? .content : .exactly(MarkupEditorV.phoneDrawerHeight)],
-                    horizontalDetents: [.left, .right],
-                    shortCardSize: 350
-                ) { _ in
-                    VStack {
-                        HStack {
-                            Button {
-                                if let drawing = mapMap.drawing { drawing.drawingData = canvasView.drawing.dataRepresentation() }
-                                else { _ = Drawing(context: moc, mapMap: mapMap, drawingData: canvasView.drawing.dataRepresentation()) }
-                                dismiss()
-                            } label: {
-                                Text("Done")
-                                    .bigButton(backgroundColor: .blue)
-                            }
-                            Button {
-                                dismiss()
-                            } label: {
-                                Text("Cancel")
-                                    .bigButton(backgroundColor: .gray)
-                            }
-                            Button {
-                                mapMap.drawing = nil
-                                dismiss()
-                            } label: {
-                                Text("Delete")
-                                    .bigButton(backgroundColor: .red)
-                            }
-                        }
-                    }
+                        .frame(height: MarkupEditorSwitcherV.phoneDrawerHeight)
                 }
             }
         }
-    }
-    
-    private func setupToolPicker() {
-        toolPicker.setVisible(true, forFirstResponder: canvasView)
-        toolPicker.addObserver(canvasView)
-        toolPicker.isRulerActive = true
-        canvasView.becomeFirstResponder()
-        toolPicker.addObserver(canvasView)
     }
 }
