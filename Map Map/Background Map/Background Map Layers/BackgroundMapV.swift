@@ -42,12 +42,10 @@ struct BackgroundMap: View {
                         let rotation = Angle(degrees: -backgroundMapDetails.mapCamera.heading - mapMap.mapMapRotation)
                         let width = 1 / backgroundMapDetails.mapCamera.distance * mapMap.mapMapScale
                         if tappableMapMaps {
-                            Button {
-                                backgroundMapDetails.moveMapCameraTo(mapMap: mapMap)
-                            } label: {
-                                MapMapV(mapMap: mapMap, mapType: .fullImage)
-                                    .stickToMap( rotation: rotation, width: width )
-                            }
+                            Button(
+                                action: { backgroundMapDetails.moveMapCameraTo(mapMap: mapMap) },
+                                label: { MapMapV(mapMap: mapMap, mapType: .fullImage).stickToMap( rotation: rotation, width: width ) }
+                            )
                             .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
                         }
                         else {
