@@ -21,6 +21,7 @@ struct MarkupEditorSwitcherV: View {
     init(mapMap: FetchedResults<MapMap>.Element) {
         self.mapMap = mapMap
         self.isPhone = UIDevice.current.userInterfaceIdiom == .phone
+        if let drawing = mapMap.drawing?.pkDrawing { canvasView.drawing = drawing }
     }
     
     var body: some View {
