@@ -10,8 +10,8 @@ import MapKit
 import SwiftUI
 
 struct MeasurementEditorV: View {
-    /// Information about the background map being plotted on top of.
-    @Environment(BackgroundMapDetailsM.self) var backgroundMapDetails
+    /// Information about the map being plotted on top of.
+    @Environment(MapDetailsM.self) var mapDetails
     /// All available Markers.
     @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
     /// Measurement to edit.
@@ -178,7 +178,7 @@ struct MeasurementEditorV: View {
         }
         .onAppear {
             generateSSHandlePositions()
-            backgroundMapDetails.preventFollowingUser()
+            mapDetails.preventFollowingUser()
         }
         .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { _ in
             generateSSHandlePositions()

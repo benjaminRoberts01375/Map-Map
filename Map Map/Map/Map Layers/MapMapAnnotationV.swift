@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-/// Handle all display logic for a MapMap on the background map.
+/// Handle all display logic for a MapMap on the map.
 struct MapMapAnnotationV: View {
-    /// Background map details to be updated by this map.
-    @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    /// Map details to be updated by this map.
+    @Environment(MapDetailsM.self) private var mapDetails
     /// MapMap being displayed.
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     /// Update UI when drawing changes.
@@ -25,13 +25,13 @@ struct MapMapAnnotationV: View {
     }
     
     var body: some View {
-        let calculatedWidth = 1 / backgroundMapDetails.mapCamera.distance * mapMap.mapMapScale
+        let calculatedWidth = 1 / mapDetails.mapCamera.distance * mapMap.mapMapScale
         let width = !calculatedWidth.isNormal || calculatedWidth < 0 ? 1 : calculatedWidth
         ZStack {
             switch mapMapInteraction {
             case .tappable:
                 Button(
-                    action: { backgroundMapDetails.moveMapCameraTo(mapMap: mapMap) },
+                    action: { mapDetails.moveMapCameraTo(mapMap: mapMap) },
                     label: {
                         MapMapV(mapMap: mapMap, mapType: .fullImage)
                             .frame(width: width)
@@ -53,7 +53,7 @@ struct MapMapAnnotationV: View {
                 .id(id)
             }
         }
-        .rotationEffect(Angle(degrees: -backgroundMapDetails.mapCamera.heading - mapMap.mapMapRotation))
+        .rotationEffect(Angle(degrees: -mapDetails.mapCamera.heading - mapMap.mapMapRotation))
         .offset(y: -7)
     }
 }

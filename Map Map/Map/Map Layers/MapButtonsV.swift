@@ -1,5 +1,5 @@
 //
-//  BackgroundMapButtonsV.swift
+//  MapButtonsV.swift
 //  Map Map
 //
 //  Created by Ben Roberts on 11/19/23.
@@ -8,16 +8,16 @@
 import MapKit
 import SwiftUI
 
-/// Background Map button controls.
-struct BackgroundMapButtonsV: View {
+/// Map button controls.
+struct MapButtonsV: View {
     /// All available MapMaps
     @FetchRequest(sortDescriptors: []) private var mapMaps: FetchedResults<MapMap>
     /// All available Markers
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
     /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
-    /// Details about the background map.
-    @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    /// Details about the map.
+    @Environment(MapDetailsM.self) private var mapDetails
     /// Tracker for adding or removing markers.
     @State private var markerButton: MarkerButtonType = .add
     /// Coordinate display type.
@@ -26,7 +26,7 @@ struct BackgroundMapButtonsV: View {
     @Binding var editor: Editor
     /// Size of parent view.
     let screenSize: CGSize
-    /// Background map ID.
+    /// Map ID.
     let mapScope: Namespace.ID
     
     let mapContext: MapProxy
@@ -42,13 +42,13 @@ struct BackgroundMapButtonsV: View {
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
             VStack {
-                BackgroundMapHudV(rawDisplayType: $displayType)
+                MapHudV(rawDisplayType: $displayType)
                 MapScaleView(scope: mapScope)
             }
-            .padding(.trailing, BackgroundMapLayersV.minSafeAreaDistance)
+            .padding(.trailing, MapLayersV.minSafeAreaDistance)
             .background {
                 BlurView()
-                    .blur(radius: BackgroundMapLayersV.blurAmount)
+                    .blur(radius: MapLayersV.blurAmount)
                     .ignoresSafeArea()
                     .allowsHitTesting(false)
             }
@@ -88,14 +88,14 @@ struct BackgroundMapButtonsV: View {
             }
             .background {
                 BlurView()
-                    .blur(radius: BackgroundMapLayersV.blurAmount)
+                    .blur(radius: MapLayersV.blurAmount)
                     .ignoresSafeArea()
                     .allowsHitTesting(false)
             }
         }
         .animation(.easeInOut, value: markerButton)
         .mapScope(mapScope)
-        .onChange(of: backgroundMapDetails.region.center) { checkOverMarker() }
+        .onChange(of: mapDetails.region.center) { checkOverMarker() }
         .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)) { _ in
             checkOverMarker()
         }
@@ -107,7 +107,7 @@ struct BackgroundMapButtonsV: View {
                 let xComponent = abs(markerPos.x - screenSize.width / 2)
                 let yComponent = abs(markerPos.y - screenSize.height / 2)
                 let distance = sqrt(pow(xComponent, 2) + pow(yComponent, 2))
-                if distance < BackgroundMapPointsV.iconSize / 2 {
+                if distance < MapPointsV.iconSize / 2 {
                     markerButton = .delete(marker)
                     return
                 }
@@ -122,10 +122,10 @@ struct BackgroundMapButtonsV: View {
     }
     
     func addMarker() {
-        let newMarker = Marker(coordinates: backgroundMapDetails.region.center, insertInto: moc)
+        let newMarker = Marker(coordinates: mapDetails.region.center, insertInto: moc)
         if let overlappedMapMaps = MarkerEditorV.markerOverMapMaps(
             newMarker,
-            backgroundMapDetails: backgroundMapDetails,
+            mapDetails: mapDetails,
             mapContext: mapContext,
             mapMaps: mapMaps
         ) {

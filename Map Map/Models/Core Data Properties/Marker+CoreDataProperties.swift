@@ -29,7 +29,7 @@ extension Marker {
     @NSManaged public var name: String?
     /// SFSymbol of the Marker.
     @NSManaged public var thumbnailImage: String?
-    /// Tracker for showing or hiding this Marker from the background map.
+    /// Tracker for showing or hiding this Marker from the map.
     @NSManaged public var shown: Bool
     /// Color to display the Marker as.
     @NSManaged public var color: MarkerColor?

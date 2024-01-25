@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// Button to overlay on top of the background map.
+/// Button to overlay on top of the map.
 struct MapButtonV: ViewModifier {
     private let size: CGFloat = 45
     
@@ -21,7 +21,7 @@ struct MapButtonV: ViewModifier {
 }
 
 extension View {
-    /// Button to overlay on top of the background map.
+    /// Button to overlay on top of the map.
     func mapButton() -> some View {
         modifier(MapButtonV())
     }

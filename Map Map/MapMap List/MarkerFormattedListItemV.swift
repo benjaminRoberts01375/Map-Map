@@ -10,8 +10,8 @@ import SwiftUI
 
 /// Create a fully interactive Marker list item.
 struct MarkerFormattedListItemV: View {
-    /// Information about the background map being plotted on.
-    @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    /// Information about the map being plotted on.
+    @Environment(MapDetailsM.self) private var mapDetails
     /// Current color scheme. Ex. Dark/Light mode.
     @Environment(\.colorScheme) private var colorScheme
     /// Marker the list item is about.
@@ -19,7 +19,7 @@ struct MarkerFormattedListItemV: View {
     
     var body: some View {
         Button {
-            backgroundMapDetails.moveMapCameraTo(marker: marker)
+            mapDetails.moveMapCameraTo(marker: marker)
         } label: {
             MarkerListItemV(marker: marker)
                 .padding([.trailing, .top, .bottom], 5)

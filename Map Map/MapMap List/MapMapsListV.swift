@@ -10,8 +10,8 @@ import SwiftUI
 
 /// List of all MapMaps and Markers
 struct MapMapList: View {
-    /// Information about the background map being plotted on.
-    @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    /// Information about the map being plotted on.
+    @Environment(MapDetailsM.self) private var mapDetails
     /// All available MapMaps.
     @FetchRequest(sortDescriptors: []) private var mapMaps: FetchedResults<MapMap>
     /// All available Markers.
@@ -28,7 +28,7 @@ struct MapMapList: View {
             VStack(spacing: 0) {
                 ForEach(mapMaps) { mapMap in
                     Button(action: {
-                        backgroundMapDetails.moveMapCameraTo(mapMap: mapMap)
+                        mapDetails.moveMapCameraTo(mapMap: mapMap)
                     }, label: {
                         MapMapListItemV(mapMap: mapMap)
                             .padding()

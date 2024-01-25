@@ -8,10 +8,10 @@
 import MapKit
 import SwiftUI
 
-/// HUD to display information about the background map being plotted on.
-struct BackgroundMapHudV: View {
-    /// Information about the background map.
-    @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+/// HUD to display information about the map being plotted on.
+struct MapHudV: View {
+    /// Information about the map.
+    @Environment(MapDetailsM.self) private var mapDetails
     /// Environment value of the coordinate display type.
     @Environment(\.locationDisplayMode) private var locationDisplayMode
     /// Controller for the environment value of the coordinate display type.
@@ -24,7 +24,7 @@ struct BackgroundMapHudV: View {
     var tap: some Gesture {
        TapGesture()
             .onEnded { _ in
-                backgroundMapDetails.setMapRotation(newRotation: 0)
+                mapDetails.setMapRotation(newRotation: 0)
             }
     }
     
@@ -32,15 +32,15 @@ struct BackgroundMapHudV: View {
         HStack(spacing: 0) {
             VStack(alignment: .leading) {
                 Text("Latitude: ") +
-                Text(locationDisplayMode.degreesToString(latitude: backgroundMapDetails.region.center.latitude))
+                Text(locationDisplayMode.degreesToString(latitude: mapDetails.region.center.latitude))
                     .fontWidth(.condensed)
                 
                 Text("Longitude: ") +
-                Text(locationDisplayMode.degreesToString(longitude: backgroundMapDetails.region.center.longitude))
+                Text(locationDisplayMode.degreesToString(longitude: mapDetails.region.center.longitude))
                     .fontWidth(.condensed)
                 if showHeading {
                     Text("Heading: ") +
-                    Text("\(String(format: stringFormat, backgroundMapDetails.userRotation.degrees))º ").fontWidth(.condensed) +
+                    Text("\(String(format: stringFormat, mapDetails.userRotation.degrees))º ").fontWidth(.condensed) +
                     Text(determineHeadingLabel())
                 }
             }
@@ -73,7 +73,7 @@ struct BackgroundMapHudV: View {
             }
 
         }
-        .onChange(of: backgroundMapDetails.mapCamera) { _, update in
+        .onChange(of: mapDetails.mapCamera) { _, update in
             withAnimation {
                 showHeading = -update.heading != 0
             }
@@ -82,24 +82,24 @@ struct BackgroundMapHudV: View {
         .animation(.easeInOut, value: rawDisplayType)
     }
     
-    /// Determine the heading label for the background map's current rotation.
+    /// Determine the heading label for the map's current rotation.
     private func determineHeadingLabel() -> String {
         var label = ""
         let shareOfThePie = 67.5
         let quarter: Double = 90
-        if backgroundMapDetails.userRotation.degrees < shareOfThePie {
+        if mapDetails.userRotation.degrees < shareOfThePie {
             label += "N"
         }
-        else if backgroundMapDetails.userRotation.degrees.isBetween(min: quarter * 4 - shareOfThePie, max: quarter * 4 + shareOfThePie) {
+        else if mapDetails.userRotation.degrees.isBetween(min: quarter * 4 - shareOfThePie, max: quarter * 4 + shareOfThePie) {
             label += "N"
         }
-        if backgroundMapDetails.userRotation.degrees.isBetween(min: quarter * 2 - shareOfThePie, max: quarter * 2 + shareOfThePie) {
+        if mapDetails.userRotation.degrees.isBetween(min: quarter * 2 - shareOfThePie, max: quarter * 2 + shareOfThePie) {
             label += "S"
         }
-        if backgroundMapDetails.userRotation.degrees.isBetween(min: quarter - shareOfThePie, max: quarter + shareOfThePie) {
+        if mapDetails.userRotation.degrees.isBetween(min: quarter - shareOfThePie, max: quarter + shareOfThePie) {
             label += "E"
         }
-        if backgroundMapDetails.userRotation.degrees.isBetween(min: quarter * 3 - shareOfThePie, max: quarter * 3 + shareOfThePie) {
+        if mapDetails.userRotation.degrees.isBetween(min: quarter * 3 - shareOfThePie, max: quarter * 3 + shareOfThePie) {
             label += "W"
         }
         
@@ -108,20 +108,20 @@ struct BackgroundMapHudV: View {
     
     /// Allows for opening the map's current location in Apple Maps.
     private func openCurrentLocationInMaps() {
-        let placemark = MKPlacemark(coordinate: backgroundMapDetails.region.center)
+        let placemark = MKPlacemark(coordinate: mapDetails.region.center)
         let mapItem = MKMapItem(placemark: placemark)
         let launchOptions: [String : Any] = [
-            MKLaunchOptionsMapCenterKey: backgroundMapDetails.region.center,
-            MKLaunchOptionsMapSpanKey: backgroundMapDetails.region.span
+            MKLaunchOptionsMapCenterKey: mapDetails.region.center,
+            MKLaunchOptionsMapSpanKey: mapDetails.region.span
         ]
         mapItem.openInMaps(launchOptions: launchOptions)
     }
 }
 
-struct BackgroundMapHudV_Previews: PreviewProvider {
+struct MapHudV_Previews: PreviewProvider {
     static var previews: some View {
-        let backgroundMapDetails = BackgroundMapDetailsM()
-        return BackgroundMapHudV(rawDisplayType: .constant(LocationDisplayMode.degrees))
-            .environment(backgroundMapDetails)
+        let mapDetails = MapDetailsM()
+        return MapHudV(rawDisplayType: .constant(LocationDisplayMode.degrees))
+            .environment(mapDetails)
     }
 }
