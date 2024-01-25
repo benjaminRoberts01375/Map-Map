@@ -25,15 +25,12 @@ struct MarkerEditorV: View {
     @Environment(MapDetailsM.self) private var mapDetails
     /// All available MapMaps
     @FetchRequest(sortDescriptors: []) var mapMaps: FetchedResults<MapMap>
-    /// Map context for converting coordiantes to screen-space and back.
-    let mapContext: MapProxy
     
-    init(marker: FetchedResults<Marker>.Element, mapContext: MapProxy) {
+    init(marker: FetchedResults<Marker>.Element) {
         self.marker = marker
         if let name = marker.name { self._workingName = State(initialValue: name) }
         else { self._workingName = State(initialValue: "") }
         self._saveAngle = State(initialValue: marker.lockRotationAngleDouble != nil)
-        self.mapContext = mapContext
     }
     
     var body: some View {
@@ -103,10 +100,10 @@ struct MarkerEditorV: View {
     }
     
     func determineMarkerOverlap() {
-        if let overlappingMapMaps = MarkerEditorV.markerOverMapMaps(
+        if let mapProxy = mapDetails.mapProxy, let overlappingMapMaps = MarkerEditorV.markerOverMapMaps(
             marker,
             mapDetails: mapDetails,
-            mapContext: mapContext,
+            mapContext: mapProxy,
             mapMaps: mapMaps
         ) {
             // Remove current marker from all MapMaps

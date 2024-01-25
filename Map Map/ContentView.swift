@@ -19,6 +19,8 @@ struct ContentView: View {
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
     /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
+    /// Details for the main map.
+    @Environment(MapDetailsM.self) private var mapDetails
     /// Object being edited
     @State var editing: Editor = .nothing
     /// Information to display in a Toast notification.
@@ -34,7 +36,7 @@ struct ContentView: View {
         MapReader { mapContext in
             ZStack(alignment: .top) {
                 ZStack {
-                    MapLayersV(displayType: $displayType, editor: $editing, mapContext: mapContext)
+                    MapLayersV(displayType: $displayType, editor: $editing)
                         .environment(\.locationDisplayMode, displayType)
                         .onDrop(of: [.image], isTargeted: $dragAndDropTargeted) { dropImage(providers: $0) }
                     
@@ -49,9 +51,9 @@ struct ContentView: View {
                     }
                 }
                 switch editing {
-                case .mapMap(let mapMap): MapMapEditor(mapMap: mapMap, mapContext: mapContext)
-                case .marker(let marker): MarkerEditorV(marker: marker, mapContext: mapContext)
-                case .measurement: MeasurementEditorV(editing: $editing, mapContext: mapContext)
+                case .mapMap(let mapMap): MapMapEditor(mapMap: mapMap)
+                case .marker(let marker): MarkerEditorV(marker: marker)
+                case .measurement: MeasurementEditorV(editing: $editing)
                 case .nothing:
                     BottomDrawer(
                         verticalDetents: [.medium, .large, .header],
@@ -66,6 +68,7 @@ struct ContentView: View {
                     )
                 }
             }
+            .onAppear { mapDetails.mapProxy = mapContext }
         }
         .toast(isPresenting: $toastInfo.showing, tapToDismiss: false, alert: {
             AlertToast(displayMode: .hud, type: .loading, title: "Saving", subTitle: toastInfo.info)

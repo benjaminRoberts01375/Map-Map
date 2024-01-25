@@ -26,6 +26,8 @@ final class MapDetailsM {
             heading: 0
         )
     )
+    /// Map Proxy for this map.
+    public var mapProxy: MapProxy?
     /// Current region for the map.
     public var region: MKCoordinateRegion = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: .zero, longitude: .zero),
