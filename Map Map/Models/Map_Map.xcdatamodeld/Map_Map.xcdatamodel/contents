@@ -2,7 +2,9 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23C71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Drawing" representedClassName="Drawing" syncable="YES">
         <attribute name="drawingData" attributeType="Binary"/>
-        <relationship name="mapMap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMap" inverseName="drawing" inverseEntity="MapMap"/>
+        <attribute name="mapMapHeight" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="mapMapWidth" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="mapMap" maxCount="1" deletionRule="Nullify" destinationEntity="MapMap" inverseName="drawing" inverseEntity="MapMap"/>
     </entity>
     <entity name="FourCorners" representedClassName="FourCorners" syncable="YES">
         <attribute name="rawBottomLeading" attributeType="String" defaultValueString="{0, 0}"/>
@@ -27,7 +29,7 @@
         <attribute name="mapMapScale" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="shown" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <relationship name="cropCorners" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FourCorners" inverseName="mapMap" inverseEntity="FourCorners"/>
-        <relationship name="drawing" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Drawing" inverseName="mapMap" inverseEntity="Drawing"/>
+        <relationship name="drawing" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Drawing" inverseName="mapMap" inverseEntity="Drawing"/>
         <relationship name="markers" toMany="YES" deletionRule="Nullify" destinationEntity="Marker" inverseName="mapMap" inverseEntity="Marker"/>
     </entity>
     <entity name="MapMeasurementCoordinate" representedClassName="MapMeasurementCoordinate" syncable="YES">
