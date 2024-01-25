@@ -32,7 +32,7 @@ struct MapLayersV: View {
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .center) {
-                MapV(editor: $editor, mapScope: mapScope, mapContext: mapContext)
+                MapV(editor: $editor, mapScope: mapScope)
                 MapPointsV(
                     screenSize: CGSize(
                         width: geo.size.width + geo.safeAreaInsets.leading + geo.safeAreaInsets.trailing,
