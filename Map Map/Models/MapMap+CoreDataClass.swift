@@ -11,7 +11,7 @@ import MapKit
 import PhotosUI
 import SwiftUI
 
-/// What the app is all about. Stores the GPS coordinates, scale, and more to place an image on the background map.
+/// What the app is all about. Stores the GPS coordinates, scale, and more to place an image on the map.
 @objc(MapMap)
 public class MapMap: NSManagedObject {
     /// A rendered image for display.

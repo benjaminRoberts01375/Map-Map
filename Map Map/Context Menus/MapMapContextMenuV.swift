@@ -10,8 +10,8 @@ import SwiftUI
 
 /// Context menu for MapMaps
 struct MapMapContextMenuV: View {
-    /// Details about the background map being plotted on.
-    @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    /// Details about the map being plotted on.
+    @Environment(MapDetailsM.self) private var mapDetails
     /// Current managed object context.
     @Environment(\.managedObjectContext) private var moc
     /// MapMap being interacted with.
@@ -26,7 +26,7 @@ struct MapMapContextMenuV: View {
         }
         
         Button {
-            backgroundMapDetails.moveMapCameraTo(mapMap: mapMap)
+            mapDetails.moveMapCameraTo(mapMap: mapMap)
             mapMap.isEditing = true
         } label: {
             Label("Edit Map Map", systemImage: "pencil")

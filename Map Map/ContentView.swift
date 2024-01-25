@@ -34,7 +34,7 @@ struct ContentView: View {
         MapReader { mapContext in
             ZStack(alignment: .top) {
                 ZStack {
-                    BackgroundMapLayersV(displayType: $displayType, editor: $editing, mapContext: mapContext)
+                    MapLayersV(displayType: $displayType, editor: $editing, mapContext: mapContext)
                         .environment(\.locationDisplayMode, displayType)
                         .onDrop(of: [.image], isTargeted: $dragAndDropTargeted) { dropImage(providers: $0) }
                     

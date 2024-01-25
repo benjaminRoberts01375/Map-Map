@@ -16,7 +16,7 @@ struct MapLabelVModifier: ViewModifier {
 }
 
 extension View {
-    /// Standard modifier for text on the background map.
+    /// Standard modifier for text on the map.
     /// - Returns: Modified view.
     func mapLabel() -> some View {
         modifier(MapLabelVModifier())

@@ -1,5 +1,5 @@
 //
-//  BackgroundMapLayersV.swift
+//  MapLayersV.swift
 //  Map Map
 //
 //  Created by Ben Roberts on 11/17/23.
@@ -8,14 +8,14 @@
 import MapKit
 import SwiftUI
 
-/// Handles all layering related to the background map being plotted on, including the background map.
-struct BackgroundMapLayersV: View {
+/// Handles all layering related to the map being plotted on, including the map.
+struct MapLayersV: View {
     /// Amount of blur to use with an effect blur.
     static let blurAmount: CGFloat = 10
-    /// mapScope for syncing background map buttons.
+    /// mapScope for syncing map buttons.
     @Namespace private var mapScope
-    /// Details about the background map.
-    @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    /// Details about the map.
+    @Environment(MapDetailsM.self) private var mapDetails
     /// Timer for tracking crosshair overlay.
     @State private var timer: Timer?
     /// Current opacity of the crosshair.
@@ -32,8 +32,8 @@ struct BackgroundMapLayersV: View {
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .center) {
-                BackgroundMap(editor: $editor, mapScope: mapScope, mapContext: mapContext)
-                BackgroundMapPointsV(
+                MapV(editor: $editor, mapScope: mapScope, mapContext: mapContext)
+                MapPointsV(
                     screenSize: CGSize(
                         width: geo.size.width + geo.safeAreaInsets.leading + geo.safeAreaInsets.trailing,
                         height: geo.size.height + geo.safeAreaInsets.top + geo.safeAreaInsets.bottom
@@ -42,13 +42,13 @@ struct BackgroundMapLayersV: View {
                 )
                 BlurView()
                     .frame(width: geo.size.width, height: geo.safeAreaInsets.top)
-                    .blur(radius: BackgroundMapLayersV.blurAmount)
+                    .blur(radius: MapLayersV.blurAmount)
                     .allowsHitTesting(false)
                     .position(y: 0)
                 CrosshairV()
                     .allowsHitTesting(false)
                     .opacity(crosshairOpacity)
-                    .onChange(of: backgroundMapDetails.region.center) {
+                    .onChange(of: mapDetails.region.center) {
                         if timer != nil {
                             withAnimation(.easeInOut(duration: 0.1)) {
                                 crosshairOpacity = 1
@@ -62,7 +62,7 @@ struct BackgroundMapLayersV: View {
                         }
                     }
                 VStack(alignment: .trailing) {
-                    BackgroundMapButtonsV(
+                    MapButtonsV(
                         displayType: $displayType,
                         editor: $editor,
                         screenSize: CGSize(
@@ -72,8 +72,8 @@ struct BackgroundMapLayersV: View {
                         mapScope: mapScope, 
                         mapContext: mapContext
                     )
-                    .padding(.trailing, max(BackgroundMapLayersV.minSafeAreaDistance, geo.safeAreaInsets.trailing))
-                    .padding(.top, max(BackgroundMapLayersV.minSafeAreaDistance, geo.safeAreaInsets.top))
+                    .padding(.trailing, max(MapLayersV.minSafeAreaDistance, geo.safeAreaInsets.trailing))
+                    .padding(.top, max(MapLayersV.minSafeAreaDistance, geo.safeAreaInsets.top))
                     .ignoresSafeArea()
                     Color.clear
                 }

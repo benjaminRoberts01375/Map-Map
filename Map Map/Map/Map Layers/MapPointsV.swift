@@ -1,5 +1,5 @@
 //
-//  BackgroundMapPointsV.swift
+//  mapPointsV.swift
 //  Map Map
 //
 //  Created by Ben Roberts on 11/20/23.
@@ -8,10 +8,10 @@
 import MapKit
 import SwiftUI
 
-/// Points that cannot be Annotations on the background map.
-struct BackgroundMapPointsV: View {
-    /// Information about the background map.
-    @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+/// Points that cannot be Annotations on the map.
+struct MapPointsV: View {
+    /// Information about the map.
+    @Environment(MapDetailsM.self) private var mapDetails
     /// All available markers.
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
     /// All available measurements.
@@ -43,7 +43,7 @@ struct BackgroundMapPointsV: View {
                 ForEach(lines) { connection in
                     if let startingPos = lineEnds[connection.start], // Valid starting point
                        let endingPos = lineEnds[connection.end], // Valid ending point
-                       startingPos.distanceTo(endingPos) > BackgroundMapPointsV.minLineLength && // Distance is greater than min
+                       startingPos.distanceTo(endingPos) > MapPointsV.minLineLength && // Distance is greater than min
                        (pointIsInBounds(startingPos, screenSize: geo.size) || // Point is within threshold
                         pointIsInBounds(endingPos, screenSize: geo.size)) { // Point is within threshold
                         Line(startingPos: CGSize(cgPoint: startingPos), endingPos: CGSize(cgPoint: endingPos)) // Outline line
@@ -65,23 +65,23 @@ struct BackgroundMapPointsV: View {
                 if let position = mapContext.convert(marker.coordinates, to: .global), !marker.isEditing && marker.shown {
                     ZStack {
                         Button {
-                            backgroundMapDetails.moveMapCameraTo(marker: marker)
+                            mapDetails.moveMapCameraTo(marker: marker)
                         } label: {
                             MarkerV(marker: marker)
                                 .rotationEffect(
-                                    Angle(degrees: -backgroundMapDetails.mapCamera.heading -
-                                          (marker.lockRotationAngleDouble ?? -backgroundMapDetails.mapCamera.heading))
+                                    Angle(degrees: -mapDetails.mapCamera.heading -
+                                          (marker.lockRotationAngleDouble ?? -mapDetails.mapCamera.heading))
                                 )
                                 .offset(y: markerOffset)
                         }
                         .contextMenu { MarkerContextMenuV(marker: marker) }
-                        .frame(width: BackgroundMapPointsV.iconSize, height: BackgroundMapPointsV.iconSize)
+                        .frame(width: MapPointsV.iconSize, height: MapPointsV.iconSize)
                         if let markerName = marker.name, isOverMarker(marker) {
                             Text(markerName)
                                 .mapLabel()
                                 .foregroundStyle(.white)
                                 .allowsHitTesting(false)
-                                .offset(y: BackgroundMapPointsV.iconSize)
+                                .offset(y: MapPointsV.iconSize)
                         }
                     }
                     .position(position)
@@ -115,7 +115,7 @@ struct BackgroundMapPointsV: View {
             .animation(.linear, value: ssUserLocation)
         }
         .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { interpretCDNotification($0) }
-        .onChange(of: backgroundMapDetails.mapCamera) {
+        .onChange(of: mapDetails.mapCamera) {
             Task {
                 let positions = await calculateSSlineEndPos()
                 DispatchQueue.main.async { self.lineEnds = positions }
@@ -128,7 +128,7 @@ struct BackgroundMapPointsV: View {
         let xComponent = abs(markerPos.x - screenSize.width / 2)
         let yComponent = abs(markerPos.y - (screenSize.height / 2 - markerOffset))
         let distance = sqrt(pow(xComponent, 2) + pow(yComponent, 2))
-        return distance < BackgroundMapPointsV.iconSize / 2
+        return distance < MapPointsV.iconSize / 2
     }
     
     func connectionsToDraw() -> [Connection] {

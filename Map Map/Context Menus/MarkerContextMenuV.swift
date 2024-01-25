@@ -10,8 +10,8 @@ import SwiftUI
 
 /// Context menu for Markers
 struct MarkerContextMenuV: View {
-    /// Details about the background map being plotted on.
-    @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    /// Details about the map being plotted on.
+    @Environment(MapDetailsM.self) private var mapDetails
     /// Current managed object context.
     @Environment(\.managedObjectContext) private var moc
     /// Marker being interacted with.
@@ -35,7 +35,7 @@ struct MarkerContextMenuV: View {
         }
         
         Button {
-            backgroundMapDetails.moveMapCameraTo(marker: marker)
+            mapDetails.moveMapCameraTo(marker: marker)
             marker.isEditing = true
         } label: {
             Label("Edit Marker", systemImage: "pencil")
