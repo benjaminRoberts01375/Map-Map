@@ -10,8 +10,11 @@ import PencilKit
 import SwiftUI
 
 struct MarkupEditorVIPadOS: View {
+    /// MapMap's drawing being edited.
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
+    /// Canvas to draw on.
     @Binding var canvasView: PKCanvasView
+    /// Size of MapMap.
     @Binding var mapMapSize: CGSize
     
     var body: some View {
