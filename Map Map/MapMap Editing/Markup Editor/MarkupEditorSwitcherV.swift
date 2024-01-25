@@ -63,10 +63,7 @@ struct MarkupEditorSwitcherV: View {
             }
         }
         .onAppear { setupToolPicker() }
-        .onDisappear {
-            print(canvasView.bounds)
-            mapMap.drawing?.mapMapSize = mapMapSize
-        }
+        .onDisappear { mapMap.drawing?.mapMapSize = mapMapSize }
     }
     
     private func setupToolPicker() {
