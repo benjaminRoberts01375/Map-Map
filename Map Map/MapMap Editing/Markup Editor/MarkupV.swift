@@ -8,7 +8,9 @@
 import PencilKit
 import SwiftUI
 
+/// UIKit wrapper for PKCanvasView.
 struct DrawingView: UIViewRepresentable {
+    /// Canvas for displaying PKDrawings.
     @Binding var canvasView: PKCanvasView
     
     func makeUIView(context: Context) -> PKCanvasView {
