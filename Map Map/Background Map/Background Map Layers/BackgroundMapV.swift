@@ -39,7 +39,8 @@ struct BackgroundMap: View {
                         coordinate: mapMap.coordinates,
                         anchor: .center
                     ) {
-                        let width = 1 / backgroundMapDetails.mapCamera.distance * mapMap.mapMapScale
+                        let calculatedWidth = 1 / backgroundMapDetails.mapCamera.distance * mapMap.mapMapScale
+                        let width = !calculatedWidth.isNormal || calculatedWidth < 0 ? 1 : calculatedWidth
                         let rotation = Angle(degrees: -backgroundMapDetails.mapCamera.heading - mapMap.mapMapRotation)
                         ZStack {
                             if tappableMapMaps {
@@ -47,14 +48,14 @@ struct BackgroundMap: View {
                                     action: { backgroundMapDetails.moveMapCameraTo(mapMap: mapMap) },
                                     label: {
                                         MapMapV(mapMap: mapMap, mapType: .fullImage)
-                                            .frame(width: !width.isNormal || width < 0 ? 1 : width)
+                                            .frame(width: width)
                                     }
                                 )
                                 .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
                             }
                             else {
                                 MapMapV(mapMap: mapMap, mapType: .fullImage)
-                                    .frame(width: !width.isNormal || width < 0 ? 1 : width)
+                                    .frame(width: width)
                             }
                             if let drawing = mapMap.drawing, let pkDrawing = drawing.pkDrawing {
                                 GeometryReader { _ in   
