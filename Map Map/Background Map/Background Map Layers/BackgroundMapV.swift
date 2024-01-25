@@ -57,11 +57,6 @@ struct BackgroundMap: View {
                                     .frame(width: !width.isNormal || width < 0 ? 1 : width)
                                 
                             }
-                            GeometryReader { geo in
-                                Text("\(geo.size.width)")
-                                Text("\(geo.size.height)")
-                                    .offset(y: 50)
-                            }
                             if let drawing = mapMap.drawing, let pkDrawing = drawing.pkDrawing {
                                 GeometryReader { _ in   
                                     DisplayDrawingV(drawing: pkDrawing)
