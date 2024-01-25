@@ -26,6 +26,14 @@ public class Drawing: NSManagedObject {
         }
     }
     
+    var mapMapSize: CGSize {
+        get { CGSize(width: self.mapMapWidth, height: self.mapMapHeight) }
+        set(newValue) {
+            self.mapMapWidth = newValue.width
+            self.mapMapHeight = newValue.height
+        }
+    }
+    
     convenience init(context moc: NSManagedObjectContext, mapMap: MapMap, drawingData: Data) {
         self.init(context: moc)
         mapMap.drawing = self

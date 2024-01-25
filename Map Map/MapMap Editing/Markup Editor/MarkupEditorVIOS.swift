@@ -13,6 +13,7 @@ struct MarkupEditorVIOS: View {
     @Environment(\.undoManager) var undoer
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     @Binding var canvasView: PKCanvasView
+    @Binding var mapMapSize: CGSize
     
     static let phoneDrawerHeight: CGFloat = 190
     
@@ -45,6 +46,7 @@ struct MarkupEditorVIOS: View {
                 VStack {
                     ZStack {
                         MapMapV(mapMap: mapMap, mapType: .fullImage)
+                            .onViewResizes { mapMapSize = $1 }
                             .overlay {
                                 DrawingView(canvasView: $canvasView)
                                     .background(.blue.opacity(0.5))
