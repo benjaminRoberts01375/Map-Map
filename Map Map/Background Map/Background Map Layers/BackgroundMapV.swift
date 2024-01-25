@@ -55,7 +55,6 @@ struct BackgroundMap: View {
                             else {
                                 MapMapV(mapMap: mapMap, mapType: .fullImage)
                                     .frame(width: !width.isNormal || width < 0 ? 1 : width)
-                                
                             }
                             if let drawing = mapMap.drawing, let pkDrawing = drawing.pkDrawing {
                                 GeometryReader { _ in   
