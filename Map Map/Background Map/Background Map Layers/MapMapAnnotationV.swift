@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MapMapAnnotationV: View {
     @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
-    @ObservedObject var mapMap: MapMap
+    @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     let mapMapInteraction: MapMapInteraction
     
     enum MapMapInteraction {
