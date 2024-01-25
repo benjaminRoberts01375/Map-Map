@@ -21,10 +21,7 @@ struct MarkupEditorVIPadOS: View {
         ZStack(alignment: .center) {
             MapMapV(mapMap: mapMap, mapType: .fullImage)
                 .onViewResizes { self.mapMapSize = $1 }
-                .overlay {
-                    DrawingView(canvasView: $canvasView)
-                        .background(.blue.opacity(0.5))
-                }
+                .overlay { DrawingView(canvasView: $canvasView) }
         }
     }
 }

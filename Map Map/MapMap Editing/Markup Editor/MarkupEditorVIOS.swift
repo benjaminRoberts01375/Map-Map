@@ -51,10 +51,7 @@ struct MarkupEditorVIOS: View {
                     ZStack {
                         MapMapV(mapMap: mapMap, mapType: .fullImage)
                             .onViewResizes { mapMapSize = $1 }
-                            .overlay {
-                                DrawingView(canvasView: $canvasView)
-                                    .background(.blue.opacity(0.5))
-                            }
+                            .overlay { DrawingView(canvasView: $canvasView) }
                     }
                     Color.clear
                         .frame(height: MarkupEditorSwitcherV.phoneDrawerHeight)
