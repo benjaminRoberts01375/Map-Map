@@ -10,6 +10,7 @@ import SwiftUI
 struct MapMapAnnotationV: View {
     @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
+    @State var id: UUID = UUID()
     let mapMapInteraction: MapMapInteraction
     
     enum MapMapInteraction {
@@ -41,7 +42,9 @@ struct MapMapAnnotationV: View {
                         .frame(width: drawing.mapMapWidth, height: drawing.mapMapHeight)
                         .scaleEffect(width / drawing.mapMapWidth, anchor: .topLeading)
                         .allowsHitTesting(false)
+                        .onChange(of: drawing.drawingData) { self.id = UUID() }
                 }
+                .id(id)
             }
         }
         .rotationEffect(Angle(degrees: -backgroundMapDetails.mapCamera.heading - mapMap.mapMapRotation))
