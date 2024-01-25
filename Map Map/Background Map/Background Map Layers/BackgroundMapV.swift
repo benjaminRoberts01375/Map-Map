@@ -17,7 +17,7 @@ struct BackgroundMap: View {
     /// Background map details to be updated by this map.
     @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails: BackgroundMapDetailsM
     /// Track if MapMaps are tappable.
-    @State private var tappableMapMaps = true
+    @State private var tappableMapMaps: MapMapAnnotationV.MapMapInteraction = .tappable
     /// Current editor
     @Binding var editor: Editor
     /// Background map ID.
@@ -39,34 +39,8 @@ struct BackgroundMap: View {
                         coordinate: mapMap.coordinates,
                         anchor: .center
                     ) {
-                        let calculatedWidth = 1 / backgroundMapDetails.mapCamera.distance * mapMap.mapMapScale
-                        let width = !calculatedWidth.isNormal || calculatedWidth < 0 ? 1 : calculatedWidth
-                        ZStack {
-                            if tappableMapMaps {
-                                Button(
-                                    action: { backgroundMapDetails.moveMapCameraTo(mapMap: mapMap) },
-                                    label: {
-                                        MapMapV(mapMap: mapMap, mapType: .fullImage)
-                                            .frame(width: width)
-                                    }
-                                )
-                                .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
-                            }
-                            else {
-                                MapMapV(mapMap: mapMap, mapType: .fullImage)
-                                    .frame(width: width)
-                            }
-                            if let drawing = mapMap.drawing, let pkDrawing = drawing.pkDrawing {
-                                GeometryReader { _ in   
-                                    DisplayDrawingV(drawing: pkDrawing)
-                                        .frame(width: drawing.mapMapWidth, height: drawing.mapMapHeight)
-                                        .scaleEffect(width / drawing.mapMapWidth, anchor: .topLeading)
-                                        .allowsHitTesting(false)
-                                }
-                            }
-                        }
-                        .rotationEffect(Angle(degrees: -backgroundMapDetails.mapCamera.heading - mapMap.mapMapRotation))
-                        .offset(y: -7)
+                        MapMapAnnotationV(mapMap: mapMap, mapMapInteraction: tappableMapMaps)
+                            .environment(backgroundMapDetails)
                     }
                 }
             }
@@ -80,9 +54,9 @@ struct BackgroundMap: View {
         .onChange(of: editor, { _, newValue in
             switch newValue {
             case .nothing:
-                tappableMapMaps = true
+                tappableMapMaps = .tappable
             default:
-                tappableMapMaps = false
+                tappableMapMaps = .viewable
             }
         })
     }
