@@ -7,12 +7,18 @@
 
 import SwiftUI
 
+/// Handle all display logic for a MapMap on the background map.
 struct MapMapAnnotationV: View {
+    /// Background map details to be updated by this map.
     @Environment(BackgroundMapDetailsM.self) private var backgroundMapDetails
+    /// MapMap being displayed.
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
+    /// Update UI when drawing changes.
     @State var id: UUID = UUID()
+    /// Track the current interaction of this mapmap.
     let mapMapInteraction: MapMapInteraction
     
+    /// Type for map interactions.
     enum MapMapInteraction {
         case tappable
         case viewable
