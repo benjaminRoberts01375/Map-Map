@@ -41,7 +41,6 @@ struct BackgroundMap: View {
                     ) {
                         let calculatedWidth = 1 / backgroundMapDetails.mapCamera.distance * mapMap.mapMapScale
                         let width = !calculatedWidth.isNormal || calculatedWidth < 0 ? 1 : calculatedWidth
-                        let rotation = Angle(degrees: -backgroundMapDetails.mapCamera.heading - mapMap.mapMapRotation)
                         ZStack {
                             if tappableMapMaps {
                                 Button(
@@ -66,7 +65,7 @@ struct BackgroundMap: View {
                                 }
                             }
                         }
-                        .rotationEffect(rotation)
+                        .rotationEffect(Angle(degrees: -backgroundMapDetails.mapCamera.heading - mapMap.mapMapRotation))
                         .offset(y: -7)
                     }
                 }
