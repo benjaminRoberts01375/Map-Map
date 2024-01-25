@@ -9,12 +9,18 @@ import Bottom_Drawer
 import PencilKit
 import SwiftUI
 
+/// Markup editor for iOS devices.
+/// This view adds more spacing and control to work around the bottom drawer being fixed.
 struct MarkupEditorVIOS: View {
+    /// Undo manager.
     @Environment(\.undoManager) var undoer
+    /// MapMap's drawing being edited.
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
+    /// Canvas to draw on.
     @Binding var canvasView: PKCanvasView
+    /// Size of MapMap.
     @Binding var mapMapSize: CGSize
-    
+    /// Drawer height before getting tugged on.
     static let phoneDrawerHeight: CGFloat = 190
     
     var body: some View {
