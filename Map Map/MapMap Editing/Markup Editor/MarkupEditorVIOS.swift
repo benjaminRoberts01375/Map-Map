@@ -20,8 +20,6 @@ struct MarkupEditorVIOS: View {
     @Binding var canvasView: PKCanvasView
     /// Size of MapMap.
     @Binding var mapMapSize: CGSize
-    /// Drawer height before getting tugged on.
-    static let phoneDrawerHeight: CGFloat = 190
     
     var body: some View {
         VStack {

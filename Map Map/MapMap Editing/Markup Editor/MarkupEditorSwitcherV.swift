@@ -10,13 +10,21 @@ import PencilKit
 import SwiftUI
 
 struct MarkupEditorSwitcherV: View {
+    /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) var moc
+    /// Dismiss function for the view.
     @Environment(\.dismiss) var dismiss
+    /// MapMap being drawn on.
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
+    /// PKCanvas view to handle drawing.
     @State private var canvasView: PKCanvasView = PKCanvasView()
+    /// Container for Markup toolbar.
     @State private var toolPicker = PKToolPicker()
+    /// Displayed size of the map map.
     @State private var mapMapSize: CGSize = .zero
+    /// Drawer height before getting tugged on.
     static let phoneDrawerHeight: CGFloat = 190
+    /// Track if the device is a phone.
     private let isPhone: Bool
     
     init(mapMap: FetchedResults<MapMap>.Element) {
