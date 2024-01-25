@@ -18,7 +18,6 @@ struct MapMapAnnotationV: View {
     }
     
     var body: some View {
-        @Bindable var backgroundMapDetails = backgroundMapDetails
         let calculatedWidth = 1 / backgroundMapDetails.mapCamera.distance * mapMap.mapMapScale
         let width = !calculatedWidth.isNormal || calculatedWidth < 0 ? 1 : calculatedWidth
         ZStack {
