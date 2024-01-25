@@ -79,13 +79,21 @@
 		07FDC62F2AB25E0000D92113 /* Map_Map.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07FDC62D2AB25E0000D92113 /* Map_Map.xcdatamodeld */; };
 		07FDC6362AB26ADB00D92113 /* BackgroundMapV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FDC6352AB26ADB00D92113 /* BackgroundMapV.swift */; };
 		9EC8AD0DB60D7AA9327E3563 /* Pods_Map_Map.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9F51AE19721651D3510199A /* Pods_Map_Map.framework */; };
-		B508DBC52B4766FA003398B4 /* MapMap+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B508DBC42B4766FA003398B4 /* MapMap+CoreDataProperties.swift */; };
+		B50C23552B61822C00093054 /* Drawing+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50C23542B61822C00093054 /* Drawing+CoreDataProperties.swift */; };
+		B50C23572B62D46800093054 /* MapMapAnnotationV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50C23562B62D46800093054 /* MapMapAnnotationV.swift */; };
 		B51655CC2B3BCC15006FBE67 /* MapMeasurementCoordinate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51655CB2B3BCC15006FBE67 /* MapMeasurementCoordinate+CoreDataProperties.swift */; };
 		B51655CE2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51655CD2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift */; };
 		B51655D02B3CB5A4006FBE67 /* MapConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51655CF2B3CB5A4006FBE67 /* MapConnection.swift */; };
 		B53C948C2B57162400768C66 /* CropGrabberV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53C948B2B57162400768C66 /* CropGrabberV.swift */; };
+		B57D8A4F2B5DC7F2002B9F7C /* Drawing+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A4E2B5DC7F2002B9F7C /* Drawing+CoreDataClass.swift */; };
+		B57D8A512B5DC827002B9F7C /* MapMap+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A502B5DC827002B9F7C /* MapMap+CoreDataProperties.swift */; };
+		B57D8A532B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A522B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift */; };
+		B57D8A552B5E112C002B9F7C /* MarkupEditorSwitcherV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A542B5E112C002B9F7C /* MarkupEditorSwitcherV.swift */; };
+		B57D8A572B5EC079002B9F7C /* DisplayDrawingV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A562B5EC079002B9F7C /* DisplayDrawingV.swift */; };
 		B587C2752B46517C001DD4F9 /* StringE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B587C2742B46517C001DD4F9 /* StringE.swift */; };
 		B5B6D3772B4B89AA00861770 /* ViewSizeVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6D3762B4B89AA00861770 /* ViewSizeVModifier.swift */; };
+		B5FADE572B5C6F0600AD933C /* MarkupV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FADE562B5C6F0600AD933C /* MarkupV.swift */; };
+		B5FADE5A2B5C6F9700AD933C /* MarkupEditorVIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FADE592B5C6F9700AD933C /* MarkupEditorVIOS.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -162,13 +170,21 @@
 		07FDC63B2AB2786700D92113 /* Map-Map-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Map-Map-Info.plist"; sourceTree = SOURCE_ROOT; };
 		2BF969175838179562740CBB /* Pods-Map Map.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Map Map.release.xcconfig"; path = "Target Support Files/Pods-Map Map/Pods-Map Map.release.xcconfig"; sourceTree = "<group>"; };
 		5316FAC2DD1436EC2B935EB2 /* Pods-Map Map.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Map Map.debug.xcconfig"; path = "Target Support Files/Pods-Map Map/Pods-Map Map.debug.xcconfig"; sourceTree = "<group>"; };
-		B508DBC42B4766FA003398B4 /* MapMap+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MapMap+CoreDataProperties.swift"; path = "/Users/ben/Desktop/Map Map/Map Map/Models/Core Data Properties/MapMap+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		B50C23542B61822C00093054 /* Drawing+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Drawing+CoreDataProperties.swift"; path = "/Users/ben/Desktop/Map Map/Map Map/Models/Core Data Properties/Drawing+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		B50C23562B62D46800093054 /* MapMapAnnotationV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapAnnotationV.swift; sourceTree = "<group>"; };
 		B51655CB2B3BCC15006FBE67 /* MapMeasurementCoordinate+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MapMeasurementCoordinate+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B51655CD2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MapMeasurementCoordinate+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B51655CF2B3CB5A4006FBE67 /* MapConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapConnection.swift; sourceTree = "<group>"; };
 		B53C948B2B57162400768C66 /* CropGrabberV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropGrabberV.swift; sourceTree = "<group>"; };
+		B57D8A4E2B5DC7F2002B9F7C /* Drawing+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Drawing+CoreDataClass.swift"; path = "/Users/ben/Desktop/Map Map/Map Map/Models/Drawing+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		B57D8A502B5DC827002B9F7C /* MapMap+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MapMap+CoreDataProperties.swift"; path = "/Users/ben/Desktop/Map Map/Map Map/Models/Core Data Properties/MapMap+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		B57D8A522B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupEditorVIPadOS.swift; sourceTree = "<group>"; };
+		B57D8A542B5E112C002B9F7C /* MarkupEditorSwitcherV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupEditorSwitcherV.swift; sourceTree = "<group>"; };
+		B57D8A562B5EC079002B9F7C /* DisplayDrawingV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayDrawingV.swift; sourceTree = "<group>"; };
 		B587C2742B46517C001DD4F9 /* StringE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringE.swift; sourceTree = "<group>"; };
 		B5B6D3762B4B89AA00861770 /* ViewSizeVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSizeVModifier.swift; sourceTree = "<group>"; };
+		B5FADE562B5C6F0600AD933C /* MarkupV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupV.swift; sourceTree = "<group>"; };
+		B5FADE592B5C6F9700AD933C /* MarkupEditorVIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupEditorVIOS.swift; sourceTree = "<group>"; };
 		F9F51AE19721651D3510199A /* Pods_Map_Map.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Map_Map.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -190,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				0762DD672AD4713200C36D33 /* MapMapEditorV.swift */,
+				B5FADE582B5C6F2F00AD933C /* Markup Editor */,
 				0790A2142B01C7EF00863B29 /* Photo Editor */,
 			);
 			path = "MapMap Editing";
@@ -231,6 +248,7 @@
 				07353A342ADCCB9700C698B0 /* BigButtonVModifier.swift */,
 				0711E5B12AB39ABD0056AB4B /* BlurView.swift */,
 				078C6DCA2B0B0100001AD131 /* CrosshairV.swift */,
+				B57D8A562B5EC079002B9F7C /* DisplayDrawingV.swift */,
 				0762DD642AD4696B00C36D33 /* DoneButtonV.swift */,
 				072DDB2D2AF426E000E74963 /* HandleV.swift */,
 				0743138E2B2FC45300909B7A /* LineLabelVModifier.swift */,
@@ -249,8 +267,9 @@
 		07656CE62B2BB06800C087C9 /* Core Data Properties */ = {
 			isa = PBXGroup;
 			children = (
+				B50C23542B61822C00093054 /* Drawing+CoreDataProperties.swift */,
 				07A9C6AC2AF1B78C00C3AED4 /* FourCorners+CoreDataProperties.swift */,
-				B508DBC42B4766FA003398B4 /* MapMap+CoreDataProperties.swift */,
+				B57D8A502B5DC827002B9F7C /* MapMap+CoreDataProperties.swift */,
 				B51655CB2B3BCC15006FBE67 /* MapMeasurementCoordinate+CoreDataProperties.swift */,
 				073DA08C2B1FC04700E30208 /* Marker+CoreDataProperties.swift */,
 				07249C212B1692610088B721 /* MarkerColor+CoreDataProperties.swift */,
@@ -306,6 +325,7 @@
 				07134EB82B099FEB00D23A18 /* BackgroundMapHudV.swift */,
 				07E465502B0C11A5005193F1 /* BackgroundMapPointsV.swift */,
 				07FDC6352AB26ADB00D92113 /* BackgroundMapV.swift */,
+				B50C23562B62D46800093054 /* MapMapAnnotationV.swift */,
 			);
 			path = "Background Map Layers";
 			sourceTree = "<group>";
@@ -336,6 +356,7 @@
 				07FDC62D2AB25E0000D92113 /* Map_Map.xcdatamodeld */,
 				07FCC8542AD3593F00F88186 /* DataController.swift */,
 				07656CE62B2BB06800C087C9 /* Core Data Properties */,
+				B57D8A4E2B5DC7F2002B9F7C /* Drawing+CoreDataClass.swift */,
 				07A9C6AB2AF1B78C00C3AED4 /* FourCorners+CoreDataClass.swift */,
 				0762DD1D2AD37A1300C36D33 /* MapMap+CoreDataClass.swift */,
 				B51655CD2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift */,
@@ -423,6 +444,17 @@
 				F9F51AE19721651D3510199A /* Pods_Map_Map.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B5FADE582B5C6F2F00AD933C /* Markup Editor */ = {
+			isa = PBXGroup;
+			children = (
+				B5FADE562B5C6F0600AD933C /* MarkupV.swift */,
+				B5FADE592B5C6F9700AD933C /* MarkupEditorVIOS.swift */,
+				B57D8A542B5E112C002B9F7C /* MarkupEditorSwitcherV.swift */,
+				B57D8A522B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift */,
+			);
+			path = "Markup Editor";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -553,6 +585,7 @@
 				07B82A412B1D54AE00CC00D3 /* CombineMarkerListItemsV.swift in Sources */,
 				0776EB082B055C2200F89BFC /* GridOverlayV.swift in Sources */,
 				07FDC6252AB25DFD00D92113 /* ContentView.swift in Sources */,
+				B57D8A532B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift in Sources */,
 				0711E5B22AB39ABD0056AB4B /* BlurView.swift in Sources */,
 				073DA08E2B1FC04700E30208 /* Marker+CoreDataProperties.swift in Sources */,
 				07FDC6232AB25DFD00D92113 /* Map_MapApp.swift in Sources */,
@@ -560,6 +593,7 @@
 				07249C0D2B1682970088B721 /* MarkerSymbolPickerItemV.swift in Sources */,
 				07BE4BB82B0A7E3A00FDE9D2 /* BackgroundMapButtonsV.swift in Sources */,
 				07D522F32AE5CCCF009364B3 /* CLLocationDegreesE.swift in Sources */,
+				B50C23572B62D46800093054 /* MapMapAnnotationV.swift in Sources */,
 				07A9C6AF2AF1B78C00C3AED4 /* FourCorners+CoreDataClass.swift in Sources */,
 				0773AEDB2B0BDE94007D7CDB /* Marker+CoreDataClass.swift in Sources */,
 				07CCF97E2B37BEB8007071B0 /* Editor.swift in Sources */,
@@ -571,6 +605,7 @@
 				B53C948C2B57162400768C66 /* CropGrabberV.swift in Sources */,
 				0762DD682AD4713200C36D33 /* MapMapEditorV.swift in Sources */,
 				079B60402B2CC71D0073E936 /* LineShape.swift in Sources */,
+				B5FADE5A2B5C6F9700AD933C /* MarkupEditorVIOS.swift in Sources */,
 				07A9C6BA2AF1CA3300C3AED4 /* PhotoEditorV.swift in Sources */,
 				072DDB302AF42A3E00E74963 /* IrregularGridV.swift in Sources */,
 				07249C222B1692610088B721 /* MarkerColor+CoreDataClass.swift in Sources */,
@@ -588,16 +623,20 @@
 				078C6DC82B0A9448001AD131 /* MapButtonVModifier.swift in Sources */,
 				073733432B096C10004B96D1 /* DoubleE.swift in Sources */,
 				078C6DD02B0B0996001AD131 /* CLLocationCoordinate2DE.swift in Sources */,
+				B57D8A4F2B5DC7F2002B9F7C /* Drawing+CoreDataClass.swift in Sources */,
 				073F91692B05C5A400AE56CB /* ToastInfo.swift in Sources */,
 				B51655D02B3CB5A4006FBE67 /* MapConnection.swift in Sources */,
-				B508DBC52B4766FA003398B4 /* MapMap+CoreDataProperties.swift in Sources */,
 				07134EB92B099FEB00D23A18 /* BackgroundMapHudV.swift in Sources */,
 				0784CF0D2B07D8D6007EABB6 /* BackgroundMapLayersV.swift in Sources */,
 				07D742C12ADB67CB0087FFC5 /* BackgroundMapDetails.swift in Sources */,
 				073CCDEF2B2E577F00ECCD7B /* MapLabelVModifier.swift in Sources */,
 				B5B6D3772B4B89AA00861770 /* ViewSizeVModifier.swift in Sources */,
+				B57D8A572B5EC079002B9F7C /* DisplayDrawingV.swift in Sources */,
 				079B60422B2D589E0073E936 /* PositionAlignmentVModifier.swift in Sources */,
+				B5FADE572B5C6F0600AD933C /* MarkupV.swift in Sources */,
+				B50C23552B61822C00093054 /* Drawing+CoreDataProperties.swift in Sources */,
 				B587C2752B46517C001DD4F9 /* StringE.swift in Sources */,
+				B57D8A512B5DC827002B9F7C /* MapMap+CoreDataProperties.swift in Sources */,
 				079B603D2B2CBD150073E936 /* MeasurementEditorV.swift in Sources */,
 				0744E7172AFB203D00D9F0B5 /* CameraPreviewVM.swift in Sources */,
 				07E465532B0C34C9005193F1 /* MarkerContextMenuV.swift in Sources */,
@@ -612,6 +651,7 @@
 				07CCDBB52AEB214400BA9D43 /* UserLocationM.swift in Sources */,
 				07B82A3D2B1D479E00CC00D3 /* MarkerListItemV.swift in Sources */,
 				07BA6E362B000EF20059310E /* CameraReviewV.swift in Sources */,
+				B57D8A552B5E112C002B9F7C /* MarkupEditorSwitcherV.swift in Sources */,
 				07A9C6B02AF1B78C00C3AED4 /* FourCorners+CoreDataProperties.swift in Sources */,
 				072DDB2E2AF426E000E74963 /* HandleV.swift in Sources */,
 				07CCDBB72AEC7E8600BA9D43 /* MapUserIconV.swift in Sources */,

@@ -2,7 +2,7 @@
 //  MapMap+CoreDataProperties.swift
 //  
 //
-//  Created by Ben Roberts on 1/4/24.
+//  Created by Ben Roberts on 1/21/24.
 //
 //
 
@@ -31,7 +31,7 @@ extension MapMap {
     @NSManaged public var shown: Bool
     @NSManaged public var cropCorners: FourCorners?
     @NSManaged public var markers: NSSet?
-
+    @NSManaged public var drawing: Drawing?
 }
 
 // MARK: Generated accessors for markers

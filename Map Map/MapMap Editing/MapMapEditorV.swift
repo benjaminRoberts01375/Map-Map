@@ -23,6 +23,8 @@ struct MapMapEditor: View {
     @State private var mapMapPosition: CGRect = .zero
     /// Tracker for showing the photo (not MapMap) editor.
     @State private var showingPhotoEditor = false
+    /// Tracker for showing the Markup editor.
+    @State private var showingMarkupEditor = false
     /// All available markers.
     @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
     /// Map context for converting coordiantes to screen-space and back.
@@ -59,6 +61,16 @@ struct MapMapEditor: View {
                                 .clipShape(Circle())
                         })
                         .buttonStyle(.plain)
+                        Button(action: {
+                            showingMarkupEditor = true
+                        }, label: {
+                            Image(systemName: "pencil.tip.crop.circle.fill")
+                                .accessibilityLabel("Markup MapMap")
+                                .padding(4)
+                                .background(.gray)
+                                .clipShape(Circle())
+                        })
+                        .buttonStyle(.plain)
                     }
                     HStack {
                         Button(
@@ -90,9 +102,8 @@ struct MapMapEditor: View {
             backgroundMapDetails.preventFollowingUser()
             workingName = mapMap.mapMapName ?? "Untitled Map"
         }
-        .fullScreenCover(isPresented: $showingPhotoEditor, content: {
-            PhotoEditorV(mapMap: mapMap)
-        })
+        .fullScreenCover(isPresented: $showingPhotoEditor) { PhotoEditorV(mapMap: mapMap) }
+        .fullScreenCover(isPresented: $showingMarkupEditor) { MarkupEditorSwitcherV(mapMap: mapMap) }
     }
     
     /// Determine all Markers that overlap a given MapMap
