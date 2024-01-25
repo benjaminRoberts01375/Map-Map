@@ -27,8 +27,6 @@ struct MapMapEditor: View {
     @State private var showingMarkupEditor = false
     /// All available markers.
     @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
-    /// Map context for converting coordiantes to screen-space and back.
-    let mapContext: MapProxy
     
     var body: some View {
         ZStack {
@@ -142,10 +140,10 @@ struct MapMapEditor: View {
         mapMap.mapDistance = mapDetails.mapCamera.distance
         mapMap.isEditing = false
         mapMap.isSetup = true
-        if let overlappingMarkers = MapMapEditor.mapMapOverMarkers(
+        if let mapProxy = mapDetails.mapProxy, let overlappingMarkers = MapMapEditor.mapMapOverMarkers(
             mapMap,
             mapDetails: mapDetails,
-            mapContext: mapContext
+            mapContext: mapProxy
         ) {
             for marker in mapMap.formattedMarkers { mapMap.removeFromMarkers(marker) } // Remove MapMap from all Markers
             for marker in overlappingMarkers { mapMap.addToMarkers(marker) } // Add MapMap to all
