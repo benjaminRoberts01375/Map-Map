@@ -39,19 +39,40 @@ struct BackgroundMap: View {
                         coordinate: mapMap.coordinates,
                         anchor: .center
                     ) {
-                        let rotation = Angle(degrees: -backgroundMapDetails.mapCamera.heading - mapMap.mapMapRotation)
                         let width = 1 / backgroundMapDetails.mapCamera.distance * mapMap.mapMapScale
-                        if tappableMapMaps {
-                            Button(
-                                action: { backgroundMapDetails.moveMapCameraTo(mapMap: mapMap) },
-                                label: { MapMapV(mapMap: mapMap, mapType: .fullImage).stickToMap( rotation: rotation, width: width ) }
-                            )
-                            .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
+                        let rotation = Angle(degrees: -backgroundMapDetails.mapCamera.heading - mapMap.mapMapRotation)
+                        ZStack {
+                            if tappableMapMaps {
+                                Button(
+                                    action: { backgroundMapDetails.moveMapCameraTo(mapMap: mapMap) },
+                                    label: {
+                                        MapMapV(mapMap: mapMap, mapType: .fullImage)
+                                            .frame(width: !width.isNormal || width < 0 ? 1 : width)
+                                    }
+                                )
+                                .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
+                            }
+                            else {
+                                MapMapV(mapMap: mapMap, mapType: .fullImage)
+                                    .frame(width: !width.isNormal || width < 0 ? 1 : width)
+                                
+                            }
+                            GeometryReader { geo in
+                                Text("\(geo.size.width)")
+                                Text("\(geo.size.height)")
+                                    .offset(y: 50)
+                            }
+                            if let drawing = mapMap.drawing, let pkDrawing = drawing.pkDrawing {
+                                GeometryReader { _ in   
+                                    DisplayDrawingV(drawing: pkDrawing)
+                                        .frame(width: drawing.mapMapWidth, height: drawing.mapMapHeight)
+                                        .scaleEffect(width / drawing.mapMapWidth, anchor: .topLeading)
+                                        .allowsHitTesting(false)
+                                }
+                            }
                         }
-                        else {
-                            MapMapV(mapMap: mapMap, mapType: .fullImage)
-                                .stickToMap( rotation: rotation, width: width )
-                        }
+                        .rotationEffect(rotation)
+                        .offset(y: -7)
                     }
                 }
             }
