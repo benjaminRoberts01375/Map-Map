@@ -37,7 +37,7 @@ struct AudioAlertsVModifier: ViewModifier {
 }
 
 extension View {
-    func audioAlertsView() -> some View {
+    func audioAlerts() -> some View {
         return modifier(AudioAlertsVModifier())
     }
 }
