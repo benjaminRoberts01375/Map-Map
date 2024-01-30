@@ -20,7 +20,9 @@ struct AudioAlertsVModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .onAppear { locationsHandler.startLocationTracking() }
-            .onChange(of: locationsHandler.lastLocation) { speakMarkerNames(markers: determineMarkersToSpeak(userLocation: $1)) }
+            .onChange(of: locationsHandler.lastLocation) {
+                if audioAlerts { speakMarkerNames(markers: determineMarkersToSpeak(userLocation: $1)) }
+            }
             .onChange(of: audioAlerts) { if !$1 { synthesizer.stopSpeaking(at: .immediate) } }
     }
     
