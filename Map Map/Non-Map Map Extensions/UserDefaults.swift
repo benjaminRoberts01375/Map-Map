@@ -8,6 +8,6 @@
 import SwiftUI
 
 extension UserDefaults {
-    static let defaultCoordinateDisplayType: LocationDisplayMode = .degrees
+    static let dCoordinateDisplayType: LocationDisplayMode = .degrees
     static let coordinateDisplayType: String = "coordinateDisplayType"
 }

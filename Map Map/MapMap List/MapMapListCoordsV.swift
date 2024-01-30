@@ -11,7 +11,7 @@ import SwiftUI
 /// Handle layout of coordinates depending how much horizontal space is available to this view.
 struct MapMapListCoordsV: View {
     /// Coordinate display type.
-    @AppStorage(UserDefaults.coordinateDisplayType) var locationDisplayType = UserDefaults.defaultCoordinateDisplayType
+    @AppStorage(UserDefaults.coordinateDisplayType) var locationDisplayType = UserDefaults.dCoordinateDisplayType
     /// Coordinates to display.
     let coordinates: CLLocationCoordinate2D
     
