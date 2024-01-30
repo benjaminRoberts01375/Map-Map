@@ -86,6 +86,7 @@
 		B57D8A572B5EC079002B9F7C /* DisplayDrawingV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A562B5EC079002B9F7C /* DisplayDrawingV.swift */; };
 		B587C2752B46517C001DD4F9 /* StringE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B587C2742B46517C001DD4F9 /* StringE.swift */; };
 		B5B6C78B2B68733F00F352BC /* UserDefaultsE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6C78A2B68733F00F352BC /* UserDefaultsE.swift */; };
+		B5B6C78F2B695B6E00F352BC /* AudioAlertsVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6C78E2B695B6E00F352BC /* AudioAlertsVModifier.swift */; };
 		B5B6D3772B4B89AA00861770 /* ViewSizeVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6D3762B4B89AA00861770 /* ViewSizeVModifier.swift */; };
 		B5FADE572B5C6F0600AD933C /* MarkupV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FADE562B5C6F0600AD933C /* MarkupV.swift */; };
 		B5FADE5A2B5C6F9700AD933C /* MarkupEditorVIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FADE592B5C6F9700AD933C /* MarkupEditorVIOS.swift */; };
@@ -172,6 +173,7 @@
 		B57D8A562B5EC079002B9F7C /* DisplayDrawingV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayDrawingV.swift; sourceTree = "<group>"; };
 		B587C2742B46517C001DD4F9 /* StringE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringE.swift; sourceTree = "<group>"; };
 		B5B6C78A2B68733F00F352BC /* UserDefaultsE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsE.swift; sourceTree = "<group>"; };
+		B5B6C78E2B695B6E00F352BC /* AudioAlertsVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAlertsVModifier.swift; sourceTree = "<group>"; };
 		B5B6D3762B4B89AA00861770 /* ViewSizeVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSizeVModifier.swift; sourceTree = "<group>"; };
 		B5FADE562B5C6F0600AD933C /* MarkupV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupV.swift; sourceTree = "<group>"; };
 		B5FADE592B5C6F9700AD933C /* MarkupEditorVIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupEditorVIOS.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 		0762DD662AD46CFA00C36D33 /* Generic View Components */ = {
 			isa = PBXGroup;
 			children = (
+				B5B6C78E2B695B6E00F352BC /* AudioAlertsVModifier.swift */,
 				07353A342ADCCB9700C698B0 /* BigButtonVModifier.swift */,
 				0711E5B12AB39ABD0056AB4B /* BlurView.swift */,
 				078C6DCA2B0B0100001AD131 /* CrosshairV.swift */,
@@ -586,6 +589,7 @@
 				07A9C6BA2AF1CA3300C3AED4 /* PhotoEditorV.swift in Sources */,
 				072DDB302AF42A3E00E74963 /* IrregularGridV.swift in Sources */,
 				07249C222B1692610088B721 /* MarkerColor+CoreDataClass.swift in Sources */,
+				B5B6C78F2B695B6E00F352BC /* AudioAlertsVModifier.swift in Sources */,
 				075C65682AF4C5C900864A34 /* CGSizeE.swift in Sources */,
 				07249C0B2B1681FF0088B721 /* WHStack.swift in Sources */,
 				07FCC8552AD3593F00F88186 /* DataController.swift in Sources */,
