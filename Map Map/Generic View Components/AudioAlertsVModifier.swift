@@ -10,11 +10,17 @@ import MapKit
 import SwiftUI
 
 struct AudioAlertsVModifier: ViewModifier {
+    /// Track if audio alerts are enabled.
     @AppStorage(UserDefaults.kAudioAlerts) private var audioAlerts = UserDefaults.dAudioAlerts
+    /// Available Markers on the map.
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
+    /// Markers currently in range of the user.
     @State private var inRadiusOfMarkers: [Marker] = []
+    /// User's location.
     @State private var locationsHandler = LocationsHandler.shared
+    /// Voice synthesizer for text to speach.
     let synthesizer = AVSpeechSynthesizer()
+    /// Maximum distance from user to marker.
     static let markerAlertRadius: Measurement<UnitLength> = Measurement(value: 200, unit: .feet)
     
     func body(content: Content) -> some View {
