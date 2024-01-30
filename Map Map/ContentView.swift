@@ -25,8 +25,6 @@ struct ContentView: View {
     @State var editing: Editor = .nothing
     /// Information to display in a Toast notification.
     @State private var toastInfo: ToastInfo = ToastInfo()
-    /// Coordinate display type.
-    @State private var displayType: LocationDisplayMode = .degrees
     /// Track if a drag and drop action may occur on this view.
     @State private var dragAndDropTargeted: Bool = false
     /// Control the opacity of the dark shade overlay.
@@ -36,8 +34,7 @@ struct ContentView: View {
         MapReader { mapContext in
             ZStack(alignment: .top) {
                 ZStack {
-                    MapLayersV(displayType: $displayType, editor: $editing)
-                        .environment(\.locationDisplayMode, displayType)
+                    MapLayersV(editor: $editing)
                         .onDrop(of: [.image], isTargeted: $dragAndDropTargeted) { dropImage(providers: $0) }
                     
                     if dragAndDropTargeted {
@@ -62,7 +59,6 @@ struct ContentView: View {
                         header: { _ in DefaultDrawerHeaderV() },
                         content: { _ in
                             MapMapList()
-                                .environment(\.locationDisplayMode, displayType)
                                 .padding(.horizontal)
                         }
                     )

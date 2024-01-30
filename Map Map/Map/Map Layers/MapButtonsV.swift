@@ -20,8 +20,6 @@ struct MapButtonsV: View {
     @Environment(MapDetailsM.self) private var mapDetails
     /// Tracker for adding or removing markers.
     @State private var markerButton: MarkerButtonType = .add
-    /// Coordinate display type.
-    @Binding var displayType: LocationDisplayMode
     /// Current editor being used.
     @Binding var editor: Editor
     /// Size of parent view.
@@ -40,7 +38,7 @@ struct MapButtonsV: View {
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
             VStack {
-                MapHudV(rawDisplayType: $displayType)
+                MapHudV()
                 MapScaleView(scope: mapScope)
             }
             .padding(.trailing, MapLayersV.minSafeAreaDistance)

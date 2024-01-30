@@ -11,7 +11,7 @@ import SwiftUI
 /// Handle layout of coordinates depending how much horizontal space is available to this view.
 struct MapMapListCoordsV: View {
     /// Coordinate display type.
-    @Environment(\.locationDisplayMode) var displayType
+    @AppStorage(UserDefaults.kCoordinateDisplayType) var locationDisplayType = UserDefaults.dCoordinateDisplayType
     /// Coordinates to display.
     let coordinates: CLLocationCoordinate2D
     
@@ -19,18 +19,18 @@ struct MapMapListCoordsV: View {
         ViewThatFits(in: .horizontal) {
             VStack(alignment: .leading) {
                 Text("Latitude: ") +
-                Text(displayType.degreesToString(latitude: coordinates.latitude))
+                Text(locationDisplayType.degreesToString(latitude: coordinates.latitude))
                     .fontWidth(.condensed)
                 Text("Longitude: ") +
-                Text(displayType.degreesToString(longitude: coordinates.longitude))
+                Text(locationDisplayType.degreesToString(longitude: coordinates.longitude))
                     .fontWidth(.condensed)
             }
             VStack(alignment: .leading) {
                 Text("Latitude: ")
-                Text(displayType.degreesToString(latitude: coordinates.latitude))
+                Text(locationDisplayType.degreesToString(latitude: coordinates.latitude))
                     .fontWidth(.condensed)
                 Text("Longitude: ")
-                Text(displayType.degreesToString(longitude: coordinates.longitude))
+                Text(locationDisplayType.degreesToString(longitude: coordinates.longitude))
                     .fontWidth(.condensed)
             }
         }

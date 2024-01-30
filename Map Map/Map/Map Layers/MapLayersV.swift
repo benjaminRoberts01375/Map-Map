@@ -20,8 +20,6 @@ struct MapLayersV: View {
     @State private var timer: Timer?
     /// Current opacity of the crosshair.
     @State private var crosshairOpacity: Double = 0
-    /// Coordinate display type.
-    @Binding var displayType: LocationDisplayMode
     /// Current editor being used.
     @Binding var editor: Editor
     /// The minimum distance between the edge of the device and a UI element
@@ -60,7 +58,6 @@ struct MapLayersV: View {
                     }
                 VStack(alignment: .trailing) {
                     MapButtonsV(
-                        displayType: $displayType,
                         editor: $editor,
                         screenSize: CGSize(
                             width: geo.size.width + geo.safeAreaInsets.leading + geo.safeAreaInsets.trailing,

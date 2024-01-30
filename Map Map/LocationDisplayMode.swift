@@ -9,26 +9,13 @@ import MapKit
 import SwiftUI
 
 /// A type dedicated for tracking the location coordinate display type.
-public enum LocationDisplayMode {
+public enum LocationDisplayMode: Int {
     /// Display coordinates in degrees (only decimals).
     /// Example: 23.123456º
     case degrees
     /// Display coordinates in degree, minutes, seconds (no decimal).
     /// Example: 25º 22' 1"
     case DMS
-}
-
-/// Storage for location display mode in an environment.
-private struct LocationDisplayModeKey: EnvironmentKey {
-    static var defaultValue: LocationDisplayMode = .degrees
-}
-
-/// Getter and setter for location display mode in an environment.
-extension EnvironmentValues {
-    var locationDisplayMode: LocationDisplayMode {
-        get { self[LocationDisplayModeKey.self] }
-        set { self[LocationDisplayModeKey.self] = newValue }
-    }
 }
 
 /// Extension to house functions responsible for formatting location values

@@ -12,10 +12,8 @@ import SwiftUI
 struct MapHudV: View {
     /// Information about the map.
     @Environment(MapDetailsM.self) private var mapDetails
-    /// Environment value of the coordinate display type.
-    @Environment(\.locationDisplayMode) private var locationDisplayMode
-    /// Controller for the environment value of the coordinate display type.
-    @Binding var rawDisplayType: LocationDisplayMode
+    /// How to display coordinates on screen.
+    @AppStorage(UserDefaults.kCoordinateDisplayType) var locationDisplayType = UserDefaults.dCoordinateDisplayType
     /// Tracker for showing the heading.
     @State private var showHeading: Bool = false
     /// Control decimals when converted to a string.
@@ -32,11 +30,11 @@ struct MapHudV: View {
         HStack(spacing: 0) {
             VStack(alignment: .leading) {
                 Text("Latitude: ") +
-                Text(locationDisplayMode.degreesToString(latitude: mapDetails.region.center.latitude))
+                Text(locationDisplayType.degreesToString(latitude: mapDetails.region.center.latitude))
                     .fontWidth(.condensed)
                 
                 Text("Longitude: ") +
-                Text(locationDisplayMode.degreesToString(longitude: mapDetails.region.center.longitude))
+                Text(locationDisplayType.degreesToString(longitude: mapDetails.region.center.longitude))
                     .fontWidth(.condensed)
                 if showHeading {
                     Text("Heading: ") +
@@ -57,14 +55,14 @@ struct MapHudV: View {
                 Label("Open in Maps", systemImage: "map.fill")
             }
             Button {
-                switch rawDisplayType {
+                switch locationDisplayType {
                 case .degrees:
-                    rawDisplayType = .DMS
+                    locationDisplayType = .DMS
                 case .DMS:
-                    rawDisplayType = .degrees
+                    locationDisplayType = .degrees
                 }
             } label: {
-                switch rawDisplayType {
+                switch locationDisplayType {
                 case .degrees:
                     Label("Show Degrees, Minutes, Seconds", systemImage: "clock.fill")
                 case .DMS:
@@ -79,7 +77,7 @@ struct MapHudV: View {
             }
         }
         .gesture(tap)
-        .animation(.easeInOut, value: rawDisplayType)
+        .animation(.easeInOut, value: locationDisplayType)
     }
     
     /// Determine the heading label for the map's current rotation.
@@ -121,7 +119,7 @@ struct MapHudV: View {
 struct MapHudV_Previews: PreviewProvider {
     static var previews: some View {
         let mapDetails = MapDetailsM()
-        return MapHudV(rawDisplayType: .constant(LocationDisplayMode.degrees))
+        return MapHudV()
             .environment(mapDetails)
     }
 }
