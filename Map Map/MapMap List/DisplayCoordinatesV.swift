@@ -9,7 +9,7 @@ import MapKit
 import SwiftUI
 
 /// Handle layout of coordinates depending how much horizontal space is available to this view.
-struct MapMapListCoordsV: View {
+struct DisplayCoordinatesV: View {
     /// Coordinate display type.
     @AppStorage(UserDefaults.kCoordinateDisplayType) var locationDisplayType = UserDefaults.dCoordinateDisplayType
     /// Coordinates to display.

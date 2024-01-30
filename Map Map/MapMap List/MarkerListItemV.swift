@@ -22,7 +22,7 @@ struct MarkerListItemV: View {
                     .padding(.trailing)
                 VStack(alignment: .leading) {
                     Text(markerName)
-                    MapMapListCoordsV(coordinates: marker.coordinates)
+                    DisplayCoordinatesV(coordinates: marker.coordinates)
                 }
             }
             Spacer(minLength: 0)
