@@ -18,19 +18,6 @@ public enum LocationDisplayMode: Int {
     case DMS
 }
 
-/// Storage for location display mode in an environment.
-private struct LocationDisplayModeKey: EnvironmentKey {
-    static var defaultValue: LocationDisplayMode = .degrees
-}
-
-/// Getter and setter for location display mode in an environment.
-extension EnvironmentValues {
-    var locationDisplayMode: LocationDisplayMode {
-        get { self[LocationDisplayModeKey.self] }
-        set { self[LocationDisplayModeKey.self] = newValue }
-    }
-}
-
 /// Extension to house functions responsible for formatting location values
 extension LocationDisplayMode {
     /// A generic function for generating DMS or degrees for a given location, but lacks hemisphere labels (NSWE).
