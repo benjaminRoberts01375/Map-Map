@@ -283,11 +283,12 @@
 			isa = PBXGroup;
 			children = (
 				07C2E07A2B128F9C003C292E /* AvailableThumbnailImages.swift */,
-				07C9D7722B1195C10099041A /* LocationDisplayMode.swift */,
-				07D742C02ADB67CB0087FFC5 /* MapDetails.swift */,
-				B51655CF2B3CB5A4006FBE67 /* MapConnection.swift */,
 				07CCF97D2B37BEB8007071B0 /* Editor.swift */,
 				073F916A2B06794000AE56CB /* FourCorners.swift */,
+				07C9D7722B1195C10099041A /* LocationDisplayMode.swift */,
+				B51655CF2B3CB5A4006FBE67 /* MapConnection.swift */,
+				07D742C02ADB67CB0087FFC5 /* MapDetails.swift */,
+				073F91682B05C5A400AE56CB /* ToastInfo.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -404,7 +405,6 @@
 			children = (
 				07FDC6222AB25DFD00D92113 /* Map_MapApp.swift */,
 				07FDC6242AB25DFD00D92113 /* ContentView.swift */,
-				073F91682B05C5A400AE56CB /* ToastInfo.swift */,
 				07764B412AF96DFA0009525E /* DefaultDrawerHeaderV.swift */,
 				077CBEAF2AD5088100741F27 /* MapMap List */,
 				07FCC85F2AD3764A00F88186 /* Map */,
