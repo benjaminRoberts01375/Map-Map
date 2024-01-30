@@ -34,4 +34,28 @@ extension FourCorners {
         self.bottomLeading = bottomLeading
         self.bottomTrailing = bottomTrailing
     }
+    
+    /// Convenience variable for getting and setting the bottom leading corner as a CGSize.
+    public var bottomLeading: CGSize {
+        get { return NSCoder.cgSize(for: rawBottomLeading ?? "") }
+        set(update) { rawBottomLeading = NSCoder.string(for: update) }
+    }
+    
+    /// Convenience variable for getting and setting the bottom trailing corner as a CGSize.
+    public var bottomTrailing: CGSize {
+        get { return NSCoder.cgSize(for: rawBottomTrailing ?? "") }
+        set(update) { rawBottomTrailing = NSCoder.string(for: update) }
+    }
+    
+    /// Convenience variable for getting and setting the top leading corner as a CGSize.
+    public var topLeading: CGSize {
+        get { return NSCoder.cgSize(for: rawTopLeading ?? "") }
+        set(update) { rawTopLeading = NSCoder.string(for: update) }
+    }
+    
+    /// Convenience variable for getting and setting the top trailing corner as a CGSize.
+    public var topTrailing: CGSize {
+        get { return NSCoder.cgSize(for: rawTopTrailing ?? "") }
+        set(update) { rawTopTrailing = NSCoder.string(for: update) }
+    }
 }

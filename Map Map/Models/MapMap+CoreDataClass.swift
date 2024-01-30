@@ -232,5 +232,3 @@ extension MapMap {
         }
     }
 }
-
-extension MapMap: Identifiable { }

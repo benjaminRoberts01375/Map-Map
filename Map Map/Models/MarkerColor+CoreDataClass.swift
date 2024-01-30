@@ -10,9 +10,7 @@ import CoreData
 import Foundation
 
 @objc(MarkerColor)
-public class MarkerColor: NSManagedObject {
-
-}
+public class MarkerColor: NSManagedObject { }
 
 extension MarkerColor {
     /// A convenience initializer for creating a MarkerColor with RGB values.

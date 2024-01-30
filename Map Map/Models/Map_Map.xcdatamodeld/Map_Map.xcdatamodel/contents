@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23C71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Drawing" representedClassName="Drawing" syncable="YES">
+    <entity name="Drawing" representedClassName="Drawing" syncable="YES" codeGenerationType="category">
         <attribute name="drawingData" attributeType="Binary"/>
         <attribute name="mapMapHeight" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="mapMapWidth" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="mapMap" maxCount="1" deletionRule="Nullify" destinationEntity="MapMap" inverseName="drawing" inverseEntity="MapMap"/>
     </entity>
-    <entity name="FourCorners" representedClassName="FourCorners" syncable="YES">
+    <entity name="FourCorners" representedClassName="FourCorners" syncable="YES" codeGenerationType="category">
         <attribute name="rawBottomLeading" attributeType="String" defaultValueString="{0, 0}"/>
         <attribute name="rawBottomTrailing" attributeType="String" defaultValueString="{0, 0}"/>
         <attribute name="rawTopLeading" attributeType="String" defaultValueString="{0, 0}"/>
         <attribute name="rawTopTrailing" attributeType="String" defaultValueString="{0, 0}"/>
         <relationship name="mapMap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMap" inverseName="cropCorners" inverseEntity="MapMap"/>
     </entity>
-    <entity name="MapMap" representedClassName="MapMap" syncable="YES">
+    <entity name="MapMap" representedClassName="MapMap" syncable="YES" codeGenerationType="category">
         <attribute name="imageHeight" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="imageWidth" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="isEditing" transient="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
@@ -32,12 +32,12 @@
         <relationship name="drawing" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Drawing" inverseName="mapMap" inverseEntity="Drawing"/>
         <relationship name="markers" toMany="YES" deletionRule="Nullify" destinationEntity="Marker" inverseName="mapMap" inverseEntity="Marker"/>
     </entity>
-    <entity name="MapMeasurementCoordinate" representedClassName="MapMeasurementCoordinate" syncable="YES">
+    <entity name="MapMeasurementCoordinate" representedClassName="MapMeasurementCoordinate" syncable="YES" codeGenerationType="category">
         <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="neighbors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MapMeasurementCoordinate" inverseName="neighbors" inverseEntity="MapMeasurementCoordinate"/>
     </entity>
-    <entity name="Marker" representedClassName="Marker" syncable="YES">
+    <entity name="Marker" representedClassName="Marker" syncable="YES" codeGenerationType="category">
         <attribute name="isEditing" transient="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="lockRotationAngle" optional="YES" attributeType="Decimal"/>
@@ -48,7 +48,7 @@
         <relationship name="color" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MarkerColor" inverseName="marker" inverseEntity="MarkerColor"/>
         <relationship name="mapMap" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MapMap" inverseName="markers" inverseEntity="MapMap"/>
     </entity>
-    <entity name="MarkerColor" representedClassName="MarkerColor" syncable="YES">
+    <entity name="MarkerColor" representedClassName="MarkerColor" syncable="YES" codeGenerationType="category">
         <attribute name="blue" attributeType="Double" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="green" attributeType="Double" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="red" attributeType="Double" defaultValueString="1" usesScalarValueType="YES"/>
