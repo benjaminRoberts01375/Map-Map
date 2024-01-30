@@ -6,7 +6,6 @@ included:
 # Excluded paths
 excluded:
   - Carthage
-  - Map Map/Models/Core Data Properties
 
 
 # Opt-in rules

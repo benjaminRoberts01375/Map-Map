@@ -26,5 +26,3 @@ public class MapMeasurementCoordinate: NSManagedObject {
         self.longitude = coordinate.longitude
     }
 }
-
-extension MapMeasurementCoordinate: Identifiable { }
