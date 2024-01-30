@@ -65,7 +65,7 @@
 		07D742C12ADB67CB0087FFC5 /* MapDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D742C02ADB67CB0087FFC5 /* MapDetails.swift */; };
 		07DFF79E2B1E4C640041551B /* MapMapListUnsortedMarkersV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DFF79D2B1E4C640041551B /* MapMapListUnsortedMarkersV.swift */; };
 		07DFF7A02B1E4E010041551B /* MarkerFormattedListItemV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DFF79F2B1E4E010041551B /* MarkerFormattedListItemV.swift */; };
-		07E24D432B05C1240049F5EB /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E24D422B05C1240049F5EB /* Notifications.swift */; };
+		07E24D432B05C1240049F5EB /* NotificationsE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E24D422B05C1240049F5EB /* NotificationsE.swift */; };
 		07E465512B0C11A5005193F1 /* MapPointsV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E465502B0C11A5005193F1 /* MapPointsV.swift */; };
 		07E465532B0C34C9005193F1 /* MarkerContextMenuV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E465522B0C34C9005193F1 /* MarkerContextMenuV.swift */; };
 		07EB79E72B01A7F600DC2699 /* UIImageE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB79E62B01A7F600DC2699 /* UIImageE.swift */; };
@@ -154,7 +154,7 @@
 		07D742C02ADB67CB0087FFC5 /* MapDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDetails.swift; sourceTree = "<group>"; };
 		07DFF79D2B1E4C640041551B /* MapMapListUnsortedMarkersV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapListUnsortedMarkersV.swift; sourceTree = "<group>"; };
 		07DFF79F2B1E4E010041551B /* MarkerFormattedListItemV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerFormattedListItemV.swift; sourceTree = "<group>"; };
-		07E24D422B05C1240049F5EB /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		07E24D422B05C1240049F5EB /* NotificationsE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsE.swift; sourceTree = "<group>"; };
 		07E465502B0C11A5005193F1 /* MapPointsV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPointsV.swift; sourceTree = "<group>"; };
 		07E465522B0C34C9005193F1 /* MarkerContextMenuV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerContextMenuV.swift; sourceTree = "<group>"; };
 		07EB79E62B01A7F600DC2699 /* UIImageE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageE.swift; sourceTree = "<group>"; };
@@ -299,6 +299,7 @@
 				078C6DCF2B0B0996001AD131 /* CLLocationCoordinate2DE.swift */,
 				07D522F22AE5CCCF009364B3 /* CLLocationDegreesE.swift */,
 				073733422B096C10004B96D1 /* DoubleE.swift */,
+				07E24D422B05C1240049F5EB /* NotificationsE.swift */,
 				B587C2742B46517C001DD4F9 /* StringE.swift */,
 				07EB79E62B01A7F600DC2699 /* UIImageE.swift */,
 				B5B6C78A2B68733F00F352BC /* UserDefaults.swift */,
@@ -404,7 +405,6 @@
 				07FDC6242AB25DFD00D92113 /* ContentView.swift */,
 				073F91682B05C5A400AE56CB /* ToastInfo.swift */,
 				07764B412AF96DFA0009525E /* DefaultDrawerHeaderV.swift */,
-				07E24D422B05C1240049F5EB /* Notifications.swift */,
 				07C9D7722B1195C10099041A /* LocationDisplayMode.swift */,
 				077CBEAF2AD5088100741F27 /* MapMap List */,
 				07FCC85F2AD3764A00F88186 /* Map */,
@@ -619,7 +619,7 @@
 				07082FAD2AFACE6E003255E3 /* CameraPreviewV.swift in Sources */,
 				07B82A3F2B1D4B6E00CC00D3 /* MapMapListCoordsV.swift in Sources */,
 				072DDB322AF42B1F00E74963 /* CGPointE.swift in Sources */,
-				07E24D432B05C1240049F5EB /* Notifications.swift in Sources */,
+				07E24D432B05C1240049F5EB /* NotificationsE.swift in Sources */,
 				07FDC6362AB26ADB00D92113 /* MapV.swift in Sources */,
 				07FDC62F2AB25E0000D92113 /* Map_Map.xcdatamodeld in Sources */,
 				07DFF7A02B1E4E010041551B /* MarkerFormattedListItemV.swift in Sources */,
