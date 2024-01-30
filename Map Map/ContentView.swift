@@ -26,7 +26,7 @@ struct ContentView: View {
     /// Information to display in a Toast notification.
     @State private var toastInfo: ToastInfo = ToastInfo()
     /// Coordinate display type.
-    @State private var displayType: LocationDisplayMode = .degrees
+    @AppStorage(UserDefaults.coordinateDisplayType) private var displayType = UserDefaults.defaultCoordinateDisplayType
     /// Track if a drag and drop action may occur on this view.
     @State private var dragAndDropTargeted: Bool = false
     /// Control the opacity of the dark shade overlay.
