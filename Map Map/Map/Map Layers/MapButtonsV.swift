@@ -18,6 +18,8 @@ struct MapButtonsV: View {
     @Environment(\.managedObjectContext) private var moc
     /// Details about the map.
     @Environment(MapDetailsM.self) private var mapDetails
+    /// Control if enabled Markers are allowed to chirp
+    @AppStorage(UserDefaults.kAudioAlerts) var markersChirp = UserDefaults.dAudioAlerts
     /// Tracker for adding or removing markers.
     @State private var markerButton: MarkerButtonType = .add
     /// Current editor being used.
@@ -72,7 +74,6 @@ struct MapButtonsV: View {
                             .mapButton()
                     }
                 }
-                
                 Button {
                     editor = .measurement
                 } label: {
