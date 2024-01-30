@@ -21,6 +21,7 @@ struct AudioAlertsVModifier: ViewModifier {
         content
             .onAppear { locationsHandler.startLocationTracking() }
             .onChange(of: locationsHandler.lastLocation) { speakMarkerNames(markers: determineMarkersToSpeak(userLocation: $1)) }
+            .onChange(of: audioAlerts) { if !$1 { synthesizer.stopSpeaking(at: .immediate) } }
     }
     
     /// Determine which markers need to be read out loud.
