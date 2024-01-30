@@ -18,6 +18,8 @@ struct MapButtonsV: View {
     @Environment(\.managedObjectContext) private var moc
     /// Details about the map.
     @Environment(MapDetailsM.self) private var mapDetails
+    /// Control if enabled Markers are allowed to chirp
+    @AppStorage(UserDefaults.kAudioAlerts) var markersChirp = UserDefaults.dAudioAlerts
     /// Tracker for adding or removing markers.
     @State private var markerButton: MarkerButtonType = .add
     /// Current editor being used.
@@ -72,13 +74,19 @@ struct MapButtonsV: View {
                             .mapButton()
                     }
                 }
-                
                 Button {
                     editor = .measurement
                 } label: {
                     Image(systemName: "ruler")
                         .accessibilityLabel("Edit Measurements Button")
                         .rotationEffect(Angle(degrees: -45))
+                        .mapButton()
+                }
+                Button {
+                    withAnimation { markersChirp.toggle() }
+                } label: {
+                    Image(systemName: markersChirp ? "speaker.wave.2.bubble.fill" : "speaker.wave.2.bubble")
+                        .accessibilityLabel(markersChirp ? "Markers can make audio alerts." : "Markers cannot make audio alerts.")
                         .mapButton()
                 }
             }

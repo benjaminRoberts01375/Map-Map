@@ -86,6 +86,7 @@ struct ContentView: View {
                 toastInfo.info = info
             }
         }
+        .audioAlerts()
     }
     
     /// Handles drag and drop of images from outside of Map Map.
