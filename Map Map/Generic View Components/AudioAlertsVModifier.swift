@@ -5,6 +5,7 @@
 //  Created by Ben Roberts on 1/30/24.
 //
 
+import AVFoundation
 import MapKit
 import SwiftUI
 
@@ -13,6 +14,7 @@ struct AudioAlertsVModifier: ViewModifier {
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
     @State private var inRadiusOfMarkers: [Marker] = []
     @State private var locationsHandler = LocationsHandler.shared
+    let synthesizer = AVSpeechSynthesizer()
     static let markerAlertRadius: Measurement<UnitLength> = Measurement(value: 200, unit: .meters)
     
     func body(content: Content) -> some View {
@@ -32,6 +34,20 @@ struct AudioAlertsVModifier: ViewModifier {
                     else if distance > AudioAlertsVModifier.markerAlertRadius && inRadiusOfMarkers.contains(marker) {
                         inRadiusOfMarkers.removeAll(where: { $0 == marker })
                     }
+                }
+                if let lastMarkerName = newMarkers.last?.name {
+                    var message = "Approaching "
+                    if newMarkers.count > 1 {
+                        for marker in newMarkers.dropLast() {
+                            if let markerName = marker.name {
+                                message += "\(markerName), "
+                            }
+                        }
+                        message += "and "
+                    }
+                    message += lastMarkerName
+                    let utterance = AVSpeechUtterance(string: message)
+                    synthesizer.speak(utterance)
                 }
             }
     }
