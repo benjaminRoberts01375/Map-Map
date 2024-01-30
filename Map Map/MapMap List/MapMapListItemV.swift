@@ -38,7 +38,7 @@ struct MapMapListItemV: View {
                     .background(.thickMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                     .padding(.trailing)
-                MapMapListCoordsV(coordinates: mapMap.coordinates)
+                DisplayCoordinatesV(coordinates: mapMap.coordinates)
                 Spacer(minLength: 0)
             }
         }
