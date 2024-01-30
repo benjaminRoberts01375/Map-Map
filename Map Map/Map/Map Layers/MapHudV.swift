@@ -13,7 +13,7 @@ struct MapHudV: View {
     /// Information about the map.
     @Environment(MapDetailsM.self) private var mapDetails
     /// How to display coordinates on screen.
-    @AppStorage(UserDefaults.coordinateDisplayType) var locationDisplayType = UserDefaults.dCoordinateDisplayType
+    @AppStorage(UserDefaults.kCoordinateDisplayType) var locationDisplayType = UserDefaults.dCoordinateDisplayType
     /// Tracker for showing the heading.
     @State private var showHeading: Bool = false
     /// Control decimals when converted to a string.

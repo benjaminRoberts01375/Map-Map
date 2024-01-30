@@ -9,5 +9,5 @@ import SwiftUI
 
 extension UserDefaults {
     static let dCoordinateDisplayType: LocationDisplayMode = .degrees
-    static let coordinateDisplayType: String = "coordinateDisplayType"
+    static let kCoordinateDisplayType: String = "coordinateDisplayType"
 }
