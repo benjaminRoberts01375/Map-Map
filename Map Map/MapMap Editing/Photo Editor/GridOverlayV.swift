@@ -10,28 +10,28 @@ import SwiftUI
 /// Render grid with handles.
 struct GridOverlayV: View {
     /// Grid corner positions.
-    @Binding var handleTracker: HandleTrackerM
+    @Binding var corners: FourCornersStorage
     
     var body: some View {
         ZStack(alignment: .topLeading) {
             IrregularGridV(
-                topLeading: handleTracker.corners.topLeading,
-                topTrailing: handleTracker.corners.topTrailing,
-                bottomLeading: handleTracker.corners.bottomLeading,
-                bottomTrailing: handleTracker.corners.bottomTrailing
+                topLeading: corners.topLeading,
+                topTrailing: corners.topTrailing,
+                bottomLeading: corners.bottomLeading,
+                bottomTrailing: corners.bottomTrailing
             )
             .fill(.clear)
             .stroke(.black.opacity(0.75), lineWidth: 3)
             .stroke(.white.opacity(0.75), lineWidth: 2)
             
-            HandleV(position: $handleTracker.corners.topLeading)
-            HandleV(position: $handleTracker.corners.topTrailing)
-            HandleV(position: $handleTracker.corners.bottomLeading)
-            HandleV(position: $handleTracker.corners.bottomTrailing)
-            CropGrabberV(leadingPoint: $handleTracker.corners.topLeading, trailingPoint: $handleTracker.corners.topTrailing)
-            CropGrabberV(leadingPoint: $handleTracker.corners.topLeading, trailingPoint: $handleTracker.corners.bottomLeading)
-            CropGrabberV(leadingPoint: $handleTracker.corners.topTrailing, trailingPoint: $handleTracker.corners.bottomTrailing)
-            CropGrabberV(leadingPoint: $handleTracker.corners.bottomLeading, trailingPoint: $handleTracker.corners.bottomTrailing)
+            HandleV(position: $corners.topLeading)
+            HandleV(position: $corners.topTrailing)
+            HandleV(position: $corners.bottomLeading)
+            HandleV(position: $corners.bottomTrailing)
+            CropGrabberV(leadingPoint: $corners.topLeading, trailingPoint: $corners.topTrailing)
+            CropGrabberV(leadingPoint: $corners.topLeading, trailingPoint: $corners.bottomLeading)
+            CropGrabberV(leadingPoint: $corners.topTrailing, trailingPoint: $corners.bottomTrailing)
+            CropGrabberV(leadingPoint: $corners.bottomLeading, trailingPoint: $corners.bottomTrailing)
         }
     }
 }
