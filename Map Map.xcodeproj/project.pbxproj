@@ -40,7 +40,6 @@
 		078C6DC82B0A9448001AD131 /* MapButtonVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C6DC72B0A9448001AD131 /* MapButtonVModifier.swift */; };
 		078C6DCB2B0B0100001AD131 /* CrosshairV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C6DCA2B0B0100001AD131 /* CrosshairV.swift */; };
 		078C6DD02B0B0996001AD131 /* CLLocationCoordinate2DE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C6DCF2B0B0996001AD131 /* CLLocationCoordinate2DE.swift */; };
-		0790A2122B01C0FC00863B29 /* HandleTrackerM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790A2112B01C0FC00863B29 /* HandleTrackerM.swift */; };
 		079B603D2B2CBD150073E936 /* MeasurementEditorV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079B603C2B2CBD150073E936 /* MeasurementEditorV.swift */; };
 		079B60402B2CC71D0073E936 /* LineShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079B603F2B2CC71D0073E936 /* LineShape.swift */; };
 		079B60422B2D589E0073E936 /* PositionAlignmentVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079B60412B2D589E0073E936 /* PositionAlignmentVModifier.swift */; };
@@ -125,7 +124,6 @@
 		078C6DC72B0A9448001AD131 /* MapButtonVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapButtonVModifier.swift; sourceTree = "<group>"; };
 		078C6DCA2B0B0100001AD131 /* CrosshairV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrosshairV.swift; sourceTree = "<group>"; };
 		078C6DCF2B0B0996001AD131 /* CLLocationCoordinate2DE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2DE.swift; sourceTree = "<group>"; };
-		0790A2112B01C0FC00863B29 /* HandleTrackerM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleTrackerM.swift; sourceTree = "<group>"; };
 		079B603C2B2CBD150073E936 /* MeasurementEditorV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementEditorV.swift; sourceTree = "<group>"; };
 		079B603F2B2CC71D0073E936 /* LineShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineShape.swift; sourceTree = "<group>"; };
 		079B60412B2D589E0073E936 /* PositionAlignmentVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionAlignmentVModifier.swift; sourceTree = "<group>"; };
@@ -319,7 +317,6 @@
 			children = (
 				07A9C6B92AF1CA3300C3AED4 /* PhotoEditorV.swift */,
 				0776EB072B055C2200F89BFC /* GridOverlayV.swift */,
-				0790A2112B01C0FC00863B29 /* HandleTrackerM.swift */,
 				072DDB2F2AF42A3E00E74963 /* IrregularGridV.swift */,
 				B53C948B2B57162400768C66 /* CropGrabberV.swift */,
 			);
@@ -620,7 +617,6 @@
 				07E465532B0C34C9005193F1 /* MarkerContextMenuV.swift in Sources */,
 				B51655CE2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift in Sources */,
 				07C9D7732B1195C10099041A /* LocationDisplayMode.swift in Sources */,
-				0790A2122B01C0FC00863B29 /* HandleTrackerM.swift in Sources */,
 				0740B8152B1972DB005EA0D2 /* MarkerV.swift in Sources */,
 				07E465512B0C11A5005193F1 /* MapPointsV.swift in Sources */,
 				0773AEDE2B0BDF30007D7CDB /* MarkerEditorV.swift in Sources */,
