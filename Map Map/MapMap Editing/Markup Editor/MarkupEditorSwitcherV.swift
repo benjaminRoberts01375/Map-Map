@@ -71,7 +71,13 @@ struct MarkupEditorSwitcherV: View {
             }
         }
         .onAppear { setupToolPicker() }
-        .onDisappear { mapMap.drawing?.mapMapSize = mapMapSize }
+        .onDisappear {
+            guard let drawing = mapMap.drawing else { return }
+            if let pkDrawing = drawing.pkDrawing, pkDrawing.strokes.isEmpty {
+                moc.delete(drawing)
+            }
+            mapMap.drawing?.mapMapSize = mapMapSize
+        }
     }
     
     private func setupToolPicker() {

@@ -25,6 +25,8 @@ struct MapMapEditor: View {
     @State private var showingPhotoEditor = false
     /// Tracker for showing the Markup editor.
     @State private var showingMarkupEditor = false
+    /// Show this alert if there's a drawing and the user wants to crop afterwards.
+    @State private var showingPhotoEditorAlert = false
     /// All available markers.
     @FetchRequest(sortDescriptors: []) var markers: FetchedResults<Marker>
     
@@ -50,7 +52,8 @@ struct MapMapEditor: View {
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                             .frame(width: 205)
                         Button(action: {
-                            showingPhotoEditor = true
+                            if mapMap.drawing == nil { showingPhotoEditor = true } // Drawing exists
+                            else { showingPhotoEditorAlert = true } // No drawing
                         }, label: {
                             Image(systemName: "crop")
                                 .accessibilityLabel("Crop MapMap Button")
@@ -102,6 +105,17 @@ struct MapMapEditor: View {
         }
         .fullScreenCover(isPresented: $showingPhotoEditor) { PhotoEditorV(mapMap: mapMap) }
         .fullScreenCover(isPresented: $showingMarkupEditor) { MarkupEditorSwitcherV(mapMap: mapMap) }
+        .alert(isPresented: $showingPhotoEditorAlert) {
+            Alert(
+                title: Text("Map Map Drawing"),
+                message: Text("To change the shape of you Map Map, you must delete your drawing."),
+                primaryButton: .destructive(
+                    Text("Delete and Crop"),
+                    action: { if let drawing = mapMap.drawing { moc.delete(drawing) } }
+                ),
+                secondaryButton: .cancel(Text("Cancel"))
+            )
+        }
     }
     
     /// Determine all Markers that overlap a given MapMap
