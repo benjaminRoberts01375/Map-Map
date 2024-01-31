@@ -28,12 +28,24 @@ struct PhotoEditorV: View {
     /// - Parameter mapMap: MapMap to edit.
     init(mapMap: FetchedResults<MapMap>.Element) {
         self.mapMap = mapMap
-        if let corners = mapMap.cropCorners { // If there are pre-defined corners, set those up
+        if let corners = mapMap.cropCorners {
             self._handleTracker = State(initialValue: HandleTrackerM(corners: corners))
         }
-        else { // No predefined corners, set corners to the actual corners of the photo
-            self._handleTracker = State(initialValue: HandleTrackerM(corners: .zero))
+        else {
+            let corners = FourCornersStorage(
+                topLeading: .zero,
+                topTrailing: CGSize(width: mapMap.imageWidth, height: .zero),
+                bottomLeading: CGSize(width: .zero, height: mapMap.imageHeight),
+                bottomTrailing: CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight)
+            )
+            self._handleTracker = State(initialValue: HandleTrackerM(corners: corners))
         }
+        self._screenSpaceImageSize = State(
+            initialValue: CGSize(
+                width: mapMap.imageWidth,
+                height: mapMap.imageHeight
+            )
+        )
     }
     
     var body: some View {
@@ -41,15 +53,9 @@ struct PhotoEditorV: View {
             GeometryReader { geo in
                 ZStack(alignment: .center) {
                     MapMapV(mapMap: mapMap, mapType: .original)
-                        .onViewResizes { previous, update in
-                            if update == previous {
-                                handleTracker.corners.topLeading = .zero
-                                handleTracker.corners.bottomLeading = CGSize(width: .zero, height: update.height)
-                                handleTracker.corners.topTrailing = CGSize(width: update.width, height: .zero)
-                                handleTracker.corners.bottomTrailing = update
-                            }
-                            screenSpaceImageSize = update
-                            handleTracker.corners *= previous / update
+                        .onViewResizes { _, update in
+                            handleTracker.corners *= update / self.screenSpaceImageSize
+                            self.screenSpaceImageSize = update
                         }
                         .frame(
                             width: geo.size.width * 0.95,
