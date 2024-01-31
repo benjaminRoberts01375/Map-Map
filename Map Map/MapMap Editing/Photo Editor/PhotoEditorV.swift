@@ -16,7 +16,7 @@ struct PhotoEditorV: View {
     /// The current MapMap whos photo is being edited.
     private let mapMap: FetchedResults<MapMap>.Element
     /// Crop handle positions.
-    @State private var handleTracker: HandleTrackerM
+    @State private var handleTracker: FourCornersStorage
     /// Screen space image size.
     @State private var screenSpaceImageSize: CGSize = .zero
     /// Track if image is being cropped and is taking a while.
@@ -29,7 +29,7 @@ struct PhotoEditorV: View {
     init(mapMap: FetchedResults<MapMap>.Element) {
         self.mapMap = mapMap
         if let corners = mapMap.cropCorners {
-            self._handleTracker = State(initialValue: HandleTrackerM(corners: corners))
+            self._handleTracker = State(initialValue: FourCornersStorage(corners: corners))
         }
         else {
             let corners = FourCornersStorage(
@@ -38,7 +38,7 @@ struct PhotoEditorV: View {
                 bottomLeading: CGSize(width: .zero, height: mapMap.imageHeight),
                 bottomTrailing: CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight)
             )
-            self._handleTracker = State(initialValue: HandleTrackerM(corners: corners))
+            self._handleTracker = State(initialValue: corners)
         }
         self._screenSpaceImageSize = State(
             initialValue: CGSize(
@@ -54,7 +54,7 @@ struct PhotoEditorV: View {
                 ZStack(alignment: .center) {
                     MapMapV(mapMap: mapMap, mapType: .original)
                         .onViewResizes { _, update in
-                            handleTracker.corners *= update / self.screenSpaceImageSize
+                            handleTracker *= update / self.screenSpaceImageSize
                             self.screenSpaceImageSize = update
                         }
                         .frame(
@@ -62,7 +62,7 @@ struct PhotoEditorV: View {
                             height: geo.size.height * 0.72
                         )
                     
-                    GridOverlayV(handleTracker: $handleTracker)
+                    GridOverlayV(corners: $handleTracker)
                         .offset(
                             x: (geo.size.width - screenSpaceImageSize.width) / 2,
                             y: (geo.size.height - screenSpaceImageSize.height) / 2
@@ -107,10 +107,10 @@ struct PhotoEditorV: View {
         PhotoEditorV.perspectiveQueue.async {
             let inverseRatio = CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight) / screenSpaceImageSize
             mapMap.setAndApplyCorners(
-                topLeading: handleTracker.corners.topLeading * inverseRatio,
-                topTrailing: handleTracker.corners.topTrailing * inverseRatio,
-                bottomLeading: handleTracker.corners.bottomLeading * inverseRatio,
-                bottomTrailing: handleTracker.corners.bottomTrailing * inverseRatio
+                topLeading: handleTracker.topLeading * inverseRatio,
+                topTrailing: handleTracker.topTrailing * inverseRatio,
+                bottomLeading: handleTracker.bottomLeading * inverseRatio,
+                bottomTrailing: handleTracker.bottomTrailing * inverseRatio
             )
             DispatchQueue.main.async {
                 dismiss()
@@ -120,10 +120,10 @@ struct PhotoEditorV: View {
     
     /// Reset the MapMap crop back to none.
     private func reset() {
-        handleTracker.corners.topLeading = .zero
-        handleTracker.corners.topTrailing = CGSize(width: screenSpaceImageSize.width, height: .zero)
-        handleTracker.corners.bottomLeading = CGSize(width: .zero, height: screenSpaceImageSize.height)
-        handleTracker.corners.bottomTrailing = screenSpaceImageSize
+        handleTracker.topLeading = .zero
+        handleTracker.topTrailing = CGSize(width: screenSpaceImageSize.width, height: .zero)
+        handleTracker.bottomLeading = CGSize(width: .zero, height: screenSpaceImageSize.height)
+        handleTracker.bottomTrailing = screenSpaceImageSize
         mapMap.cropCorners = nil
     }
 }
