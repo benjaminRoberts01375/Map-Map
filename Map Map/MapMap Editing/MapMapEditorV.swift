@@ -52,7 +52,8 @@ struct MapMapEditor: View {
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                             .frame(width: 205)
                         Button(action: {
-                            showingPhotoEditor = true
+                            if mapMap.drawing == nil { showingPhotoEditor = true } // Drawing exists
+                            else { showingPhotoEditorAlert = true } // No drawing
                         }, label: {
                             Image(systemName: "crop")
                                 .accessibilityLabel("Crop MapMap Button")
