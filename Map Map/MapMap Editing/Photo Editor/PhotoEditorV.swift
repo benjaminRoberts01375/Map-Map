@@ -8,6 +8,7 @@
 import Bottom_Drawer
 import CoreImage
 import SwiftUI
+import Vision
 
 /// Make crop edits to the photo editor.
 struct PhotoEditorV: View {
@@ -125,5 +126,44 @@ struct PhotoEditorV: View {
         handleTracker.bottomLeading = CGSize(width: .zero, height: screenSpaceImageSize.height)
         handleTracker.bottomTrailing = screenSpaceImageSize
         mapMap.cropCorners = nil
+    }
+    
+    /// Detect where the corners of a rectangle in a photo are.
+    /// - Returns: Positions of corners if found.
+    func detectDocumentCorners() -> FourCornersStorage? {
+        guard let imageData = mapMap.mapMapRawEncodedImage,
+              let ciImage = CIImage(data: imageData)
+        else { return nil }
+        
+        var corners: FourCornersStorage?
+        let rectangleDetectionRequest = VNDetectRectanglesRequest { request, _ in
+            guard let results = request.results as? [VNRectangleObservation], !results.isEmpty,
+                  let rectangle = results.first // Get first rectangle
+            else { return }
+            
+            // Scale coordinates from 0...1 to screen dimensions, and correct for upside down and mirror
+            corners = FourCornersStorage(
+                topLeading: CGSize(
+                    width: rectangle.topLeft.x * screenSpaceImageSize.width,
+                    height: screenSpaceImageSize.height - rectangle.topLeft.y * screenSpaceImageSize.height
+                ),
+                topTrailing: CGSize(
+                    width: rectangle.topRight.x * screenSpaceImageSize.width,
+                    height: screenSpaceImageSize.height - rectangle.topRight.y * screenSpaceImageSize.height
+                ),
+                bottomLeading: CGSize(
+                    width: rectangle.bottomLeft.x * screenSpaceImageSize.width,
+                    height: screenSpaceImageSize.height - rectangle.bottomLeft.y * screenSpaceImageSize.height
+                ),
+                bottomTrailing: CGSize(
+                    width: rectangle.bottomRight.x * screenSpaceImageSize.width,
+                    height: screenSpaceImageSize.height - rectangle.bottomRight.y * screenSpaceImageSize.height
+                )
+            )
+        }
+        
+        let handler = VNImageRequestHandler(ciImage: ciImage, options: [:])
+        try? handler.perform([rectangleDetectionRequest])
+        return corners
     }
 }
