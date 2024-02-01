@@ -35,6 +35,15 @@ public class MapMap: NSManagedObject {
         return markerSet.sorted(by: { $0.latitude < $1.latitude })
     }
     
+    /// Convenience getter and setter for native MapMap image size.
+    var imageSize: CGSize {
+        get { CGSize(width: imageWidth, height: imageHeight) }
+        set(update) {
+            imageWidth = update.width
+            imageHeight = update.height
+        }
+    }
+    
     /// Current status type of this MapMap.
     public enum ImageStatus {
         case empty
