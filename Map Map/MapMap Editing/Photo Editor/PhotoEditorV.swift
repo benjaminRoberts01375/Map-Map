@@ -100,6 +100,13 @@ struct PhotoEditorV: View {
             }
         }
         .animation(.easeInOut, value: loading)
+        .task {
+            if mapMap.cropCorners == nil, let generatedCorners = detectDocumentCorners() {
+                DispatchQueue.main.async {
+                    handleTracker = generatedCorners
+                }
+            }
+        }
     }
     
     /// Sets up and triggers the crop function for a Map Map.
