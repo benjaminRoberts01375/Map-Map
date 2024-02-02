@@ -36,6 +36,13 @@ final class FourCornersStorage {
         self.bottomTrailing = bottomTrailing
     }
     
+    init(fill: CGSize) {
+        topLeading = .zero
+        topTrailing = CGSize(width: fill.width, height: .zero)
+        bottomLeading = CGSize(width: .zero, height: fill.height)
+        bottomTrailing = fill
+    }
+    
     init(corners: FourCorners) {
         self.topLeading = corners.topLeading
         self.topTrailing = corners.topTrailing

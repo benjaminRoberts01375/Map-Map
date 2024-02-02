@@ -23,18 +23,8 @@ struct PhotoEditorCompositeV: View {
     
     init(mapMap: MapMap) {
         self.mapMap = mapMap
-        if let corners = mapMap.cropCorners {
-            self._handleTracker = State(initialValue: FourCornersStorage(corners: corners))
-        }
-        else {
-            let corners = FourCornersStorage(
-                topLeading: .zero,
-                topTrailing: CGSize(width: mapMap.imageWidth, height: .zero),
-                bottomLeading: CGSize(width: .zero, height: mapMap.imageHeight),
-                bottomTrailing: CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight)
-            )
-            self._handleTracker = State(initialValue: corners)
-        }
+        if let corners = mapMap.cropCorners { self._handleTracker = State(initialValue: FourCornersStorage(corners: corners)) }
+        else { self._handleTracker = State(initialValue: FourCornersStorage(fill: mapMap.imageSize)) }
         self._screenSpaceImageSize = State(initialValue: mapMap.imageSize)
     }
     
