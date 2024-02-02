@@ -22,9 +22,33 @@ struct PhotoEditorCompositeV: View {
     
     private static let perspectiveQueue = DispatchQueue(label: "com.RobertsHousehold.MapMap.PerspectiveFixer", qos: .userInteractive)
     
+    init(mapMap: MapMap) {
+        self.mapMap = mapMap
+        if let corners = mapMap.cropCorners {
+            self._handleTracker = State(initialValue: FourCornersStorage(corners: corners))
+        }
+        else {
+            let corners = FourCornersStorage(
+                topLeading: .zero,
+                topTrailing: CGSize(width: mapMap.imageWidth, height: .zero),
+                bottomLeading: CGSize(width: .zero, height: mapMap.imageHeight),
+                bottomTrailing: CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight)
+            )
+            self._handleTracker = State(initialValue: corners)
+        }
+        self._screenSpaceImageSize = State(
+            initialValue: CGSize(
+                width: mapMap.imageWidth,
+                height: mapMap.imageHeight
+            )
+        )
+    }
+    
     var body: some View {
         ZStack {
-            PhotoEditorV(mapMap: mapMap)
+            GeometryReader { geo in
+                PhotoEditorV(mapMap: mapMap, handleTracker: $handleTracker, screenSpaceImageSize: geo.size)
+            }
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                 HStack {
                     Button(

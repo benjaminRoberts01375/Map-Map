@@ -103,7 +103,7 @@ struct MapMapEditor: View {
             mapDetails.preventFollowingUser()
             workingName = mapMap.mapMapName ?? "Untitled Map"
         }
-        .fullScreenCover(isPresented: $showingPhotoEditor) { PhotoEditorV(mapMap: mapMap) }
+        .fullScreenCover(isPresented: $showingPhotoEditor) { PhotoEditorCompositeV(mapMap: mapMap) }
         .fullScreenCover(isPresented: $showingMarkupEditor) { MarkupEditorSwitcherV(mapMap: mapMap) }
         .alert(isPresented: $showingPhotoEditorAlert) {
             Alert(
