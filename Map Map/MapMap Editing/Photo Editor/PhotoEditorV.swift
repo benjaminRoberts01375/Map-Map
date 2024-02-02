@@ -17,21 +17,30 @@ struct PhotoEditorV: View {
     /// Crop handle positions.
     @Binding var handleTracker: FourCornersStorage
     /// Screen space image size.
-    var screenSpaceImageSize: CGSize
+    @Binding var screenSpaceImageSize: CGSize
+    
+    init(mapMap: MapMap, handleTracker: Binding<FourCornersStorage>, screenSpaceMapMapSize: Binding<CGSize>) {
+        self.mapMap = mapMap
+        self._handleTracker = handleTracker
+        self._screenSpaceImageSize = screenSpaceMapMapSize
+    }
     
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .center) {
                 MapMapV(mapMap: mapMap, mapType: .original)
-                GridOverlayV(corners: $handleTracker)
-                    .offset(
-                        x: (geo.size.width - geo.size.width) / 2,
-                        y: (geo.size.height - geo.size.height) / 2
+                    .onViewResizes { _, update in
+                        handleTracker *= update / self.screenSpaceImageSize
+                        self.screenSpaceImageSize = update
+                    }
+                    .frame(
+                        width: geo.size.width * 0.95,
+                        height: geo.size.height * 0.72
                     )
+                GridOverlayV(corners: $handleTracker)
+                    .offset(x: (geo.size.width - screenSpaceImageSize.width) / 2, y: (geo.size.height - screenSpaceImageSize.height) / 2)
             }
-            .ignoresSafeArea()
         }
-        .background(.black)
         .task {
             if mapMap.cropCorners == nil,
                let mapMapImageData = mapMap.mapMapRawEncodedImage,
@@ -43,7 +52,6 @@ struct PhotoEditorV: View {
             }
         }
     }
-    
     
     /// Detect where the corners of a rectangle in a photo are.
     /// - Parameters:

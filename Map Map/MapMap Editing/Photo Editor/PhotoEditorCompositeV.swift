@@ -11,7 +11,6 @@ import Vision
 
 struct PhotoEditorCompositeV: View {
     let mapMap: MapMap
-    @State var loading: Bool = true
     /// Dismiss function for the view.
     @Environment(\.dismiss) private var dismiss
     
@@ -36,47 +35,27 @@ struct PhotoEditorCompositeV: View {
             )
             self._handleTracker = State(initialValue: corners)
         }
-        self._screenSpaceImageSize = State(
-            initialValue: CGSize(
-                width: mapMap.imageWidth,
-                height: mapMap.imageHeight
-            )
-        )
+        self._screenSpaceImageSize = State(initialValue: mapMap.imageSize)
     }
     
     var body: some View {
         ZStack {
-            GeometryReader { geo in
-                PhotoEditorV(mapMap: mapMap, handleTracker: $handleTracker, screenSpaceImageSize: geo.size)
-                    .onViewResizes { _, update in
-                        handleTracker *= update / self.screenSpaceImageSize
-                            self.screenSpaceImageSize = update
-                    }
-                    .frame(
-                        width: geo.size.width * 0.95,
-                        height: geo.size.height * 0.72
-                    )
-            }
+            PhotoEditorV(mapMap: mapMap, handleTracker: $handleTracker, screenSpaceMapMapSize: $screenSpaceImageSize)
+                .background(.black)
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                 HStack {
                     Button(
                         action: { triggerCrop() },
-                        label: {
-                            if loading { ProgressView().bigButton(backgroundColor: .blue.opacity(0.5)) }
-                            else { Text("Crop").bigButton(backgroundColor: .blue) }
-                        }
+                        label: { Text("Crop").bigButton(backgroundColor: .blue) }
                     )
-                    .disabled(loading)
                     Button(
                         action: { reset() },
-                        label: { Text("Reset").bigButton(backgroundColor: .gray.opacity(loading ? 0.5 : 1)) }
+                        label: { Text("Reset").bigButton(backgroundColor: .gray) }
                     )
-                    .disabled(loading)
                     Button(
                         action: { dismiss() },
-                        label: { Text("Cancel").bigButton(backgroundColor: .gray.opacity(loading ? 0.5 : 1)) }
+                        label: { Text("Cancel").bigButton(backgroundColor: .gray) }
                     )
-                    .disabled(loading)
                 }
                 .padding(.bottom, isShortCard ? 0 : 10)
             }
@@ -85,7 +64,6 @@ struct PhotoEditorCompositeV: View {
     
     /// Sets up and triggers the crop function for a Map Map.
     private func triggerCrop() {
-        loading = true
         PhotoEditorCompositeV.perspectiveQueue.async {
             let inverseRatio = CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight) / screenSpaceImageSize
             mapMap.setAndApplyCorners(
