@@ -19,6 +19,8 @@ struct PhotoEditorV: View {
     /// Screen space image size.
     @Binding var screenSpaceImageSize: CGSize
     
+    private static let perspectiveQueue = DispatchQueue(label: "com.RobertsHousehold.MapMap.PerspectiveFixer", qos: .userInteractive)
+    
     init(mapMap: MapMap, handleTracker: Binding<FourCornersStorage>, screenSpaceMapMapSize: Binding<CGSize>) {
         self.mapMap = mapMap
         self._handleTracker = handleTracker
@@ -49,6 +51,17 @@ struct PhotoEditorV: View {
                 DispatchQueue.main.async {
                     handleTracker = generatedCorners
                 }
+            }
+        }
+        .onDisappear {
+            PhotoEditorV.perspectiveQueue.async {
+                let inverseRatio = CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight) / screenSpaceImageSize
+                mapMap.setAndApplyCorners(
+                    topLeading: handleTracker.topLeading * inverseRatio,
+                    topTrailing: handleTracker.topTrailing * inverseRatio,
+                    bottomLeading: handleTracker.bottomLeading * inverseRatio,
+                    bottomTrailing: handleTracker.bottomTrailing * inverseRatio
+                )
             }
         }
     }

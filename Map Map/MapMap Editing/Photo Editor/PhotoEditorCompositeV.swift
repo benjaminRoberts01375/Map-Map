@@ -19,8 +19,6 @@ struct PhotoEditorCompositeV: View {
     /// Screen space image size.
     @State private var screenSpaceImageSize: CGSize
     
-    private static let perspectiveQueue = DispatchQueue(label: "com.RobertsHousehold.MapMap.PerspectiveFixer", qos: .userInteractive)
-    
     init(mapMap: MapMap) {
         self.mapMap = mapMap
         if let corners = mapMap.cropCorners { self._handleTracker = State(initialValue: FourCornersStorage(corners: corners)) }
@@ -35,7 +33,7 @@ struct PhotoEditorCompositeV: View {
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                 HStack {
                     Button(
-                        action: { triggerCrop() },
+                        action: { dismiss() },
                         label: { Text("Crop").bigButton(backgroundColor: .blue) }
                     )
                     Button(
@@ -48,22 +46,6 @@ struct PhotoEditorCompositeV: View {
                     )
                 }
                 .padding(.bottom, isShortCard ? 0 : 10)
-            }
-        }
-    }
-    
-    /// Sets up and triggers the crop function for a Map Map.
-    private func triggerCrop() {
-        PhotoEditorCompositeV.perspectiveQueue.async {
-            let inverseRatio = CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight) / screenSpaceImageSize
-            mapMap.setAndApplyCorners(
-                topLeading: handleTracker.topLeading * inverseRatio,
-                topTrailing: handleTracker.topTrailing * inverseRatio,
-                bottomLeading: handleTracker.bottomLeading * inverseRatio,
-                bottomTrailing: handleTracker.bottomTrailing * inverseRatio
-            )
-            DispatchQueue.main.async {
-                dismiss()
             }
         }
     }
