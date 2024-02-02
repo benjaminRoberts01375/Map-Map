@@ -48,6 +48,14 @@ struct PhotoEditorCompositeV: View {
         ZStack {
             GeometryReader { geo in
                 PhotoEditorV(mapMap: mapMap, handleTracker: $handleTracker, screenSpaceImageSize: geo.size)
+                    .onViewResizes { _, update in
+                        handleTracker *= update / self.screenSpaceImageSize
+                            self.screenSpaceImageSize = update
+                    }
+                    .frame(
+                        width: geo.size.width * 0.95,
+                        height: geo.size.height * 0.72
+                    )
             }
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                 HStack {
