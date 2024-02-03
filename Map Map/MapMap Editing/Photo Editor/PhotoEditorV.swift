@@ -59,14 +59,12 @@ struct PhotoEditorV: View {
             }
         }
         .onDisappear {
-            PhotoEditorV.perspectiveQueue.async {
-                let inverseRatio = CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight) / screenSpaceImageSize
-                mapMap.setAndApplyCorners(
-                    topLeading: handleTracker.topLeading * inverseRatio,
-                    topTrailing: handleTracker.topTrailing * inverseRatio,
-                    bottomLeading: handleTracker.bottomLeading * inverseRatio,
-                    bottomTrailing: handleTracker.bottomTrailing * inverseRatio
-                )
+            let inverseRatio = CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight) / screenSpaceImageSize
+            let correctedCorners = handleTracker * inverseRatio
+            if mapMap.checkSameCorners(correctedCorners) {
+                PhotoEditorV.perspectiveQueue.async {
+                    mapMap.setAndApplyCorners(corners: correctedCorners)
+                }
             }
         }
     }
