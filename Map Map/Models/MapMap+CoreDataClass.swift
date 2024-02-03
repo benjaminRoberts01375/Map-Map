@@ -233,6 +233,8 @@ extension MapMap {
         return newUIImage
     }
     
+    /// Save the provided image to the Map Map.
+    /// - Parameter image: Image to save.
     public func saveCroppedImage(image: UIImage) {
         DispatchQueue.main.async {
             NotificationCenter.default.post(
