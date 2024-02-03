@@ -19,7 +19,7 @@ struct PhotoEditorV: View {
     /// Screen space image size.
     @Binding var screenSpaceImageSize: CGSize
     /// Dispatch queue for cropping images.
-    private static let perspectiveQueue = DispatchQueue(label: "com.RobertsHousehold.MapMap.PerspectiveFixer", qos: .userInteractive)
+    static let perspectiveQueue = DispatchQueue(label: "com.RobertsHousehold.MapMap.PerspectiveFixer", qos: .userInteractive)
     
     /// Create a photo editor instance.
     /// - Parameters:
@@ -55,15 +55,6 @@ struct PhotoEditorV: View {
                let generatedCorners = PhotoEditorV.detectDocumentCorners(image: ciImage, displaySize: screenSpaceImageSize) {
                 DispatchQueue.main.async {
                     handleTracker = generatedCorners
-                }
-            }
-        }
-        .onDisappear {
-            let inverseRatio = CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight) / screenSpaceImageSize
-            let correctedCorners = handleTracker * inverseRatio
-            if mapMap.checkSameCorners(correctedCorners) {
-                PhotoEditorV.perspectiveQueue.async {
-                    mapMap.setAndApplyCorners(corners: correctedCorners)
                 }
             }
         }
