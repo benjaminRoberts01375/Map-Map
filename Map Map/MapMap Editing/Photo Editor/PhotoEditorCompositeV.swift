@@ -17,6 +17,8 @@ struct PhotoEditorCompositeV: View {
     @State private var handleTracker: FourCornersStorage
     /// Screen space image size.
     @State private var screenSpaceImageSize: CGSize
+    /// Track if the system is currently cropping an image.
+    @State private var currentlyCropping: Bool = false
     
     init(mapMap: MapMap) {
         self.mapMap = mapMap
@@ -32,7 +34,26 @@ struct PhotoEditorCompositeV: View {
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                 HStack {
                     Button(
-                        action: { dismiss() },
+                        action: {
+                            let inverseRatio = CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight) / screenSpaceImageSize
+                            let correctedCorners = handleTracker * inverseRatio
+                            if !mapMap.checkSameCorners(correctedCorners) {
+                                PhotoEditorV.perspectiveQueue.async {
+                                    guard let croppedImage = mapMap.setAndApplyCorners(corners: correctedCorners)
+                                    else {
+                                        dismiss()
+                                        return
+                                    }
+                                    DispatchQueue.main.async {
+                                        mapMap.objectWillChange.send()
+                                        dismiss()
+                                    }
+                                    mapMap.saveCroppedImage(image: croppedImage)
+                                    return
+                                }
+                            }
+                            else { dismiss() }
+                        },
                         label: { Text("Crop").bigButton(backgroundColor: .blue) }
                     )
                     Button(
