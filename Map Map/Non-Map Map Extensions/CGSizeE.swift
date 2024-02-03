@@ -67,6 +67,17 @@ extension CGSize {
     /// - Parameters:
     ///   - lhs: CGSize being multiplied.
     ///   - rhs: Multiplier.
+    static func * (lhs: CGSize, rhs: CGFloat) -> CGSize {
+        return CGSize(
+            width: lhs.width * rhs,
+            height: lhs.height * rhs
+        )
+    }
+    
+    /// Allow \*= operation of of CGSize
+    /// - Parameters:
+    ///   - lhs: CGSize being multiplied.
+    ///   - rhs: Multiplier.
     static func += (lhs: inout CGSize, rhs: CGSize) {
         lhs.width += rhs.width
         lhs.height += rhs.height
