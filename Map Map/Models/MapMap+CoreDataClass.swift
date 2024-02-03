@@ -99,36 +99,45 @@ public class MapMap: NSManagedObject {
         DispatchQueue.main.async { self.thumbnail = .failure }
     }
     
+    /// Check if the stored four corners are equal to multiple CGSizes.
+    /// - Parameters:
+    ///   - topLeading: Top Leading point of four corners.
+    ///   - topTrailing: Top trailing point of four corners.
+    ///   - bottomLeading: Bottom leading point of four corners.
+    ///   - bottomTrailing: Bottom trailing point of four corners
+    /// - Returns: Bool stating if the two are the same or not.
+    func checkSameCorners(_ newCorners: FourCornersStorage) -> Bool {
+        if let cropCorners = cropCorners {
+            return cropCorners.topLeading == newCorners.topLeading.rounded() &&
+            cropCorners.topTrailing == newCorners.topTrailing.rounded() &&
+            cropCorners.bottomLeading == newCorners.bottomLeading.rounded() &&
+            cropCorners.bottomTrailing == newCorners.bottomTrailing.rounded()
+        }
+        return false
+    }
+    
     /// Set the four corners.
-    public func setAndApplyCorners(topLeading: CGSize, topTrailing: CGSize, bottomLeading: CGSize, bottomTrailing: CGSize) {
-        if let cropCorners = cropCorners, // If crop corners exist, and they're equal to what's already defined...
-           cropCorners.topLeading == topLeading.rounded() &&
-            cropCorners.topTrailing == topTrailing.rounded() &&
-            cropCorners.bottomLeading == bottomLeading.rounded() &&
-            cropCorners.bottomTrailing == bottomTrailing.rounded() {
-            return
-        }
-        
-        guard let context = self.managedObjectContext else { return }
-        let cropCorners = FourCorners(
-            topLeading: topLeading.rounded(),
-            topTrailing: topTrailing.rounded(),
-            bottomLeading: bottomLeading.rounded(),
-            bottomTrailing: bottomTrailing.rounded(),
-            insertInto: context
-        )
-        if cropCorners.topLeading != .zero || // If the crop corners are unique
-            cropCorners.topTrailing != CGSize(width: imageWidth, height: .zero) ||
-            cropCorners.bottomLeading != CGSize(width: .zero, height: imageHeight) ||
-            cropCorners.bottomTrailing != CGSize(width: imageWidth, height: imageHeight) {
+    func setAndApplyCorners(corners newCorners: FourCornersStorage) -> UIImage? {
+        guard let context = self.managedObjectContext else { return nil }
+        if newCorners.topLeading != .zero || // If the crop corners are unique
+            newCorners.topTrailing != CGSize(width: imageWidth, height: .zero) ||
+            newCorners.bottomLeading != CGSize(width: .zero, height: imageHeight) ||
+            newCorners.bottomTrailing != CGSize(width: imageWidth, height: imageHeight) {
+            let cropCorners = FourCorners(
+                topLeading: newCorners.topLeading.rounded(),
+                topTrailing: newCorners.topTrailing.rounded(),
+                bottomLeading: newCorners.bottomLeading.rounded(),
+                bottomTrailing: newCorners.bottomTrailing.rounded(),
+                insertInto: context
+            )
             self.cropCorners = cropCorners
-            applyPerspectiveCorrectionWithCorners()
-            return
+            return applyPerspectiveCorrectionWithCorners()
         }
-        // Crop corners were not unique
+        // Crop corners were defaults
         self.cropCorners = nil
         self.mapMapPerspectiveFixedEncodedImage = nil
         loadImageFromCD()
+        return nil
     }
 }
 
@@ -195,12 +204,12 @@ extension MapMap {
 // MARK: Perspective correction
 extension MapMap {
     /// Applies image correction based on the four corners of the MapMap.
-    private func applyPerspectiveCorrectionWithCorners() {
+    private func applyPerspectiveCorrectionWithCorners() -> UIImage? {
         guard let mapMapRawEncodedImage = self.mapMapRawEncodedImage,   // Map map data
               let ciImage = CIImage(data: mapMapRawEncodedImage),       // Type ciImage
               let fourCorners = self.cropCorners,                       // Ensure fourCorners exists
               let filter = CIFilter(name: "CIPerspectiveCorrection")    // Filter to use
-        else { return }
+        else { return nil }
         let context = CIContext()
         
         func cartesianVecForPoint(_ point: CGSize) -> CIVector {
@@ -215,29 +224,29 @@ extension MapMap {
         
         guard let newCIImage = filter.outputImage,
               let newCGImage = context.createCGImage(newCIImage, from: newCIImage.extent)
-        else { return }
+        else { return nil }
         
         let newUIImage = UIImage(cgImage: consume newCGImage)
         let outputImage = Image(uiImage: newUIImage)
         let result: ImageStatus = .success(outputImage)
+        DispatchQueue.main.async { self.image = result }
+        return newUIImage
+    }
+    
+    /// Save the provided image to the Map Map.
+    /// - Parameter image: Image to save.
+    public func saveCroppedImage(image: UIImage) {
         DispatchQueue.main.async {
-            self.image = result
-            self.objectWillChange.send()
+            NotificationCenter.default.post(
+                name: .savingToastNotification,
+                object: nil,
+                userInfo: ["savingVal":true, "name":self.mapMapName ?? "Unknown map"]
+            )
         }
-        
-        Task {
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(
-                    name: .savingToastNotification,
-                    object: nil,
-                    userInfo: ["savingVal":true, "name":self.mapMapName ?? "Unknown map"]
-                )
-            }
-            let result = newUIImage.pngData()
-            DispatchQueue.main.async {
-                self.mapMapPerspectiveFixedEncodedImage = result
-                NotificationCenter.default.post(name: .savingToastNotification, object: nil, userInfo: ["savingVal":false])
-            }
+        let result = image.pngData()
+        DispatchQueue.main.async {
+            self.mapMapPerspectiveFixedEncodedImage = result
+            NotificationCenter.default.post(name: .savingToastNotification, object: nil, userInfo: ["savingVal":false])
         }
     }
 }
