@@ -99,22 +99,31 @@ public class MapMap: NSManagedObject {
         DispatchQueue.main.async { self.thumbnail = .failure }
     }
     
-    /// Set the four corners.
-    public func setAndApplyCorners(topLeading: CGSize, topTrailing: CGSize, bottomLeading: CGSize, bottomTrailing: CGSize) {
-        if let cropCorners = cropCorners, // If crop corners exist, and they're equal to what's already defined...
-           cropCorners.topLeading == topLeading.rounded() &&
-            cropCorners.topTrailing == topTrailing.rounded() &&
-            cropCorners.bottomLeading == bottomLeading.rounded() &&
-            cropCorners.bottomTrailing == bottomTrailing.rounded() {
-            return
+    /// Check if the stored four corners are equal to multiple CGSizes.
+    /// - Parameters:
+    ///   - topLeading: Top Leading point of four corners.
+    ///   - topTrailing: Top trailing point of four corners.
+    ///   - bottomLeading: Bottom leading point of four corners.
+    ///   - bottomTrailing: Bottom trailing point of four corners
+    /// - Returns: Bool stating if the two are the same or not.
+    func checkSameCorners(_ newCorners: FourCornersStorage) -> Bool {
+        if let cropCorners = cropCorners {
+            return cropCorners.topLeading == newCorners.topLeading.rounded() &&
+            cropCorners.topTrailing == newCorners.topTrailing.rounded() &&
+            cropCorners.bottomLeading == newCorners.bottomLeading.rounded() &&
+            cropCorners.bottomTrailing == newCorners.bottomTrailing.rounded()
         }
-        
+        return false
+    }
+    
+    /// Set the four corners.
+    func setAndApplyCorners(corners newCorners: FourCornersStorage) {
         guard let context = self.managedObjectContext else { return }
         let cropCorners = FourCorners(
-            topLeading: topLeading.rounded(),
-            topTrailing: topTrailing.rounded(),
-            bottomLeading: bottomLeading.rounded(),
-            bottomTrailing: bottomTrailing.rounded(),
+            topLeading: newCorners.topLeading.rounded(),
+            topTrailing: newCorners.topTrailing.rounded(),
+            bottomLeading: newCorners.bottomLeading.rounded(),
+            bottomTrailing: newCorners.bottomTrailing.rounded(),
             insertInto: context
         )
         if cropCorners.topLeading != .zero || // If the crop corners are unique
