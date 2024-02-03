@@ -205,12 +205,12 @@ extension MapMap {
 // MARK: Perspective correction
 extension MapMap {
     /// Applies image correction based on the four corners of the MapMap.
-    private func applyPerspectiveCorrectionWithCorners() {
+    private func applyPerspectiveCorrectionWithCorners() -> UIImage? {
         guard let mapMapRawEncodedImage = self.mapMapRawEncodedImage,   // Map map data
               let ciImage = CIImage(data: mapMapRawEncodedImage),       // Type ciImage
               let fourCorners = self.cropCorners,                       // Ensure fourCorners exists
               let filter = CIFilter(name: "CIPerspectiveCorrection")    // Filter to use
-        else { return }
+        else { return nil }
         let context = CIContext()
         
         func cartesianVecForPoint(_ point: CGSize) -> CIVector {
@@ -225,11 +225,14 @@ extension MapMap {
         
         guard let newCIImage = filter.outputImage,
               let newCGImage = context.createCGImage(newCIImage, from: newCIImage.extent)
-        else { return }
+        else { return nil }
         
         let newUIImage = UIImage(cgImage: consume newCGImage)
         let outputImage = Image(uiImage: newUIImage)
         let result: ImageStatus = .success(outputImage)
+        DispatchQueue.main.async { self.image = result }
+        return newUIImage
+    }
         DispatchQueue.main.async {
             self.image = result
             self.objectWillChange.send()
