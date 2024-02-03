@@ -233,24 +233,19 @@ extension MapMap {
         DispatchQueue.main.async { self.image = result }
         return newUIImage
     }
+    
+    public func saveCroppedImage(image: UIImage) {
         DispatchQueue.main.async {
-            self.image = result
-            self.objectWillChange.send()
+            NotificationCenter.default.post(
+                name: .savingToastNotification,
+                object: nil,
+                userInfo: ["savingVal":true, "name":self.mapMapName ?? "Unknown map"]
+            )
         }
-        
-        Task {
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(
-                    name: .savingToastNotification,
-                    object: nil,
-                    userInfo: ["savingVal":true, "name":self.mapMapName ?? "Unknown map"]
-                )
-            }
-            let result = newUIImage.pngData()
-            DispatchQueue.main.async {
-                self.mapMapPerspectiveFixedEncodedImage = result
-                NotificationCenter.default.post(name: .savingToastNotification, object: nil, userInfo: ["savingVal":false])
-            }
+        let result = image.pngData()
+        DispatchQueue.main.async {
+            self.mapMapPerspectiveFixedEncodedImage = result
+            NotificationCenter.default.post(name: .savingToastNotification, object: nil, userInfo: ["savingVal":false])
         }
     }
 }
