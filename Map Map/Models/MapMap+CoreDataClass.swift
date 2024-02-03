@@ -126,6 +126,7 @@ public class MapMap: NSManagedObject {
             return
         }
         // Crop corners were not unique
+        context.delete(cropCorners)
         self.cropCorners = nil
         self.mapMapPerspectiveFixedEncodedImage = nil
         loadImageFromCD()
