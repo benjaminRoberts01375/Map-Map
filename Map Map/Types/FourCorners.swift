@@ -29,6 +29,19 @@ final class FourCornersStorage {
         storage.bottomTrailing *= scalar
     }
     
+    /// Allows for multiplying a FourCornersStorage by some CGFloat
+    /// - Parameters:
+    ///   - storage: Base.
+    ///   - scalar: Multiplier.
+    static func * (storage: FourCornersStorage, scalar: CGSize) -> FourCornersStorage {
+        return FourCornersStorage(
+            topLeading: storage.topLeading * scalar,
+            topTrailing: storage.topTrailing * scalar,
+            bottomLeading: storage.bottomLeading * scalar, 
+            bottomTrailing: storage.bottomTrailing * scalar
+        )
+    }
+    
     init(topLeading: CGSize, topTrailing: CGSize, bottomLeading: CGSize, bottomTrailing: CGSize) {
         self.topLeading = topLeading
         self.topTrailing = topTrailing
