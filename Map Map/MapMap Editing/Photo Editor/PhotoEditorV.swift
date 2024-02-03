@@ -18,9 +18,14 @@ struct PhotoEditorV: View {
     @Binding var handleTracker: FourCornersStorage
     /// Screen space image size.
     @Binding var screenSpaceImageSize: CGSize
-    
+    /// Dispatch queue for cropping images.
     private static let perspectiveQueue = DispatchQueue(label: "com.RobertsHousehold.MapMap.PerspectiveFixer", qos: .userInteractive)
     
+    /// Create a photo editor instance.
+    /// - Parameters:
+    ///   - mapMap: Map Map to edit photo for.
+    ///   - handleTracker: Position of cropping handles.
+    ///   - screenSpaceMapMapSize: Rendered size of photo.
     init(mapMap: MapMap, handleTracker: Binding<FourCornersStorage>, screenSpaceMapMapSize: Binding<CGSize>) {
         self.mapMap = mapMap
         self._handleTracker = handleTracker

@@ -13,9 +13,8 @@ struct PhotoEditorCompositeV: View {
     let mapMap: MapMap
     /// Dismiss function for the view.
     @Environment(\.dismiss) private var dismiss
-    
+    /// Positioning of handles.
     @State private var handleTracker: FourCornersStorage
-    
     /// Screen space image size.
     @State private var screenSpaceImageSize: CGSize
     
