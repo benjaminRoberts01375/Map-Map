@@ -117,28 +117,27 @@ public class MapMap: NSManagedObject {
     }
     
     /// Set the four corners.
-    func setAndApplyCorners(corners newCorners: FourCornersStorage) {
-        guard let context = self.managedObjectContext else { return }
-        let cropCorners = FourCorners(
-            topLeading: newCorners.topLeading.rounded(),
-            topTrailing: newCorners.topTrailing.rounded(),
-            bottomLeading: newCorners.bottomLeading.rounded(),
-            bottomTrailing: newCorners.bottomTrailing.rounded(),
-            insertInto: context
-        )
-        if cropCorners.topLeading != .zero || // If the crop corners are unique
-            cropCorners.topTrailing != CGSize(width: imageWidth, height: .zero) ||
-            cropCorners.bottomLeading != CGSize(width: .zero, height: imageHeight) ||
-            cropCorners.bottomTrailing != CGSize(width: imageWidth, height: imageHeight) {
+    func setAndApplyCorners(corners newCorners: FourCornersStorage) -> UIImage? {
+        guard let context = self.managedObjectContext else { return nil }
+        if newCorners.topLeading != .zero || // If the crop corners are unique
+            newCorners.topTrailing != CGSize(width: imageWidth, height: .zero) ||
+            newCorners.bottomLeading != CGSize(width: .zero, height: imageHeight) ||
+            newCorners.bottomTrailing != CGSize(width: imageWidth, height: imageHeight) {
+            let cropCorners = FourCorners(
+                topLeading: newCorners.topLeading.rounded(),
+                topTrailing: newCorners.topTrailing.rounded(),
+                bottomLeading: newCorners.bottomLeading.rounded(),
+                bottomTrailing: newCorners.bottomTrailing.rounded(),
+                insertInto: context
+            )
             self.cropCorners = cropCorners
-            applyPerspectiveCorrectionWithCorners()
-            return
+            return applyPerspectiveCorrectionWithCorners()
         }
-        // Crop corners were not unique
-        context.delete(cropCorners)
+        // Crop corners were defaults
         self.cropCorners = nil
         self.mapMapPerspectiveFixedEncodedImage = nil
         loadImageFromCD()
+        return nil
     }
 }
 
