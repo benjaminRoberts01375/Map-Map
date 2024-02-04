@@ -43,7 +43,19 @@ public class MapMap: NSManagedObject {
         if self.imageCropped != nil { return self.imageCropped }
         return self.imageDefault
     }
-    
+}
+
+// MARK: Photo inits
+extension MapMap {
+    public convenience init(uiPhoto: UIImage, moc: NSManagedObjectContext) {
+        self.init(context: moc)
+        self.isEditing = true
+        self.imageDefault = MapImage(image: uiPhoto, moc: moc)
+    }
+}
+
+// MARK: Perspective correction
+extension MapMap {
     /// Check if the stored four corners are equal to multiple CGSizes.
     /// - Parameters:
     ///   - topLeading: Top Leading point of four corners.
@@ -60,19 +72,7 @@ public class MapMap: NSManagedObject {
         }
         return false
     }
-}
-
-// MARK: Photo inits
-extension MapMap {
-    public convenience init(uiPhoto: UIImage, moc: NSManagedObjectContext) {
-        self.init(context: moc)
-        self.isEditing = true
-        self.imageDefault = MapImage(image: uiPhoto, moc: moc)
-    }
-}
-
-// MARK: Perspective correction
-extension MapMap {
+    
     /// Set the four corners.
     func setAndApplyCorners(corners newCorners: FourCornersStorage) {
         guard let moc = self.managedObjectContext,
