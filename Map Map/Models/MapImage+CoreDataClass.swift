@@ -32,22 +32,21 @@ public class MapImage: NSManagedObject {
     
     private func generateThumbnail() async {
         guard let imageData = imageData,
-              let uiImage = UIImage(data: imageData),
-              let thumbnailImage = await generateThumbnail(image: uiImage)
+              let uiImage = UIImage(data: imageData)
         else { return }
+        await generateThumbnail(image: uiImage)
     }
     
-    func generateThumbnail(image: UIImage) async -> UIImage? {
+    func generateThumbnail(image: UIImage) async {
         guard let thumbnail = await image.byPreparingThumbnail(ofSize: MapImage.thumbnailSize)
         else {
             DispatchQueue.main.async { self.thumbnail = .failure }
-            return nil
+            return
         }
         await MainActor.run { [thumbnail] in
             self.thumbnail = .success(Image(uiImage: thumbnail))
         }
         self.thumbnailData = thumbnail.jpegData(compressionQuality: 0.1)
-        return thumbnail
     }
     
     func loadImageFromCD() {
