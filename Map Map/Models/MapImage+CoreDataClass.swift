@@ -60,3 +60,11 @@ public class MapImage: NSManagedObject {
         }
     }
 }
+
+extension MapImage {
+    convenience init(image: UIImage, moc: NSManagedObjectContext) {
+        self.init(context: moc)
+        self.image = .success(Image(uiImage: image))
+        Task { await generateThumbnail(image: image) }
+    }
+}
