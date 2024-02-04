@@ -82,14 +82,13 @@ extension MapMap {
             newCorners.topTrailing != CGSize(width: imageSize.width, height: .zero) ||
             newCorners.bottomLeading != CGSize(width: .zero, height: imageSize.height) ||
             newCorners.bottomTrailing != imageSize {
-            let cropCorners = FourCorners(
+            self.cropCorners = FourCorners(
                 topLeading: newCorners.topLeading.rounded(),
                 topTrailing: newCorners.topTrailing.rounded(),
                 bottomLeading: newCorners.bottomLeading.rounded(),
                 bottomTrailing: newCorners.bottomTrailing.rounded(),
                 insertInto: moc
             )
-            self.cropCorners = cropCorners
             applyPerspectiveCorrectionWithCorners()
         }
         // Crop corners were defaults
