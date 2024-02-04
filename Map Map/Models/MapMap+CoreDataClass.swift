@@ -14,12 +14,6 @@ import SwiftUI
 /// What the app is all about. Stores the GPS coordinates, scale, and more to place an image on the map.
 @objc(MapMap)
 public class MapMap: NSManagedObject {
-    /// A rendered image for display.
-    @Published public var image: ImageStatus = .empty { didSet { self.objectWillChange.send() } }
-    /// A rendered thumbnail for display.
-    @Published public var thumbnail: ImageStatus = .empty
-    /// Resolution of the thumbnail.
-    static let thumbnailSize: CGSize = CGSize(width: 300, height: 300)
     /// Formatted coordinates of the MapMap.
     public var coordinates: CLLocationCoordinate2D {
         get { CLLocationCoordinate2D(latitude: self.mapMapLatitude, longitude: self.mapMapLongitude) }
@@ -36,67 +30,14 @@ public class MapMap: NSManagedObject {
     }
     
     /// Convenience getter and setter for native MapMap image size.
-    var imageSize: CGSize {
-        get { CGSize(width: imageWidth, height: imageHeight) }
-        set(update) {
-            imageWidth = update.width
-            imageHeight = update.height
+    var imageSize: CGSize? {
+        if let imageDefault = self.imageDefault {
+            return CGSize(width: CGFloat(imageDefault.imageWidth), height: CGFloat(imageDefault.imageHeight))
         }
-    }
-    
-    /// Current status type of this MapMap.
-    public enum ImageStatus {
-        case empty
-        case loading
-        case success(Image)
-        case failure
-    }
-    
-    /// Load image from Core Data, and load/generate thumbnail where needed
-    public func loadImageFromCD() {
-        let workingImage: Data? = self.cropCorners == nil ? self.mapMapRawEncodedImage : self.mapMapPerspectiveFixedEncodedImage
-        if let mapData = workingImage { // Available in Core Data
-            if let uiImage = UIImage(data: mapData) {
-                let outputImage = Image(uiImage: uiImage)
-                DispatchQueue.main.async { self.image = .success(outputImage) }
-                if self.mapMapEncodedThumbnail == nil { generateThumbnailFromUIImage(uiImage) }
-                else { loadThumbnailFromCD() }
-                return
-            }
+        else if let imageCropped = self.imageCropped {
+            return CGSize(width: CGFloat(imageCropped.imageWidth), height: CGFloat(imageCropped.imageHeight))
         }
-        else {
-            DispatchQueue.main.async {
-                self.image = .failure
-                self.thumbnail = .failure
-            }
-        }
-    }
-    
-    /// Creates a thumbnail from a UIImage.
-    /// - Parameter uiImage: UIImage to generate image from.
-    private func generateThumbnailFromUIImage(_ uiImage: UIImage) {
-        Task {
-            if let generatedThumbnail = await uiImage.byPreparingThumbnail(ofSize: MapMap.thumbnailSize) {
-                let outputImage = Image(uiImage: generatedThumbnail)
-                DispatchQueue.main.async { self.thumbnail = .success(outputImage) }
-                self.mapMapEncodedThumbnail = generatedThumbnail.jpegData(compressionQuality: 0.1)
-            }
-            else {
-                DispatchQueue.main.async { self.thumbnail = .failure }
-            }
-        }
-    }
-    
-    /// Loads the thumbnail of this MapMap from Core Data
-    private func loadThumbnailFromCD() {
-        if let mapThumbnail = self.mapMapEncodedThumbnail {
-            if let uiImage = UIImage(data: mapThumbnail) {
-                let outputImage = Image(uiImage: uiImage)
-                DispatchQueue.main.async { self.thumbnail = .success(outputImage) }
-                return
-            }
-        }
-        DispatchQueue.main.async { self.thumbnail = .failure }
+        return nil
     }
     
     /// Check if the stored four corners are equal to multiple CGSizes.
