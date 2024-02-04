@@ -22,6 +22,13 @@ public class MapImage: NSManagedObject {
     static let thumbnailSize: CGSize = CGSize(width: 300, height: 300)
     @Published public var image: ImageStatus = .empty
     @Published public var thumbnail: ImageStatus = .empty
+    private(set) var size: CGSize {
+        get { CGSize(width: CGFloat(self.imageWidth), height: CGFloat(self.imageHeight)) }
+        set(newValue) {
+            self.imageWidth = Int16(newValue.width)
+            self.imageHeight = Int16(newValue.height)
+        }
+    }
     
     private func generateThumbnail() async {
         guard let imageData = imageData,
