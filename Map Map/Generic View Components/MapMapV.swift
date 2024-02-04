@@ -30,9 +30,7 @@ struct MapMapV: View {
             case .empty:
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
-                    .task {
-                        mapMap.loadImageFromCD()
-                    }
+                    .task { mapMap.image?.loadImageFromCD() }
             case .loading:
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
@@ -41,7 +39,7 @@ struct MapMapV: View {
                     .resizable()
                     .scaledToFit()
                     .accessibilityLabel(mapMap.mapMapName ?? "Map Map")
-            case .failure:
+            case .failure, .none:
                 Image(systemName: "exclamationmark.triangle.fill")
                     .resizable()
                     .scaledToFit()
@@ -52,14 +50,14 @@ struct MapMapV: View {
     }
     
     // swiftlint:disable accessibility_label_for_image
-    private func getMapFromType(_ mapType: MapType) -> MapMap.ImageStatus {
+    private func getMapFromType(_ mapType: MapType) -> MapImage.ImageStatus? {
         switch mapType {
         case .fullImage:
-            return mapMap.image
+            return mapMap.image?.image
         case .thumbnail:
-            return mapMap.thumbnail
+            return mapMap.image?.thumbnail
         case .original:
-            guard let mapData = mapMap.mapMapRawEncodedImage,
+            guard let mapData = mapMap.imageDefault?.imageData,
                   let uiImage = UIImage(data: mapData)
             else { return .failure }
             return .success(Image(uiImage: uiImage))
