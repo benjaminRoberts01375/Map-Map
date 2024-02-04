@@ -40,6 +40,11 @@ public class MapMap: NSManagedObject {
         return nil
     }
     
+    var image: MapImage? {
+        if self.imageCropped != nil { return self.imageCropped }
+        return self.imageDefault
+    }
+    
     /// Check if the stored four corners are equal to multiple CGSizes.
     /// - Parameters:
     ///   - topLeading: Top Leading point of four corners.
