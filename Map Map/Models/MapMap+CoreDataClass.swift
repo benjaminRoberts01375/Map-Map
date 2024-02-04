@@ -60,7 +60,19 @@ public class MapMap: NSManagedObject {
         }
         return false
     }
-    
+}
+
+// MARK: Photo inits
+extension MapMap {
+    public convenience init(uiPhoto: UIImage, moc: NSManagedObjectContext) {
+        self.init(context: moc)
+        self.isEditing = true
+        self.imageDefault = MapImage(image: uiPhoto, moc: moc)
+    }
+}
+
+// MARK: Perspective correction
+extension MapMap {
     /// Set the four corners.
     func setAndApplyCorners(corners newCorners: FourCornersStorage) {
         guard let moc = self.managedObjectContext,
@@ -84,19 +96,7 @@ public class MapMap: NSManagedObject {
         self.cropCorners = nil
         if let imageCropped = self.imageCropped { moc.delete(imageCropped) }
     }
-}
-
-// MARK: Photo inits
-extension MapMap {
-    public convenience init(uiPhoto: UIImage, moc: NSManagedObjectContext) {
-        self.init(context: moc)
-        self.isEditing = true
-        self.imageDefault = MapImage(image: uiPhoto, moc: moc)
-    }
-}
-
-// MARK: Perspective correction
-extension MapMap {
+    
     /// Applies image correction based on the four corners of the MapMap.
     private func applyPerspectiveCorrectionWithCorners() {
         guard let moc = self.managedObjectContext,
