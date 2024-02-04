@@ -30,11 +30,11 @@ public class MapMap: NSManagedObject {
     
     /// Convenience getter and setter for native MapMap image size.
     var imageSize: CGSize? {
-        if let imageDefault = self.imageDefault {
-            return CGSize(width: CGFloat(imageDefault.imageWidth), height: CGFloat(imageDefault.imageHeight))
-        }
-        else if let imageCropped = self.imageCropped {
+        if let imageCropped = self.imageCropped {
             return CGSize(width: CGFloat(imageCropped.imageWidth), height: CGFloat(imageCropped.imageHeight))
+        }
+        else if let imageDefault = self.imageDefault {
+            return CGSize(width: CGFloat(imageDefault.imageWidth), height: CGFloat(imageDefault.imageHeight))
         }
         return nil
     }
