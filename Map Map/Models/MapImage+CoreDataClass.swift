@@ -31,6 +31,9 @@ public class MapImage: NSManagedObject {
             DispatchQueue.main.async { self.thumbnail = .failure }
             return
         }
+        await MainActor.run { [thumbnail] in
+            self.thumbnail = .success(Image(uiImage: thumbnail))
+        }
         self.thumbnailData = thumbnail.jpegData(compressionQuality: 0.1)
     }
     
