@@ -19,12 +19,15 @@ struct PhotoEditorCompositeV: View {
     @State private var screenSpaceImageSize: CGSize
     /// Track if the system is currently cropping an image.
     @State private var currentlyCropping: Bool = false
+    /// Image dimensions of the mapMap.
+    private let imageDimensions: CGSize
     
     init(mapMap: MapMap) {
         self.mapMap = mapMap
         if let corners = mapMap.cropCorners { self._handleTracker = State(initialValue: FourCornersStorage(corners: corners)) }
-        else { self._handleTracker = State(initialValue: FourCornersStorage(fill: mapMap.imageSize)) }
-        self._screenSpaceImageSize = State(initialValue: mapMap.imageSize)
+        else { self._handleTracker = State(initialValue: FourCornersStorage(fill: mapMap.image?.size ?? .zero)) }
+        self._screenSpaceImageSize = State(initialValue: mapMap.image?.size ?? .zero)
+        self.imageDimensions = mapMap.imageSize ?? .zero
     }
     
     var body: some View {
@@ -35,21 +38,11 @@ struct PhotoEditorCompositeV: View {
                 HStack {
                     Button(
                         action: {
-                            let inverseRatio = CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight) / screenSpaceImageSize
+                            let inverseRatio = CGSize(width: imageDimensions.width, height: imageDimensions.height) / screenSpaceImageSize
                             let correctedCorners = handleTracker * inverseRatio
                             if !mapMap.checkSameCorners(correctedCorners) {
                                 PhotoEditorV.perspectiveQueue.async {
-                                    guard let croppedImage = mapMap.setAndApplyCorners(corners: correctedCorners)
-                                    else {
-                                        dismiss()
-                                        return
-                                    }
-                                    DispatchQueue.main.async {
-                                        mapMap.objectWillChange.send()
-                                        dismiss()
-                                    }
-                                    mapMap.saveCroppedImage(image: croppedImage)
-                                    return
+                                    mapMap.setAndApplyCorners(corners: correctedCorners)
                                 }
                             }
                             else { dismiss() }
