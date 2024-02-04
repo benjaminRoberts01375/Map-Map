@@ -72,6 +72,7 @@ extension MapImage {
     convenience init(image: UIImage, moc: NSManagedObjectContext) {
         self.init(context: moc)
         self.image = .success(Image(uiImage: image))
+        self.size = image.size
         Task { await generateThumbnail(image: image) }
     }
 }

@@ -114,32 +114,11 @@ extension MapMap {
         }
     }
     
-    /// A convenience initializer for creating a MapMap from a photo from a UIImage.
-    /// - Parameters:
-    ///   - rawPhoto: UIImage to create MapMap from.
-    ///   - context: Managed Object Context to store the resulting MapMap in.
-    public convenience init(rawPhoto: UIImage, insertInto context: NSManagedObjectContext) {
-        self.init(context: context)
-        let outputImage = Image(uiImage: rawPhoto)
-        image = .success(outputImage)
-        isEditing = true
-        Task {
-            thumbnail = .loading
-            self.mapMapName = "Untitled map"
-            
-            guard let jpegData = rawPhoto.jpegData(compressionQuality: 0.1),
-                  let uiImage = UIImage(data: jpegData)
-            else {
-                image = .failure
-                return
-            }
-            let outputImage = Image(uiImage: uiImage)
-            DispatchQueue.main.async { self.image = .success(outputImage) }
-            self.mapMapRawEncodedImage = jpegData
-            self.imageWidth = rawPhoto.size.width
-            self.imageHeight = rawPhoto.size.height
-            generateThumbnailFromUIImage(uiImage)
-        }
+    public convenience init(uiPhoto: UIImage, moc: NSManagedObjectContext) {
+        self.init(context: moc)
+        self.isEditing = true
+        let outputImage = Image(uiImage: uiPhoto)
+        self.imageDefault = MapImage(image: uiPhoto, moc: moc)
     }
 }
 
