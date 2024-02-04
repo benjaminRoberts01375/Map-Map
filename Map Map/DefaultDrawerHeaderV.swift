@@ -60,8 +60,15 @@ struct DefaultDrawerHeaderV: View {
             Spacer()
         }
         .onChange(of: rawPhotos) { _, updatedRawPhotos in
-            if updatedRawPhotos.isEmpty { return }
-            for rawPhoto in updatedRawPhotos { _ = MapMap(rawPhoto: rawPhoto, insertInto: moc) }
+            Task {
+                if updatedRawPhotos.isEmpty { return }
+                for rawPhoto in updatedRawPhotos {
+                    guard let photoData = try? await rawPhoto.loadTransferable(type: Data.self),
+                          let uiImage = UIImage(data: photoData)?.fixOrientation()
+                    else { continue }
+                    _ = MapMap(uiPhoto: uiImage, moc: moc)
+                }
+            }
             rawPhotos = []
         }
         .alert(
