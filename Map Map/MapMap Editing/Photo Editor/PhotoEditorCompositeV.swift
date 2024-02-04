@@ -38,14 +38,14 @@ struct PhotoEditorCompositeV: View {
                 HStack {
                     Button(
                         action: {
-                            let inverseRatio = CGSize(width: imageDimensions.width, height: imageDimensions.height) / screenSpaceImageSize
+                            let inverseRatio = imageDimensions / screenSpaceImageSize
                             let correctedCorners = handleTracker * inverseRatio
                             if !mapMap.checkSameCorners(correctedCorners) {
                                 PhotoEditorV.perspectiveQueue.async {
                                     mapMap.setAndApplyCorners(corners: correctedCorners)
                                 }
                             }
-                            else { dismiss() }
+                            dismiss()
                         },
                         label: { Text("Crop").bigButton(backgroundColor: .blue) }
                     )
