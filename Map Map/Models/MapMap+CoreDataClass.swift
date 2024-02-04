@@ -69,7 +69,7 @@ public class MapMap: NSManagedObject {
         if newCorners.topLeading != .zero || // If the crop corners are unique
             newCorners.topTrailing != CGSize(width: imageSize.width, height: .zero) ||
             newCorners.bottomLeading != CGSize(width: .zero, height: imageSize.height) ||
-            newCorners.bottomTrailing != CGSize(width: imageSize.width, height: imageSize.height) {
+            newCorners.bottomTrailing != imageSize {
             let cropCorners = FourCorners(
                 topLeading: newCorners.topLeading.rounded(),
                 topTrailing: newCorners.topTrailing.rounded(),
