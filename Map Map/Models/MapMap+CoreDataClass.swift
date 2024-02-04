@@ -102,7 +102,8 @@ extension MapMap {
 extension MapMap {
     /// Applies image correction based on the four corners of the MapMap.
     private func applyPerspectiveCorrectionWithCorners() -> UIImage? {
-        guard let mapMapRawEncodedImage = self.mapMapRawEncodedImage,   // Map map data
+        guard let moc = self.managedObjectContext,
+              let mapMapRawEncodedImage = self.imageDefault?.imageData, // Map map data
               let ciImage = CIImage(data: mapMapRawEncodedImage),       // Type ciImage
               let fourCorners = self.cropCorners,                       // Ensure fourCorners exists
               let filter = CIFilter(name: "CIPerspectiveCorrection")    // Filter to use
@@ -122,11 +123,11 @@ extension MapMap {
         guard let newCIImage = filter.outputImage,
               let newCGImage = context.createCGImage(newCIImage, from: newCIImage.extent)
         else { return nil }
+        if let oldCroppedImage = self.imageCropped { moc.delete(oldCroppedImage) }
         
         let newUIImage = UIImage(cgImage: consume newCGImage)
-        let outputImage = Image(uiImage: newUIImage)
-        let result: ImageStatus = .success(outputImage)
-        DispatchQueue.main.async { self.image = result }
+        let croppedImage = MapImage(image: newUIImage, moc: moc)
+        DispatchQueue.main.async { self.imageCropped = croppedImage }
         return newUIImage
     }
     
