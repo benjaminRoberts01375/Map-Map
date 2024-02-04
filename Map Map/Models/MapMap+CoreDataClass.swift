@@ -85,35 +85,6 @@ public class MapMap: NSManagedObject {
 
 // MARK: Photo inits
 extension MapMap {
-    /// A convenience initializer for creating a MapMap from a photo from a photo picker.
-    /// - Parameters:
-    ///   - rawPhoto: Photo picker photo to create MapMap from.
-    ///   - context: Managed Object Context to store the resulting MapMap in.
-    public convenience init(rawPhoto: PhotosPickerItem?, insertInto context: NSManagedObjectContext) {
-        self.init(context: context)
-        self.thumbnail = .loading
-        self.image = .loading
-        self.isEditing = true
-        self.mapMapName = "Untitled map"
-        Task {
-            if let mapData = try? await rawPhoto?.loadTransferable(type: Data.self) {
-                if let uiImage = UIImage(data: mapData)?.fixOrientation() {
-                    self.mapMapRawEncodedImage = uiImage.jpegData(compressionQuality: 0.1)
-                    self.imageWidth = uiImage.size.width.rounded()
-                    self.imageHeight = uiImage.size.height.rounded()
-                    let outputImage = Image(uiImage: uiImage)
-                    DispatchQueue.main.async { self.image = .success(outputImage) }
-                    generateThumbnailFromUIImage(uiImage)
-                    return
-                }
-            }
-            DispatchQueue.main.async {
-                self.thumbnail = .failure
-                self.image = .failure
-            }
-        }
-    }
-    
     public convenience init(uiPhoto: UIImage, moc: NSManagedObjectContext) {
         self.init(context: moc)
         self.isEditing = true
