@@ -50,7 +50,7 @@ struct PhotoEditorV: View {
         }
         .task {
             if mapMap.cropCorners == nil,
-               let mapMapImageData = mapMap.mapMapRawEncodedImage,
+               let mapMapImageData = mapMap.image?.imageData,
                let ciImage = CIImage(data: mapMapImageData),
                let generatedCorners = PhotoEditorV.detectDocumentCorners(image: ciImage, displaySize: screenSpaceImageSize) {
                 DispatchQueue.main.async {
