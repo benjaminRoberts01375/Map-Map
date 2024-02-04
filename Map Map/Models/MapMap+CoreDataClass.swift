@@ -92,7 +92,6 @@ extension MapMap {
     public convenience init(uiPhoto: UIImage, moc: NSManagedObjectContext) {
         self.init(context: moc)
         self.isEditing = true
-        let outputImage = Image(uiImage: uiPhoto)
         self.imageDefault = MapImage(image: uiPhoto, moc: moc)
     }
 }
