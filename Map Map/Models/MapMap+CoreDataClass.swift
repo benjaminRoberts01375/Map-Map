@@ -40,8 +40,12 @@ public class MapMap: NSManagedObject {
     }
     
     var image: MapImage? {
-        if self.imageCropped != nil { return self.imageCropped }
-        return self.imageDefault
+        switch self.imageCropped?.image {
+        case .success:
+            return self.imageCropped
+        case .empty, .failure, .loading, .none:
+            return self.imageDefault
+        }
     }
 }
 
