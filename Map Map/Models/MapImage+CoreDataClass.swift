@@ -31,13 +31,16 @@ public class MapImage: NSManagedObject {
             thumbnail = .failure
             return
         }
-        thumbnailData = thumbnail.jpegData(compressionQuality: 0.1)
+        self.thumbnailData = thumbnail.jpegData(compressionQuality: 0.1)
     }
     
     func loadImageFromCD() {
         guard let imageData = imageData,
               let uiImage = UIImage(data: imageData)
-        else { return }
+        else {
+            image = .failure
+            return
+        }
         self.image = .success(Image(uiImage: uiImage))
         
         guard let thumbnailData = thumbnailData,
