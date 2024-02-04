@@ -72,6 +72,9 @@ extension MapImage {
         self.init(context: moc)
         self.image = .success(Image(uiImage: image))
         self.size = image.size
-        Task { await generateThumbnail(image: image) }
+        Task {
+            _ = await generateThumbnail(image: image)
+            self.imageData = image.jpegData(compressionQuality: 0.1)
+        }
     }
 }
