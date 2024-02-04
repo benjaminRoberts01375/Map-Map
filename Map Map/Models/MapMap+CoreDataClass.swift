@@ -59,25 +59,26 @@ public class MapMap: NSManagedObject {
     
     /// Set the four corners.
     func setAndApplyCorners(corners newCorners: FourCornersStorage) -> UIImage? {
-        guard let context = self.managedObjectContext else { return nil }
+        guard let moc = self.managedObjectContext,
+              let imageSize = self.imageSize
+        else { return nil }
         if newCorners.topLeading != .zero || // If the crop corners are unique
-            newCorners.topTrailing != CGSize(width: imageWidth, height: .zero) ||
-            newCorners.bottomLeading != CGSize(width: .zero, height: imageHeight) ||
-            newCorners.bottomTrailing != CGSize(width: imageWidth, height: imageHeight) {
+            newCorners.topTrailing != CGSize(width: imageSize.width, height: .zero) ||
+            newCorners.bottomLeading != CGSize(width: .zero, height: imageSize.height) ||
+            newCorners.bottomTrailing != CGSize(width: imageSize.width, height: imageSize.height) {
             let cropCorners = FourCorners(
                 topLeading: newCorners.topLeading.rounded(),
                 topTrailing: newCorners.topTrailing.rounded(),
                 bottomLeading: newCorners.bottomLeading.rounded(),
                 bottomTrailing: newCorners.bottomTrailing.rounded(),
-                insertInto: context
+                insertInto: moc
             )
             self.cropCorners = cropCorners
             return applyPerspectiveCorrectionWithCorners()
         }
         // Crop corners were defaults
         self.cropCorners = nil
-        self.mapMapPerspectiveFixedEncodedImage = nil
-        loadImageFromCD()
+        if let imageCropped = self.imageCropped { moc.delete(imageCropped) }
         return nil
     }
 }
