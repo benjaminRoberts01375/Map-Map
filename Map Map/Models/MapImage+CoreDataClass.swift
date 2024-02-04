@@ -28,7 +28,7 @@ public class MapImage: NSManagedObject {
               let uiImage = UIImage(data: imageData),
               var thumbnail = await uiImage.byPreparingThumbnail(ofSize: MapImage.thumbnailSize)
         else {
-            thumbnail = .failure
+            DispatchQueue.main.async { self.thumbnail = .failure }
             return
         }
         self.thumbnailData = thumbnail.jpegData(compressionQuality: 0.1)
