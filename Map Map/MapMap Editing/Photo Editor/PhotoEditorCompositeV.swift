@@ -28,9 +28,9 @@ struct PhotoEditorCompositeV: View {
     init(mapMap: MapMap) {
         self.mapMap = mapMap
         if let corners = mapMap.cropCorners { self._handleTracker = State(initialValue: FourCornersStorage(corners: corners)) }
-        else { self._handleTracker = State(initialValue: FourCornersStorage(fill: mapMap.activeImage?.size ?? .zero)) }
-        self._screenSpaceImageSize = State(initialValue: mapMap.activeImage?.size ?? .zero)
-        self.imageDimensions = mapMap.imageSize ?? .zero
+        else { self._handleTracker = State(initialValue: FourCornersStorage(fill: mapMap.imageDefault?.size ?? .zero)) }
+        self._screenSpaceImageSize = State(initialValue: mapMap.imageDefault?.size ?? .zero)
+        self.imageDimensions = mapMap.imageDefault?.size ?? .zero
     }
     
     var body: some View {
