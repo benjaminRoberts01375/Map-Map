@@ -51,6 +51,10 @@ public class MapMap: NSManagedObject {
 
 // MARK: Photo inits
 extension MapMap {
+    /// A convenience initializer for creating a MapMap from a UIImage.
+    /// - Parameters:
+    ///   - uiPhoto: Photo to base MapMap off of.
+    ///   - moc: Managed Object Context to save into.
     public convenience init(uiPhoto: UIImage, moc: NSManagedObjectContext) {
         self.init(context: moc)
         self.isEditing = true
