@@ -28,7 +28,7 @@ struct CameraReviewV: View {
                     HStack {
                         Button(action: {
                             guard let generatedImage = photoPassthrough else { return }
-                            _ = MapMap(rawPhoto: generatedImage, insertInto: moc)
+                            _ = MapMap(uiPhoto: generatedImage, moc: moc)
                             dismiss()
                         }, label: {
                             Text("Accept")

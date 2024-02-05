@@ -10,6 +10,9 @@ import SwiftUI
 import Vision
 
 struct PhotoEditorCompositeV: View {
+    /// The NSManagedObjectContext being saved and read from.
+    @Environment(\.managedObjectContext) var moc
+    /// MapMap with image being edited.
     let mapMap: MapMap
     /// Dismiss function for the view.
     @Environment(\.dismiss) private var dismiss
@@ -19,12 +22,15 @@ struct PhotoEditorCompositeV: View {
     @State private var screenSpaceImageSize: CGSize
     /// Track if the system is currently cropping an image.
     @State private var currentlyCropping: Bool = false
+    /// Image dimensions of the mapMap.
+    private let imageDimensions: CGSize
     
     init(mapMap: MapMap) {
         self.mapMap = mapMap
         if let corners = mapMap.cropCorners { self._handleTracker = State(initialValue: FourCornersStorage(corners: corners)) }
-        else { self._handleTracker = State(initialValue: FourCornersStorage(fill: mapMap.imageSize)) }
-        self._screenSpaceImageSize = State(initialValue: mapMap.imageSize)
+        else { self._handleTracker = State(initialValue: FourCornersStorage(fill: mapMap.activeImage?.size ?? .zero)) }
+        self._screenSpaceImageSize = State(initialValue: mapMap.activeImage?.size ?? .zero)
+        self.imageDimensions = mapMap.imageSize ?? .zero
     }
     
     var body: some View {
@@ -35,7 +41,7 @@ struct PhotoEditorCompositeV: View {
                 HStack {
                     Button(
                         action: {
-                            let inverseRatio = CGSize(width: mapMap.imageWidth, height: mapMap.imageHeight) / screenSpaceImageSize
+                            let inverseRatio = imageDimensions / screenSpaceImageSize
                             let correctedCorners = handleTracker * inverseRatio
                             if !mapMap.checkSameCorners(correctedCorners) {
                                 PhotoEditorV.perspectiveQueue.async {
@@ -45,11 +51,10 @@ struct PhotoEditorCompositeV: View {
                                         return
                                     }
                                     DispatchQueue.main.async {
-                                        mapMap.objectWillChange.send()
                                         dismiss()
+                                        let mapImage = MapImage(image: croppedImage, type: .cropped, moc: moc)
+                                        mapMap.addToImages(mapImage)
                                     }
-                                    mapMap.saveCroppedImage(image: croppedImage)
-                                    return
                                 }
                             }
                             else { dismiss() }

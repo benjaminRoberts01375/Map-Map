@@ -13,6 +13,7 @@ struct MapMapV: View {
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     /// Type of MapMap photo.
     let mapType: MapType
+    @State private var status: MapImage.ImageStatus? = .loading
     
     /// What photo should be rendered for this MapMap
     public enum MapType {
@@ -26,13 +27,11 @@ struct MapMapV: View {
     
     var body: some View {
         VStack {
-            switch getMapFromType(mapType) {
+            switch status {
             case .empty:
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
-                    .task {
-                        mapMap.loadImageFromCD()
-                    }
+                    .task { mapMap.activeImage?.loadImageFromCD() }
             case .loading:
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
@@ -41,7 +40,7 @@ struct MapMapV: View {
                     .resizable()
                     .scaledToFit()
                     .accessibilityLabel(mapMap.mapMapName ?? "Map Map")
-            case .failure:
+            case .failure, .none:
                 Image(systemName: "exclamationmark.triangle.fill")
                     .resizable()
                     .scaledToFit()
@@ -49,17 +48,20 @@ struct MapMapV: View {
                     .accessibilityLabel("Could not load Map Map")
             }
         }
+        .onChange(of: mapMap.imageCropped, initial: true) {
+            status = getMapFromType(mapType)
+        }
     }
     
     // swiftlint:disable accessibility_label_for_image
-    private func getMapFromType(_ mapType: MapType) -> MapMap.ImageStatus {
+    private func getMapFromType(_ mapType: MapType) -> MapImage.ImageStatus? {
         switch mapType {
         case .fullImage:
-            return mapMap.image
+            return mapMap.activeImage?.image
         case .thumbnail:
-            return mapMap.thumbnail
+            return mapMap.activeImage?.thumbnail
         case .original:
-            guard let mapData = mapMap.mapMapRawEncodedImage,
+            guard let mapData = mapMap.imageDefault?.imageData,
                   let uiImage = UIImage(data: mapData)
             else { return .failure }
             return .success(Image(uiImage: uiImage))

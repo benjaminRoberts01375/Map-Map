@@ -104,14 +104,15 @@ struct MapV: View {
     ///   - mapScale: Scale of the map.
     /// - Returns: Bounds of the MapMap.
     public static func generateMapMapBounds(_ mapMap: MapMap, mapContext: MapProxy, mapScale: CGFloat) -> CGRect? {
-        guard let center = mapContext.convert(mapMap.coordinates, to: .local)
+        guard let center = mapContext.convert(mapMap.coordinates, to: .local),
+              let imageSize = mapMap.imageSize
         else { return nil }
         let size = mapScale * mapMap.mapMapScale
         return CGRect(
             origin: center,
             size: CGSize(
                 width: size,
-                height: size / mapMap.imageWidth * mapMap.imageHeight
+                height: size / imageSize.width * imageSize.height
             )
         )
     }

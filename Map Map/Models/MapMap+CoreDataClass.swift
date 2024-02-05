@@ -8,18 +8,11 @@
 
 import CoreData
 import MapKit
-import PhotosUI
 import SwiftUI
 
 /// What the app is all about. Stores the GPS coordinates, scale, and more to place an image on the map.
 @objc(MapMap)
 public class MapMap: NSManagedObject {
-    /// A rendered image for display.
-    @Published public var image: ImageStatus = .empty { didSet { self.objectWillChange.send() } }
-    /// A rendered thumbnail for display.
-    @Published public var thumbnail: ImageStatus = .empty
-    /// Resolution of the thumbnail.
-    static let thumbnailSize: CGSize = CGSize(width: 300, height: 300)
     /// Formatted coordinates of the MapMap.
     public var coordinates: CLLocationCoordinate2D {
         get { CLLocationCoordinate2D(latitude: self.mapMapLatitude, longitude: self.mapMapLongitude) }
@@ -36,75 +29,72 @@ public class MapMap: NSManagedObject {
     }
     
     /// Convenience getter and setter for native MapMap image size.
-    var imageSize: CGSize {
-        get { CGSize(width: imageWidth, height: imageHeight) }
-        set(update) {
-            imageWidth = update.width
-            imageHeight = update.height
+    var imageSize: CGSize? {
+        if let imageCropped = self.imageCropped {
+            return CGSize(width: CGFloat(imageCropped.imageWidth), height: CGFloat(imageCropped.imageHeight))
+        }
+        else if let imageDefault = self.imageDefault {
+            return CGSize(width: CGFloat(imageDefault.imageWidth), height: CGFloat(imageDefault.imageHeight))
+        }
+        return nil
+    }
+    
+    /// A simple getter for Map Images.
+    var unwrappedImages: [MapImage] {
+        let images = self.images as? Set<MapImage> ?? []
+        return images.sorted(by: { $0.type < $1.type })
+    }
+    
+    /// Active image.
+    var activeImage: MapImage? {
+        switch self.imageCropped?.image {
+        case .success:
+            return self.imageCropped
+        case .empty:
+            self.imageCropped?.loadImageFromCD()
+            return imageCropped
+        case .failure, .loading, .none:
+            return self.imageDefault
         }
     }
     
-    /// Current status type of this MapMap.
-    public enum ImageStatus {
-        case empty
-        case loading
-        case success(Image)
-        case failure
-    }
-    
-    /// Load image from Core Data, and load/generate thumbnail where needed
-    public func loadImageFromCD() {
-        let workingImage: Data? = self.cropCorners == nil ? self.mapMapRawEncodedImage : self.mapMapPerspectiveFixedEncodedImage
-        if let mapData = workingImage { // Available in Core Data
-            if let uiImage = UIImage(data: mapData) {
-                let outputImage = Image(uiImage: uiImage)
-                DispatchQueue.main.async { self.image = .success(outputImage) }
-                if self.mapMapEncodedThumbnail == nil { generateThumbnailFromUIImage(uiImage) }
-                else { loadThumbnailFromCD() }
-                return
+    var imageCropped: MapImage? {
+        get { self.unwrappedImages.first(where: { $0.imageType == .cropped }) }
+        set(newValue) {
+            guard let moc = self.managedObjectContext
+            else { return }
+            for unwrappedImage in unwrappedImages where unwrappedImage.imageType == .cropped {
+                moc.delete(unwrappedImage)
             }
-        }
-        else {
-            DispatchQueue.main.async {
-                self.image = .failure
-                self.thumbnail = .failure
-            }
+            guard let newMapImage = newValue
+            else { return }
+            self.addToImages(newMapImage)
         }
     }
     
-    /// Creates a thumbnail from a UIImage.
-    /// - Parameter uiImage: UIImage to generate image from.
-    private func generateThumbnailFromUIImage(_ uiImage: UIImage) {
-        Task {
-            if let generatedThumbnail = await uiImage.byPreparingThumbnail(ofSize: MapMap.thumbnailSize) {
-                let outputImage = Image(uiImage: generatedThumbnail)
-                DispatchQueue.main.async { self.thumbnail = .success(outputImage) }
-                self.mapMapEncodedThumbnail = generatedThumbnail.jpegData(compressionQuality: 0.1)
-            }
-            else {
-                DispatchQueue.main.async { self.thumbnail = .failure }
-            }
-        }
+    var imageDefault: MapImage? {
+        self.unwrappedImages.first(where: { $0.imageType == .original })
     }
-    
-    /// Loads the thumbnail of this MapMap from Core Data
-    private func loadThumbnailFromCD() {
-        if let mapThumbnail = self.mapMapEncodedThumbnail {
-            if let uiImage = UIImage(data: mapThumbnail) {
-                let outputImage = Image(uiImage: uiImage)
-                DispatchQueue.main.async { self.thumbnail = .success(outputImage) }
-                return
-            }
-        }
-        DispatchQueue.main.async { self.thumbnail = .failure }
+}
+
+// MARK: Photo inits
+extension MapMap {
+    /// A convenience initializer for creating a MapMap from a UIImage.
+    /// - Parameters:
+    ///   - uiPhoto: Photo to base MapMap off of.
+    ///   - moc: Managed Object Context to save into.
+    public convenience init(uiPhoto: UIImage, moc: NSManagedObjectContext) {
+        self.init(context: moc)
+        self.isEditing = true
+        self.addToImages(MapImage(image: uiPhoto, type: .original, moc: moc))
     }
-    
+}
+
+// MARK: Perspective correction
+extension MapMap {
     /// Check if the stored four corners are equal to multiple CGSizes.
     /// - Parameters:
-    ///   - topLeading: Top Leading point of four corners.
-    ///   - topTrailing: Top trailing point of four corners.
-    ///   - bottomLeading: Bottom leading point of four corners.
-    ///   - bottomTrailing: Bottom trailing point of four corners
+    ///   - newCorners: Four cropped corners of an image.
     /// - Returns: Bool stating if the two are the same or not.
     func checkSameCorners(_ newCorners: FourCornersStorage) -> Bool {
         if let cropCorners = cropCorners {
@@ -117,95 +107,33 @@ public class MapMap: NSManagedObject {
     }
     
     /// Set the four corners.
+    /// - Parameter newCorners: Updated corners.
     func setAndApplyCorners(corners newCorners: FourCornersStorage) -> UIImage? {
-        guard let context = self.managedObjectContext else { return nil }
-        if newCorners.topLeading != .zero || // If the crop corners are unique
-            newCorners.topTrailing != CGSize(width: imageWidth, height: .zero) ||
-            newCorners.bottomLeading != CGSize(width: .zero, height: imageHeight) ||
-            newCorners.bottomTrailing != CGSize(width: imageWidth, height: imageHeight) {
-            let cropCorners = FourCorners(
+        guard let moc = self.managedObjectContext,
+              let imageSize = self.imageDefault?.size
+        else { return nil }
+        let roundedCorners = newCorners.round()
+        if roundedCorners != imageSize {
+            self.cropCorners = FourCorners(
                 topLeading: newCorners.topLeading.rounded(),
                 topTrailing: newCorners.topTrailing.rounded(),
                 bottomLeading: newCorners.bottomLeading.rounded(),
                 bottomTrailing: newCorners.bottomTrailing.rounded(),
-                insertInto: context
+                insertInto: moc
             )
-            self.cropCorners = cropCorners
             return applyPerspectiveCorrectionWithCorners()
         }
-        // Crop corners were defaults
-        self.cropCorners = nil
-        self.mapMapPerspectiveFixedEncodedImage = nil
-        loadImageFromCD()
+        Task { // Crop corners were defaults
+            self.cropCorners = nil
+            if let imageCropped = self.imageCropped { moc.delete(imageCropped) }
+        }
         return nil
     }
-}
-
-// MARK: Photo inits
-extension MapMap {
-    /// A convenience initializer for creating a MapMap from a photo from a photo picker.
-    /// - Parameters:
-    ///   - rawPhoto: Photo picker photo to create MapMap from.
-    ///   - context: Managed Object Context to store the resulting MapMap in.
-    public convenience init(rawPhoto: PhotosPickerItem?, insertInto context: NSManagedObjectContext) {
-        self.init(context: context)
-        self.thumbnail = .loading
-        self.image = .loading
-        self.isEditing = true
-        self.mapMapName = "Untitled map"
-        Task {
-            if let mapData = try? await rawPhoto?.loadTransferable(type: Data.self) {
-                if let uiImage = UIImage(data: mapData)?.fixOrientation() {
-                    self.mapMapRawEncodedImage = uiImage.jpegData(compressionQuality: 0.1)
-                    self.imageWidth = uiImage.size.width.rounded()
-                    self.imageHeight = uiImage.size.height.rounded()
-                    let outputImage = Image(uiImage: uiImage)
-                    DispatchQueue.main.async { self.image = .success(outputImage) }
-                    generateThumbnailFromUIImage(uiImage)
-                    return
-                }
-            }
-            DispatchQueue.main.async {
-                self.thumbnail = .failure
-                self.image = .failure
-            }
-        }
-    }
     
-    /// A convenience initializer for creating a MapMap from a photo from a UIImage.
-    /// - Parameters:
-    ///   - rawPhoto: UIImage to create MapMap from.
-    ///   - context: Managed Object Context to store the resulting MapMap in.
-    public convenience init(rawPhoto: UIImage, insertInto context: NSManagedObjectContext) {
-        self.init(context: context)
-        let outputImage = Image(uiImage: rawPhoto)
-        image = .success(outputImage)
-        isEditing = true
-        Task {
-            thumbnail = .loading
-            self.mapMapName = "Untitled map"
-            
-            guard let jpegData = rawPhoto.jpegData(compressionQuality: 0.1),
-                  let uiImage = UIImage(data: jpegData)
-            else {
-                image = .failure
-                return
-            }
-            let outputImage = Image(uiImage: uiImage)
-            DispatchQueue.main.async { self.image = .success(outputImage) }
-            self.mapMapRawEncodedImage = jpegData
-            self.imageWidth = rawPhoto.size.width
-            self.imageHeight = rawPhoto.size.height
-            generateThumbnailFromUIImage(uiImage)
-        }
-    }
-}
-
-// MARK: Perspective correction
-extension MapMap {
     /// Applies image correction based on the four corners of the MapMap.
     private func applyPerspectiveCorrectionWithCorners() -> UIImage? {
-        guard let mapMapRawEncodedImage = self.mapMapRawEncodedImage,   // Map map data
+        guard let moc = self.managedObjectContext,
+              let mapMapRawEncodedImage = self.imageDefault?.imageData, // Map map data
               let ciImage = CIImage(data: mapMapRawEncodedImage),       // Type ciImage
               let fourCorners = self.cropCorners,                       // Ensure fourCorners exists
               let filter = CIFilter(name: "CIPerspectiveCorrection")    // Filter to use
@@ -225,28 +153,8 @@ extension MapMap {
         guard let newCIImage = filter.outputImage,
               let newCGImage = context.createCGImage(newCIImage, from: newCIImage.extent)
         else { return nil }
+        if let oldCroppedImage = self.imageCropped { moc.delete(oldCroppedImage) }
         
-        let newUIImage = UIImage(cgImage: consume newCGImage)
-        let outputImage = Image(uiImage: newUIImage)
-        let result: ImageStatus = .success(outputImage)
-        DispatchQueue.main.async { self.image = result }
-        return newUIImage
-    }
-    
-    /// Save the provided image to the Map Map.
-    /// - Parameter image: Image to save.
-    public func saveCroppedImage(image: UIImage) {
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(
-                name: .savingToastNotification,
-                object: nil,
-                userInfo: ["savingVal":true, "name":self.mapMapName ?? "Unknown map"]
-            )
-        }
-        let result = image.pngData()
-        DispatchQueue.main.async {
-            self.mapMapPerspectiveFixedEncodedImage = result
-            NotificationCenter.default.post(name: .savingToastNotification, object: nil, userInfo: ["savingVal":false])
-        }
+        return UIImage(cgImage: consume newCGImage)
     }
 }
