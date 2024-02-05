@@ -50,7 +50,10 @@ public class MapMap: NSManagedObject {
         switch self.imageCropped?.image {
         case .success:
             return self.imageCropped
-        case .empty, .failure, .loading, .none:
+        case .empty:
+            self.imageCropped?.loadImageFromCD()
+            return imageCropped
+        case .failure, .loading, .none:
             return self.imageDefault
         }
     }
