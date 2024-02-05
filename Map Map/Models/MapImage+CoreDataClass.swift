@@ -64,6 +64,7 @@ public class MapImage: NSManagedObject {
             Task { await generateThumbnail() }
             return
         }
+        self.thumbnail = .success(Image(uiImage: uiThumbnail))
     }
 }
 
