@@ -10,6 +10,9 @@ import SwiftUI
 import Vision
 
 struct PhotoEditorCompositeV: View {
+    /// The NSManagedObjectContext being saved and read from.
+    @Environment(\.managedObjectContext) var moc
+    /// MapMap with image being edited.
     let mapMap: MapMap
     /// Dismiss function for the view.
     @Environment(\.dismiss) private var dismiss
@@ -42,10 +45,19 @@ struct PhotoEditorCompositeV: View {
                             let correctedCorners = handleTracker * inverseRatio
                             if !mapMap.checkSameCorners(correctedCorners) {
                                 PhotoEditorV.perspectiveQueue.async {
-                                    mapMap.setAndApplyCorners(corners: correctedCorners)
+                                    guard let croppedImage = mapMap.setAndApplyCorners(corners: correctedCorners)
+                                    else {
+                                        dismiss()
+                                        return
+                                    }
+                                    DispatchQueue.main.async {
+                                        dismiss()
+                                        let mapImage = MapImage(image: croppedImage, type: .cropped, moc: moc)
+                                        mapMap.addToImages(mapImage)
+                                    }
                                 }
                             }
-                            dismiss()
+                            else { dismiss() }
                         },
                         label: { Text("Crop").bigButton(backgroundColor: .blue) }
                     )

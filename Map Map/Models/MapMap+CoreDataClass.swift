@@ -105,10 +105,10 @@ extension MapMap {
     
     /// Set the four corners.
     /// - Parameter newCorners: Updated corners.
-    func setAndApplyCorners(corners newCorners: FourCornersStorage) {
+    func setAndApplyCorners(corners newCorners: FourCornersStorage) -> UIImage? {
         guard let moc = self.managedObjectContext,
               let imageSize = self.imageSize
-        else { return }
+        else { return nil }
         if newCorners.topLeading != .zero || // If the crop corners are unique
             newCorners.topTrailing != CGSize(width: imageSize.width, height: .zero) ||
             newCorners.bottomLeading != CGSize(width: .zero, height: imageSize.height) ||
@@ -120,21 +120,22 @@ extension MapMap {
                 bottomTrailing: newCorners.bottomTrailing.rounded(),
                 insertInto: moc
             )
-            applyPerspectiveCorrectionWithCorners()
+            return applyPerspectiveCorrectionWithCorners()
         }
         // Crop corners were defaults
         self.cropCorners = nil
         if let imageCropped = self.imageCropped { moc.delete(imageCropped) }
+        return nil
     }
     
     /// Applies image correction based on the four corners of the MapMap.
-    private func applyPerspectiveCorrectionWithCorners() {
+    private func applyPerspectiveCorrectionWithCorners() -> UIImage? {
         guard let moc = self.managedObjectContext,
               let mapMapRawEncodedImage = self.imageDefault?.imageData, // Map map data
               let ciImage = CIImage(data: mapMapRawEncodedImage),       // Type ciImage
               let fourCorners = self.cropCorners,                       // Ensure fourCorners exists
               let filter = CIFilter(name: "CIPerspectiveCorrection")    // Filter to use
-        else { return }
+        else { return nil }
         let context = CIContext()
         
         func cartesianVecForPoint(_ point: CGSize) -> CIVector {
@@ -149,11 +150,9 @@ extension MapMap {
         
         guard let newCIImage = filter.outputImage,
               let newCGImage = context.createCGImage(newCIImage, from: newCIImage.extent)
-        else { return }
+        else { return nil }
         if let oldCroppedImage = self.imageCropped { moc.delete(oldCroppedImage) }
         
-        let newUIImage = UIImage(cgImage: consume newCGImage)
-        let croppedImage = MapImage(image: newUIImage, type: .cropped, moc: moc)
-        DispatchQueue.main.async { self.addToImages(croppedImage) }
+        return UIImage(cgImage: consume newCGImage)
     }
 }
