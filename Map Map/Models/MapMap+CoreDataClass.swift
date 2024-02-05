@@ -110,7 +110,7 @@ extension MapMap {
     /// - Parameter newCorners: Updated corners.
     func setAndApplyCorners(corners newCorners: FourCornersStorage) -> UIImage? {
         guard let moc = self.managedObjectContext,
-              let imageSize = self.imageSize
+              let imageSize = self.imageDefault?.size
         else { return nil }
         if newCorners.topLeading != .zero || // If the crop corners are unique
             newCorners.topTrailing != CGSize(width: imageSize.width, height: .zero) ||
