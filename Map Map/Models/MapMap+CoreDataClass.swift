@@ -112,10 +112,11 @@ extension MapMap {
         guard let moc = self.managedObjectContext,
               let imageSize = self.imageDefault?.size
         else { return nil }
-        if newCorners.topLeading != .zero || // If the crop corners are unique
-            newCorners.topTrailing != CGSize(width: imageSize.width, height: .zero) ||
-            newCorners.bottomLeading != CGSize(width: .zero, height: imageSize.height) ||
-            newCorners.bottomTrailing != imageSize {
+        let roundedCorners = newCorners.round()
+        if roundedCorners.topLeading != .zero || // If the crop corners are unique
+            roundedCorners.topTrailing != CGSize(width: imageSize.width, height: .zero) ||
+            roundedCorners.bottomLeading != CGSize(width: .zero, height: imageSize.height) ||
+            roundedCorners.bottomTrailing != imageSize {
             self.cropCorners = FourCorners(
                 topLeading: newCorners.topLeading.rounded(),
                 topTrailing: newCorners.topTrailing.rounded(),
