@@ -31,7 +31,7 @@ struct MapMapV: View {
             case .empty:
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
-                    .task { mapMap.image?.loadImageFromCD() }
+                    .task { mapMap.activeImage?.loadImageFromCD() }
             case .loading:
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
@@ -57,9 +57,9 @@ struct MapMapV: View {
     private func getMapFromType(_ mapType: MapType) -> MapImage.ImageStatus? {
         switch mapType {
         case .fullImage:
-            return mapMap.image?.image
+            return mapMap.activeImage?.image
         case .thumbnail:
-            return mapMap.image?.thumbnail
+            return mapMap.activeImage?.thumbnail
         case .original:
             guard let mapData = mapMap.imageDefault?.imageData,
                   let uiImage = UIImage(data: mapData)

@@ -46,7 +46,7 @@ public class MapMap: NSManagedObject {
     }
     
     /// Active image.
-    var image: MapImage? {
+    var activeImage: MapImage? {
         switch self.imageCropped?.image {
         case .success:
             return self.imageCropped
