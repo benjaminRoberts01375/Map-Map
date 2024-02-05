@@ -39,6 +39,12 @@ public class MapMap: NSManagedObject {
         return nil
     }
     
+    /// A simple getter for Map Images.
+    var unwrappedImages: [MapImage] {
+        let images = self.images as? Set<MapImage> ?? []
+        return images.sorted(by: { $0.type < $1.type })
+    }
+    
     /// Active image.
     var image: MapImage? {
         switch self.imageCropped?.image {
@@ -47,6 +53,24 @@ public class MapMap: NSManagedObject {
         case .empty, .failure, .loading, .none:
             return self.imageDefault
         }
+    }
+    
+    var imageCropped: MapImage? {
+        get { self.unwrappedImages.first(where: { $0.imageType == .cropped }) }
+        set(newValue) {
+            guard let moc = self.managedObjectContext
+            else { return }
+            for unwrappedImage in unwrappedImages where unwrappedImage.imageType == .cropped {
+                moc.delete(unwrappedImage)
+            }
+            guard let newMapImage = newValue
+            else { return }
+            self.addToImages(newMapImage)
+        }
+    }
+    
+    var imageDefault: MapImage? {
+        self.unwrappedImages.first(where: { $0.imageType == .original })
     }
 }
 
@@ -59,7 +83,7 @@ extension MapMap {
     public convenience init(uiPhoto: UIImage, moc: NSManagedObjectContext) {
         self.init(context: moc)
         self.isEditing = true
-        self.imageDefault = MapImage(image: uiPhoto, moc: moc)
+        self.addToImages(MapImage(image: uiPhoto, type: .original, moc: moc))
     }
 }
 
@@ -129,7 +153,7 @@ extension MapMap {
         if let oldCroppedImage = self.imageCropped { moc.delete(oldCroppedImage) }
         
         let newUIImage = UIImage(cgImage: consume newCGImage)
-        let croppedImage = MapImage(image: newUIImage, moc: moc)
-        DispatchQueue.main.async { self.imageCropped = croppedImage }
+        let croppedImage = MapImage(image: newUIImage, type: .cropped, moc: moc)
+        DispatchQueue.main.async { self.addToImages(croppedImage) }
     }
 }

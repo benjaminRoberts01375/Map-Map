@@ -18,7 +18,8 @@
         <attribute name="imageHeight" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="imageWidth" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="thumbnailData" optional="YES" attributeType="Binary"/>
-        <relationship name="mapMap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMap" inverseName="imageCropped" inverseEntity="MapMap"/>
+        <attribute name="type" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="mapMap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMap" inverseName="images" inverseEntity="MapMap"/>
     </entity>
     <entity name="MapMap" representedClassName="MapMap" syncable="YES" codeGenerationType="category">
         <attribute name="isEditing" transient="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
@@ -32,8 +33,7 @@
         <attribute name="shown" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <relationship name="cropCorners" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FourCorners" inverseName="mapMap" inverseEntity="FourCorners"/>
         <relationship name="drawing" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Drawing" inverseName="mapMap" inverseEntity="Drawing"/>
-        <relationship name="imageCropped" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapImage" inverseName="mapMap" inverseEntity="MapImage"/>
-        <relationship name="imageDefault" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapImage"/>
+        <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MapImage" inverseName="mapMap" inverseEntity="MapImage"/>
         <relationship name="markers" toMany="YES" deletionRule="Nullify" destinationEntity="Marker" inverseName="mapMap" inverseEntity="Marker"/>
     </entity>
     <entity name="MapMeasurementCoordinate" representedClassName="MapMeasurementCoordinate" syncable="YES" codeGenerationType="category">

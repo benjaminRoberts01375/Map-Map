@@ -33,6 +33,12 @@ public class MapImage: NSManagedObject {
         }
     }
     
+    /// Formatted image type.
+    public var imageType: ImageType {
+        get { ImageType(rawValue: self.type) ?? .original }
+        set(newValue) { self.type = newValue.rawValue }
+    }
+    
     /// Generate a thumbnail from this image.
     private func generateThumbnail() async {
         guard let imageData = imageData,
@@ -74,15 +80,23 @@ public class MapImage: NSManagedObject {
         }
         self.thumbnail = .success(Image(uiImage: uiThumbnail))
     }
+    
+    /// Type of image.
+    public enum ImageType: Int16 {
+        case original = 0
+        case cropped = 1
+    }
 }
 
 extension MapImage {
     /// Creates a Map Image from a UIImage
     /// - Parameters:
     ///   - image: Image to base Map Image on.
+    ///   - type: Type of image being created.
     ///   - moc: Managed Object Context to save into.
-    public convenience init(image: UIImage, moc: NSManagedObjectContext) {
+    public convenience init(image: UIImage, type: ImageType, moc: NSManagedObjectContext) {
         self.init(context: moc)
+        self.imageType = type
         self.image = .success(Image(uiImage: image))
         self.size = image.size
         Task {
