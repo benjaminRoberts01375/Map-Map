@@ -13,6 +13,7 @@ struct MapMapV: View {
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     /// Type of MapMap photo.
     let mapType: MapType
+    @State private var status: MapImage.ImageStatus? = .loading
     
     /// What photo should be rendered for this MapMap
     public enum MapType {
@@ -26,7 +27,7 @@ struct MapMapV: View {
     
     var body: some View {
         VStack {
-            switch getMapFromType(mapType) {
+            switch status {
             case .empty:
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
@@ -46,6 +47,9 @@ struct MapMapV: View {
                     .foregroundStyle(.yellow)
                     .accessibilityLabel("Could not load Map Map")
             }
+        }
+        .onChange(of: mapMap.imageCropped, initial: true) {
+            status = getMapFromType(mapType)
         }
     }
     
