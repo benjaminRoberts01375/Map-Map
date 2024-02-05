@@ -44,7 +44,7 @@ struct MapHudV: View {
             }
             Spacer(minLength: 0)
         }
-        .frame(width: 175)
+        .frame(width: 185)
         .padding([.leading, .vertical], 10)
         .background(.ultraThickMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 11))
