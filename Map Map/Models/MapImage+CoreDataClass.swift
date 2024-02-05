@@ -20,8 +20,11 @@ public class MapImage: NSManagedObject {
     }
     /// Resolution of the thumbnail.
     static let thumbnailSize: CGSize = CGSize(width: 300, height: 300)
+    /// This image
     @Published public var image: ImageStatus = .empty
+    /// Thumbnail of this image.
     @Published public var thumbnail: ImageStatus = .empty
+    /// Simple getter and private setter for this image.
     private(set) var size: CGSize {
         get { CGSize(width: CGFloat(self.imageWidth), height: CGFloat(self.imageHeight)) }
         set(newValue) {
@@ -30,6 +33,7 @@ public class MapImage: NSManagedObject {
         }
     }
     
+    /// Generate a thumbnail from this image.
     private func generateThumbnail() async {
         guard let imageData = imageData,
               let uiImage = UIImage(data: imageData)
@@ -37,6 +41,8 @@ public class MapImage: NSManagedObject {
         await generateThumbnail(image: uiImage)
     }
     
+    /// Generate a thumbnail from the provided image.
+    /// - Parameter image: Base image.
     func generateThumbnail(image: UIImage) async {
         guard let thumbnail = await image.byPreparingThumbnail(ofSize: MapImage.thumbnailSize)
         else {
@@ -49,6 +55,7 @@ public class MapImage: NSManagedObject {
         self.thumbnailData = thumbnail.jpegData(compressionQuality: 0.1)
     }
     
+    /// Load the image and thumbnail from Core Data.
     func loadImageFromCD() {
         self.image = .loading
         guard let imageData = imageData,
@@ -70,7 +77,11 @@ public class MapImage: NSManagedObject {
 }
 
 extension MapImage {
-    convenience init(image: UIImage, moc: NSManagedObjectContext) {
+    /// Creates a Map Image from a UIImage
+    /// - Parameters:
+    ///   - image: Image to base Map Image on.
+    ///   - moc: Managed Object Context to save into.
+    public convenience init(image: UIImage, moc: NSManagedObjectContext) {
         self.init(context: moc)
         self.image = .success(Image(uiImage: image))
         self.size = image.size

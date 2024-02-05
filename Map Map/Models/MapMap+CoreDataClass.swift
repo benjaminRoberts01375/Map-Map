@@ -39,6 +39,7 @@ public class MapMap: NSManagedObject {
         return nil
     }
     
+    /// Active image.
     var image: MapImage? {
         switch self.imageCropped?.image {
         case .success:
@@ -66,10 +67,7 @@ extension MapMap {
 extension MapMap {
     /// Check if the stored four corners are equal to multiple CGSizes.
     /// - Parameters:
-    ///   - topLeading: Top Leading point of four corners.
-    ///   - topTrailing: Top trailing point of four corners.
-    ///   - bottomLeading: Bottom leading point of four corners.
-    ///   - bottomTrailing: Bottom trailing point of four corners
+    ///   - newCorners: Four cropped corners of an image.
     /// - Returns: Bool stating if the two are the same or not.
     func checkSameCorners(_ newCorners: FourCornersStorage) -> Bool {
         if let cropCorners = cropCorners {
@@ -82,6 +80,7 @@ extension MapMap {
     }
     
     /// Set the four corners.
+    /// - Parameter newCorners: Updated corners.
     func setAndApplyCorners(corners newCorners: FourCornersStorage) {
         guard let moc = self.managedObjectContext,
               let imageSize = self.imageSize
