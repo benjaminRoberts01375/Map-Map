@@ -113,10 +113,7 @@ extension MapMap {
               let imageSize = self.imageDefault?.size
         else { return nil }
         let roundedCorners = newCorners.round()
-        if roundedCorners.topLeading != .zero || // If the crop corners are unique
-            roundedCorners.topTrailing != CGSize(width: imageSize.width, height: .zero) ||
-            roundedCorners.bottomLeading != CGSize(width: .zero, height: imageSize.height) ||
-            roundedCorners.bottomTrailing != imageSize {
+        if roundedCorners != imageSize {
             self.cropCorners = FourCorners(
                 topLeading: newCorners.topLeading.rounded(),
                 topTrailing: newCorners.topTrailing.rounded(),

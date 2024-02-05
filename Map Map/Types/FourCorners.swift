@@ -53,6 +53,17 @@ final class FourCornersStorage {
         )
     }
     
+    /// Allows for comparing a CGSize to a FourCornersStorage
+    /// - Parameters:
+    ///   - lhs: Base FourCornersStorage
+    ///   - rhs: Comparing to.
+    static func != (lhs: FourCornersStorage, rhs: CGSize) -> Bool {
+        lhs.topLeading != .zero ||
+        lhs.topTrailing != CGSize(width: rhs.width, height: .zero) ||
+        lhs.bottomLeading != CGSize(width: .zero, height: rhs.height) ||
+        lhs.bottomTrailing != rhs
+    }
+    
     init(topLeading: CGSize, topTrailing: CGSize, bottomLeading: CGSize, bottomTrailing: CGSize) {
         self.topLeading = topLeading
         self.topTrailing = topTrailing
