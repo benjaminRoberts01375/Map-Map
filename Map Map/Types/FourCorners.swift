@@ -18,6 +18,17 @@ final class FourCornersStorage {
     var bottomLeading: CGSize
     var bottomTrailing: CGSize
     
+    /// Returns a new FourCornersStorage that has been rounded.
+    /// - Returns: Rounded FourCornersStorage.
+    func round() -> FourCornersStorage {
+        return FourCornersStorage(
+            topLeading: topLeading.rounded(),
+            topTrailing: topTrailing.rounded(),
+            bottomLeading: bottomLeading.rounded(),
+            bottomTrailing: bottomTrailing.rounded()
+        )
+    }
+    
     /// Allows for multiplying a FourCornersStorage by some CGSize
     /// - Parameters:
     ///   - storage: Base.
