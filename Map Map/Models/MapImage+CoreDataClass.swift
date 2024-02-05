@@ -50,6 +50,7 @@ public class MapImage: NSManagedObject {
     }
     
     func loadImageFromCD() {
+        self.image = .loading
         guard let imageData = imageData,
               let uiImage = UIImage(data: imageData)
         else {
