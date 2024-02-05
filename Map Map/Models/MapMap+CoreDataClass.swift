@@ -125,9 +125,10 @@ extension MapMap {
             )
             return applyPerspectiveCorrectionWithCorners()
         }
-        // Crop corners were defaults
-        self.cropCorners = nil
-        if let imageCropped = self.imageCropped { moc.delete(imageCropped) }
+        Task { // Crop corners were defaults
+            self.cropCorners = nil
+            if let imageCropped = self.imageCropped { moc.delete(imageCropped) }
+        }
         return nil
     }
     
