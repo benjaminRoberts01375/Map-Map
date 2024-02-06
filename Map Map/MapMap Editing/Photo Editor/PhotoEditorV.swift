@@ -33,19 +33,50 @@ struct PhotoEditorV: View {
     }
     
     var body: some View {
-        GeometryReader { geo in
-            ZStack(alignment: .center) {
-                MapMapV(mapMap: mapMap, mapType: .original)
-                    .onViewResizes { _, update in
-                        handleTracker *= update / self.screenSpaceImageSize
-                        self.screenSpaceImageSize = update
-                    }
-                    .frame(
-                        width: geo.size.width * 0.95,
-                        height: geo.size.height * 0.72
-                    )
-                GridOverlayV(corners: $handleTracker)
-                    .offset(x: (geo.size.width - screenSpaceImageSize.width) / 2, y: (geo.size.height - screenSpaceImageSize.height) / 2)
+        VStack {
+            HStack {
+                Button {
+                    print("Auto handles")
+                } label: {
+                    Text("Auto")
+                        .padding()
+                }
+                Spacer()
+                Button {
+                    print("Rotate left")
+                } label: {
+                    Image(systemName: "rotate.left")
+                        .accessibilityLabel("MapMap counter clockwise 90º")
+                        .padding()
+                }
+                Button {
+                    print("Rotate right")
+                } label: {
+                    Image(systemName: "rotate.right")
+                        .accessibilityLabel("MapMap clockwise 90º")
+                        .padding()
+                }
+            }
+            .background(.regularMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            
+            GeometryReader { geo in
+                ZStack(alignment: .center) {
+                    MapMapV(mapMap: mapMap, mapType: .original)
+                        .onViewResizes { _, update in
+                            handleTracker *= update / self.screenSpaceImageSize
+                            self.screenSpaceImageSize = update
+                        }
+                        .frame(
+                            width: geo.size.width * 0.95,
+                            height: geo.size.height * 0.72
+                        )
+                    GridOverlayV(corners: $handleTracker)
+                        .offset(
+                            x: (geo.size.width - screenSpaceImageSize.width) / 2,
+                            y: (geo.size.height - screenSpaceImageSize.height) / 2
+                        )
+                }
             }
         }
         .task {
