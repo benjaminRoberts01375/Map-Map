@@ -68,7 +68,7 @@ struct EditCameraPhotoV: View {
                     )
                     Button(
                         action: { cameraState = .takingPhoto },
-                        label: { Text("Delete").bigButton(backgroundColor: .red) }
+                        label: { Text("Retake").bigButton(backgroundColor: .red) }
                     )
                 }
                 .padding(.bottom, isShortCard ? 0 : 10)
