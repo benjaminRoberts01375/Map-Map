@@ -7,7 +7,6 @@
 
 import Bottom_Drawer
 import SwiftUI
-import Vision
 
 struct PhotoEditorCompositeV: View {
     /// The NSManagedObjectContext being saved and read from.
