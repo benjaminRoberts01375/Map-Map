@@ -13,6 +13,7 @@ struct MapMapV: View {
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     /// Type of MapMap photo.
     let mapType: MapType
+    /// Status of the displayable map map.
     @State private var status: MapImage.ImageStatus? = .loading
     
     /// What photo should be rendered for this MapMap
@@ -48,9 +49,8 @@ struct MapMapV: View {
                     .accessibilityLabel("Could not load Map Map")
             }
         }
-        .onChange(of: mapMap.imageCropped, initial: true) {
-            status = getMapFromType(mapType)
-        }
+        .onChange(of: mapMap.imageCropped, initial: true) { status = getMapFromType(mapType) }
+        .onChange(of: mapMap.imageDefault) { status = getMapFromType(mapType) }
     }
     
     // swiftlint:disable accessibility_label_for_image

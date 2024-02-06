@@ -9,11 +9,25 @@ import SwiftUI
 
 /// Handle switching between the live camera and the camera output.
 struct CameraV: View {
-    /// Output from the camera
-    @State private var image: UIImage?
+    @Environment(\.managedObjectContext) var moc
+    @State private var cameraState: CameraState = .takingPhoto
+    
+    enum CameraState {
+        case takingPhoto
+        case editingPhoto(UIImage)
+    }
     
     var body: some View {
-        if image != nil { CameraReviewV(photoPassthrough: $image) }
-        else { CameraPreviewV(photoPassthrough: $image) }
+        switch cameraState {
+        case .takingPhoto:
+            CameraPreviewV(photoPassthrough: $cameraState)
+        case .editingPhoto(let image):
+            let mapMap: MapMap = {
+               let newMapMap = MapMap(uiPhoto: image, moc: moc)
+                newMapMap.isEditing = false
+                return newMapMap
+            }()
+            EditCameraPhotoV(mapMap: mapMap, cameraState: $cameraState)
+        }
     }
 }

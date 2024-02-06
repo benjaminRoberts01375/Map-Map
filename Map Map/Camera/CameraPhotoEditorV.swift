@@ -1,20 +1,20 @@
 //
-//  PhotoEditorCompositeV.swift
+//  EditCameraPhotoV.swift
 //  Map Map
 //
-//  Created by Ben Roberts on 2/2/24.
+//  Created by Ben Roberts on 2/6/24.
 //
 
 import Bottom_Drawer
 import SwiftUI
 
-struct PhotoEditorCompositeV: View {
+struct EditCameraPhotoV: View {
     /// The NSManagedObjectContext being saved and read from.
     @Environment(\.managedObjectContext) var moc
     /// MapMap with image being edited.
-    let mapMap: MapMap
-    /// Dismiss function for the view.
-    @Environment(\.dismiss) private var dismiss
+    @ObservedObject var mapMap: MapMap
+    /// Current step for processing a taken photo.
+    @Binding var cameraState: CameraV.CameraState
     /// Positioning of handles.
     @State private var handleTracker: FourCornersStorage
     /// Screen space image size.
@@ -24,12 +24,13 @@ struct PhotoEditorCompositeV: View {
     /// Image dimensions of the mapMap.
     private let imageDimensions: CGSize
     
-    init(mapMap: MapMap) {
+    init(mapMap: MapMap, cameraState: Binding<CameraV.CameraState>) {
         self.mapMap = mapMap
+        self._cameraState = cameraState
         if let corners = mapMap.cropCorners { self._handleTracker = State(initialValue: FourCornersStorage(corners: corners)) }
-        else { self._handleTracker = State(initialValue: FourCornersStorage(fill: mapMap.imageDefault?.size ?? .zero)) }
-        self._screenSpaceImageSize = State(initialValue: mapMap.imageDefault?.size ?? .zero)
-        self.imageDimensions = mapMap.imageDefault?.size ?? .zero
+        else { self._handleTracker = State(initialValue: FourCornersStorage(fill: mapMap.activeImage?.size ?? .zero)) }
+        self._screenSpaceImageSize = State(initialValue: mapMap.activeImage?.size ?? .zero)
+        self.imageDimensions = mapMap.imageSize ?? .zero
     }
     
     var body: some View {
@@ -46,17 +47,17 @@ struct PhotoEditorCompositeV: View {
                                 PhotoEditorV.perspectiveQueue.async {
                                     guard let croppedImage = mapMap.setAndApplyCorners(corners: correctedCorners)
                                     else {
-                                        dismiss()
+                                        mapMap.isEditing = true
                                         return
                                     }
                                     DispatchQueue.main.async {
-                                        dismiss()
+                                        mapMap.isEditing = true
                                         let mapImage = MapImage(image: croppedImage, type: .cropped, moc: moc)
                                         mapMap.addToImages(mapImage)
                                     }
                                 }
                             }
-                            else { dismiss() }
+                            else { mapMap.isEditing = true }
                         },
                         label: { Text("Crop").bigButton(backgroundColor: .blue) }
                     )
@@ -65,8 +66,8 @@ struct PhotoEditorCompositeV: View {
                         label: { Text("Reset").bigButton(backgroundColor: .gray) }
                     )
                     Button(
-                        action: { dismiss() },
-                        label: { Text("Cancel").bigButton(backgroundColor: .gray) }
+                        action: { cameraState = .takingPhoto },
+                        label: { Text("Retake").bigButton(backgroundColor: .red) }
                     )
                 }
                 .padding(.bottom, isShortCard ? 0 : 10)
