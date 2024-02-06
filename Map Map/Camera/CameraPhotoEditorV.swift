@@ -14,8 +14,6 @@ struct EditCameraPhotoV: View {
     /// MapMap with image being edited.
     @ObservedObject var mapMap: MapMap
     @Binding var cameraState: CameraV.CameraState
-    /// Dismiss function for the view.
-    @Environment(\.dismiss) private var dismiss
     /// Positioning of handles.
     @State private var handleTracker: FourCornersStorage
     /// Screen space image size.
@@ -48,17 +46,17 @@ struct EditCameraPhotoV: View {
                                 PhotoEditorV.perspectiveQueue.async {
                                     guard let croppedImage = mapMap.setAndApplyCorners(corners: correctedCorners)
                                     else {
-                                        dismiss()
+                                        mapMap.isEditing = true
                                         return
                                     }
                                     DispatchQueue.main.async {
-                                        dismiss()
+                                        mapMap.isEditing = true
                                         let mapImage = MapImage(image: croppedImage, type: .cropped, moc: moc)
                                         mapMap.addToImages(mapImage)
                                     }
                                 }
                             }
-                            else { dismiss() }
+                            else { mapMap.isEditing = true }
                         },
                         label: { Text("Crop").bigButton(backgroundColor: .blue) }
                     )
