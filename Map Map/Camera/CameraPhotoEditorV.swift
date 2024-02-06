@@ -13,6 +13,7 @@ struct EditCameraPhotoV: View {
     @Environment(\.managedObjectContext) var moc
     /// MapMap with image being edited.
     @ObservedObject var mapMap: MapMap
+    /// Current step for processing a taken photo.
     @Binding var cameraState: CameraV.CameraState
     /// Positioning of handles.
     @State private var handleTracker: FourCornersStorage
