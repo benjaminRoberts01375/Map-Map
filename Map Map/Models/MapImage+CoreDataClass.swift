@@ -99,9 +99,7 @@ extension MapImage {
         self.imageType = type
         self.image = .success(Image(uiImage: image))
         self.size = image.size
-        Task {
-            _ = await generateThumbnail(image: image)
-            self.imageData = image.jpegData(compressionQuality: 0.1)
-        }
+        Task { _ = await generateThumbnail(image: image) }
+        self.imageData = image.jpegData(compressionQuality: 0.1)
     }
 }
