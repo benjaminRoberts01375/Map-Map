@@ -16,11 +16,11 @@ struct CameraPreviewV: View {
     /// Dismiss function for this view.
     @Environment(\.dismiss) private var dismiss
     /// Output photo from the live camera view.
-    @Binding var finalPhoto: UIImage?
+    @Binding var finalPhoto: CameraV.CameraState
     /// Current rotation of the device.
     @State private var rotationAngle: Angle = .zero
     
-    init(photoPassthrough: Binding<UIImage?>) {
+    init(photoPassthrough: Binding<CameraV.CameraState>) {
         self._finalPhoto = photoPassthrough
         adjustAngle()
     }
@@ -35,15 +35,15 @@ struct CameraPreviewV: View {
                             guard let photoData = photo.cgImageRepresentation() else { return }
                             switch UIDevice.current.orientation {
                             case .landscapeLeft:
-                                finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .up)
+                                finalPhoto = .editingPhoto(UIImage(cgImage: photoData, scale: 1, orientation: .up))
                             case .landscapeRight:
-                                finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .down).fixOrientation()
+                                finalPhoto = .editingPhoto(UIImage(cgImage: photoData, scale: 1, orientation: .down).fixOrientation())
                             case .portrait:
-                                finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .right).fixOrientation()
+                                finalPhoto = .editingPhoto(UIImage(cgImage: photoData, scale: 1, orientation: .right).fixOrientation())
                             case .portraitUpsideDown:
-                                finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .left).fixOrientation()
+                                finalPhoto = .editingPhoto(UIImage(cgImage: photoData, scale: 1, orientation: .left).fixOrientation())
                             default:
-                                finalPhoto = UIImage(cgImage: photoData, scale: 1, orientation: .right).fixOrientation()
+                                finalPhoto = .editingPhoto(UIImage(cgImage: photoData, scale: 1, orientation: .right).fixOrientation())
                             }
                         case .failure(let error):
                             print(error.localizedDescription)
