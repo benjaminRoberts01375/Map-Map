@@ -30,7 +30,11 @@ struct EditCameraPhotoV: View {
         if let corners = mapMap.cropCorners {
             self._handleTracker = State(initialValue: HandleTrackerM(stockCorners: FourCornersStorage(corners: corners)))
         }
-        else { self._handleTracker = State(initialValue: HandleTrackerM(stockCorners: FourCornersStorage(fill: mapMap.activeImage?.size ?? .zero))) }
+        else {
+            self._handleTracker = State(
+                initialValue: HandleTrackerM(stockCorners: FourCornersStorage(fill: mapMap.activeImage?.size ?? .zero))
+            )
+        }
         self._screenSpaceImageSize = State(initialValue: mapMap.activeImage?.size ?? .zero)
         self.imageDimensions = mapMap.imageSize ?? .zero
     }
