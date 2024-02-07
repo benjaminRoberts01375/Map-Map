@@ -15,7 +15,7 @@ struct PhotoEditorV: View {
     /// The current MapMap whos photo is being edited.
     let mapMap: FetchedResults<MapMap>.Element
     /// Crop handle positions.
-    @Binding var handleTracker: FourCornersStorage
+    @Binding var handleTracker: HandleTrackerM
     /// Screen space image size.
     @Binding var screenSpaceImageSize: CGSize
     /// Dispatch queue for cropping images.
@@ -28,7 +28,7 @@ struct PhotoEditorV: View {
     ///   - mapMap: Map Map to edit photo for.
     ///   - handleTracker: Position of cropping handles.
     ///   - screenSpaceMapMapSize: Rendered size of photo.
-    init(mapMap: MapMap, handleTracker: Binding<FourCornersStorage>, screenSpaceMapMapSize: Binding<CGSize>) {
+    init(mapMap: MapMap, handleTracker: Binding<HandleTrackerM>, screenSpaceMapMapSize: Binding<CGSize>) {
         self.mapMap = mapMap
         self._handleTracker = handleTracker
         self._screenSpaceImageSize = screenSpaceMapMapSize
@@ -73,7 +73,7 @@ struct PhotoEditorV: View {
                     )
                     MapMapV(mapMap: mapMap, mapType: .original)
                         .onViewResizes { _, update in
-                            handleTracker *= update / self.screenSpaceImageSize
+                            handleTracker.stockCorners *= update / self.screenSpaceImageSize
                             self.screenSpaceImageSize = update
                         }
                         .frame(
@@ -81,7 +81,7 @@ struct PhotoEditorV: View {
                             height: size.height * 0.72
                         )
                         .position(CGPoint(size: geo.size / 2))
-                    GridOverlayV(corners: $handleTracker)
+                    GridOverlayV(corners: $handleTracker.stockCorners)
                         .offset(
                             x: (geo.size.width - screenSpaceImageSize.width) / 2,
                             y: (geo.size.height - screenSpaceImageSize.height) / 2
@@ -96,7 +96,7 @@ struct PhotoEditorV: View {
                let ciImage = CIImage(data: mapMapImageData),
                let generatedCorners = PhotoEditorV.detectDocumentCorners(image: ciImage, displaySize: screenSpaceImageSize) {
                 DispatchQueue.main.async {
-                    handleTracker = generatedCorners
+                    handleTracker.autoCorners = generatedCorners
                 }
             }
         }
