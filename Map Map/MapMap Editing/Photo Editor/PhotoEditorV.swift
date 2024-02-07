@@ -46,6 +46,7 @@ struct PhotoEditorV: View {
                 Spacer()
                 Button {
                     withAnimation { rotation += Angle(degrees: -90) }
+                    if rotation.degrees <= -360 { rotation = Angle(degrees: .zero) }
                 } label: {
                     Image(systemName: "rotate.left")
                         .accessibilityLabel("MapMap counter clockwise 90º")
@@ -53,6 +54,7 @@ struct PhotoEditorV: View {
                 }
                 Button {
                     withAnimation { rotation += Angle(degrees: 90) }
+                    if rotation.degrees <= 360 { rotation = Angle(degrees: 360) }
                 } label: {
                     Image(systemName: "rotate.right")
                         .accessibilityLabel("MapMap clockwise 90º")
