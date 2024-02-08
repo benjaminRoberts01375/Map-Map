@@ -21,7 +21,7 @@ struct PhotoEditorV: View {
     /// Dispatch queue for cropping images.
     static let perspectiveQueue = DispatchQueue(label: "com.RobertsHousehold.MapMap.PerspectiveFixer", qos: .userInteractive)
     /// Track rotation amount.
-    @State var rotation: Angle = .zero
+    @State var rotation: Angle
     
     /// Create a photo editor instance.
     /// - Parameters:
@@ -32,6 +32,12 @@ struct PhotoEditorV: View {
         self.mapMap = mapMap
         self._handleTracker = handleTracker
         self._screenSpaceImageSize = screenSpaceMapMapSize
+        switch handleTracker.orientation.wrappedValue {
+        case .standard: rotation = .zero
+        case .down: rotation = Angle(degrees: 180)
+        case .left: rotation = Angle(degrees: 270)
+        case .right: rotation = Angle(degrees: 90)
+        }
     }
     
     var body: some View {

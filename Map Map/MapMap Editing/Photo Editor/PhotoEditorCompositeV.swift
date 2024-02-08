@@ -24,12 +24,10 @@ struct PhotoEditorCompositeV: View {
     
     init(mapMap: MapMap) {
         self.mapMap = mapMap
-        if let corners = mapMap.cropCorners {
-            self._handleTracker = State(
-                initialValue: HandleTrackerM(
-                    stockCorners: FourCornersStorage(corners: corners)
-                )
-            )
+        if let corners = mapMap.cropCorners, let orientation = mapMap.imageCropped?.orientation {
+            let handles = HandleTrackerM(stockCorners: FourCornersStorage(corners: corners))
+            handles.orientation = orientation
+            self._handleTracker = State(initialValue: handles)
         }
         else {
             self._handleTracker = State(
