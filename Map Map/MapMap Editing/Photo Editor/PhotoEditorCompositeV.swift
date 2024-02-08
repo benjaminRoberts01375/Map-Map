@@ -51,7 +51,7 @@ struct PhotoEditorCompositeV: View {
                     Button(
                         action: {
                             let inverseRatio = imageDimensions / screenSpaceImageSize
-                            let correctedCorners = handleTracker.stockCorners * inverseRatio
+                            let correctedCorners = handleTracker.rotatedStockCorners * inverseRatio
                             PhotoEditorV.crop(
                                 corners: correctedCorners,
                                 mapMap: mapMap,
