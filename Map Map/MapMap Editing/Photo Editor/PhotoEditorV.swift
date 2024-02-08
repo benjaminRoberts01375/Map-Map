@@ -45,16 +45,14 @@ struct PhotoEditorV: View {
                 }
                 Spacer()
                 Button {
-                    withAnimation { rotation += Angle(degrees: -90) }
-                    if rotation.degrees <= -360 { rotation = Angle(degrees: .zero) }
+                    rotateLeft()
                 } label: {
                     Image(systemName: "rotate.left")
                         .accessibilityLabel("MapMap counter clockwise 90º")
                         .padding()
                 }
                 Button {
-                    withAnimation { rotation += Angle(degrees: 90) }
-                    if rotation.degrees <= 360 { rotation = Angle(degrees: 360) }
+                    rotateRight()
                 } label: {
                     Image(systemName: "rotate.right")
                         .accessibilityLabel("MapMap clockwise 90º")
@@ -99,6 +97,30 @@ struct PhotoEditorV: View {
                     handleTracker.autoCorners = generatedCorners
                 }
             }
+        }
+    }
+    
+    /// Rotate the image to the left.
+    private func rotateLeft() {
+        withAnimation { rotation += Angle(degrees: -90) }
+        if rotation.degrees <= -360 { rotation = .zero }
+        updateHandleOrientation()
+    }
+    
+    /// Rotate the image to the right.
+    private func rotateRight() {
+        withAnimation { rotation += Angle(degrees: 90) }
+        if rotation.degrees >= 360 { rotation = .zero }
+        updateHandleOrientation()
+    }
+    
+    /// Convert rotation to hard degrees.
+    private func updateHandleOrientation() {
+        switch rotation.degrees {
+        case 90, -270: handleTracker.orientation = .right
+        case 180, -180: handleTracker.orientation = .down
+        case 270, -90: handleTracker.orientation = .left
+        default: handleTracker.orientation = .standard
         }
     }
     
