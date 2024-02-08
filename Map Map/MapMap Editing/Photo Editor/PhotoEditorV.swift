@@ -183,6 +183,7 @@ struct PhotoEditorV: View {
                     return
                 }
                 DispatchQueue.main.async {
+                    if let oldCroppedImage = mapMap.imageCropped { moc.delete(oldCroppedImage) }
                     dismiss()
                     let mapImage = MapImage(image: croppedImage, type: .cropped, orientation: orientation, moc: moc)
                     mapMap.addToImages(mapImage)
