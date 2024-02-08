@@ -79,9 +79,9 @@ final class HandleTrackerM {
     }
 }
 
-enum Orientation {
-    case standard
-    case down
-    case left
-    case right
+public enum Orientation: Int16 {
+    case standard = 0
+    case right = 1
+    case down = 2
+    case left = 3
 }
