@@ -9,8 +9,6 @@ import Bottom_Drawer
 import SwiftUI
 
 struct EditCameraPhotoV: View {
-    /// The NSManagedObjectContext being saved and read from.
-    @Environment(\.managedObjectContext) var moc
     /// MapMap with image being edited.
     @ObservedObject var mapMap: MapMap
     /// Current step for processing a taken photo.
@@ -49,19 +47,13 @@ struct EditCameraPhotoV: View {
                         action: {
                             let inverseRatio = imageDimensions / screenSpaceImageSize
                             let correctedCorners = handleTracker.stockCorners * inverseRatio
+                            PhotoEditorV.crop(
+                                corners: correctedCorners,
+                                mapMap: mapMap,
+                                dismiss: { mapMap.isEditing = true }
+                            )
                             if !mapMap.checkSameCorners(correctedCorners) {
-                                PhotoEditorV.perspectiveQueue.async {
-                                    guard let croppedImage = mapMap.setAndApplyCorners(corners: correctedCorners)
-                                    else {
-                                        mapMap.isEditing = true
-                                        return
-                                    }
-                                    DispatchQueue.main.async {
-                                        mapMap.isEditing = true
-                                        let mapImage = MapImage(image: croppedImage, type: .cropped, moc: moc)
-                                        mapMap.addToImages(mapImage)
-                                    }
-                                }
+                                PhotoEditorV.crop(corners: correctedCorners, mapMap: mapMap, dismiss: { mapMap.isEditing = true })
                             }
                             else { mapMap.isEditing = true }
                         },

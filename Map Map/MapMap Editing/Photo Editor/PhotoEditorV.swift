@@ -139,4 +139,28 @@ struct PhotoEditorV: View {
         try? handler.perform([rectangleDetectionRequest])
         return corners
     }
+    
+    /// Crop map map to corrected corners.
+    /// - Parameters:
+    ///   - corners: Corners to crop the default map image to.
+    ///   - mapMap: Map Map to crop.
+    ///   - dismiss: What to do once created.
+    static func crop(corners: FourCornersStorage, mapMap: MapMap, dismiss: @escaping () -> Void) {
+        if !mapMap.checkSameCorners(corners) {
+            PhotoEditorV.perspectiveQueue.async {
+                guard let croppedImage = mapMap.setAndApplyCorners(corners: corners),
+                      let moc = mapMap.managedObjectContext
+                else {
+                    dismiss()
+                    return
+                }
+                DispatchQueue.main.async {
+                    dismiss()
+                    let mapImage = MapImage(image: croppedImage, type: .cropped, moc: moc)
+                    mapMap.addToImages(mapImage)
+                }
+            }
+        }
+        else { dismiss() }
+    }
 }
