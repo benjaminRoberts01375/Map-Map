@@ -54,6 +54,7 @@ struct PhotoEditorCompositeV: View {
                             let correctedCorners = handleTracker.rotatedStockCorners * inverseRatio
                             PhotoEditorV.crop(
                                 corners: correctedCorners,
+                                orientation: handleTracker.orientation,
                                 mapMap: mapMap,
                                 dismiss: { dismiss() }
                             )

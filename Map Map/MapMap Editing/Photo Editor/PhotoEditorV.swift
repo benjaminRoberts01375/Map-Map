@@ -167,7 +167,7 @@ struct PhotoEditorV: View {
     ///   - corners: Corners to crop the default map image to.
     ///   - mapMap: Map Map to crop.
     ///   - dismiss: What to do once created.
-    static func crop(corners: FourCornersStorage, mapMap: MapMap, dismiss: @escaping () -> Void) {
+    static func crop(corners: FourCornersStorage, orientation: Orientation, mapMap: MapMap, dismiss: @escaping () -> Void) {
         if !mapMap.checkSameCorners(corners) {
             PhotoEditorV.perspectiveQueue.async {
                 guard let croppedImage = mapMap.setAndApplyCorners(corners: corners),
@@ -178,7 +178,7 @@ struct PhotoEditorV: View {
                 }
                 DispatchQueue.main.async {
                     dismiss()
-                    let mapImage = MapImage(image: croppedImage, type: .cropped, moc: moc)
+                    let mapImage = MapImage(image: croppedImage, type: .cropped, orientation: orientation, moc: moc)
                     mapMap.addToImages(mapImage)
                 }
             }

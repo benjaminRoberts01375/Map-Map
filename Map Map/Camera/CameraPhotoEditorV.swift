@@ -48,7 +48,12 @@ struct EditCameraPhotoV: View {
                             let inverseRatio = imageDimensions / screenSpaceImageSize
                             let correctedCorners = handleTracker.rotatedStockCorners * inverseRatio
                             if !mapMap.checkSameCorners(correctedCorners) {
-                                PhotoEditorV.crop(corners: correctedCorners, mapMap: mapMap, dismiss: { mapMap.isEditing = true })
+                                PhotoEditorV.crop(
+                                    corners: correctedCorners,
+                                    orientation: handleTracker.orientation,
+                                    mapMap: mapMap,
+                                    dismiss: { mapMap.isEditing = true }
+                                )
                             }
                             else { mapMap.isEditing = true }
                         },
