@@ -58,18 +58,26 @@ struct PhotoEditorV: View {
                 Button {
                     rotateLeft()
                 } label: {
-                    Image(systemName: "rotate.left")
+                    Image(systemName: "crop.rotate")
+                        .resizable()
+                        .scaledToFit()
                         .accessibilityLabel("MapMap counter clockwise 90º")
-                        .padding()
+                        .frame(width: 25, height: 25)
+                        .frame(width: 40, height: 40)
                 }
                 Button {
                     rotateRight()
                 } label: {
-                    Image(systemName: "rotate.right")
+                    Image(systemName: "crop.rotate")
+                        .resizable()
+                        .scaledToFit()
                         .accessibilityLabel("MapMap clockwise 90º")
-                        .padding()
+                        .rotation3DEffect(.degrees(180), axis: (x: 1, y: 0, z: 0))
+                        .frame(width: 25, height: 25)
+                        .frame(width: 40, height: 40)
                 }
             }
+            .frame(height: 55)
             .background(.regularMaterial)
             .clipShape(RoundedRectangle(cornerRadius: 10))
             
