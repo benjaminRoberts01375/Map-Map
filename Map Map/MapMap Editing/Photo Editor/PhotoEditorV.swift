@@ -49,7 +49,7 @@ struct PhotoEditorV: View {
                         else { return }
                         withAnimation { handleTracker.stockCorners = autoCorners.copy() }
                     } label: {
-                        Text("Auto")
+                        Text("Auto Crop")
                             .padding()
                     }
                     .disabled(handleTracker.stockCorners == handleTracker.autoCorners)
