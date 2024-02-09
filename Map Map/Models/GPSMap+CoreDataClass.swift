@@ -10,6 +10,13 @@ import CoreData
 import Foundation
 
 @objc(GPSMap)
-public class GPSMap: NSManagedObject {
+public class GPSMap: NSManagedObject { }
 
+public extension GPSMap {
+    /// Create a GPS Map correctly.
+    /// - Parameter moc: Managed Object Context to insert this GPS map into.
+    convenience init(moc: NSManagedObjectContext) {
+        self.init(context: moc)
+        self.isEditing = true
+    }
 }
