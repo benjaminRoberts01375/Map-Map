@@ -16,6 +16,13 @@ struct GPSMapEditorV: View {
     /// Current name of the GPS Map
     @State var workingName: String
     
+    @ObservedObject var gpsMap: FetchedResults<GPSMap>.Element
+    
+    init(gpsMap: GPSMap) {
+        self.workingName = gpsMap.name ?? ""
+        self.gpsMap = gpsMap
+    }
+    
     var body: some View {
         GeometryReader { geo in
             ZStack {
