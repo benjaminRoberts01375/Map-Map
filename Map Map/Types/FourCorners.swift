@@ -9,7 +9,14 @@ import Foundation
 
 /// A class that mirrors the functionality of the FourCorners core data class.
 @Observable
-final class FourCornersStorage: Equatable {
+final class FourCornersStorage: Equatable, CustomStringConvertible {
+    var description: String {
+        return """
+Top Leading: \(topLeading), Top Trailing: \(topTrailing),
+Bottom Leading: \(bottomLeading), Bottom Trailing: \(bottomTrailing)
+"""
+    }
+    
     /// A FourCornersStorage where every value is zero'ed.
     static var zero = FourCornersStorage(topLeading: .zero, topTrailing: .zero, bottomLeading: .zero, bottomTrailing: .zero)
     
