@@ -192,4 +192,22 @@ struct PhotoEditorV: View {
         }
         else { dismiss() }
     }
+    
+    /// Generate the ideal initial handle positions based on a given map map.
+    /// - Parameter mapMap: Base map map.
+    /// - Returns: A handle tracker that is correctly rotated for the map map.
+    static func generateInitialHandles(baseMapMap mapMap: MapMap) -> HandleTrackerM {
+        if let corners = mapMap.cropCorners, let orientation = mapMap.imageCropped?.orientation {
+            let handles: HandleTrackerM =
+            switch orientation {
+            case .standard: HandleTrackerM(stockCorners: FourCornersStorage(corners: corners))
+            case .right: HandleTrackerM(stockCorners: FourCornersStorage(corners: corners).rotateLeft())
+            case .down: HandleTrackerM(stockCorners: FourCornersStorage(corners: corners).rotateDown())
+            case .left: HandleTrackerM(stockCorners: FourCornersStorage(corners: corners).rotateRight())
+            }
+            handles.orientation = orientation
+            return handles
+        }
+        else { return HandleTrackerM(stockCorners: FourCornersStorage(fill: mapMap.activeImage?.size ?? .zero)) }
+    }
 }

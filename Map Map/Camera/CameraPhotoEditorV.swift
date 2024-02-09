@@ -25,16 +25,7 @@ struct EditCameraPhotoV: View {
     init(mapMap: MapMap, cameraState: Binding<CameraV.CameraState>) {
         self.mapMap = mapMap
         self._cameraState = cameraState
-        if let corners = mapMap.cropCorners, let orientation = mapMap.imageCropped?.orientation {
-            let handles = HandleTrackerM(stockCorners: FourCornersStorage(corners: corners))
-            handles.orientation = orientation
-            self._handleTracker = State(initialValue: handles)
-        }
-        else {
-            self._handleTracker = State(
-                initialValue: HandleTrackerM(stockCorners: FourCornersStorage(fill: mapMap.activeImage?.size ?? .zero))
-            )
-        }
+        self._handleTracker = State(initialValue: PhotoEditorV.generateInitialHandles(baseMapMap: mapMap))
         self._screenSpaceImageSize = State(initialValue: mapMap.activeImage?.size ?? .zero)
         self.imageDimensions = mapMap.imageSize ?? .zero
     }
