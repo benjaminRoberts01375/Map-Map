@@ -15,37 +15,96 @@ struct PhotoEditorV: View {
     /// The current MapMap whos photo is being edited.
     let mapMap: FetchedResults<MapMap>.Element
     /// Crop handle positions.
-    @Binding var handleTracker: FourCornersStorage
+    @Binding var handleTracker: HandleTrackerM
     /// Screen space image size.
     @Binding var screenSpaceImageSize: CGSize
     /// Dispatch queue for cropping images.
     static let perspectiveQueue = DispatchQueue(label: "com.RobertsHousehold.MapMap.PerspectiveFixer", qos: .userInteractive)
+    /// Track rotation amount.
+    @State var rotation: Angle
     
     /// Create a photo editor instance.
     /// - Parameters:
     ///   - mapMap: Map Map to edit photo for.
     ///   - handleTracker: Position of cropping handles.
     ///   - screenSpaceMapMapSize: Rendered size of photo.
-    init(mapMap: MapMap, handleTracker: Binding<FourCornersStorage>, screenSpaceMapMapSize: Binding<CGSize>) {
+    init(mapMap: MapMap, handleTracker: Binding<HandleTrackerM>, screenSpaceMapMapSize: Binding<CGSize>) {
         self.mapMap = mapMap
         self._handleTracker = handleTracker
         self._screenSpaceImageSize = screenSpaceMapMapSize
+        switch handleTracker.orientation.wrappedValue {
+        case .standard: rotation = .zero
+        case .down: rotation = Angle(degrees: 180)
+        case .left: rotation = Angle(degrees: 270)
+        case .right: rotation = Angle(degrees: 90)
+        }
     }
     
     var body: some View {
-        GeometryReader { geo in
-            ZStack(alignment: .center) {
-                MapMapV(mapMap: mapMap, mapType: .original)
-                    .onViewResizes { _, update in
-                        handleTracker *= update / self.screenSpaceImageSize
-                        self.screenSpaceImageSize = update
+        VStack {
+            HStack {
+                if handleTracker.autoCorners != nil {
+                    Button {
+                        guard let autoCorners = handleTracker.autoCorners
+                        else { return }
+                        withAnimation { handleTracker.stockCorners = autoCorners.copy() }
+                    } label: {
+                        Text("Auto Crop")
+                            .padding()
                     }
-                    .frame(
-                        width: geo.size.width * 0.95,
-                        height: geo.size.height * 0.72
+                    .disabled(handleTracker.stockCorners == handleTracker.autoCorners)
+                }
+                Spacer()
+                Button {
+                    rotateLeft()
+                } label: {
+                    Image(systemName: "crop.rotate")
+                        .resizable()
+                        .scaledToFit()
+                        .accessibilityLabel("MapMap counter clockwise 90º")
+                        .frame(width: 25, height: 25)
+                        .frame(width: 40, height: 40)
+                }
+                Button {
+                    rotateRight()
+                } label: {
+                    Image(systemName: "crop.rotate")
+                        .resizable()
+                        .scaledToFit()
+                        .accessibilityLabel("MapMap clockwise 90º")
+                        .rotation3DEffect(.degrees(180), axis: (x: 1, y: 0, z: 0))
+                        .frame(width: 25, height: 25)
+                        .frame(width: 40, height: 40)
+                }
+            }
+            .frame(height: 55)
+            .background(.regularMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            
+            GeometryReader { geo in
+                ZStack(alignment: .center) {
+                    let rotated = rotation.degrees.truncatingRemainder(dividingBy: 180) != .zero
+                    let size = CGSize(
+                        width: rotated ? geo.size.height : geo.size.width,
+                        height: rotated ? geo.size.width : geo.size.height
                     )
-                GridOverlayV(corners: $handleTracker)
-                    .offset(x: (geo.size.width - screenSpaceImageSize.width) / 2, y: (geo.size.height - screenSpaceImageSize.height) / 2)
+                    MapMapV(mapMap: mapMap, mapType: .original)
+                        .onViewResizes { _, update in
+                            handleTracker.stockCorners *= update / self.screenSpaceImageSize
+                            self.screenSpaceImageSize = update
+                        }
+                        .frame(
+                            width: size.width * 0.95,
+                            height: size.height * 0.72
+                        )
+                        .position(CGPoint(size: geo.size / 2))
+                    GridOverlayV(corners: $handleTracker.stockCorners)
+                        .offset(
+                            x: (geo.size.width - screenSpaceImageSize.width) / 2,
+                            y: (geo.size.height - screenSpaceImageSize.height) / 2
+                        )
+                }
+                .rotationEffect(rotation)
             }
         }
         .task {
@@ -54,9 +113,34 @@ struct PhotoEditorV: View {
                let ciImage = CIImage(data: mapMapImageData),
                let generatedCorners = PhotoEditorV.detectDocumentCorners(image: ciImage, displaySize: screenSpaceImageSize) {
                 DispatchQueue.main.async {
-                    handleTracker = generatedCorners
+                    handleTracker.autoCorners = generatedCorners.copy()
+                    handleTracker.stockCorners = generatedCorners
                 }
             }
+        }
+    }
+    
+    /// Rotate the image to the left.
+    private func rotateLeft() {
+        withAnimation { rotation += Angle(degrees: -90) }
+        if rotation.degrees <= -360 { rotation = .zero }
+        updateHandleOrientation()
+    }
+    
+    /// Rotate the image to the right.
+    private func rotateRight() {
+        withAnimation { rotation += Angle(degrees: 90) }
+        if rotation.degrees >= 360 { rotation = .zero }
+        updateHandleOrientation()
+    }
+    
+    /// Convert rotation to hard degrees.
+    private func updateHandleOrientation() {
+        switch rotation.degrees {
+        case 90, -270: handleTracker.orientation = .right
+        case 180, -180: handleTracker.orientation = .down
+        case 270, -90: handleTracker.orientation = .left
+        default: handleTracker.orientation = .standard
         }
     }
     
@@ -96,5 +180,48 @@ struct PhotoEditorV: View {
         let handler = VNImageRequestHandler(ciImage: image, options: [:])
         try? handler.perform([rectangleDetectionRequest])
         return corners
+    }
+    
+    /// Crop map map to corrected corners.
+    /// - Parameters:
+    ///   - corners: Corners to crop the default map image to.
+    ///   - mapMap: Map Map to crop.
+    ///   - dismiss: What to do once created.
+    static func crop(corners: FourCornersStorage, orientation: Orientation, mapMap: MapMap, dismiss: @escaping () -> Void) {
+        if !mapMap.checkSameCorners(corners) {
+            PhotoEditorV.perspectiveQueue.async {
+                guard let croppedImage = mapMap.setAndApplyCorners(corners: corners),
+                      let moc = mapMap.managedObjectContext
+                else {
+                    dismiss()
+                    return
+                }
+                DispatchQueue.main.async {
+                    if let oldCroppedImage = mapMap.imageCropped { moc.delete(oldCroppedImage) }
+                    dismiss()
+                    let mapImage = MapImage(image: croppedImage, type: .cropped, orientation: orientation, moc: moc)
+                    mapMap.addToImages(mapImage)
+                }
+            }
+        }
+        else { dismiss() }
+    }
+    
+    /// Generate the ideal initial handle positions based on a given map map.
+    /// - Parameter mapMap: Base map map.
+    /// - Returns: A handle tracker that is correctly rotated for the map map.
+    static func generateInitialHandles(baseMapMap mapMap: MapMap) -> HandleTrackerM {
+        if let corners = mapMap.cropCorners, let orientation = mapMap.imageCropped?.orientation {
+            let handles: HandleTrackerM =
+            switch orientation {
+            case .standard: HandleTrackerM(stockCorners: FourCornersStorage(corners: corners))
+            case .right: HandleTrackerM(stockCorners: FourCornersStorage(corners: corners).rotateLeft())
+            case .down: HandleTrackerM(stockCorners: FourCornersStorage(corners: corners).rotateDown())
+            case .left: HandleTrackerM(stockCorners: FourCornersStorage(corners: corners).rotateRight())
+            }
+            handles.orientation = orientation
+            return handles
+        }
+        else { return HandleTrackerM(stockCorners: FourCornersStorage(fill: mapMap.activeImage?.size ?? .zero)) }
     }
 }

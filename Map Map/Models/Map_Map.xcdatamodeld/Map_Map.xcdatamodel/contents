@@ -19,6 +19,7 @@
         <attribute name="imageWidth" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="thumbnailData" optional="YES" attributeType="Binary"/>
         <attribute name="type" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="wrappedOrientation" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="mapMap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMap" inverseName="images" inverseEntity="MapMap"/>
     </entity>
     <entity name="MapMap" representedClassName="MapMap" syncable="YES" codeGenerationType="category">

@@ -9,14 +9,12 @@ import Bottom_Drawer
 import SwiftUI
 
 struct PhotoEditorCompositeV: View {
-    /// The NSManagedObjectContext being saved and read from.
-    @Environment(\.managedObjectContext) var moc
     /// MapMap with image being edited.
     let mapMap: MapMap
     /// Dismiss function for the view.
     @Environment(\.dismiss) private var dismiss
     /// Positioning of handles.
-    @State private var handleTracker: FourCornersStorage
+    @State private var handleTracker: HandleTrackerM
     /// Screen space image size.
     @State private var screenSpaceImageSize: CGSize
     /// Track if the system is currently cropping an image.
@@ -26,8 +24,7 @@ struct PhotoEditorCompositeV: View {
     
     init(mapMap: MapMap) {
         self.mapMap = mapMap
-        if let corners = mapMap.cropCorners { self._handleTracker = State(initialValue: FourCornersStorage(corners: corners)) }
-        else { self._handleTracker = State(initialValue: FourCornersStorage(fill: mapMap.imageDefault?.size ?? .zero)) }
+        self._handleTracker = State(initialValue: PhotoEditorV.generateInitialHandles(baseMapMap: mapMap))
         self._screenSpaceImageSize = State(initialValue: mapMap.imageDefault?.size ?? .zero)
         self.imageDimensions = mapMap.imageDefault?.size ?? .zero
     }
@@ -41,22 +38,13 @@ struct PhotoEditorCompositeV: View {
                     Button(
                         action: {
                             let inverseRatio = imageDimensions / screenSpaceImageSize
-                            let correctedCorners = handleTracker * inverseRatio
-                            if !mapMap.checkSameCorners(correctedCorners) {
-                                PhotoEditorV.perspectiveQueue.async {
-                                    guard let croppedImage = mapMap.setAndApplyCorners(corners: correctedCorners)
-                                    else {
-                                        dismiss()
-                                        return
-                                    }
-                                    DispatchQueue.main.async {
-                                        dismiss()
-                                        let mapImage = MapImage(image: croppedImage, type: .cropped, moc: moc)
-                                        mapMap.addToImages(mapImage)
-                                    }
-                                }
-                            }
-                            else { dismiss() }
+                            let correctedCorners = handleTracker.rotatedStockCorners * inverseRatio
+                            PhotoEditorV.crop(
+                                corners: correctedCorners,
+                                orientation: handleTracker.orientation,
+                                mapMap: mapMap,
+                                dismiss: { dismiss() }
+                            )
                         },
                         label: { Text("Crop").bigButton(backgroundColor: .blue) }
                     )
@@ -76,10 +64,10 @@ struct PhotoEditorCompositeV: View {
     
     /// Reset the MapMap crop back to none.
     private func reset() {
-        handleTracker.topLeading = .zero
-        handleTracker.topTrailing = CGSize(width: screenSpaceImageSize.width, height: .zero)
-        handleTracker.bottomLeading = CGSize(width: .zero, height: screenSpaceImageSize.height)
-        handleTracker.bottomTrailing = screenSpaceImageSize
+        handleTracker.stockCorners.topLeading = .zero
+        handleTracker.stockCorners.topTrailing = CGSize(width: screenSpaceImageSize.width, height: .zero)
+        handleTracker.stockCorners.bottomLeading = CGSize(width: .zero, height: screenSpaceImageSize.height)
+        handleTracker.stockCorners.bottomTrailing = screenSpaceImageSize
         mapMap.cropCorners = nil
     }
 }

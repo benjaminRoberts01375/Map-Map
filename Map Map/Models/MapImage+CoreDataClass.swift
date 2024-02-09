@@ -39,6 +39,12 @@ public class MapImage: NSManagedObject {
         set(newValue) { self.type = newValue.rawValue }
     }
     
+    /// Orientation of image.
+    private(set) var orientation: Orientation {
+        get { Orientation(rawValue: self.wrappedOrientation) ?? .standard }
+        set(newValue) { self.wrappedOrientation = newValue.rawValue }
+    }
+    
     /// Generate a thumbnail from this image.
     private func generateThumbnail() async {
         guard let imageData = imageData,
@@ -94,11 +100,12 @@ extension MapImage {
     ///   - image: Image to base Map Image on.
     ///   - type: Type of image being created.
     ///   - moc: Managed Object Context to save into.
-    public convenience init(image: UIImage, type: ImageType, moc: NSManagedObjectContext) {
+    public convenience init(image: UIImage, type: ImageType, orientation: Orientation = .standard, moc: NSManagedObjectContext) {
         self.init(context: moc)
         self.imageType = type
         self.image = .success(Image(uiImage: image))
         self.size = image.size
+        self.orientation = orientation
         Task { _ = await generateThumbnail(image: image) }
         self.imageData = image.jpegData(compressionQuality: 0.1)
     }
