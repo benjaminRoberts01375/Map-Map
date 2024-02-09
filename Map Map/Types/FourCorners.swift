@@ -9,7 +9,7 @@ import Foundation
 
 /// A class that mirrors the functionality of the FourCorners core data class.
 @Observable
-final class FourCornersStorage {
+final class FourCornersStorage: Equatable {
     /// A FourCornersStorage where every value is zero'ed.
     static var zero = FourCornersStorage(topLeading: .zero, topTrailing: .zero, bottomLeading: .zero, bottomTrailing: .zero)
     
@@ -95,6 +95,18 @@ final class FourCornersStorage {
         lhs.topTrailing != CGSize(width: rhs.width, height: .zero) ||
         lhs.bottomLeading != CGSize(width: .zero, height: rhs.height) ||
         lhs.bottomTrailing != rhs
+    }
+    
+    /// Allows for comparing a FourCornersStorage to another.
+    /// - Parameters:
+    ///   - lhs: Left FourCornersStorage.
+    ///   - rhs: Right FourCornersStorage.
+    /// - Returns: Compared result.
+    static func == (lhs: FourCornersStorage, rhs: FourCornersStorage) -> Bool {
+        return lhs.topLeading == rhs.topLeading &&
+        lhs.topTrailing == rhs.topTrailing &&
+        lhs.bottomLeading == rhs.bottomLeading &&
+        lhs.bottomTrailing == rhs.bottomTrailing
     }
     
     init(topLeading: CGSize, topTrailing: CGSize, bottomLeading: CGSize, bottomTrailing: CGSize) {
