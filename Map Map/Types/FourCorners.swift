@@ -29,6 +29,39 @@ final class FourCornersStorage {
         )
     }
     
+    /// Take the current handles, and rotate them leftwards.
+    /// - Returns: Self that has been rotated.
+    func rotateLeft() -> FourCornersStorage {
+        return FourCornersStorage(
+            topLeading: self.topTrailing,
+            topTrailing: self.bottomTrailing,
+            bottomLeading: self.topLeading,
+            bottomTrailing: self.bottomLeading
+        )
+    }
+    
+    /// Takes the current handles, and rotate them rightwards.
+    /// - Returns: Self that has been rotated.
+    func rotateRight() -> FourCornersStorage {
+        return FourCornersStorage(
+            topLeading: self.bottomLeading,
+            topTrailing: self.topLeading,
+            bottomLeading: self.bottomTrailing,
+            bottomTrailing: self.topTrailing
+        )
+    }
+    
+    /// Returns a copy of this FourCornersStorage that has been rotated.
+    /// - Returns: Self that has been rotated.
+    func rotateDown() -> FourCornersStorage {
+        return FourCornersStorage(
+            topLeading: self.bottomTrailing,
+            topTrailing: self.bottomLeading,
+            bottomLeading: self.topTrailing, 
+            bottomTrailing: self.topLeading
+        )
+    }
+    
     /// Allows for multiplying a FourCornersStorage by some CGSize
     /// - Parameters:
     ///   - storage: Base.
