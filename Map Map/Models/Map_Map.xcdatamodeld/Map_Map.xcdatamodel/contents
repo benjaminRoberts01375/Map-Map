@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23C71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23D60" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Drawing" representedClassName="Drawing" syncable="YES" codeGenerationType="category">
         <attribute name="drawingData" attributeType="Binary"/>
         <attribute name="mapMapHeight" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -12,6 +12,18 @@
         <attribute name="rawTopLeading" attributeType="String" defaultValueString="{0, 0}"/>
         <attribute name="rawTopTrailing" attributeType="String" defaultValueString="{0, 0}"/>
         <relationship name="mapMap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMap" inverseName="cropCorners" inverseEntity="MapMap"/>
+    </entity>
+    <entity name="GPSMap" representedClassName="GPSMap" syncable="YES" codeGenerationType="category">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="distanceMeters" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="coordinates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GPSMapCoordinate" inverseName="gpsMap" inverseEntity="GPSMapCoordinate"/>
+    </entity>
+    <entity name="GPSMapCoordinate" representedClassName="GPSMapCoordinate" syncable="YES" codeGenerationType="category">
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="gpsMap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GPSMap" inverseName="coordinates" inverseEntity="GPSMap"/>
+        <relationship name="neighbors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GPSMapCoordinate" inverseName="neighbors" inverseEntity="GPSMapCoordinate"/>
     </entity>
     <entity name="MapImage" representedClassName="MapImage" syncable="YES" codeGenerationType="category">
         <attribute name="imageData" optional="YES" attributeType="Binary"/>
