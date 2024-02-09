@@ -52,6 +52,7 @@ final class CameraPreviewVM {
     }
     
     private func setupCamera(completion: @escaping (Error?) -> Void) async {
+        if session != nil { return }
         let session = AVCaptureSession()
         if let device = AVCaptureDevice.default(for: .video) {
             do {
