@@ -50,6 +50,11 @@ struct DefaultDrawerHeaderV: View {
                 } label: {
                     Label("Files", systemImage: "folder.fill")
                 }
+                Button {
+                    _ = GPSMap(moc: moc)
+                } label: {
+                    Label("GPS", systemImage: "point.bottomleft.filled.forward.to.point.topright.scurvepath")
+                }
             } label: {
                 Image(systemName: "plus.circle.fill")
                     .symbolRenderingMode(.hierarchical)
