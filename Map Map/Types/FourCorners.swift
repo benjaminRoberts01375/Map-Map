@@ -69,6 +69,17 @@ Bottom Leading: \(bottomLeading), Bottom Trailing: \(bottomTrailing)
         )
     }
     
+    /// Allow simple copying of this class.
+    /// - Returns: A copy of this class.
+    func copy() -> FourCornersStorage {
+        return FourCornersStorage(
+            topLeading: topLeading,
+            topTrailing: topTrailing,
+            bottomLeading: bottomLeading,
+            bottomTrailing: bottomTrailing
+        )
+    }
+    
     /// Allows for multiplying a FourCornersStorage by some CGSize
     /// - Parameters:
     ///   - storage: Base.
