@@ -43,11 +43,13 @@ struct PhotoEditorV: View {
     var body: some View {
         VStack {
             HStack {
-                Button {
-                    print("Auto handles")
-                } label: {
-                    Text("Auto")
-                        .padding()
+                if handleTracker.autoCorners != nil {
+                    Button {
+                        print("Auto handles")
+                    } label: {
+                        Text("Auto")
+                            .padding()
+                    }
                 }
                 Spacer()
                 Button {
@@ -101,6 +103,7 @@ struct PhotoEditorV: View {
                let generatedCorners = PhotoEditorV.detectDocumentCorners(image: ciImage, displaySize: screenSpaceImageSize) {
                 DispatchQueue.main.async {
                     handleTracker.autoCorners = generatedCorners
+                    handleTracker.stockCorners = generatedCorners
                 }
             }
         }
