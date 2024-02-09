@@ -28,16 +28,10 @@ struct GPSMapEditorV: View {
             ZStack {
                 BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                     VStack {
-                        HStack {
-                            TextField("GPS Map Name", text: $workingName)
-                                .padding(.all, 5)
-                                .background(Color.gray.opacity(0.7))
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                                .frame(width: 205)
+                        if let coordinates = gpsMap.coordinates, coordinates.count == .zero {
+                            NewGPSDrawerContentV(workingName: $workingName, gpsMap: gpsMap)
                         }
-                        HStack {
-                            Button { moc.reset() } label: { Text("Cancel").bigButton(backgroundColor: .gray) }
-                        }
+                        else { EmptyView() }
                     }
                     .padding(.bottom, isShortCard ? 0 : 10)
                 }
