@@ -16,6 +16,8 @@ struct MapHudV: View {
     @AppStorage(UserDefaults.kCoordinateDisplayType) var locationDisplayType = UserDefaults.dCoordinateDisplayType
     /// Tracker for showing the heading.
     @State private var showHeading: Bool = false
+    /// GPS user location.
+    @State private var locationsHandler = LocationsHandler.shared
     /// Control decimals when converted to a string.
     private let stringFormat: String = "%.4f"
     
@@ -41,6 +43,10 @@ struct MapHudV: View {
                     Text("\(String(format: stringFormat, mapDetails.userRotation.degrees))º ").fontWidth(.condensed) +
                     Text(determineHeadingLabel())
                 }
+                let altitude = locationDisplayType.metersToAltitude(meters: locationsHandler.lastLocation.altitude)
+                Text("Altitude: ") +
+                Text("\(Int(altitude.value)) \(altitude.unit == .feet ? "ft" : "m" )")
+                    .fontWidth(.condensed)
             }
             Spacer(minLength: 0)
         }

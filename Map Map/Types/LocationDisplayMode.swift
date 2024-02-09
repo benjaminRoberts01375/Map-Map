@@ -49,4 +49,14 @@ extension LocationDisplayMode {
         let directionLabel = longitude < 0 ? "W" : "E"
         return "\(getDirectionlessString(degrees: longitude)) \(directionLabel)"
     }
+    
+    /// Convert meters to the appropriate string.
+    /// - Parameter meters: Meters.
+    /// - Returns: Meters formatted into the appropriate string.
+    func metersToAltitude(meters: Double) -> Measurement<UnitLength> {
+        switch Locale.current.measurementSystem {
+        case .us: return (Measurement<UnitLength>(value: meters, unit: .meters).converted(to: .feet))
+        default: return (Measurement<UnitLength>(value: meters, unit: .meters))
+        }
+    }
 }
