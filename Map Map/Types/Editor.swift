@@ -12,6 +12,8 @@ import SwiftUI
 public enum Editor: Equatable {
     /// Editor case where editing this specific Map Map.
     case mapMap(FetchedResults<MapMap>.Element)
+    /// Editor case where editing this specific GPS Map.
+    case gpsMap(FetchedResults<GPSMap>.Element)
     /// Editor case where editing this specific Marker.
     case marker(FetchedResults<Marker>.Element)
     /// Editor case where editing measurements.

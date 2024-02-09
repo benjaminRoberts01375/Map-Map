@@ -15,6 +15,8 @@ import SwiftUI
 struct ContentView: View {
     /// All available MapMaps
     @FetchRequest(sortDescriptors: []) private var mapMaps: FetchedResults<MapMap>
+    /// All available GPS Maps
+    @FetchRequest(sortDescriptors: []) private var gpsMaps: FetchedResults<GPSMap>
     /// All available Markers
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
     /// Current Core Data managed object context.
@@ -49,6 +51,7 @@ struct ContentView: View {
                 }
                 switch editing {
                 case .mapMap(let mapMap): MapMapEditor(mapMap: mapMap)
+                case .gpsMap(let gpsMap): GPSMapEditorV(gpsMap: gpsMap)
                 case .marker(let marker): MarkerEditorV(marker: marker)
                 case .measurement: MeasurementEditorV(editing: $editing)
                 case .nothing:
@@ -75,6 +78,7 @@ struct ContentView: View {
             default:
                 if let editingMapMap = mapMaps.first(where: { $0.isEditing }) { self.editing = .mapMap(editingMapMap) }
                 else if let editingMarker = markers.first(where: { $0.isEditing }) { self.editing = .marker(editingMarker) }
+                else if let editingGPSMap = gpsMaps.first(where: { $0.isEditing }) { self.editing = .gpsMap(editingGPSMap) }
                 else { self.editing = .nothing }
             }
         }
