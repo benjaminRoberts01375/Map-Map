@@ -52,6 +52,7 @@ final class CameraPreviewVM {
     }
     
     private func setupCamera(completion: @escaping (Error?) -> Void) async {
+        if session != nil { return }
         let session = AVCaptureSession()
         if let device = AVCaptureDevice.default(for: .video) {
             do {
@@ -72,6 +73,9 @@ final class CameraPreviewVM {
             }
         }
     }
+    
+    /// Shuts down the camera
+    public func tearDownCamera() { session?.stopRunning() }
     
     func capturePhoto() {
         checkPermissions { if $0 == nil { return } }

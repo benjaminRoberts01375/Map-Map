@@ -92,6 +92,7 @@ struct CameraPreviewV: View {
         .onReceive(NotificationCenter.default.publisher(for: .AVCaptureDeviceWasDisconnected)) { _ in
             cameraService.permissionsEnabled = false
         }
+        .onDisappear { cameraService.tearDownCamera() }
     }
     
     func adjustAngle() {
