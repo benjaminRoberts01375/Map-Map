@@ -10,7 +10,13 @@ import CoreData
 import Foundation
 
 @objc(GPSMap)
-public class GPSMap: NSManagedObject { }
+public class GPSMap: NSManagedObject { 
+    /// A simple getter for GPS Map Coordinates.
+    var unwrappedCoordinates: [GPSMapCoordinate] {
+        let coordinates = self.coordinates as? Set<GPSMapCoordinate> ?? []
+        return Array(coordinates)
+    }
+}
 
 public extension GPSMap {
     /// Create a GPS Map correctly.
