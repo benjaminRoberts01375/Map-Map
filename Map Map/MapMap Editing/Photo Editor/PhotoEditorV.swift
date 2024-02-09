@@ -45,11 +45,14 @@ struct PhotoEditorV: View {
             HStack {
                 if handleTracker.autoCorners != nil {
                     Button {
-                        print("Auto handles")
+                        guard let autoCorners = handleTracker.autoCorners
+                        else { return }
+                        withAnimation { handleTracker.stockCorners = autoCorners.copy() }
                     } label: {
                         Text("Auto")
                             .padding()
                     }
+                    .disabled(handleTracker.stockCorners == handleTracker.autoCorners)
                 }
                 Spacer()
                 Button {
@@ -102,7 +105,7 @@ struct PhotoEditorV: View {
                let ciImage = CIImage(data: mapMapImageData),
                let generatedCorners = PhotoEditorV.detectDocumentCorners(image: ciImage, displaySize: screenSpaceImageSize) {
                 DispatchQueue.main.async {
-                    handleTracker.autoCorners = generatedCorners
+                    handleTracker.autoCorners = generatedCorners.copy()
                     handleTracker.stockCorners = generatedCorners
                 }
             }
