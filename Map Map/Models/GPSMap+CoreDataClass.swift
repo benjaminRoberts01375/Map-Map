@@ -16,6 +16,19 @@ public class GPSMap: NSManagedObject {
         let coordinates = self.coordinates as? Set<GPSMapCoordinate> ?? []
         return Array(coordinates)
     }
+    
+    /// Track how this GPS map is being edited.
+    public enum EditingState: Int16 {
+        case settingUp = 0
+        case tracking = 1
+        case editing = 2
+        case viewing = 3
+    }
+    
+    var unwrappedEditing: EditingState {
+        get { return EditingState(rawValue: self.editing) ?? .settingUp }
+        set(newValue) { editing = newValue.rawValue }
+    }
 }
 
 public extension GPSMap {
@@ -23,6 +36,6 @@ public extension GPSMap {
     /// - Parameter moc: Managed Object Context to insert this GPS map into.
     convenience init(moc: NSManagedObjectContext) {
         self.init(context: moc)
-        self.isEditing = true
+        self.unwrappedEditing = .settingUp
     }
 }

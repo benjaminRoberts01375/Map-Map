@@ -14,10 +14,10 @@
         <relationship name="mapMap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMap" inverseName="cropCorners" inverseEntity="MapMap"/>
     </entity>
     <entity name="GPSMap" representedClassName="GPSMap" syncable="YES" codeGenerationType="category">
-        <attribute name="dateEnd" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="dateStart" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateEdited" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="distanceMeters" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="isEditing" transient="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="durationSeconds" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="editing" transient="YES" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="coordinates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GPSMapCoordinate" inverseName="gpsMap" inverseEntity="GPSMapCoordinate"/>
     </entity>

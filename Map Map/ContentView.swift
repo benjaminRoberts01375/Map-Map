@@ -78,7 +78,9 @@ struct ContentView: View {
             default:
                 if let editingMapMap = mapMaps.first(where: { $0.isEditing }) { self.editing = .mapMap(editingMapMap) }
                 else if let editingMarker = markers.first(where: { $0.isEditing }) { self.editing = .marker(editingMarker) }
-                else if let editingGPSMap = gpsMaps.first(where: { $0.isEditing }) { self.editing = .gpsMap(editingGPSMap) }
+                else if let editingGPSMap = gpsMaps.first(where: { $0.unwrappedEditing == .settingUp }) {
+                    self.editing = .gpsMap(editingGPSMap)
+                }
                 else { self.editing = .nothing }
             }
         }
