@@ -28,10 +28,13 @@ struct GPSMapEditorV: View {
             ZStack {
                 BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                     VStack {
-                        if let coordinates = gpsMap.coordinates, coordinates.count == .zero {
+                        switch gpsMap.unwrappedEditing {
+                        case .settingUp:
                             NewGPSDrawerContentV(workingName: $workingName, gpsMap: gpsMap)
+                        case .tracking:
+                            TrackingGpsDrawerContentV(gpsMap: gpsMap)
+                        default: EmptyView()
                         }
-                        else { EmptyView() }
                     }
                     .padding(.bottom, isShortCard ? 0 : 10)
                 }
