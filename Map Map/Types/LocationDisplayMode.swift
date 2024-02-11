@@ -53,10 +53,22 @@ extension LocationDisplayMode {
     /// Convert meters to the appropriate string.
     /// - Parameter meters: Meters.
     /// - Returns: Meters formatted into the appropriate string.
-    func metersToAltitude(meters: Double) -> Measurement<UnitLength> {
+    static func metersToAltitude(meters: Double) -> String {
         switch Locale.current.measurementSystem {
-        case .us: return (Measurement<UnitLength>(value: meters, unit: .meters).converted(to: .feet))
-        default: return (Measurement<UnitLength>(value: meters, unit: .meters))
+        case .us:
+            if meters > 160 {
+                let value = Measurement<UnitLength>(value: meters, unit: .meters).converted(to: .miles).value
+                return "\(String(format: "%.1f", value)) mi"
+            }
+            let value = Measurement<UnitLength>(value: meters, unit: .meters).converted(to: .feet).value
+            return "\(Int(value)) ft"
+        default:
+            if meters > 100 {
+                let value = Measurement<UnitLength>(value: meters, unit: .meters).converted(to: .kilometers).value
+                return "\(String(format: "%.1f", value)) km"
+            }
+            let value = Measurement<UnitLength>(value: meters, unit: .meters).value
+            return "\(Int(value)) m"
         }
     }
 }
