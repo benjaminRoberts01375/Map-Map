@@ -10,20 +10,12 @@ import SwiftUI
 struct TrackingGpsDrawerContentV: View {
     @ObservedObject var gpsMap: GPSMap
     @State var timer = Timer.publish(every: 0.25, on: .main, in: .common).autoconnect()
-    @State var additionalSeconds: Int = 0
+    @State var additionalSeconds: TimeInterval = .zero
     
     var body: some View {
         HStack {
-            let formattedText: String = {
-                let totalSeconds = additionalSeconds + Int(gpsMap.durationSeconds)
-                let hours = Int(totalSeconds / 3600)
-                let minutes = Int((totalSeconds - hours * 3600) / 60)
-                let seconds = Int(totalSeconds - (hours * 60 + minutes) * 60)
-                var time: String = "\(minutes):\(seconds)"
-                if hours != .zero { time = "\(hours):\(time)" }
-                return time
-            }()
-            Text("\(formattedText)")
+            let totalSeconds: TimeInterval = additionalSeconds + Double(gpsMap.durationSeconds)
+            Text(totalSeconds.description)
             VStack {
                 
             }
@@ -36,7 +28,7 @@ struct TrackingGpsDrawerContentV: View {
                 gpsMap.trackingStartDate = date
                 startDate = date
             }
-            additionalSeconds = Int(Date().timeIntervalSince(startDate))
+            additionalSeconds = Date().timeIntervalSince(startDate)
         }
     }
 }
