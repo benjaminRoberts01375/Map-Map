@@ -13,8 +13,7 @@ import Foundation
 public class GPSMap: NSManagedObject { 
     /// A simple getter for GPS Map Coordinates.
     var unwrappedCoordinates: [GPSMapCoordinate] {
-        let coordinates = self.coordinates as? Set<GPSMapCoordinate> ?? []
-        return Array(coordinates)
+        return self.coordinates?.array as? [GPSMapCoordinate] ?? []
     }
     
     /// Track how this GPS map is being edited.

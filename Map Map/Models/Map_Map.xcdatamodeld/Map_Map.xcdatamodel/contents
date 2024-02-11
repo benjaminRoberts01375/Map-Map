@@ -20,7 +20,7 @@
         <attribute name="editing" transient="YES" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="trackingStartDate" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="coordinates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GPSMapCoordinate" inverseName="gpsMap" inverseEntity="GPSMapCoordinate"/>
+        <relationship name="coordinates" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapCoordinate" inverseName="gpsMap" inverseEntity="GPSMapCoordinate"/>
     </entity>
     <entity name="GPSMapCoordinate" representedClassName="GPSMapCoordinate" syncable="YES" codeGenerationType="category">
         <attribute name="altitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
