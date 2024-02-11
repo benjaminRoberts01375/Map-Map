@@ -24,7 +24,7 @@ struct TrackingGpsDrawerContentV: View {
                     .font(.title)
             }
             HStack {
-                Text(LocationDisplayMode.metersToAltitude(meters: Double(gpsMap.distance)))
+                Text(LocationDisplayMode.metersToString(meters: Double(gpsMap.distance)))
                     .foregroundStyle(.secondary)
                     .fontWidth(.condensed)
                 Spacer()

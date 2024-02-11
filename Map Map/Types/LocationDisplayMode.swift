@@ -53,7 +53,7 @@ extension LocationDisplayMode {
     /// Convert meters to the appropriate string.
     /// - Parameter meters: Meters.
     /// - Returns: Meters formatted into the appropriate string.
-    static func metersToAltitude(meters: Double) -> String {
+    static func metersToString(meters: Double) -> String {
         switch Locale.current.measurementSystem {
         case .us:
             if meters > 160 {

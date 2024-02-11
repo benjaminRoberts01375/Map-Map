@@ -44,7 +44,7 @@ struct MapHudV: View {
                     Text(determineHeadingLabel())
                 }
                 Text("Altitude: ") +
-                Text(LocationDisplayMode.metersToAltitude(meters: locationsHandler.lastLocation.altitude))
+                Text(LocationDisplayMode.metersToString(meters: locationsHandler.lastLocation.altitude))
                     .fontWidth(.condensed)
             }
             Spacer(minLength: 0)
