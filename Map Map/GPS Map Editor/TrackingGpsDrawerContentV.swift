@@ -13,13 +13,27 @@ struct TrackingGpsDrawerContentV: View {
     @State var additionalSeconds: TimeInterval = .zero
     
     var body: some View {
-        HStack {
-            let totalSeconds: TimeInterval = additionalSeconds + Double(gpsMap.durationSeconds)
-            Text(totalSeconds.description)
-            VStack {
-                
+        VStack {
+            HStack {
+                let totalSeconds: TimeInterval = additionalSeconds + Double(gpsMap.durationSeconds)
+                Text(totalSeconds.description)
+                    .font(.title)
+                    .fontWidth(.condensed)
+                Spacer()
+                Text("Done")
+                    .font(.title)
+            }
+            HStack {
+                Text("<Distance>")
+                    .foregroundStyle(.secondary)
+                    .fontWidth(.condensed)
+                Spacer()
+                Text("max u ### max d ###")
+                    .foregroundStyle(.secondary)
+                    .fontWidth(.condensed)
             }
         }
+        .padding(.horizontal, 10)
         .onReceive(timer) { _ in
             let startDate: Date
             if let trackingStartDate = gpsMap.trackingStartDate { startDate = trackingStartDate }
