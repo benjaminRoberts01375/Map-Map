@@ -37,13 +37,11 @@ public class GPSMap: NSManagedObject {
         guard let moc = self.managedObjectContext
         else { return nil }
         let newCoordinate = GPSMapCoordinate(location: clLocation, moc: moc)
-        self.addToCoordinates(newCoordinate)
-        
         if let lastCoordinate = self.unwrappedCoordinates.last {
             lastCoordinate.addToNeighbors(newCoordinate)
             self.distance += Int32(clLocation.distance(from: lastCoordinate.clLocation)) // Cache increase in distance.
         }
-        
+        self.addToCoordinates(newCoordinate)
         return newCoordinate
     }
 }
