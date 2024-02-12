@@ -11,6 +11,8 @@ struct TrackingGpsDrawerContentV: View {
     @ObservedObject var gpsMap: GPSMap
     @State var timer = Timer.publish(every: 0.25, on: .main, in: .common).autoconnect()
     @State var additionalSeconds: TimeInterval = .zero
+    /// GPS user location.
+    @State private var locationsHandler = LocationsHandler.shared
     
     var body: some View {
         VStack {
@@ -43,6 +45,9 @@ struct TrackingGpsDrawerContentV: View {
                 startDate = date
             }
             additionalSeconds = Date().timeIntervalSince(startDate)
+        }
+        .onChange(of: locationsHandler.lastLocation) { _, update in
+            _ = gpsMap.addNewCoordinate(clLocation: update)
         }
     }
 }
