@@ -16,6 +16,8 @@ struct TrackingGpsDrawerContentV: View {
     @State var additionalSeconds: TimeInterval = .zero
     /// GPS user location.
     @State private var locationsHandler = LocationsHandler.shared
+    /// Current information about the base map.
+    @Environment(MapDetailsM.self) var mapDetails
     
     var body: some View {
         VStack {
@@ -52,5 +54,6 @@ struct TrackingGpsDrawerContentV: View {
         .onChange(of: locationsHandler.lastLocation) { _, update in
             _ = gpsMap.addNewCoordinate(clLocation: update)
         }
+        .onAppear { mapDetails.followUser() }
     }
 }

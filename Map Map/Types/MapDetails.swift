@@ -75,6 +75,12 @@ final class MapDetailsM {
     /// A simple wrapper to prevent the map from following the user's loc and rot.
     func preventFollowingUser() { self.liveMapController = .region(self.region) }
     
+    /// Quickly tell the background map to follow the user.
+    /// - Parameter followRotation: Bool to track rotation. Default is false.
+    func followUser(followRotation: Bool = false) {
+        liveMapController = .userLocation(followsHeading: followRotation, fallback: .automatic)
+    }
+    
     /// Allow easy jumping to a specific coordinate on the map.
     /// - Parameter coordinate: Coordinate to jump to.
     func jumpTo(coordinate: CLLocationCoordinate2D) {
