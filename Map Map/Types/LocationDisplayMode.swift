@@ -71,4 +71,14 @@ extension LocationDisplayMode {
             return "\(Int(value)) m"
         }
     }
+    
+    /// Convert a given speed to appropriate string.
+    /// - Parameter speed: Speed to convert.
+    /// - Returns: Converted string.
+    static func speedToString(speed: Measurement<UnitSpeed>) -> String {
+        switch Locale.current.measurementSystem {
+        case .us: return String(format: "%.1f", speed.converted(to: .milesPerHour).value) + "mph"
+        default: return String(format: "%.1f", speed.converted(to: .kilometersPerHour).value) + "kph"
+        }
+    }
 }
