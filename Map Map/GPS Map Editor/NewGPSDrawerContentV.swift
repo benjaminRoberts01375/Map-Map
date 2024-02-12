@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct NewGPSDrawerContentV: View {
+    /// Current managed object context.
     @Environment(\.managedObjectContext) var moc
+    /// Current working name of the gps map.
     @Binding var workingName: String
+    /// GPS map to edit.
     @ObservedObject var gpsMap: GPSMap
     
     var body: some View {

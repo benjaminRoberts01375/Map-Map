@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct TrackingGpsDrawerContentV: View {
+    /// Current GPS Map being edited.
     @ObservedObject var gpsMap: GPSMap
+    /// Fire a timer notification every 0.25 seconds.
     @State var timer = Timer.publish(every: 0.25, on: .main, in: .common).autoconnect()
+    /// Seconds since this view has been open.
     @State var additionalSeconds: TimeInterval = .zero
     /// GPS user location.
     @State private var locationsHandler = LocationsHandler.shared

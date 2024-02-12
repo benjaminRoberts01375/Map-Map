@@ -15,7 +15,7 @@ struct GPSMapEditorV: View {
     @Environment(MapDetailsM.self) var mapDetails
     /// Current name of the GPS Map
     @State var workingName: String
-    
+    /// GPS Map to edit.
     @ObservedObject var gpsMap: FetchedResults<GPSMap>.Element
     
     init(gpsMap: GPSMap) {
