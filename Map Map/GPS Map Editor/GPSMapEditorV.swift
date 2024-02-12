@@ -37,6 +37,7 @@ struct GPSMapEditorV: View {
                         }
                     }
                     .padding(.bottom, isShortCard ? 0 : 10)
+                    .padding(.horizontal, isShortCard ? 0 : 15)
                 }
                 .safeAreaPadding(geo.safeAreaInsets)
             }
