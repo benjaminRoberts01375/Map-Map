@@ -41,8 +41,8 @@ struct TrackingGpsDrawerContentV: View {
                         if !statsBottom {
                             HStack {
                                 VStack(alignment: .trailing) {
-                                    Text("500 ft ↑")
-                                    Text("100 ft ↓")
+                                    Text("\(LocationDisplayMode.metersToString(meters: Double(gpsMap.heightMax))) ↑")
+                                    Text("\(LocationDisplayMode.metersToString(meters: Double(gpsMap.heightMin))) ↓")
                                 }
                                 VStack(alignment: .leading) {
                                     Text(LocationDisplayMode.metersToString(meters: Double(gpsMap.distance)))
@@ -77,8 +77,8 @@ struct TrackingGpsDrawerContentV: View {
                 HStack {
                     Text(LocationDisplayMode.metersToString(meters: Double(gpsMap.distance)))
                     Text("\(LocationDisplayMode.speedToString(speed: speed))")
-                    Text("500 ft ↑")
-                    Text("100 ft ↓")
+                    Text("\(LocationDisplayMode.metersToString(meters: Double(gpsMap.heightMax))) ↑")
+                    Text("\(LocationDisplayMode.metersToString(meters: Double(gpsMap.heightMin))) ↓")
                 }
                 .foregroundStyle(.secondary)
                 .fontWidth(.condensed)
