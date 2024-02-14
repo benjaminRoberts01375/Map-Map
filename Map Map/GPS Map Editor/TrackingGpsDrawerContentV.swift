@@ -20,35 +20,47 @@ struct TrackingGpsDrawerContentV: View {
     @Environment(MapDetailsM.self) var mapDetails
     /// Current speed of the user
     @State var speed: Measurement<UnitSpeed> = Measurement(value: 0, unit: .metersPerSecond)
+    /// Track showing the confirmation dialog for the done button
+    @State var showDoneConfirmation: Bool = false
     
     var body: some View {
-        HStack {
-            let totalSeconds: TimeInterval = Double(additionalSeconds + Int(gpsMap.durationSeconds))
-            Text(totalSeconds.description)
-                .font(.system(size: 35))
-                .fontWidth(.condensed)
-                .bigButton(backgroundColor: .gray)
-            Spacer()
-            VStack(alignment: .trailing) {
+        VStack {
+            HStack {
+                let totalSeconds: TimeInterval = Double(additionalSeconds + Int(gpsMap.durationSeconds)) + 3600 * 10
+                Text(totalSeconds.description)
+                    .font(.system(size: 35))
+                    .fontWidth(.condensed)
+                    .bigButton(backgroundColor: .gray, minWidth: 120)
+                Spacer(minLength: 0)
+                Button {
+                    if showDoneConfirmation { showDoneConfirmation = false }
+                    else { showDoneConfirmation = true }
+                } label: {
+                    Text("Done")
+                        .font(.title3)
+                        .bigButton(backgroundColor: .red)
+                }
+                if showDoneConfirmation {
+                    Button {
+                        showDoneConfirmation = false
+                    } label: {
+                        Text("Cancel")
+                            .font(.title3)
+                            .bigButton(backgroundColor: .green)
+                    }
+                    .transition(.offset(x: 110))
+                }
+            }
+            HStack {
                 Text(LocationDisplayMode.metersToString(meters: Double(gpsMap.distance)))
                 Text("\(LocationDisplayMode.speedToString(speed: speed))")
+                Text("500 ft ↑")
+                Text("100 ft ↓")
             }
             .foregroundStyle(.secondary)
             .fontWidth(.condensed)
-            VStack(alignment: .leading) {
-                Text("max u ###")
-                Text("max d ###")
-            }
-            .foregroundStyle(.secondary)
-            .fontWidth(.condensed)
-            Button {
-                print("Trigger confirmation")
-            } label: {
-                Text("Done")
-                    .font(.title3)
-                    .bigButton(backgroundColor: .red)
-            }
         }
+        .animation(.easeInOut(duration: 0.25), value: showDoneConfirmation)
         .onReceive(timer) { _ in
             let startDate: Date
             if let trackingStartDate = gpsMap.trackingStartDate { startDate = trackingStartDate }
