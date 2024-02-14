@@ -22,6 +22,8 @@ struct TrackingGpsDrawerContentV: View {
     @State var speed: Measurement<UnitSpeed> = Measurement(value: 0, unit: .metersPerSecond)
     /// Track showing the confirmation dialog for the done button
     @State var showDoneConfirmation: Bool = false
+    /// Track the position of the stats.
+    @State var statsBottom: Bool = true
     
     var body: some View {
         VStack {
@@ -32,6 +34,26 @@ struct TrackingGpsDrawerContentV: View {
                     .fontWidth(.condensed)
                     .bigButton(backgroundColor: .gray, minWidth: 120)
                 Spacer(minLength: 0)
+                    .onViewResizes { _, new in
+                        statsBottom = new.width < 120
+                    }
+                    .overlay {
+                        if !statsBottom {
+                            HStack {
+                                VStack(alignment: .trailing) {
+                                    Text("500 ft ↑")
+                                    Text("100 ft ↓")
+                                }
+                                VStack(alignment: .leading) {
+                                    Text(LocationDisplayMode.metersToString(meters: Double(gpsMap.distance)))
+                                    Text("\(LocationDisplayMode.speedToString(speed: speed))")
+                                }
+                            }
+                            .foregroundStyle(.secondary)
+                            .fontWidth(.condensed)
+                            .transition(.opacity)
+                        }
+                    }
                 Button {
                     if showDoneConfirmation { showDoneConfirmation = false }
                     else { showDoneConfirmation = true }
@@ -51,16 +73,20 @@ struct TrackingGpsDrawerContentV: View {
                     .transition(.offset(x: 110))
                 }
             }
-            HStack {
-                Text(LocationDisplayMode.metersToString(meters: Double(gpsMap.distance)))
-                Text("\(LocationDisplayMode.speedToString(speed: speed))")
-                Text("500 ft ↑")
-                Text("100 ft ↓")
+            if statsBottom {
+                HStack {
+                    Text(LocationDisplayMode.metersToString(meters: Double(gpsMap.distance)))
+                    Text("\(LocationDisplayMode.speedToString(speed: speed))")
+                    Text("500 ft ↑")
+                    Text("100 ft ↓")
+                }
+                .foregroundStyle(.secondary)
+                .fontWidth(.condensed)
+                .transition(.move(edge: .bottom))
             }
-            .foregroundStyle(.secondary)
-            .fontWidth(.condensed)
         }
         .animation(.easeInOut(duration: 0.25), value: showDoneConfirmation)
+        .animation(.easeInOut(duration: 0.25), value: statsBottom)
         .onReceive(timer) { _ in
             let startDate: Date
             if let trackingStartDate = gpsMap.trackingStartDate { startDate = trackingStartDate }
