@@ -26,7 +26,11 @@ struct GPSMapEditorV: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
+                BottomDrawer(
+                    verticalDetents: [.content],
+                    horizontalDetents: [.center],
+                    shortCardSize: UIDevice.current.userInterfaceIdiom == .pad ? 400 : 360
+                ) { isShortCard in
                     VStack {
                         switch gpsMap.unwrappedEditing {
                         case .settingUp:
