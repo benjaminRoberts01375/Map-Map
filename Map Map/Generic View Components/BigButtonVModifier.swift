@@ -10,11 +10,12 @@ import SwiftUI
 /// Format the label of a button to appear as a large button for the bottom drawers.
 struct BigButton: ViewModifier {
     let background: Color
+    var minWidth: CGFloat
     
     func body(content: Content) -> some View {
         content
             .foregroundStyle(.white)
-            .frame(width: 90, height: 40)
+            .frame(minWidth: minWidth, minHeight: 40)
             .background(background)
             .clipShape(RoundedRectangle(cornerRadius: 10))
     }
@@ -22,7 +23,7 @@ struct BigButton: ViewModifier {
 
 extension View {
     /// Format the label of a button to appear as a large button for the bottom drawers.
-    func bigButton(backgroundColor background: Color) -> some View {
-        return modifier(BigButton(background: background))
+    func bigButton(backgroundColor background: Color, minWidth: CGFloat = 90) -> some View {
+        return modifier(BigButton(background: background, minWidth: minWidth))
     }
 }
