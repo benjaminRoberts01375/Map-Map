@@ -18,6 +18,8 @@
         <attribute name="distanceMeters" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="durationSeconds" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="editing" transient="YES" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="heightMax" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="heightMin" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="trackingStartDate" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="coordinates" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapCoordinate" inverseName="gpsMap" inverseEntity="GPSMapCoordinate"/>
