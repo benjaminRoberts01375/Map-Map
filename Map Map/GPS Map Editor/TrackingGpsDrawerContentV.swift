@@ -28,7 +28,7 @@ struct TrackingGpsDrawerContentV: View {
     var body: some View {
         VStack {
             HStack {
-                let totalSeconds: TimeInterval = Double(additionalSeconds + Int(gpsMap.durationSeconds)) + 3600 * 10
+                let totalSeconds: TimeInterval = Double(additionalSeconds + Int(gpsMap.durationSeconds))
                 Text(totalSeconds.description)
                     .font(.system(size: 35))
                     .fontWidth(.condensed)
