@@ -55,7 +55,14 @@ struct TrackingGpsDrawerContentV: View {
                         }
                     }
                 Button {
-                    if showDoneConfirmation { showDoneConfirmation = false }
+                    if showDoneConfirmation {
+                        gpsMap.durationSeconds += Int32(additionalSeconds)
+                        gpsMap.unwrappedEditing = .editing
+                        guard let moc = gpsMap.managedObjectContext
+                        else { return }
+                        try? moc.save()
+                        gpsMap.unwrappedEditing = .editing
+                    }
                     else { showDoneConfirmation = true }
                 } label: {
                     Text("Done")
