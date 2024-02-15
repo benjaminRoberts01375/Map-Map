@@ -1,0 +1,116 @@
+//
+//  TrackingGpsDrawerContentV.swift
+//  Map Map
+//
+//  Created by Ben Roberts on 2/9/24.
+//
+
+import SwiftUI
+
+struct TrackingGpsDrawerContentV: View {
+    /// Current GPS Map being edited.
+    @ObservedObject var gpsMap: GPSMap
+    /// Fire a timer notification every 0.25 seconds.
+    @State var timer = Timer.publish(every: 0.25, on: .main, in: .common).autoconnect()
+    /// Seconds since this view has been open.
+    @State var additionalSeconds: Int = .zero
+    /// GPS user location.
+    @State private var locationsHandler = LocationsHandler.shared
+    /// Current information about the base map.
+    @Environment(MapDetailsM.self) var mapDetails
+    /// Current speed of the user
+    @State var speed: Measurement<UnitSpeed> = Measurement(value: 0, unit: .metersPerSecond)
+    /// Track showing the confirmation dialog for the done button
+    @State var showDoneConfirmation: Bool = false
+    /// Track the position of the stats.
+    @State var statsBottom: Bool = true
+    
+    var body: some View {
+        VStack {
+            HStack {
+                let totalSeconds: TimeInterval = Double(additionalSeconds + Int(gpsMap.durationSeconds))
+                Text(totalSeconds.description)
+                    .font(.system(size: 35))
+                    .fontWidth(.condensed)
+                    .bigButton(backgroundColor: .gray, minWidth: 120)
+                Spacer(minLength: 0)
+                    .onViewResizes { _, new in
+                        statsBottom = new.width < 120
+                    }
+                    .overlay {
+                        if !statsBottom {
+                            HStack {
+                                VStack(alignment: .trailing) {
+                                    Text("\(LocationDisplayMode.metersToString(meters: Double(gpsMap.heightMax))) ↑")
+                                    Text("\(LocationDisplayMode.metersToString(meters: Double(gpsMap.heightMin))) ↓")
+                                }
+                                VStack(alignment: .leading) {
+                                    Text(LocationDisplayMode.metersToString(meters: Double(gpsMap.distance)))
+                                    Text("\(LocationDisplayMode.speedToString(speed: speed))")
+                                }
+                            }
+                            .foregroundStyle(.secondary)
+                            .fontWidth(.condensed)
+                            .transition(.opacity)
+                        }
+                    }
+                Button {
+                    if showDoneConfirmation {
+                        gpsMap.durationSeconds += Int32(additionalSeconds)
+                        gpsMap.unwrappedEditing = .editing
+                        guard let moc = gpsMap.managedObjectContext
+                        else { return }
+                        try? moc.save()
+                        gpsMap.unwrappedEditing = .editing
+                    }
+                    else { showDoneConfirmation = true }
+                } label: {
+                    Text("Done")
+                        .font(.title3)
+                        .bigButton(backgroundColor: .red)
+                }
+                if showDoneConfirmation {
+                    Button {
+                        showDoneConfirmation = false
+                    } label: {
+                        Text("Cancel")
+                            .font(.title3)
+                            .bigButton(backgroundColor: .green)
+                    }
+                    .transition(.offset(x: 110))
+                }
+            }
+            if statsBottom {
+                HStack {
+                    Text(LocationDisplayMode.metersToString(meters: Double(gpsMap.distance)))
+                    Text("\(LocationDisplayMode.speedToString(speed: speed))")
+                    Text("\(LocationDisplayMode.metersToString(meters: Double(gpsMap.heightMax))) ↑")
+                    Text("\(LocationDisplayMode.metersToString(meters: Double(gpsMap.heightMin))) ↓")
+                }
+                .foregroundStyle(.secondary)
+                .fontWidth(.condensed)
+                .transition(.move(edge: .bottom))
+            }
+        }
+        .animation(.easeInOut(duration: 0.25), value: showDoneConfirmation)
+        .animation(.easeInOut(duration: 0.25), value: statsBottom)
+        .onReceive(timer) { _ in
+            let startDate: Date
+            if let trackingStartDate = gpsMap.trackingStartDate { startDate = trackingStartDate }
+            else {
+                let date = Date()
+                gpsMap.trackingStartDate = date
+                startDate = date
+            }
+            additionalSeconds = Int(Date().timeIntervalSince(startDate))
+        }
+        .onChange(of: locationsHandler.lastLocation) { _, update in
+            _ = gpsMap.addNewCoordinate(clLocation: update)
+        }
+        .onChange(of: additionalSeconds) {
+            let totalSeconds: TimeInterval = Double(additionalSeconds + Int(gpsMap.durationSeconds))
+            self.speed = Measurement(value: Double(gpsMap.distance) / totalSeconds, unit: .metersPerSecond)
+        }
+        .onAppear { mapDetails.followUser() }
+    }
+}

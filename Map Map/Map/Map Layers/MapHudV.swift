@@ -43,9 +43,8 @@ struct MapHudV: View {
                     Text("\(String(format: stringFormat, mapDetails.userRotation.degrees))º ").fontWidth(.condensed) +
                     Text(determineHeadingLabel())
                 }
-                let altitude = locationDisplayType.metersToAltitude(meters: locationsHandler.lastLocation.altitude)
                 Text("Altitude: ") +
-                Text("\(Int(altitude.value)) \(altitude.unit == .feet ? "ft" : "m" )")
+                Text(LocationDisplayMode.metersToString(meters: locationsHandler.lastLocation.altitude))
                     .fontWidth(.condensed)
             }
             Spacer(minLength: 0)

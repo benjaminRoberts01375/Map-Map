@@ -15,7 +15,7 @@ struct GPSMapEditorV: View {
     @Environment(MapDetailsM.self) var mapDetails
     /// Current name of the GPS Map
     @State var workingName: String
-    
+    /// GPS Map to edit.
     @ObservedObject var gpsMap: FetchedResults<GPSMap>.Element
     
     init(gpsMap: GPSMap) {
@@ -26,14 +26,25 @@ struct GPSMapEditorV: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
+                BottomDrawer(
+                    verticalDetents: [.content],
+                    horizontalDetents: [.center],
+                    shortCardSize: UIDevice.current.userInterfaceIdiom == .pad ? 400 : 360
+                ) { isShortCard in
                     VStack {
-                        if let coordinates = gpsMap.coordinates, coordinates.count == .zero {
+                        switch gpsMap.unwrappedEditing {
+                        case .settingUp:
                             NewGPSDrawerContentV(workingName: $workingName, gpsMap: gpsMap)
+                        case .tracking:
+                            TrackingGpsDrawerContentV(gpsMap: gpsMap)
+                        case .editing:
+                            EmptyView()
+                        case .viewing:
+                            EmptyView()
                         }
-                        else { EmptyView() }
                     }
                     .padding(.bottom, isShortCard ? 0 : 10)
+                    .padding(.horizontal, 15)
                 }
                 .safeAreaPadding(geo.safeAreaInsets)
             }
