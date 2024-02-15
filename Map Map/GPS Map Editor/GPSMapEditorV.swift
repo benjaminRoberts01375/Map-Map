@@ -37,7 +37,10 @@ struct GPSMapEditorV: View {
                             NewGPSDrawerContentV(workingName: $workingName, gpsMap: gpsMap)
                         case .tracking:
                             TrackingGpsDrawerContentV(gpsMap: gpsMap)
-                        default: EmptyView()
+                        case .editing:
+                            EmptyView()
+                        case .viewing:
+                            EmptyView()
                         }
                     }
                     .padding(.bottom, isShortCard ? 0 : 10)
