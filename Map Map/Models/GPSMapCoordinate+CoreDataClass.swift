@@ -13,7 +13,7 @@ import MapKit
 @objc(GPSMapCoordinate)
 public class GPSMapCoordinate: NSManagedObject {
     public var unwrappedNeighbors: [GPSMapCoordinate] {
-        return self.neighbors as? Array ?? []
+        return self.neighbors?.allObjects as? [GPSMapCoordinate] ?? []
     }
 }
 
