@@ -96,6 +96,8 @@
 		B5E527502B7694530027300D /* GPSMapEditorV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E5274F2B7694530027300D /* GPSMapEditorV.swift */; };
 		B5E527532B769C2D0027300D /* NewGPSDrawerContentV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E527522B769C2D0027300D /* NewGPSDrawerContentV.swift */; };
 		B5E527572B76CAFE0027300D /* TrackingGpsDrawerContentV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E527562B76CAFE0027300D /* TrackingGpsDrawerContentV.swift */; };
+		B5F0D7622B7FDB68003B4FBE /* GPSMapV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F0D7612B7FDB68003B4FBE /* GPSMapV.swift */; };
+		B5F0D7652B7FDB90003B4FBE /* GPSMapConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F0D7642B7FDB90003B4FBE /* GPSMapConnection.swift */; };
 		B5FADE572B5C6F0600AD933C /* MarkupV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FADE562B5C6F0600AD933C /* MarkupV.swift */; };
 		B5FADE5A2B5C6F9700AD933C /* MarkupEditorVIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FADE592B5C6F9700AD933C /* MarkupEditorVIOS.swift */; };
 /* End PBXBuildFile section */
@@ -191,6 +193,8 @@
 		B5E5274F2B7694530027300D /* GPSMapEditorV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSMapEditorV.swift; sourceTree = "<group>"; };
 		B5E527522B769C2D0027300D /* NewGPSDrawerContentV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGPSDrawerContentV.swift; sourceTree = "<group>"; };
 		B5E527562B76CAFE0027300D /* TrackingGpsDrawerContentV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingGpsDrawerContentV.swift; sourceTree = "<group>"; };
+		B5F0D7612B7FDB68003B4FBE /* GPSMapV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSMapV.swift; sourceTree = "<group>"; };
+		B5F0D7642B7FDB90003B4FBE /* GPSMapConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSMapConnection.swift; sourceTree = "<group>"; };
 		B5FADE562B5C6F0600AD933C /* MarkupV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupV.swift; sourceTree = "<group>"; };
 		B5FADE592B5C6F9700AD933C /* MarkupEditorVIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupEditorVIOS.swift; sourceTree = "<group>"; };
 		F9F51AE19721651D3510199A /* Pods_Map_Map.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Map_Map.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -259,6 +263,7 @@
 				078C6DCA2B0B0100001AD131 /* CrosshairV.swift */,
 				B57D8A562B5EC079002B9F7C /* DisplayDrawingV.swift */,
 				0762DD642AD4696B00C36D33 /* DoneButtonV.swift */,
+				B5F0D7632B7FDB84003B4FBE /* GPS Map */,
 				072DDB2D2AF426E000E74963 /* HandleV.swift */,
 				0743138E2B2FC45300909B7A /* LineLabelVModifier.swift */,
 				079B603F2B2CC71D0073E936 /* LineShape.swift */,
@@ -458,6 +463,15 @@
 			path = "GPS Map Editor";
 			sourceTree = "<group>";
 		};
+		B5F0D7632B7FDB84003B4FBE /* GPS Map */ = {
+			isa = PBXGroup;
+			children = (
+				B5F0D7612B7FDB68003B4FBE /* GPSMapV.swift */,
+				B5F0D7642B7FDB90003B4FBE /* GPSMapConnection.swift */,
+			);
+			path = "GPS Map";
+			sourceTree = "<group>";
+		};
 		B5FADE582B5C6F2F00AD933C /* Markup Editor */ = {
 			isa = PBXGroup;
 			children = (
@@ -625,6 +639,7 @@
 				B5FADE5A2B5C6F9700AD933C /* MarkupEditorVIOS.swift in Sources */,
 				07A9C6BA2AF1CA3300C3AED4 /* PhotoEditorV.swift in Sources */,
 				072DDB302AF42A3E00E74963 /* IrregularGridV.swift in Sources */,
+				B5F0D7652B7FDB90003B4FBE /* GPSMapConnection.swift in Sources */,
 				07249C222B1692610088B721 /* MarkerColor+CoreDataClass.swift in Sources */,
 				B5B6C78F2B695B6E00F352BC /* AudioAlertsVModifier.swift in Sources */,
 				075C65682AF4C5C900864A34 /* CGSizeE.swift in Sources */,
@@ -677,6 +692,7 @@
 				07FD85612AE6DD1E0089652B /* MapMapListItemV.swift in Sources */,
 				07764B422AF96DFA0009525E /* DefaultDrawerHeaderV.swift in Sources */,
 				078C6DCB2B0B0100001AD131 /* CrosshairV.swift in Sources */,
+				B5F0D7622B7FDB68003B4FBE /* GPSMapV.swift in Sources */,
 				0762DD1F2AD37A1300C36D33 /* MapMap+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
