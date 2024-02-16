@@ -83,7 +83,7 @@ struct GPSMapV: View {
                 for connectedNode in current.unwrappedNeighbors {
                     if visited.contains(connectedNode) { continue }
                     queue.insert(connectedNode)
-                    connections.append(Connection(connectedNode, current))
+                    connections.append(Connection(start: connectedNode, end: current))
                 }
                 visited.insert(current)
             }
