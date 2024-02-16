@@ -11,7 +11,11 @@ import Foundation
 import MapKit
 
 @objc(GPSMapCoordinate)
-public class GPSMapCoordinate: NSManagedObject { }
+public class GPSMapCoordinate: NSManagedObject {
+    public var unwrappedNeighbors: [GPSMapCoordinate] {
+        return self.neighbors as? Array ?? []
+    }
+}
 
 public extension GPSMapCoordinate {
     /// A convenience init for generating a GPSMapCoordinate from a clLocation.
