@@ -19,7 +19,25 @@ struct GPSMapV: View {
     @State var lineEnds: [GPSMapCoordinate : CGPoint] = [:]
     
     var body: some View {
-        /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Hello, world!@*/Text("Hello, world!")/*@END_MENU_TOKEN@*/
+        ZStack {
+            ForEach(lines) { connection in
+                if let startingPos = lineEnds[connection.start],
+                   let endingPos = lineEnds[connection.end] {
+                    Line(startingPos: CGSize(cgPoint: startingPos), endingPos: CGSize(cgPoint: endingPos))// Outline line
+                        .stroke(style: StrokeStyle(lineWidth: 6, lineCap: .round))
+                        .foregroundStyle(.blue)
+                }
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { interpretCDNotification($0) }
+        .onChange(of: mapDetails.mapCamera) {
+            Task { 
+                let lines = await calculateSSlineEndPos()
+                DispatchQueue.main.async {
+                    self.lineEnds = lines
+                }
+            }
+        }
     }
     
     /// Based on the notification ``NSManagedObjectContextObjectsDidChange`` Core Data notification, check to see how Core Data has updated,

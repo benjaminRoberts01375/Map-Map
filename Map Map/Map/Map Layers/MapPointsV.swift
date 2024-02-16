@@ -16,6 +16,8 @@ struct MapPointsV: View {
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
     /// All available measurements.
     @FetchRequest(sortDescriptors: []) private var measurementCoordinates: FetchedResults<MapMeasurementCoordinate>
+    /// All available GPSMaps.
+    @FetchRequest(sortDescriptors: []) private var gpsMaps: FetchedResults<GPSMap>
     /// GPS user location.
     @State private var locationsHandler = LocationsHandler.shared
     /// The user's location in screen-space
@@ -58,6 +60,10 @@ struct MapPointsV: View {
                 }
             }
             .allowsHitTesting(false)
+            
+            ForEach(gpsMaps) { gpsMap in
+                GPSMapV(gpsMap: gpsMap)
+            }
             
             ForEach(markers) { marker in
                 if let position = mapDetails.mapProxy?.convert(marker.coordinates, to: .global), !marker.isEditing && marker.shown {
