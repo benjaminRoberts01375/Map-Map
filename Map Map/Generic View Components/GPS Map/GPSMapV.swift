@@ -35,7 +35,6 @@ struct GPSMapV: View {
                }
                else if message == .update, let mapCoordinates = userInfoElement.value as? Set<GPSMapCoordinate> {
                    if mapCoordinates.count > 1 { self.lines = connectionsToDraw() }
-                   updateCoordinate(mapCoordinates)
                }
            }
        }
@@ -54,30 +53,12 @@ struct GPSMapV: View {
         return result
     }
     
-    /// Update lines to use correct distances.
-    /// - Parameter mapCoordinates: Map Coordinates to be updated.
-    private func updateCoordinate(_ mapCoordinates: Set<GPSMapCoordinate>) {
-        for mapCoordinate in mapCoordinates {
-            for lineIndex in lines.indices {
-                if lines[lineIndex].start == mapCoordinate {
-                    let startLocation = CLLocation(latitude: mapCoordinate.latitude, longitude: mapCoordinate.longitude)
-                    let endLocation = CLLocation(latitude: lines[lineIndex].end.latitude, longitude: lines[lineIndex].end.longitude)
-                }
-                else if lines[lineIndex].end == mapCoordinate {
-                    let startLocation = CLLocation(latitude: mapCoordinate.latitude, longitude: mapCoordinate.longitude)
-                    let endLocation = CLLocation(latitude: lines[lineIndex].start.latitude, longitude: lines[lineIndex].start.longitude)
-                }
-            }
-        }
-    }
-    
     func connectionsToDraw() -> [Connection] {
         var visited: Set<GPSMapCoordinate> = []
         var connections: [Connection] = []
         for firstNode in gpsMap.unwrappedCoordinates {
             if visited.contains(firstNode) { continue }
             var queue: Set<GPSMapCoordinate> = [firstNode]
-            
             while !queue.isEmpty {
                 let current = queue.removeFirst()
                 for connectedNode in current.unwrappedNeighbors {
