@@ -12,9 +12,9 @@ extension GPSMapV {
     /// A basic struct to track the connection between two measurement points.
     internal struct Connection: Identifiable {
         /// Supposed starting position of the connection.
-        public var start: GPSMapCoordinate
+        public var start: CGPoint
         /// Supposed ending position of the connection
-        public var end: GPSMapCoordinate
+        public var end: CGPoint
         /// ID for Identifiable conformance.
         let id = UUID()
     }
