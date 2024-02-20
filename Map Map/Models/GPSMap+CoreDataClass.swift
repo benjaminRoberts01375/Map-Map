@@ -47,9 +47,13 @@ public class GPSMap: NSManagedObject {
                     end: newCoordinate,
                     context: moc
                 ))
+                self.distance += Int32(clLocation.distance(from: startCoordinate.clLocation))
             }
             else { // Use the existing connection with current as new end
                 lastConnection.end = newCoordinate
+                if let startCoordinate = lastConnection.start {
+                    self.distance += Int32(clLocation.distance(from: startCoordinate.clLocation))
+                }
             }
         }
         else {
