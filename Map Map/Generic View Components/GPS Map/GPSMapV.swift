@@ -24,19 +24,23 @@ struct GPSMapV: View {
                     .foregroundStyle(.blue)
             }
         }
-        .onChange(of: mapDetails.mapCamera) {
-            Task {
-                let lines = await calculateSSlineEndPos()
-                DispatchQueue.main.async {
-                    self.lineEnds = lines
-                }
+        .onChange(of: mapDetails.mapCamera) { setSSLineEndPos() }
+        .onChange(of: gpsMap.connections?.count) { setSSLineEndPos() }
+    }
+    
+    /// Update line positions from the line end positions func.
+    func setSSLineEndPos() {
+        Task {
+            let lines = await calculateSSLineEndPos()
+            DispatchQueue.main.async {
+                self.lineEnds = lines
             }
         }
     }
     
     /// Determine how to draw lines from coordinate points.
     /// - Returns: Calculated positions.
-    func calculateSSlineEndPos() async -> [Connection] {
+    func calculateSSLineEndPos() async -> [Connection] {
         var result: [Connection] = []
         for connection in gpsMap.unwrappedConnections {
             if let startCoord = connection.start,
