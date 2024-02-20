@@ -53,14 +53,16 @@ struct GPSMapV: View {
             height: correctedSpan.longitudeDelta
         )
         var result: [Connection] = []
-        for connection in gpsMap.unwrappedConnections {
+        let pruner: Int = Int((mapDetails.mapCamera.distance / 200).rounded(.awayFromZero))
+        
+        for (index, connection) in gpsMap.unwrappedConnections.enumerated() where index % pruner == 0 {
             if let startCoord = connection.start,
                let endCoord = connection.end,
                ssMapMesh.contains(CGPoint(x: startCoord.coordinates.latitude, y: startCoord.coordinates.longitude)) ||
                 ssMapMesh.contains(CGPoint(x: endCoord.coordinates.latitude, y: endCoord.coordinates.longitude)),
                let startPoint = mapDetails.mapProxy?.convert(startCoord.coordinates, to: .global),
                let endPoint = mapDetails.mapProxy?.convert(endCoord.coordinates, to: .global) {
-                result.append(Connection(start: startPoint, end: endPoint))
+                result.append(Connection(start: result.last?.end ?? startPoint, end: endPoint))
             }
         }
         return result
