@@ -39,6 +39,8 @@ public class GPSMap: NSManagedObject {
         let truncAlt = Int16(clLocation.altitude) // Track min/max altitude
         let newCoordinate = GPSMapCoordinate(location: clLocation, moc: moc)
         if let lastConnection = self.unwrappedConnections.last {
+            if self.heightMax < truncAlt { self.heightMax = truncAlt }
+            else if self.heightMin > truncAlt { self.heightMin = truncAlt }
             if let startCoordinate = lastConnection.end { // Create a new connection using previous end as new start
                 self.addToConnections(GPSMapCoordinateConnection(
                     start: startCoordinate,
