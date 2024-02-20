@@ -25,6 +25,7 @@ public class GPSMap: NSManagedObject {
         case viewing = 3
     }
     
+    /// Get the current editing state as an enum.
     var unwrappedEditing: EditingState {
         get { return EditingState(rawValue: self.editing) ?? .settingUp }
         set(newValue) { editing = newValue.rawValue }
