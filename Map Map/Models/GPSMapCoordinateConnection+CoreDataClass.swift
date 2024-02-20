@@ -12,7 +12,14 @@ import Foundation
 @objc(GPSMapCoordinateConnection)
 public class GPSMapCoordinateConnection: NSManagedObject {
     var start: GPSMapCoordinate? { self.coordinates?.array.first as? GPSMapCoordinate }
-    var end: GPSMapCoordinate? { self.coordinates?.array.last as? GPSMapCoordinate }
+    public internal(set) var end: GPSMapCoordinate? {
+        get { self.coordinates?.array.last as? GPSMapCoordinate }
+        set {
+            self.removeFromCoordinates(at: 1)
+            if let coordinate = newValue { self.addToCoordinates(coordinate) }
+        }
+    }
+}
 
 public extension GPSMapCoordinateConnection {
     /// Create a GPSMapCoordinateConnection from a starting and ending point.
