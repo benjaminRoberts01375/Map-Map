@@ -37,19 +37,25 @@ public class GPSMap: NSManagedObject {
         guard let moc = self.managedObjectContext
         else { return nil }
         let truncAlt = Int16(clLocation.altitude) // Track min/max altitude
-        // Add new coordinate
         let newCoordinate = GPSMapCoordinate(location: clLocation, moc: moc)
-        if let lastCoordinate = self.unwrappedCoordinates.last { // Coordinates exist
-            lastCoordinate.addToNeighbors(newCoordinate)
-            self.distance += Int32(clLocation.distance(from: lastCoordinate.clLocation)) // Cache increase in distance.
-            if truncAlt > self.heightMax { self.heightMax = truncAlt }
-            else if truncAlt < self.heightMin { self.heightMin = truncAlt }
+        if let lastConnection = self.unwrappedConnections.last {
+            if let startCoordinate = lastConnection.end { // Create a new connection using previous end as new start
+                self.addToConnections(GPSMapCoordinateConnection(
+                    start: startCoordinate,
+                    end: newCoordinate,
+                    context: moc
+                ))
+            }
+            else { // Use the existing connection with current as new end
+                lastConnection.end = newCoordinate
+            }
         }
-        else { // No previous coordinates available
+        else {
             self.heightMax = truncAlt
             self.heightMin = truncAlt
+            // Create new connection with current as start
+            self.addToConnections(GPSMapCoordinateConnection(start: newCoordinate, context: moc))
         }
-        self.addToCoordinates(newCoordinate)
         return newCoordinate
     }
 }
