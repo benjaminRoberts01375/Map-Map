@@ -41,10 +41,23 @@ struct GPSMapV: View {
     /// Determine how to draw lines from coordinate points.
     /// - Returns: Calculated positions.
     func calculateSSLineEndPos() async -> [Connection] {
+        let spanMultiplier = 1.1
+        let correctedSpan = MKCoordinateSpan(
+            latitudeDelta: mapDetails.region.span.latitudeDelta * spanMultiplier,
+            longitudeDelta: mapDetails.region.span.longitudeDelta * spanMultiplier
+        )
+        let ssMapMesh = CGRect(
+            x: mapDetails.region.center.latitude - correctedSpan.latitudeDelta / 2,
+            y: mapDetails.region.center.longitude - correctedSpan.longitudeDelta / 2,
+            width: correctedSpan.latitudeDelta,
+            height: correctedSpan.longitudeDelta
+        )
         var result: [Connection] = []
         for connection in gpsMap.unwrappedConnections {
             if let startCoord = connection.start,
                let endCoord = connection.end,
+               ssMapMesh.contains(CGPoint(x: startCoord.coordinates.latitude, y: startCoord.coordinates.longitude)) ||
+                ssMapMesh.contains(CGPoint(x: endCoord.coordinates.latitude, y: endCoord.coordinates.longitude)),
                let startPoint = mapDetails.mapProxy?.convert(startCoord.coordinates, to: .global),
                let endPoint = mapDetails.mapProxy?.convert(endCoord.coordinates, to: .global) {
                 result.append(Connection(start: startPoint, end: endPoint))
