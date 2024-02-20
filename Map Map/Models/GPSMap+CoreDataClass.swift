@@ -14,7 +14,7 @@ import MapKit
 public class GPSMap: NSManagedObject { 
     /// A simple getter for GPS Map Coordinates.
     var unwrappedConnections: [GPSMapCoordinateConnection] {
-        return self.connections?.array as? [GPSMapCoordinateConnection] ?? []
+        return (self.connections?.array as? [GPSMapCoordinateConnection] ?? []).filter { $0.end != nil }
     }
     
     /// Track how this GPS map is being edited.
