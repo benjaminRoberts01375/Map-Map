@@ -13,8 +13,8 @@ import MapKit
 @objc(GPSMap)
 public class GPSMap: NSManagedObject { 
     /// A simple getter for GPS Map Coordinates.
-    var unwrappedCoordinates: [GPSMapCoordinate] {
-        return self.coordinates?.array as? [GPSMapCoordinate] ?? []
+    var unwrappedConnections: [GPSMapCoordinateConnection] {
+        return (self.connections?.array as? [GPSMapCoordinateConnection] ?? []).filter { $0.end != nil }
     }
     
     /// Track how this GPS map is being edited.
@@ -25,6 +25,7 @@ public class GPSMap: NSManagedObject {
         case viewing = 3
     }
     
+    /// Get the current editing state as an enum.
     var unwrappedEditing: EditingState {
         get { return EditingState(rawValue: self.editing) ?? .settingUp }
         set(newValue) { editing = newValue.rawValue }
@@ -37,19 +38,27 @@ public class GPSMap: NSManagedObject {
         guard let moc = self.managedObjectContext
         else { return nil }
         let truncAlt = Int16(clLocation.altitude) // Track min/max altitude
-        // Add new coordinate
         let newCoordinate = GPSMapCoordinate(location: clLocation, moc: moc)
-        if let lastCoordinate = self.unwrappedCoordinates.last { // Coordinates exist
-            lastCoordinate.addToNeighbors(newCoordinate)
-            self.distance += Int32(clLocation.distance(from: lastCoordinate.clLocation)) // Cache increase in distance.
-            if truncAlt > self.heightMax { self.heightMax = truncAlt }
-            else if truncAlt < self.heightMin { self.heightMin = truncAlt }
+        
+        if let lastConnection = self.unwrappedConnections.last {
+            if self.heightMax < truncAlt { self.heightMax = truncAlt }
+            else if self.heightMin > truncAlt { self.heightMin = truncAlt }
+            
+            if let startCoordinate = lastConnection.end { // Create a new connection using previous end as new start
+                self.addToConnections(GPSMapCoordinateConnection(start: startCoordinate, end: newCoordinate, context: moc))
+                self.distance += Int32(clLocation.distance(from: startCoordinate.clLocation))
+            }
+            else if let startCoordinate = lastConnection.start { // Use the existing connection with current as new end
+                lastConnection.end = newCoordinate
+                self.distance += Int32(clLocation.distance(from: startCoordinate.clLocation))
+            }
+            return newCoordinate
         }
-        else { // No previous coordinates available
-            self.heightMax = truncAlt
-            self.heightMin = truncAlt
-        }
-        self.addToCoordinates(newCoordinate)
+        
+        self.heightMax = truncAlt
+        self.heightMin = truncAlt
+        // Create new connection with current as start
+        self.addToConnections(GPSMapCoordinateConnection(start: newCoordinate, context: moc))
         return newCoordinate
     }
 }
