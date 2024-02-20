@@ -13,8 +13,8 @@ import MapKit
 @objc(GPSMap)
 public class GPSMap: NSManagedObject { 
     /// A simple getter for GPS Map Coordinates.
-    var unwrappedCoordinates: [GPSMapCoordinate] {
-        return self.coordinates?.array as? [GPSMapCoordinate] ?? []
+    var unwrappedConnections: [GPSMapCoordinateConnection] {
+        return self.connections?.array as? [GPSMapCoordinateConnection] ?? []
     }
     
     /// Track how this GPS map is being edited.
