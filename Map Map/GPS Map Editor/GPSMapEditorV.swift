@@ -38,7 +38,7 @@ struct GPSMapEditorV: View {
                         case .tracking:
                             TrackingGpsDrawerContentV(gpsMap: gpsMap)
                         case .editing:
-                            EmptyView()
+                            GPSMapEditingV(gpsMap)
                         case .viewing:
                             EmptyView()
                         }

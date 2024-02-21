@@ -100,6 +100,7 @@
 		B5F0D7652B7FDB90003B4FBE /* GPSMapConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F0D7642B7FDB90003B4FBE /* GPSMapConnection.swift */; };
 		B5FA57ED2B83D5FB0057BCD7 /* GPSMapCoordinateConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FA57EC2B83D5FB0057BCD7 /* GPSMapCoordinateConnection.swift */; };
 		B5FA57EF2B85264C0057BCD7 /* GPSMapConnectionColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FA57EE2B85264C0057BCD7 /* GPSMapConnectionColor.swift */; };
+		B5FA57F62B8660240057BCD7 /* GPSMapEditingV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FA57F52B8660240057BCD7 /* GPSMapEditingV.swift */; };
 		B5FADE572B5C6F0600AD933C /* MarkupV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FADE562B5C6F0600AD933C /* MarkupV.swift */; };
 		B5FADE5A2B5C6F9700AD933C /* MarkupEditorVIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FADE592B5C6F9700AD933C /* MarkupEditorVIOS.swift */; };
 /* End PBXBuildFile section */
@@ -199,6 +200,7 @@
 		B5F0D7642B7FDB90003B4FBE /* GPSMapConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSMapConnection.swift; sourceTree = "<group>"; };
 		B5FA57EC2B83D5FB0057BCD7 /* GPSMapCoordinateConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GPSMapCoordinateConnection.swift; path = "/Users/ben/Desktop/Map Map/Map Map/Models/GPSMapCoordinateConnection.swift"; sourceTree = "<absolute>"; };
 		B5FA57EE2B85264C0057BCD7 /* GPSMapConnectionColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GPSMapConnectionColor.swift; path = "/Users/ben/Desktop/Map Map/Map Map/Models/GPSMapConnectionColor.swift"; sourceTree = "<absolute>"; };
+		B5FA57F52B8660240057BCD7 /* GPSMapEditingV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSMapEditingV.swift; sourceTree = "<group>"; };
 		B5FADE562B5C6F0600AD933C /* MarkupV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupV.swift; sourceTree = "<group>"; };
 		B5FADE592B5C6F9700AD933C /* MarkupEditorVIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupEditorVIOS.swift; sourceTree = "<group>"; };
 		F9F51AE19721651D3510199A /* Pods_Map_Map.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Map_Map.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -459,9 +461,10 @@
 		B5E527512B7694580027300D /* GPS Map Editor */ = {
 			isa = PBXGroup;
 			children = (
+				B5FA57F52B8660240057BCD7 /* GPSMapEditingV.swift */,
 				B5E5274F2B7694530027300D /* GPSMapEditorV.swift */,
-				B5E527562B76CAFE0027300D /* TrackingGpsDrawerContentV.swift */,
 				B5E527522B769C2D0027300D /* NewGPSDrawerContentV.swift */,
+				B5E527562B76CAFE0027300D /* TrackingGpsDrawerContentV.swift */,
 			);
 			path = "GPS Map Editor";
 			sourceTree = "<group>";
@@ -643,6 +646,7 @@
 				B5FA57ED2B83D5FB0057BCD7 /* GPSMapCoordinateConnection.swift in Sources */,
 				07CCF97E2B37BEB8007071B0 /* Editor.swift in Sources */,
 				073F916B2B06794000AE56CB /* FourCorners.swift in Sources */,
+				B5FA57F62B8660240057BCD7 /* GPSMapEditingV.swift in Sources */,
 				07EB79E72B01A7F600DC2699 /* UIImageE.swift in Sources */,
 				07DFF79E2B1E4C640041551B /* MapMapListUnsortedMarkersV.swift in Sources */,
 				0762DD652AD4696B00C36D33 /* DoneButtonV.swift in Sources */,
