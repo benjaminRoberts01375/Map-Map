@@ -11,16 +11,12 @@ struct GPSMapEditingV: View {
     @State var workingName: String
     @ObservedObject var gpsMap: GPSMap
     @Environment(\.managedObjectContext) var moc
-    @State private var mode: EditingMode = .editing
+    @Binding var mode: GPSMapEditingPhaseControllerV.EditingMode
     
-    private enum EditingMode {
-        case editing
-        case painting
-    }
-    
-    init(_ gpsMap: GPSMap) {
+    init(_ gpsMap: GPSMap, editingMode: Binding<GPSMapEditingPhaseControllerV.EditingMode>) {
         self.workingName = gpsMap.name ?? ""
         self.gpsMap = gpsMap
+        self._mode = editingMode
     }
     
     var body: some View {
@@ -31,7 +27,7 @@ struct GPSMapEditingV: View {
                     .background(Color.gray.opacity(0.7))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .frame(width: 205)
-                Button{
+                Button {
                     self.mode = .painting
                 } label: {
                     Image(systemName: "paintbrush.pointed.fill")

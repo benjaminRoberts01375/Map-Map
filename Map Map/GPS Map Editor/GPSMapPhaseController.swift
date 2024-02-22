@@ -8,7 +8,7 @@
 import Bottom_Drawer
 import SwiftUI
 
-struct GPSMapEditorV: View {
+struct GPSMapPhaseController: View {
     /// The current managed object context.
     @Environment(\.managedObjectContext) var moc
     /// Current information about the base map.
@@ -38,7 +38,7 @@ struct GPSMapEditorV: View {
                         case .tracking:
                             TrackingGpsDrawerContentV(gpsMap: gpsMap)
                         case .editing:
-                            GPSMapEditingV(gpsMap)
+                            GPSMapEditingPhaseControllerV(gpsMap: gpsMap)
                         case .viewing:
                             EmptyView()
                         }
