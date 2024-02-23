@@ -45,3 +45,10 @@ public class GPSMapBranch: NSManagedObject {
         return newCoordinate
     }
 }
+
+extension GPSMapBranch {
+    convenience init(moc: NSManagedObjectContext) {
+        self.init(context: moc)
+        self.color = GPSMapConnectionColor(r: 67, g: 122, b: 234, moc: moc)
+    }
+}
