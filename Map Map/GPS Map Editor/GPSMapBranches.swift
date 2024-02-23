@@ -44,7 +44,7 @@ struct GPSMapBranches: View {
             ScrollView(.horizontal) {
                 ForEach(gpsMap.unwrappedBranches) { branch in
                     Button {
-                        // Open single branch
+                        self.editingMode = .editingBranch(branch)
                     } label: {
                         Text(branch.name ?? "Branch")
                             .bigButton(backgroundColor: .blue)
