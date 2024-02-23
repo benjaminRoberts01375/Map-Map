@@ -30,6 +30,7 @@ struct GPSMapPhaseController: View {
         case settingUp
         case tracking
         case editing
+        case editingBranch(GPSMapBranch)
         case painting
         case viewing
         case selectingBranch
@@ -49,6 +50,7 @@ struct GPSMapPhaseController: View {
                         case .tracking: TrackingGpsDrawerContentV(gpsMap: gpsMap)
                         case .editing: GPSMapEditingV(gpsMap, editingMode: $editingMode)
                         case .selectingBranch: GPSMapBranches(gpsMap: gpsMap, editingMode: $editingMode)
+                        case .editingBranch(_): EmptyView()
                         case .painting: EmptyView()
                         case .viewing: EmptyView()
                         }
