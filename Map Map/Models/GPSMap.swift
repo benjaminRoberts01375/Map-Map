@@ -13,6 +13,8 @@ import MapKit
 @objc(GPSMap)
 public class GPSMap: NSManagedObject { 
     /// A simple getter for GPS Map Coordinates.
+    var unwrappedBranches: [GPSMapBranch] {
+        return self.branches?.array as? [GPSMapBranch] ?? []
     }
     
     /// Track how this GPS map is being edited.
@@ -36,5 +38,6 @@ public extension GPSMap {
     convenience init(moc: NSManagedObjectContext) {
         self.init(context: moc)
         self.unwrappedEditing = .settingUp
+        self.addToBranches(GPSMapBranch(context: moc))
     }
 }
