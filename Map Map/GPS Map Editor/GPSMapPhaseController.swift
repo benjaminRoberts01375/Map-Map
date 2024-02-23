@@ -56,7 +56,6 @@ struct GPSMapPhaseController: View {
                 }
                 .safeAreaPadding(geo.safeAreaInsets)
             }
-            .ignoresSafeArea()
         }
         .onAppear { mapDetails.preventFollowingUser() }
         .onChange(of: gpsMap.unwrappedEditing, initial: true) { translateFromGPSEditingMode() }
