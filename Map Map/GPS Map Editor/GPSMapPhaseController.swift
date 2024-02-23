@@ -59,7 +59,7 @@ struct GPSMapPhaseController: View {
             .ignoresSafeArea()
         }
         .onAppear { mapDetails.preventFollowingUser() }
-        .onChange(of: gpsMap.unwrappedEditing) { translateFromGPSEditingMode() }
+        .onChange(of: gpsMap.unwrappedEditing, initial: true) { translateFromGPSEditingMode() }
     }
     
     func translateFromGPSEditingMode() {
