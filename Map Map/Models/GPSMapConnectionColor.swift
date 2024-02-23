@@ -10,13 +10,22 @@ import CoreData
 import Foundation
 
 @objc(GPSMapConnectionColor)
-public class GPSMapConnectionColor: NSManagedObject { }
+public class GPSMapConnectionColor: NSManagedObject { 
+    static let defaultRed = 0.26
+    static let defaultGreen = 0.48
+    static let defaultBlue = 0.92
+}
 
 extension GPSMapConnectionColor {
-    convenience init(r red: UInt8, g green: UInt8, b blue: UInt8, moc: NSManagedObjectContext) {
+    convenience init(
+        r red: Double = GPSMapConnectionColor.defaultRed,
+        g green: Double = GPSMapConnectionColor.defaultGreen,
+        b blue: Double = GPSMapConnectionColor.defaultBlue,
+        moc: NSManagedObjectContext
+    ) {
         self.init(context: moc)
-        self.red = Int16(red)
-        self.green = Int16(green)
-        self.blue = Int16(blue)
+        self.red = red
+        self.green = green
+        self.blue = blue
     }
 }
