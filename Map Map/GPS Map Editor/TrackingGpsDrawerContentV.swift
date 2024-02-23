@@ -104,9 +104,7 @@ struct TrackingGpsDrawerContentV: View {
             }
             additionalSeconds = Int(Date().timeIntervalSince(startDate))
         }
-        .onChange(of: locationsHandler.lastLocation) { _, update in
-            _ = gpsMap.addNewCoordinate(clLocation: update)
-        }
+        .onChange(of: locationsHandler.lastLocation) { _ = gpsMap.unwrappedBranches.first?.addNewCoordinate(clLocation: $1) }
         .onChange(of: additionalSeconds) {
             let totalSeconds: TimeInterval = Double(additionalSeconds + Int(gpsMap.durationSeconds))
             self.speed = Measurement(value: Double(gpsMap.distance) / totalSeconds, unit: .metersPerSecond)
