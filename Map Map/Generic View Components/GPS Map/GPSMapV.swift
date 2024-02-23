@@ -25,7 +25,7 @@ struct GPSMapV: View {
             }
         }
         .onChange(of: mapDetails.mapCamera) { setSSLineEndPos() }
-        .onChange(of: gpsMap.connections?.count) { setSSLineEndPos() }
+        .onChange(of: gpsMap.allConnections.count) { setSSLineEndPos() }
     }
     
     /// Update line positions from the line end positions func.
@@ -55,14 +55,16 @@ struct GPSMapV: View {
         var result: [Connection] = []
         let pruner: Int = Int((mapDetails.mapCamera.distance / 200).rounded(.awayFromZero))
         
-        for (index, connection) in gpsMap.unwrappedConnections.enumerated() where index % pruner == 0 {
-            if let startCoord = connection.start,
-               let endCoord = connection.end,
-               ssMapMesh.contains(CGPoint(x: startCoord.coordinates.latitude, y: startCoord.coordinates.longitude)) ||
-                ssMapMesh.contains(CGPoint(x: endCoord.coordinates.latitude, y: endCoord.coordinates.longitude)),
-               let startPoint = mapDetails.mapProxy?.convert(startCoord.coordinates, to: .global),
-               let endPoint = mapDetails.mapProxy?.convert(endCoord.coordinates, to: .global) {
-                result.append(Connection(start: result.last?.end ?? startPoint, end: endPoint))
+        for branch in gpsMap.unwrappedBranches {
+            for (index, connection) in branch.unwrappedConnections.enumerated() where index % pruner == 0 {
+                if let startCoord = connection.start,
+                   let endCoord = connection.end,
+                   ssMapMesh.contains(CGPoint(x: startCoord.coordinates.latitude, y: startCoord.coordinates.longitude)) ||
+                    ssMapMesh.contains(CGPoint(x: endCoord.coordinates.latitude, y: endCoord.coordinates.longitude)),
+                   let startPoint = mapDetails.mapProxy?.convert(startCoord.coordinates, to: .global),
+                   let endPoint = mapDetails.mapProxy?.convert(endCoord.coordinates, to: .global) {
+                    result.append(Connection(start: result.last?.end ?? startPoint, end: endPoint))
+                }
             }
         }
         return result
