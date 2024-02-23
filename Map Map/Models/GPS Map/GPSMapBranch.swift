@@ -12,6 +12,10 @@ import MapKit
 
 @objc(GPSMapBranch)
 public class GPSMapBranch: NSManagedObject {
+    var unwrappedConnections: [GPSMapCoordinateConnection] {
+        return (self.connections?.array as? [GPSMapCoordinateConnection] ?? []).filter { $0.end != nil }
+    }
+    
     public func addNewCoordinate(clLocation: CLLocation) -> GPSMapCoordinate? {
         guard let moc = self.managedObjectContext,
               let gpsMap = self.gpsMap
