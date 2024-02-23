@@ -25,6 +25,7 @@
         <relationship name="branches" optional="YES" toMany="YES" minCount="1" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapBranch" inverseName="gpsMap" inverseEntity="GPSMapBranch"/>
     </entity>
     <entity name="GPSMapBranch" representedClassName="GPSMapBranch" syncable="YES" codeGenerationType="category">
+        <attribute name="name" attributeType="String" defaultValueString=""/>
         <relationship name="color" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GPSMapConnectionColor" inverseName="gpsBranch" inverseEntity="GPSMapConnectionColor"/>
         <relationship name="connections" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapCoordinateConnection" inverseName="branch" inverseEntity="GPSMapCoordinateConnection"/>
         <relationship name="gpsMap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GPSMap" inverseName="branches" inverseEntity="GPSMap"/>
