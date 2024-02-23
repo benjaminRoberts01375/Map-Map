@@ -36,7 +36,15 @@ struct GPSMapPhaseController: View {
     
     var body: some View {
         GeometryReader { geo in
-            ZStack {
+            ZStack(alignment: .topLeading) {
+                Button {
+                    self.editingMode = .painting
+                } label: {
+                    Image(systemName: "paintbrush.pointed.fill")
+                        .mapButton()
+                        .padding(.leading, max(MapLayersV.minSafeAreaDistance, geo.safeAreaInsets.leading))
+                        .accessibilityLabel("Color coding GPS branches button")
+                }
                 BottomDrawer(
                     verticalDetents: [.content],
                     horizontalDetents: [.center],
