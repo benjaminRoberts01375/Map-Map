@@ -11,10 +11,12 @@ struct GPSMapEditingV: View {
     @State var workingName: String
     @ObservedObject var gpsMap: GPSMap
     @Environment(\.managedObjectContext) var moc
+    @Binding var editingMode: GPSMapPhaseController.EditingMode
     
-    init(_ gpsMap: GPSMap) {
+    init(_ gpsMap: GPSMap, editingMode: Binding<GPSMapPhaseController.EditingMode>) {
         self.workingName = gpsMap.name ?? ""
         self.gpsMap = gpsMap
+        self._editingMode = editingMode
     }
     
     var body: some View {
@@ -25,6 +27,16 @@ struct GPSMapEditingV: View {
                     .background(Color.gray.opacity(0.7))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .frame(width: 205)
+                Button(action: {
+                    editingMode = .selectingBranch
+                }, label: {
+                    Image(systemName: "arrow.triangle.branch")
+                        .accessibilityLabel("View GPS Map bsranches")
+                        .padding(4)
+                        .background(.gray)
+                        .clipShape(Circle())
+                })
+                .buttonStyle(.plain)
             }
             HStack {
                 Button(
