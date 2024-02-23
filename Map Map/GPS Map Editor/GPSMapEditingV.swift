@@ -11,12 +11,10 @@ struct GPSMapEditingV: View {
     @State var workingName: String
     @ObservedObject var gpsMap: GPSMap
     @Environment(\.managedObjectContext) var moc
-    @Binding var mode: GPSMapEditingPhaseControllerV.EditingMode
     
-    init(_ gpsMap: GPSMap, editingMode: Binding<GPSMapEditingPhaseControllerV.EditingMode>) {
+    init(_ gpsMap: GPSMap) {
         self.workingName = gpsMap.name ?? ""
         self.gpsMap = gpsMap
-        self._mode = editingMode
     }
     
     var body: some View {
@@ -27,16 +25,6 @@ struct GPSMapEditingV: View {
                     .background(Color.gray.opacity(0.7))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .frame(width: 205)
-                Button {
-                    self.mode = .painting
-                } label: {
-                    Image(systemName: "paintbrush.pointed.fill")
-                        .accessibilityLabel("Markup MapMap")
-                        .padding(4)
-                        .background(.gray)
-                        .clipShape(Circle())
-                }
-                .buttonStyle(.plain)
             }
             HStack {
                 Button(
