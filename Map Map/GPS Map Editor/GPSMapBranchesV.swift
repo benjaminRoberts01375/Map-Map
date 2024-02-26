@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct GPSMapBranches: View {
+struct GPSMapBranchesV: View {
     @ObservedObject var gpsMap: GPSMap
     @Binding var editingMode: GPSMapPhaseController.EditingMode
     

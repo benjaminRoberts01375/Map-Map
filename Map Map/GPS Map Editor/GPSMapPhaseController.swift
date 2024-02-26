@@ -49,7 +49,7 @@ struct GPSMapPhaseController: View {
                         case .settingUp: NewGPSDrawerContentV(workingName: $workingName, gpsMap: gpsMap)
                         case .tracking: TrackingGpsDrawerContentV(gpsMap: gpsMap)
                         case .editing: GPSMapEditingV(gpsMap, editingMode: $editingMode)
-                        case .selectingBranch: GPSMapBranches(gpsMap: gpsMap, editingMode: $editingMode)
+                        case .selectingBranch: GPSMapBranchesV(gpsMap: gpsMap, editingMode: $editingMode)
                         case .editingBranch(let branch): GPSMapBranchEditingV(gpsMapBranch: branch)
                         case .painting: EmptyView()
                         case .viewing: EmptyView()

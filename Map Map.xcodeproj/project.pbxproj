@@ -79,7 +79,7 @@
 		B51655D02B3CB5A4006FBE67 /* MapMeasurementConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51655CF2B3CB5A4006FBE67 /* MapMeasurementConnection.swift */; };
 		B51B70D92B72ACCC004B3B3D /* CameraPhotoEditorV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51B70D82B72ACCC004B3B3D /* CameraPhotoEditorV.swift */; };
 		B524C5B12B793047003600AA /* TimeIntervalE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B524C5B02B793047003600AA /* TimeIntervalE.swift */; };
-		B534C72B2B89052D00FD6901 /* GPSMapBranches.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534C72A2B89052D00FD6901 /* GPSMapBranches.swift */; };
+		B534C72B2B89052D00FD6901 /* GPSMapBranchesV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534C72A2B89052D00FD6901 /* GPSMapBranchesV.swift */; };
 		B534C72D2B890D6C00FD6901 /* GPSMapBranchEditingV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534C72C2B890D6C00FD6901 /* GPSMapBranchEditingV.swift */; };
 		B53C948C2B57162400768C66 /* CropGrabberV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53C948B2B57162400768C66 /* CropGrabberV.swift */; };
 		B548C17E2B6D72D800297E6A /* PhotoEditorCompositeV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548C17D2B6D72D800297E6A /* PhotoEditorCompositeV.swift */; };
@@ -182,7 +182,7 @@
 		B51655CF2B3CB5A4006FBE67 /* MapMeasurementConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMeasurementConnection.swift; sourceTree = "<group>"; };
 		B51B70D82B72ACCC004B3B3D /* CameraPhotoEditorV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPhotoEditorV.swift; sourceTree = "<group>"; };
 		B524C5B02B793047003600AA /* TimeIntervalE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalE.swift; sourceTree = "<group>"; };
-		B534C72A2B89052D00FD6901 /* GPSMapBranches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSMapBranches.swift; sourceTree = "<group>"; };
+		B534C72A2B89052D00FD6901 /* GPSMapBranchesV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSMapBranchesV.swift; sourceTree = "<group>"; };
 		B534C72C2B890D6C00FD6901 /* GPSMapBranchEditingV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSMapBranchEditingV.swift; sourceTree = "<group>"; };
 		B53C948B2B57162400768C66 /* CropGrabberV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropGrabberV.swift; sourceTree = "<group>"; };
 		B548C17D2B6D72D800297E6A /* PhotoEditorCompositeV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditorCompositeV.swift; sourceTree = "<group>"; };
@@ -469,7 +469,7 @@
 			children = (
 				B5E5274F2B7694530027300D /* GPSMapPhaseController.swift */,
 				B534C72C2B890D6C00FD6901 /* GPSMapBranchEditingV.swift */,
-				B534C72A2B89052D00FD6901 /* GPSMapBranches.swift */,
+				B534C72A2B89052D00FD6901 /* GPSMapBranchesV.swift */,
 				B5FA57F52B8660240057BCD7 /* GPSMapEditingV.swift */,
 				B5E527522B769C2D0027300D /* NewGPSDrawerContentV.swift */,
 				B5E527562B76CAFE0027300D /* TrackingGpsDrawerContentV.swift */,
@@ -688,7 +688,7 @@
 				078C6DD02B0B0996001AD131 /* CLLocationCoordinate2DE.swift in Sources */,
 				B57D8A4F2B5DC7F2002B9F7C /* Drawing+CoreDataClass.swift in Sources */,
 				073F91692B05C5A400AE56CB /* ToastInfo.swift in Sources */,
-				B534C72B2B89052D00FD6901 /* GPSMapBranches.swift in Sources */,
+				B534C72B2B89052D00FD6901 /* GPSMapBranchesV.swift in Sources */,
 				B51655D02B3CB5A4006FBE67 /* MapMeasurementConnection.swift in Sources */,
 				07134EB92B099FEB00D23A18 /* MapHudV.swift in Sources */,
 				B5E5274D2B7693F60027300D /* GPSMapCoordinate.swift in Sources */,
