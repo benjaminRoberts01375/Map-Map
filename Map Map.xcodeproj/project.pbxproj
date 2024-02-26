@@ -80,6 +80,7 @@
 		B51B70D92B72ACCC004B3B3D /* CameraPhotoEditorV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51B70D82B72ACCC004B3B3D /* CameraPhotoEditorV.swift */; };
 		B524C5B12B793047003600AA /* TimeIntervalE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B524C5B02B793047003600AA /* TimeIntervalE.swift */; };
 		B534C72B2B89052D00FD6901 /* GPSMapBranches.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534C72A2B89052D00FD6901 /* GPSMapBranches.swift */; };
+		B534C72D2B890D6C00FD6901 /* GPSMapBranchEditingV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534C72C2B890D6C00FD6901 /* GPSMapBranchEditingV.swift */; };
 		B53C948C2B57162400768C66 /* CropGrabberV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53C948B2B57162400768C66 /* CropGrabberV.swift */; };
 		B548C17E2B6D72D800297E6A /* PhotoEditorCompositeV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548C17D2B6D72D800297E6A /* PhotoEditorCompositeV.swift */; };
 		B56595762B7402BC00F6D856 /* HandleTrackerM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56595752B7402BC00F6D856 /* HandleTrackerM.swift */; };
@@ -182,6 +183,7 @@
 		B51B70D82B72ACCC004B3B3D /* CameraPhotoEditorV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPhotoEditorV.swift; sourceTree = "<group>"; };
 		B524C5B02B793047003600AA /* TimeIntervalE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalE.swift; sourceTree = "<group>"; };
 		B534C72A2B89052D00FD6901 /* GPSMapBranches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSMapBranches.swift; sourceTree = "<group>"; };
+		B534C72C2B890D6C00FD6901 /* GPSMapBranchEditingV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSMapBranchEditingV.swift; sourceTree = "<group>"; };
 		B53C948B2B57162400768C66 /* CropGrabberV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropGrabberV.swift; sourceTree = "<group>"; };
 		B548C17D2B6D72D800297E6A /* PhotoEditorCompositeV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditorCompositeV.swift; sourceTree = "<group>"; };
 		B56595752B7402BC00F6D856 /* HandleTrackerM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleTrackerM.swift; sourceTree = "<group>"; };
@@ -466,6 +468,7 @@
 			isa = PBXGroup;
 			children = (
 				B5E5274F2B7694530027300D /* GPSMapPhaseController.swift */,
+				B534C72C2B890D6C00FD6901 /* GPSMapBranchEditingV.swift */,
 				B534C72A2B89052D00FD6901 /* GPSMapBranches.swift */,
 				B5FA57F52B8660240057BCD7 /* GPSMapEditingV.swift */,
 				B5E527522B769C2D0027300D /* NewGPSDrawerContentV.swift */,
@@ -718,6 +721,7 @@
 				07FCC8572AD3750F00F88186 /* MapMapsListV.swift in Sources */,
 				076F18AB2AEF77FA00779E1D /* MapMapContextMenuV.swift in Sources */,
 				07FD85612AE6DD1E0089652B /* MapMapListItemV.swift in Sources */,
+				B534C72D2B890D6C00FD6901 /* GPSMapBranchEditingV.swift in Sources */,
 				07764B422AF96DFA0009525E /* DefaultDrawerHeaderV.swift in Sources */,
 				078C6DCB2B0B0100001AD131 /* CrosshairV.swift in Sources */,
 				B5F0D7622B7FDB68003B4FBE /* GPSMapV.swift in Sources */,
