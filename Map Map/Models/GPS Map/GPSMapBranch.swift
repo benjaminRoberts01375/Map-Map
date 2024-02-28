@@ -72,8 +72,9 @@ public class GPSMapBranch: NSManagedObject {
 }
 
 extension GPSMapBranch {
-    convenience init(moc: NSManagedObjectContext) {
+    convenience init(name: String = "Default", moc: NSManagedObjectContext) {
         self.init(context: moc)
+        self.name = name
         self.color = GPSMapConnectionColor(moc: moc)
     }
 }
