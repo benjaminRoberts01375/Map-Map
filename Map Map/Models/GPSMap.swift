@@ -45,6 +45,6 @@ public extension GPSMap {
     convenience init(moc: NSManagedObjectContext) {
         self.init(context: moc)
         self.unwrappedEditing = .settingUp
-        self.addToBranches(GPSMapBranch(context: moc))
+        self.addToBranches(GPSMapBranch(moc: moc))
     }
 }
