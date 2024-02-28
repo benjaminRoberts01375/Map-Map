@@ -10,6 +10,7 @@ import SwiftUI
 struct GPSMapBranchesV: View {
     @ObservedObject var gpsMap: GPSMap
     @Binding var editingMode: GPSMapPhaseController.EditingMode
+    @Environment(\.managedObjectContext) var moc
     
     var body: some View {
         VStack {
@@ -30,7 +31,9 @@ struct GPSMapBranchesV: View {
                     .font(.title3)
                 Spacer()
                 Button {
-                    
+                    let newBranch = GPSMapBranch(name: "New Branch", moc: moc)
+                    gpsMap.addToBranches(newBranch)
+                    editingMode = .editingBranch(newBranch)
                 } label: {
                     Image(systemName: "plus")
                         .symbolRenderingMode(.hierarchical)
