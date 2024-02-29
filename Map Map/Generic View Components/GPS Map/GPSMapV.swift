@@ -19,9 +19,9 @@ struct GPSMapV: View {
     var body: some View {
         ZStack {
             ForEach(lineEnds) { connection in
-                Line(startingPos: CGSize(cgPoint: connection.start), endingPos: CGSize(cgPoint: connection.end)) // Outline line
+                Line(startingPos: CGSize(cgPoint: connection.start), endingPos: CGSize(cgPoint: connection.end))
                     .stroke(style: StrokeStyle(lineWidth: 6, lineCap: .round))
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(connection.color)
             }
         }
         .onChange(of: mapDetails.mapCamera) { setSSLineEndPos() }
