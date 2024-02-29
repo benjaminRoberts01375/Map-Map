@@ -18,10 +18,8 @@ public class GPSMap: NSManagedObject {
     }
     
     /// Get an array of all the available connections for this MapMap
-    var allConnections: [GPSMapCoordinateConnection] {
-        var connectionBunches: [[GPSMapCoordinateConnection]] = []
-        for branch in unwrappedBranches { connectionBunches.append(branch.unwrappedConnections) }
-        return connectionBunches.flatMap({ $0 })
+    var unwrappedConnections: [GPSMapCoordinateConnection] {
+        return self.connections?.array as? [GPSMapCoordinateConnection] ?? []
     }
     
     /// Track how this GPS map is being edited.
@@ -45,6 +43,5 @@ public extension GPSMap {
     convenience init(moc: NSManagedObjectContext) {
         self.init(context: moc)
         self.unwrappedEditing = .settingUp
-        self.addToBranches(GPSMapBranch(moc: moc))
     }
 }

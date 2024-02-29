@@ -23,6 +23,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="trackingStartDate" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="branches" optional="YES" toMany="YES" minCount="1" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapBranch" inverseName="gpsMap" inverseEntity="GPSMapBranch"/>
+        <relationship name="connections" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapCoordinateConnection" inverseName="gpsMap" inverseEntity="GPSMapCoordinateConnection"/>
     </entity>
     <entity name="GPSMapBranch" representedClassName="GPSMapBranch" syncable="YES" codeGenerationType="category">
         <attribute name="name" attributeType="String" defaultValueString=""/>
@@ -50,6 +51,7 @@
     <entity name="GPSMapCoordinateConnection" representedClassName="GPSMapCoordinateConnection" syncable="YES" codeGenerationType="category">
         <relationship name="branch" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GPSMapBranch" inverseName="connections" inverseEntity="GPSMapBranch"/>
         <relationship name="coordinates" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapCoordinate" inverseName="connections" inverseEntity="GPSMapCoordinate"/>
+        <relationship name="gpsMap" maxCount="1" deletionRule="Nullify" destinationEntity="GPSMap" inverseName="connections" inverseEntity="GPSMap"/>
     </entity>
     <entity name="MapImage" representedClassName="MapImage" syncable="YES" codeGenerationType="category">
         <attribute name="imageData" optional="YES" attributeType="Binary"/>
