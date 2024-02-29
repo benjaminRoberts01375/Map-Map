@@ -7,13 +7,19 @@
 //
 
 import CoreData
-import Foundation
+import SwiftUI
 
 @objc(GPSMapConnectionColor)
 public class GPSMapConnectionColor: NSManagedObject { 
     static let defaultRed = 0.26
     static let defaultGreen = 0.48
     static let defaultBlue = 0.92
+    
+    static var defaultColor = Color(
+        red: GPSMapConnectionColor.defaultRed,
+        green: GPSMapConnectionColor.defaultGreen,
+        blue: GPSMapConnectionColor.defaultBlue
+    )
 }
 
 extension GPSMapConnectionColor {
