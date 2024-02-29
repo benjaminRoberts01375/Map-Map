@@ -62,11 +62,16 @@ struct GPSMapV: View {
                 ssMapMesh.contains(CGPoint(x: endCoord.coordinates.latitude, y: endCoord.coordinates.longitude)),
                let startPoint = mapDetails.mapProxy?.convert(startCoord.coordinates, to: .global),
                let endPoint = mapDetails.mapProxy?.convert(endCoord.coordinates, to: .global) {
+                let color =
+                switch connection.editing {
+                case .editing(let branch): branch.branchColor
+                case .standard: connection.branch?.branchColor ?? GPSMapConnectionColor.defaultColor
+                }
                 result.append(
                     Connection(
                         start: result.last?.end ?? startPoint,
                         end: endPoint,
-                        color: connection.branch?.branchColor ?? GPSMapConnectionColor.defaultColor
+                        color: color
                     )
                 )
             }
