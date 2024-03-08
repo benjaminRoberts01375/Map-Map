@@ -18,7 +18,7 @@ struct GPSMapBranchV: View {
         ForEach(lineEnds) { connection in
             Line(startingPos: CGSize(cgPoint: connection.start), endingPos: CGSize(cgPoint: connection.end))
                 .stroke(style: StrokeStyle(lineWidth: 6, lineCap: .round))
-                .foregroundStyle(connection.color)
+                .foregroundStyle(gpsMapBranch.branchColor)
         }
         .onChange(of: mapDetails.mapCamera) { setSSLineEndPos() }
         .onChange(of: gpsMapBranch.connections?.count) { setSSLineEndPos() }
@@ -57,8 +57,7 @@ struct GPSMapBranchV: View {
                 result.append(
                     Connection(
                         start: result.last?.end ?? startPoint,
-                        end: endPoint,
-                        color: connection.branch?.branchColor ?? GPSMapConnectionColor.defaultColor
+                        end: endPoint
                     )
                 )
             }

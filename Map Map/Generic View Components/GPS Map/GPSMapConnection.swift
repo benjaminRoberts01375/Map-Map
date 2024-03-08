@@ -15,8 +15,6 @@ extension GPSMapBranchV {
         public var start: CGPoint
         /// Supposed ending position of the connection
         public var end: CGPoint
-        /// Color of connection
-        public var color: Color
         /// ID for Identifiable conformance.
         let id = UUID()
     }
