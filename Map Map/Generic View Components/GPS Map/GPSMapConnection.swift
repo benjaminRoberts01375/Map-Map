@@ -8,7 +8,7 @@
 import MapKit
 import SwiftUI
 
-extension GPSMapV {
+extension GPSMapBranchV {
     /// A basic struct to track the connection between two measurement points.
     internal struct Connection: Identifiable {
         /// Supposed starting position of the connection.
