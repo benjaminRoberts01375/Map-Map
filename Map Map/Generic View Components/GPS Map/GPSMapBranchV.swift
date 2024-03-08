@@ -12,16 +12,14 @@ struct GPSMapBranchV: View {
     /// Info about the base map.
     @Environment(MapDetailsM.self) var mapDetails
     @ObservedObject var gpsMapBranch: GPSMapBranch
-    @State var lineEnds: [Connection] = []
+    @State var lineEnds: [CGPoint] = []
     
     var body: some View {
-        ForEach(lineEnds) { connection in
-            Line(startingPos: CGSize(cgPoint: connection.start), endingPos: CGSize(cgPoint: connection.end))
-                .stroke(style: StrokeStyle(lineWidth: 6, lineCap: .round))
-                .foregroundStyle(gpsMapBranch.branchColor)
-        }
-        .onChange(of: mapDetails.mapCamera) { setSSLineEndPos() }
-        .onChange(of: gpsMapBranch.connections?.count) { setSSLineEndPos() }
+        MultiLine(points: lineEnds)
+            .stroke(style: StrokeStyle(lineWidth: 6, lineCap: .round))
+            .foregroundStyle(gpsMapBranch.branchColor)
+            .onChange(of: mapDetails.mapCamera) { setSSLineEndPos() }
+            .onChange(of: gpsMapBranch.connections?.count) { setSSLineEndPos() }
     }
     
     /// Update line positions from the line end positions func.
@@ -34,8 +32,7 @@ struct GPSMapBranchV: View {
         }
     }
     
-    func calculateSSLineEndPos() async -> [Connection] {
-        var result: [Connection] = []
+    func calculateSSLineEndPos() async -> [CGPoint] {
         let spanMultiplier = 1.1
         let correctedSpan = MKCoordinateSpan(
             latitudeDelta: mapDetails.region.span.latitudeDelta * spanMultiplier,
@@ -47,21 +44,14 @@ struct GPSMapBranchV: View {
             width: correctedSpan.latitudeDelta,
             height: correctedSpan.longitudeDelta
         )
+        var final: [CGPoint] = []
         for connection in gpsMapBranch.unwrappedConnections {
-            if let startCoord = connection.start,
-               let endCoord = connection.end,
-               ssMapMesh.contains(CGPoint(x: startCoord.coordinates.latitude, y: startCoord.coordinates.longitude)) ||
-                ssMapMesh.contains(CGPoint(x: endCoord.coordinates.latitude, y: endCoord.coordinates.longitude)),
-               let startPoint = mapDetails.mapProxy?.convert(startCoord.coordinates, to: .global),
+            if let endCoord = connection.end,
+               ssMapMesh.contains(CGPoint(x: endCoord.coordinates.latitude, y: endCoord.coordinates.longitude)),
                let endPoint = mapDetails.mapProxy?.convert(endCoord.coordinates, to: .global) {
-                result.append(
-                    Connection(
-                        start: result.last?.end ?? startPoint,
-                        end: endPoint
-                    )
-                )
+                final.append(endPoint)
             }
         }
-        return result
+        return final
     }
 }
