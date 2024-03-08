@@ -14,6 +14,7 @@ struct GPSMapBranchEditingV: View {
     let rangeIndicies: ClosedRange<Double>
     @State var selectedRangeIndicies: ClosedRange<Double>
     @Environment(\.managedObjectContext) var moc
+    @State var originalConnectionAssignments: [GPSMapCoordinateConnection : GPSMapBranch] = [:]
     
     init(gpsMapBranch: GPSMapBranch) {
         self.gpsMapBranch = gpsMapBranch
@@ -44,9 +45,20 @@ struct GPSMapBranchEditingV: View {
         .onChange(of: selectedRangeIndicies) { oldValue, newValue in
             adjustConnectedBranches(oldIndicies: oldValue, newIndicies: newValue)
         }
-        .onAppear {
+        .task {
             guard let gpsMap = gpsMapBranch.gpsMap else { return }
-            _ = gpsMap.unwrappedConnections.map { $0.editing = .editing(gpsMapBranch) }
+            var connectionAssignments: [GPSMapCoordinateConnection : GPSMapBranch] = [:]
+            for connection in gpsMap.unwrappedConnections {
+                connectionAssignments[connection] = connection.branch
+            }
+            DispatchQueue.main.async {
+                self.originalConnectionAssignments = connectionAssignments
+                guard let connections = gpsMapBranch.gpsMap?.unwrappedConnections // Get all connections
+                else { return }
+                for connection in connections {
+                    gpsMapBranch.addToConnections(connection)
+                }
+            }
         }
     }
     
@@ -56,34 +68,42 @@ struct GPSMapBranchEditingV: View {
             selectedRangeIndicies = oldIndicies // Reset range
             return
         }
-        // If either the selected lower or upper bound is out of bounds, return
-        if selectedRangeIndicies.lowerBound < rangeIndicies.lowerBound ||
-            selectedRangeIndicies.upperBound > rangeIndicies.upperBound {
-            return
+        // If either the selected lower or upper bound is out of bounds, fix them
+        if selectedRangeIndicies.lowerBound < rangeIndicies.lowerBound {
+            selectedRangeIndicies = rangeIndicies.lowerBound...selectedRangeIndicies.upperBound
+        }
+        if selectedRangeIndicies.upperBound > rangeIndicies.upperBound {
+            selectedRangeIndicies = selectedRangeIndicies.lowerBound...rangeIndicies.upperBound
         }
         
         // If the old index of lower bound is less than the new one (got slid down)
         if oldIndicies.lowerBound > newIndicies.lowerBound {
             for index in Int(newIndicies.lowerBound)..<Int(oldIndicies.lowerBound) {
-                connections[index].editing = .editing(gpsMapBranch)
+                gpsMapBranch.insertIntoConnections(connections[index], at: 0)
             }
         }
         // If old index of lower bound is greater than new one (got slid up)
         else if oldIndicies.lowerBound < newIndicies.lowerBound {
-            for index in Int(oldIndicies.lowerBound)..<Int(newIndicies.lowerBound) {
-                connections[index].editing = .standard
+            for index in stride(from: Int(newIndicies.lowerBound) - 1, through: Int(oldIndicies.lowerBound), by: -1) {
+                if let branch = originalConnectionAssignments[connections[index]] {
+                    branch.addToConnections(connections[index])
+                }
+                else { self.gpsMapBranch.removeFromConnections(connections[index]) }
             }
         }
         // If the new upper bound is greater than the old upper bound (got slid up)
         if newIndicies.upperBound > oldIndicies.upperBound {
             for index in Int(oldIndicies.upperBound)..<Int(newIndicies.upperBound) {
-                connections[index].editing = .editing(gpsMapBranch)
+                gpsMapBranch.addToConnections(connections[index])
             }
         }
         // If the new upper bound is less than the old upper bound (got slid down)
         else if newIndicies.upperBound < oldIndicies.upperBound {
-            for index in Int(newIndicies.upperBound)..<Int(oldIndicies.upperBound) {
-                connections[index].editing = .standard
+            for index in stride(from: Int(oldIndicies.upperBound) - 1, through: Int(newIndicies.upperBound), by: -1) {
+                if let branch = originalConnectionAssignments[connections[index]] {
+                    branch.addToConnections(connections[index])
+                }
+                else { self.gpsMapBranch.removeFromConnections(connections[index]) }
             }
         }
     }

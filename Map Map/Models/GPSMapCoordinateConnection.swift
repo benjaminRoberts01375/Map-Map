@@ -22,12 +22,6 @@ public class GPSMapCoordinateConnection: NSManagedObject {
             if let coordinate = newValue { self.addToCoordinates(coordinate) }
         }
     }
-    
-    var editing: Editing = .standard
-    
-    enum Editing {
-        case standard, editing(GPSMapBranch)
-    }
 }
 
 public extension GPSMapCoordinateConnection {
