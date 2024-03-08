@@ -12,22 +12,22 @@ struct GPSMapBranchV: View {
     /// Info about the base map.
     @Environment(MapDetailsM.self) var mapDetails
     @ObservedObject var gpsMapBranch: GPSMapBranch
-    @State var lineEnds: [CGPoint] = []
+    @State var lineNodes: [CGPoint] = []
     
     var body: some View {
-        MultiLine(points: lineEnds)
+        MultiLine(points: lineNodes)
             .stroke(style: StrokeStyle(lineWidth: 6, lineCap: .round))
             .foregroundStyle(gpsMapBranch.branchColor)
-            .onChange(of: mapDetails.mapCamera) { setSSLineEndPos() }
-            .onChange(of: gpsMapBranch.connections?.count) { setSSLineEndPos() }
+            .onChange(of: mapDetails.mapCamera) { setSSLineNodes() }
+            .onChange(of: gpsMapBranch.connections?.count) { setSSLineNodes() }
     }
     
     /// Update line positions from the line end positions func.
-    func setSSLineEndPos() {
+    func setSSLineNodes() {
         Task {
-            let lines = await calculateSSLineEndPos()
+            let lineNodes = await calculateSSLineEndPos()
             DispatchQueue.main.async {
-                self.lineEnds = lines
+                self.lineNodes = lineNodes
             }
         }
     }
