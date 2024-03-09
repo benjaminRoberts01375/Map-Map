@@ -45,6 +45,10 @@ struct GPSMapBranchV: View {
             height: correctedSpan.longitudeDelta
         )
         var final: [CGPoint] = []
+        if let startCoord = gpsMapBranch.unwrappedConnections.first?.start,
+           let startPoint = mapDetails.mapProxy?.convert(startCoord.coordinates, to: .global) {
+            final.append(startPoint)
+        }
         for connection in gpsMapBranch.unwrappedConnections {
             if let endCoord = connection.end,
                ssMapMesh.contains(CGPoint(x: endCoord.coordinates.latitude, y: endCoord.coordinates.longitude)),

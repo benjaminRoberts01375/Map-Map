@@ -63,10 +63,12 @@ struct GPSMapV: View {
                let endCoord = connection.end,
                ssMapMesh.contains(CGPoint(x: startCoord.coordinates.latitude, y: startCoord.coordinates.longitude)) ||
                 ssMapMesh.contains(CGPoint(x: endCoord.coordinates.latitude, y: endCoord.coordinates.longitude)),
+               let startPoint = mapDetails.mapProxy?.convert(startCoord.coordinates, to: .global),
                let endPoint = mapDetails.mapProxy?.convert(endCoord.coordinates, to: .global) {
                 if startCoord != lastCoord {
                     final.append(current)
                     current = .init()
+                    current.append(startPoint)
                 }
                 current.append(endPoint)
                 lastCoord = endCoord
