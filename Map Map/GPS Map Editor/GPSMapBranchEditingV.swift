@@ -15,18 +15,22 @@ struct GPSMapBranchEditingV: View {
     @State var selectedRangeIndicies: ClosedRange<Double>
     @Environment(\.managedObjectContext) var moc
     @State var originalConnectionAssignments: [GPSMapCoordinateConnection : GPSMapBranch] = [:]
+    @Binding var editingMode: GPSMapPhaseController.EditingMode
     
-    init(gpsMapBranch: GPSMapBranch) {
+    init(gpsMapBranch: GPSMapBranch, editingMode: Binding<GPSMapPhaseController.EditingMode>) {
         self.gpsMapBranch = gpsMapBranch
         self.workingName = gpsMapBranch.name ?? ""
         self.rangeIndicies = 0...Double(gpsMapBranch.gpsMap?.unwrappedConnections.count ?? 0)
         self.selectedRangeIndicies = rangeIndicies
+        self._editingMode = editingMode
         guard let firstConnection = gpsMapBranch.unwrappedConnections.first,
               let lastConnection = gpsMapBranch.unwrappedConnections.last,
               let firstIndex = gpsMapBranch.gpsMap?.unwrappedConnections.firstIndex(where: { $0 == firstConnection }),
               let lastIndex = gpsMapBranch.gpsMap?.unwrappedConnections.firstIndex(where: { $0 == lastConnection })
         else { return }
-        self.selectedRangeIndicies = Double(firstIndex)...Double(lastIndex)
+        self.selectedRangeIndicies =
+        if firstIndex <= lastIndex { Double(firstIndex)...Double(lastIndex) }
+        else { Double(lastIndex)...Double(firstIndex) }
     }
     
     var body: some View {
@@ -41,6 +45,22 @@ struct GPSMapBranchEditingV: View {
                     .labelsHidden()
             }
             HorizontalRangeSliderV(value: $selectedRangeIndicies, range: rangeIndicies)
+            HStack {
+                Button {
+                    gpsMapBranch.name = workingName
+                    editingMode = .selectingBranch
+                } label: {
+                    Text("Done")
+                        .bigButton(backgroundColor: .blue)
+                }
+                Button {
+                    moc.delete(gpsMapBranch)
+                    editingMode = .selectingBranch
+                } label: {
+                    Text("Delete")
+                        .bigButton(backgroundColor: .red)
+                }
+            }
         }
         .onChange(of: selectedRangeIndicies) { adjustConnectedBranches(oldIndicies: $0, newIndicies: $1) }
         .task { await assignAllCoordinatesToBranch() }
