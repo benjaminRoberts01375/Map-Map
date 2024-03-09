@@ -22,6 +22,11 @@ public class GPSMap: NSManagedObject {
         return self.connections?.array as? [GPSMapCoordinateConnection] ?? []
     }
     
+    /// All connections that do not have an associated branch
+    var unsortedConnections: [GPSMapCoordinateConnection] {
+        return unwrappedConnections.filter({ $0.branch == nil })
+    }
+    
     /// Track how this GPS map is being edited.
     public enum EditingState: Int16 {
         case settingUp = 0
