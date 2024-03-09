@@ -63,11 +63,19 @@ struct GPSMapBranchEditingV: View {
     }
     
     func adjustConnectedBranches(oldIndicies: ClosedRange<Double>, newIndicies: ClosedRange<Double>) {
+        guard var connections = ensureValidRange(oldIndicies: oldIndicies) else { return }
+        updateUpperBound(oldIndicies: oldIndicies, newIndicies: newIndicies, connections: &connections)
+        updateLowerBound(oldIndicies: oldIndicies, newIndicies: newIndicies, connections: &connections)
+        gpsMapBranch.objectWillChange.send()
+    }
+    
+    func ensureValidRange(oldIndicies: ClosedRange<Double>) -> [GPSMapCoordinateConnection]? {
         guard let connections = gpsMapBranch.gpsMap?.unwrappedConnections // Get all connections
         else {
-            selectedRangeIndicies = oldIndicies // Reset range
-            return
+            selectedRangeIndicies = rangeIndicies // Reset range
+            return nil
         }
+        
         // If either the selected lower or upper bound is out of bounds, fix them
         if selectedRangeIndicies.lowerBound < rangeIndicies.lowerBound {
             selectedRangeIndicies = rangeIndicies.lowerBound...selectedRangeIndicies.upperBound
@@ -75,7 +83,14 @@ struct GPSMapBranchEditingV: View {
         if selectedRangeIndicies.upperBound > rangeIndicies.upperBound {
             selectedRangeIndicies = selectedRangeIndicies.lowerBound...rangeIndicies.upperBound
         }
-        
+        return connections
+    }
+    
+    private func updateLowerBound(
+        oldIndicies: ClosedRange<Double>,
+        newIndicies: ClosedRange<Double>,
+        connections: inout [GPSMapCoordinateConnection]
+    ) {
         // If the old index of lower bound is less than the new one (got slid down)
         if oldIndicies.lowerBound > newIndicies.lowerBound {
             for index in Int(newIndicies.lowerBound)..<Int(oldIndicies.lowerBound) {
@@ -91,6 +106,12 @@ struct GPSMapBranchEditingV: View {
                 else { self.gpsMapBranch.removeFromConnections(connections[index]) }
             }
         }
+    }
+    private func updateUpperBound(
+        oldIndicies: ClosedRange<Double>,
+        newIndicies: ClosedRange<Double>,
+        connections: inout [GPSMapCoordinateConnection]
+    ) {
         // If the new upper bound is greater than the old upper bound (got slid up)
         if newIndicies.upperBound > oldIndicies.upperBound {
             for index in Int(oldIndicies.upperBound)..<Int(newIndicies.upperBound) {
@@ -106,6 +127,5 @@ struct GPSMapBranchEditingV: View {
                 else { self.gpsMapBranch.removeFromConnections(connections[index]) }
             }
         }
-        gpsMapBranch.objectWillChange.send()
     }
 }
