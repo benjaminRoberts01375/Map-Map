@@ -66,6 +66,7 @@ public class GPSMap: NSManagedObject {
         self.heightMin = truncAlt
         // Create new connection with current as start
         self.addToConnections(GPSMapCoordinateConnection(start: newCoordinate, context: moc))
+        self.objectWillChange.send()
         return newCoordinate
     }
 }

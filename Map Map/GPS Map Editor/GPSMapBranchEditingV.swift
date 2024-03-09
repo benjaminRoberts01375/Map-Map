@@ -106,5 +106,6 @@ struct GPSMapBranchEditingV: View {
                 else { self.gpsMapBranch.removeFromConnections(connections[index]) }
             }
         }
+        gpsMapBranch.objectWillChange.send()
     }
 }

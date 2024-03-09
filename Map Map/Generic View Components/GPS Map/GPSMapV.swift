@@ -20,6 +20,7 @@ struct GPSMapV: View {
         ZStack {
             ForEach(gpsMap.unwrappedBranches) { branch in
                 GPSMapBranchV(gpsMapBranch: branch)
+                    .onReceive(branch.objectWillChange) { setSSLineNodes() }
             }
             ForEach(looseConnections, id: \.self) { branch in
                 MultiLine(points: branch)
@@ -28,6 +29,7 @@ struct GPSMapV: View {
             }
         }
         .onChange(of: mapDetails.mapCamera) { setSSLineNodes() }
+        .onReceive(gpsMap.objectWillChange) { setSSLineNodes() }
     }
     
     /// Update line positions from the line end positions func.
