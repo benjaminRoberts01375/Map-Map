@@ -42,22 +42,24 @@ struct GPSMapBranchEditingV: View {
             }
             HorizontalRangeSliderV(value: $selectedRangeIndicies, range: rangeIndicies)
         }
-        .onChange(of: selectedRangeIndicies) { oldValue, newValue in
-            adjustConnectedBranches(oldIndicies: oldValue, newIndicies: newValue)
+        .onChange(of: selectedRangeIndicies) { adjustConnectedBranches(oldIndicies: $0, newIndicies: $1) }
+        .task { await assignAllCoordinatesToBranch() }
+    }
+    
+    func assignAllCoordinatesToBranch() async {
+        // Save initial coordinate - branch assignments
+        guard let gpsMap = gpsMapBranch.gpsMap else { return }
+        var connectionAssignments: [GPSMapCoordinateConnection : GPSMapBranch] = [:]
+        for connection in gpsMap.unwrappedConnections {
+            connectionAssignments[connection] = connection.branch
         }
-        .task {
-            guard let gpsMap = gpsMapBranch.gpsMap else { return }
-            var connectionAssignments: [GPSMapCoordinateConnection : GPSMapBranch] = [:]
-            for connection in gpsMap.unwrappedConnections {
-                connectionAssignments[connection] = connection.branch
-            }
-            DispatchQueue.main.async {
-                self.originalConnectionAssignments = connectionAssignments
-                guard let connections = gpsMapBranch.gpsMap?.unwrappedConnections // Get all connections
-                else { return }
-                for connection in connections {
-                    gpsMapBranch.addToConnections(connection)
-                }
+        // Set every available coordinate to this branch
+        DispatchQueue.main.async {
+            self.originalConnectionAssignments = connectionAssignments
+            guard let connections = gpsMapBranch.gpsMap?.unwrappedConnections // Get all connections
+            else { return }
+            for connection in connections {
+                gpsMapBranch.addToConnections(connection)
             }
         }
     }
