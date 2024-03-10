@@ -89,8 +89,8 @@
 		B57D8A532B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A522B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift */; };
 		B57D8A552B5E112C002B9F7C /* MarkupEditorSwitcherV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A542B5E112C002B9F7C /* MarkupEditorSwitcherV.swift */; };
 		B57D8A572B5EC079002B9F7C /* DisplayDrawingV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A562B5EC079002B9F7C /* DisplayDrawingV.swift */; };
-		B5871AAA2B8D4F7600B14090 /* RangeSlider in Frameworks */ = {isa = PBXBuildFile; productRef = B5871AA92B8D4F7600B14090 /* RangeSlider */; };
 		B587C2752B46517C001DD4F9 /* StringE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B587C2742B46517C001DD4F9 /* StringE.swift */; };
+		B59B348E2B9E454F0083B458 /* RangeSlider in Frameworks */ = {isa = PBXBuildFile; productRef = B59B348D2B9E454F0083B458 /* RangeSlider */; };
 		B5A111012B6EF67F00C8681A /* MapImage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A111002B6EF67F00C8681A /* MapImage+CoreDataClass.swift */; };
 		B5B6C78B2B68733F00F352BC /* UserDefaultsE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6C78A2B68733F00F352BC /* UserDefaultsE.swift */; };
 		B5B6C78F2B695B6E00F352BC /* AudioAlertsVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6C78E2B695B6E00F352BC /* AudioAlertsVModifier.swift */; };
@@ -223,7 +223,7 @@
 				07A0D7172AD1C28400F462A0 /* Bottom Drawer in Frameworks */,
 				0776EB0B2B056C0D00F89BFC /* AlertToast in Frameworks */,
 				9EC8AD0DB60D7AA9327E3563 /* Pods_Map_Map.framework in Frameworks */,
-				B5871AAA2B8D4F7600B14090 /* RangeSlider in Frameworks */,
+				B59B348E2B9E454F0083B458 /* RangeSlider in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,7 +535,7 @@
 			packageProductDependencies = (
 				07A0D7162AD1C28400F462A0 /* Bottom Drawer */,
 				0776EB0A2B056C0D00F89BFC /* AlertToast */,
-				B5871AA92B8D4F7600B14090 /* RangeSlider */,
+				B59B348D2B9E454F0083B458 /* RangeSlider */,
 			);
 			productName = "Map Map";
 			productReference = 07FDC61F2AB25DFD00D92113 /* Map Map.app */;
@@ -568,7 +568,7 @@
 			packageReferences = (
 				07A0D7152AD1C28400F462A0 /* XCRemoteSwiftPackageReference "SwiftUI-Bottom-Drawer" */,
 				0776EB092B056C0D00F89BFC /* XCRemoteSwiftPackageReference "AlertToast" */,
-				B5871AA82B8D4F7600B14090 /* XCRemoteSwiftPackageReference "RangeSlider" */,
+				B59B348C2B9E454F0083B458 /* XCRemoteSwiftPackageReference "RangeSlider" */,
 			);
 			productRefGroup = 07FDC6202AB25DFD00D92113 /* Products */;
 			projectDirPath = "";
@@ -971,7 +971,7 @@
 				kind = branch;
 			};
 		};
-		B5871AA82B8D4F7600B14090 /* XCRemoteSwiftPackageReference "RangeSlider" */ = {
+		B59B348C2B9E454F0083B458 /* XCRemoteSwiftPackageReference "RangeSlider" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/benjaminRoberts01375/RangeSlider";
 			requirement = {
@@ -992,9 +992,9 @@
 			package = 07A0D7152AD1C28400F462A0 /* XCRemoteSwiftPackageReference "SwiftUI-Bottom-Drawer" */;
 			productName = "Bottom Drawer";
 		};
-		B5871AA92B8D4F7600B14090 /* RangeSlider */ = {
+		B59B348D2B9E454F0083B458 /* RangeSlider */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B5871AA82B8D4F7600B14090 /* XCRemoteSwiftPackageReference "RangeSlider" */;
+			package = B59B348C2B9E454F0083B458 /* XCRemoteSwiftPackageReference "RangeSlider" */;
 			productName = RangeSlider;
 		};
 /* End XCSwiftPackageProductDependency section */
