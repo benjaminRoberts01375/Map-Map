@@ -91,6 +91,7 @@
 		B57D8A572B5EC079002B9F7C /* DisplayDrawingV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A562B5EC079002B9F7C /* DisplayDrawingV.swift */; };
 		B587C2752B46517C001DD4F9 /* StringE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B587C2742B46517C001DD4F9 /* StringE.swift */; };
 		B59B348E2B9E454F0083B458 /* RangeSlider in Frameworks */ = {isa = PBXBuildFile; productRef = B59B348D2B9E454F0083B458 /* RangeSlider */; };
+		B59B34902B9E4D900083B458 /* ColorE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59B348F2B9E4D900083B458 /* ColorE.swift */; };
 		B5A111012B6EF67F00C8681A /* MapImage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A111002B6EF67F00C8681A /* MapImage+CoreDataClass.swift */; };
 		B5B6C78B2B68733F00F352BC /* UserDefaultsE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6C78A2B68733F00F352BC /* UserDefaultsE.swift */; };
 		B5B6C78F2B695B6E00F352BC /* AudioAlertsVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6C78E2B695B6E00F352BC /* AudioAlertsVModifier.swift */; };
@@ -195,6 +196,7 @@
 		B57D8A542B5E112C002B9F7C /* MarkupEditorSwitcherV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupEditorSwitcherV.swift; sourceTree = "<group>"; };
 		B57D8A562B5EC079002B9F7C /* DisplayDrawingV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayDrawingV.swift; sourceTree = "<group>"; };
 		B587C2742B46517C001DD4F9 /* StringE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringE.swift; sourceTree = "<group>"; };
+		B59B348F2B9E4D900083B458 /* ColorE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorE.swift; sourceTree = "<group>"; };
 		B5A111002B6EF67F00C8681A /* MapImage+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MapImage+CoreDataClass.swift"; path = "/Users/ben/Desktop/Map Map/Map Map/Models/MapImage+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		B5B6C78A2B68733F00F352BC /* UserDefaultsE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsE.swift; sourceTree = "<group>"; };
 		B5B6C78E2B695B6E00F352BC /* AudioAlertsVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAlertsVModifier.swift; sourceTree = "<group>"; };
@@ -316,12 +318,13 @@
 				075C65672AF4C5C900864A34 /* CGSizeE.swift */,
 				078C6DCF2B0B0996001AD131 /* CLLocationCoordinate2DE.swift */,
 				07D522F22AE5CCCF009364B3 /* CLLocationDegreesE.swift */,
+				B59B348F2B9E4D900083B458 /* ColorE.swift */,
 				073733422B096C10004B96D1 /* DoubleE.swift */,
 				07E24D422B05C1240049F5EB /* NotificationsE.swift */,
 				B587C2742B46517C001DD4F9 /* StringE.swift */,
+				B524C5B02B793047003600AA /* TimeIntervalE.swift */,
 				07EB79E62B01A7F600DC2699 /* UIImageE.swift */,
 				B5B6C78A2B68733F00F352BC /* UserDefaultsE.swift */,
-				B524C5B02B793047003600AA /* TimeIntervalE.swift */,
 			);
 			path = "Non-Map Map Extensions";
 			sourceTree = "<group>";
@@ -644,6 +647,7 @@
 				07BA6E342B000E460059310E /* CameraV.swift in Sources */,
 				07B82A412B1D54AE00CC00D3 /* CombineMarkerListItemsV.swift in Sources */,
 				B5E527572B76CAFE0027300D /* TrackingGpsDrawerContentV.swift in Sources */,
+				B59B34902B9E4D900083B458 /* ColorE.swift in Sources */,
 				B5B6C78B2B68733F00F352BC /* UserDefaultsE.swift in Sources */,
 				0776EB082B055C2200F89BFC /* GridOverlayV.swift in Sources */,
 				07FDC6252AB25DFD00D92113 /* ContentView.swift in Sources */,

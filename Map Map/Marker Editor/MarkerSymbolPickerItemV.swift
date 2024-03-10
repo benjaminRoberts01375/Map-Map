@@ -13,8 +13,6 @@ struct MarkerSymbolPickerItemV: View {
     let symbol: String
     /// Background/primary color of the symbol.
     let backgroundColor: Color
-    /// Foreground/accent color of the symbol.
-    let foregroundColor: Color
     
     /// Create and render an SFSymbol for selection.
     /// - Parameters:
@@ -23,7 +21,6 @@ struct MarkerSymbolPickerItemV: View {
     init(symbol: String, backgroundColor: Color) {
         self.symbol = symbol
         self.backgroundColor = backgroundColor
-        self.foregroundColor = Marker.calculateForgroundColor(color: backgroundColor)
     }
     
     var body: some View {
@@ -34,7 +31,7 @@ struct MarkerSymbolPickerItemV: View {
                 Image(systemName: symbol)
                     .resizable()
                     .scaledToFit()
-                    .foregroundStyle(foregroundColor)
+                    .foregroundStyle(backgroundColor.contrastColor)
                     .scaleEffect(0.6)
                     .accessibilityLabel("\(symbol) marker icon")
             }
