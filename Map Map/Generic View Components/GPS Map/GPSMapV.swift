@@ -78,14 +78,3 @@ struct GPSMapV: View {
         return final
     }
 }
-
-extension CGPoint: Hashable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(x)
-        hasher.combine(y)
-    }
-
-    public static func == (lhs: CGPoint, rhs: CGPoint) -> Bool {
-        return lhs.x == rhs.x && lhs.y == rhs.y
-    }
-}
