@@ -50,8 +50,10 @@ struct GPSMapBranchesV: View {
                         self.editingMode = .editingBranch(branch)
                     } label: {
                         Text(branch.name ?? "Branch")
+                            .allowsTightening(true)
+                            .padding(.horizontal, 5)
                             .foregroundStyle(branch.branchColor.contrastColor)
-                            .bigButton(backgroundColor: branch.branchColor)
+                            .bigButton(backgroundColor: branch.branchColor, maxWidth: 150)
                     }
                 }
                 .shadow(radius: 2)
