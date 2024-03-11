@@ -39,22 +39,24 @@ struct GPSMapEditingV: View {
                 .buttonStyle(.plain)
             }
             HStack {
-                Button(
-                    action: { gpsMap.unwrappedEditing = .viewing },
-                    label: { Text("Done").bigButton(backgroundColor: .blue) }
-                )
-                Button(action: {
+                Button {
+                    try? moc.save()
+                    gpsMap.unwrappedEditing = .viewing
+                } label: {
+                    Text("Done").bigButton(backgroundColor: .blue)
+                }
+                Button {
                     moc.reset()
-                }, label: {
+                } label: {
                     Text("Cancel")
                         .bigButton(backgroundColor: .gray)
-                })
-                Button( action: {
+                }
+                Button {
                     moc.delete(gpsMap)
                     try? moc.save()
-                }, label: {
+                } label: {
                     Text("Delete")
-                })
+                }
                 .bigButton(backgroundColor: .red)
             }
         }
