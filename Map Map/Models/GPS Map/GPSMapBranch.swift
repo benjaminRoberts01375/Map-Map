@@ -12,6 +12,7 @@ import SwiftUI
 
 @objc(GPSMapBranch)
 public class GPSMapBranch: NSManagedObject {
+    /// All available connections for this branch as an array.
     var unwrappedConnections: [GPSMapCoordinateConnection] {
         return (self.connections?.array as? [GPSMapCoordinateConnection] ?? []).filter { $0.end != nil }
     }

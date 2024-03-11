@@ -11,11 +11,14 @@ import SwiftUI
 
 @objc(GPSMapConnectionColor)
 public class GPSMapConnectionColor: NSManagedObject { 
-    static let defaultRed = 0.26
-    static let defaultGreen = 0.48
-    static let defaultBlue = 0.92
-    
-    static var defaultColor = Color(
+    /// Default 0 to 1 red value.
+    public static let defaultRed = 0.26
+    /// Default 0 to 1 green value.
+    public static let defaultGreen = 0.48
+    /// Default 0 to 1 blue value.
+    public static let defaultBlue = 0.92
+    /// Default SwiftUI color
+    public static var defaultColor = Color(
         red: GPSMapConnectionColor.defaultRed,
         green: GPSMapConnectionColor.defaultGreen,
         blue: GPSMapConnectionColor.defaultBlue

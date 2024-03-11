@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct GPSMapBranchesV: View {
-    @ObservedObject var gpsMap: GPSMap
-    @Binding var editingMode: GPSMapPhaseController.EditingMode
+    /// The current managed object context.
     @Environment(\.managedObjectContext) var moc
+    /// GPSMap containing GPSMapBranches.
+    @ObservedObject var gpsMap: GPSMap
+    /// The current editing mode of the UI.
+    @Binding var editingMode: GPSMapPhaseController.EditingMode
     
     var body: some View {
         VStack {

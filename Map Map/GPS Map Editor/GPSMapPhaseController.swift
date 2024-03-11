@@ -63,6 +63,7 @@ struct GPSMapPhaseController: View {
         .onChange(of: gpsMap.unwrappedEditing, initial: true) { translateFromGPSEditingMode() }
     }
     
+    /// Interpret the gpsMap editing status for the UI.
     func translateFromGPSEditingMode() {
         switch gpsMap.unwrappedEditing {
         case .settingUp: self.editingMode = .settingUp

@@ -41,6 +41,9 @@ public class GPSMap: NSManagedObject {
         set(newValue) { editing = newValue.rawValue }
     }
     
+    /// Allow adding a new coordinate from a CLLocation.
+    /// - Parameter clLocation: CLLocation to add to this GPSMap.
+    /// - Returns: Created GPSMapCoordinate if successful.
     public func addNewCoordinate(clLocation: CLLocation) -> GPSMapCoordinate? {
         guard let moc = self.managedObjectContext
         else { return nil }

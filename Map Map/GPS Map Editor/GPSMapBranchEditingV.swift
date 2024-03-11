@@ -9,14 +9,25 @@ import RangeSlider
 import SwiftUI
 
 struct GPSMapBranchEditingV: View {
-    @ObservedObject var gpsMapBranch: GPSMapBranch
-    @State private var workingName: String
-    let rangeIndicies: ClosedRange<Double>
-    @State var selectedRangeIndicies: ClosedRange<Double>
+    /// Current managed object context
     @Environment(\.managedObjectContext) var moc
+    /// GPS Map Branch currently being edited.
+    @ObservedObject var gpsMapBranch: GPSMapBranch
+    /// Track the original assignments of GPSMapCoordinateConnection to branches before adjustments by this branch.
     @State var originalConnectionAssignments: [GPSMapCoordinateConnection : GPSMapBranch] = [:]
+    /// Unapplied name of the branch.
+    @State private var workingName: String
+    /// Current selection of the ranged slider
+    @State var selectedRangeIndicies: ClosedRange<Double>
+    /// Track and update the current editing mode of this branch.
     @Binding var editingMode: GPSMapPhaseController.EditingMode
+    /// Allowed selection range of ranged slider.
+    let rangeIndicies: ClosedRange<Double>
     
+    /// Allow the user to edit a specific branch.
+    /// - Parameters:
+    ///   - gpsMapBranch: Branch to edit.
+    ///   - editingMode: Current editing mode of the UI.
     init(gpsMapBranch: GPSMapBranch, editingMode: Binding<GPSMapPhaseController.EditingMode>) {
         self.gpsMapBranch = gpsMapBranch
         self.workingName = gpsMapBranch.name ?? ""
@@ -28,7 +39,7 @@ struct GPSMapBranchEditingV: View {
               let firstIndex = gpsMapBranch.gpsMap?.unwrappedConnections.firstIndex(where: { $0 == firstConnection }),
               let lastIndex = gpsMapBranch.gpsMap?.unwrappedConnections.firstIndex(where: { $0 == lastConnection })
         else { return }
-        self.selectedRangeIndicies =
+        self.selectedRangeIndicies = // Crash prevention, may cause some minor UI bugs
         if firstIndex <= lastIndex { Double(firstIndex)...Double(lastIndex) }
         else { Double(lastIndex)...Double(firstIndex) }
     }
@@ -66,6 +77,7 @@ struct GPSMapBranchEditingV: View {
         .task { await assignAllCoordinatesToBranch() }
     }
     
+    /// Recursively go through each of the coordinates to remember their assignment before being switched to this branch.
     func assignAllCoordinatesToBranch() async {
         // Save initial coordinate - branch assignments
         guard let gpsMap = gpsMapBranch.gpsMap else { return }
@@ -84,14 +96,20 @@ struct GPSMapBranchEditingV: View {
         }
     }
     
+    /// Interpret the UI's selection to update connections in this and other branches.
+    /// - Parameters:
+    ///   - oldIndicies: Old selection
+    ///   - newIndicies: New selection
     func adjustConnectedBranches(oldIndicies: ClosedRange<Double>, newIndicies: ClosedRange<Double>) {
-        guard var connections = ensureValidRange(oldIndicies: oldIndicies) else { return }
+        guard var connections = ensureValidRange() else { return }
         updateUpperBound(oldIndicies: oldIndicies, newIndicies: newIndicies, connections: &connections)
         updateLowerBound(oldIndicies: oldIndicies, newIndicies: newIndicies, connections: &connections)
         gpsMapBranch.objectWillChange.send()
     }
     
-    func ensureValidRange(oldIndicies: ClosedRange<Double>) -> [GPSMapCoordinateConnection]? {
+    /// Check if the current range provided is valid.
+    /// - Returns: Available connections for the given range.
+    func ensureValidRange() -> [GPSMapCoordinateConnection]? {
         guard let connections = gpsMapBranch.gpsMap?.unwrappedConnections // Get all connections
         else {
             selectedRangeIndicies = rangeIndicies // Reset range
@@ -108,6 +126,11 @@ struct GPSMapBranchEditingV: View {
         return connections
     }
     
+    /// Handles lower insertion and removal of lower range.
+    /// - Parameters:
+    ///   - oldIndicies: Previous assignment of connections to this branch.
+    ///   - newIndicies: New assignment of connections to this branch.
+    ///   - connections: All available connections.
     private func updateLowerBound(
         oldIndicies: ClosedRange<Double>,
         newIndicies: ClosedRange<Double>,
@@ -121,6 +144,7 @@ struct GPSMapBranchEditingV: View {
         }
         // If old index of lower bound is greater than new one (got slid up)
         else if oldIndicies.lowerBound < newIndicies.lowerBound {
+            // Reverse for loop
             for index in stride(from: Int(newIndicies.lowerBound) - 1, through: Int(oldIndicies.lowerBound), by: -1) {
                 if let branch = originalConnectionAssignments[connections[index]] {
                     branch.addToConnections(connections[index])
@@ -129,6 +153,12 @@ struct GPSMapBranchEditingV: View {
             }
         }
     }
+    
+    /// Handles lower insertion and removal of upper range.
+    /// - Parameters:
+    ///   - oldIndicies: Previous assignment of connections to this branch.
+    ///   - newIndicies: New assignment of connections to this branch.
+    ///   - connections: All available connections.
     private func updateUpperBound(
         oldIndicies: ClosedRange<Double>,
         newIndicies: ClosedRange<Double>,

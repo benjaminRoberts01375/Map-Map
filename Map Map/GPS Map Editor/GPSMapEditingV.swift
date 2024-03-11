@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct GPSMapEditingV: View {
-    @State var workingName: String
-    @ObservedObject var gpsMap: GPSMap
+    /// The current manged object context.
     @Environment(\.managedObjectContext) var moc
+    /// GPSMap being edited.
+    @ObservedObject var gpsMap: GPSMap
+    /// Unapplied name of this GPS Map.
+    @State var workingName: String
+    /// The current editing mode of the UI.
     @Binding var editingMode: GPSMapPhaseController.EditingMode
     
     init(_ gpsMap: GPSMap, editingMode: Binding<GPSMapPhaseController.EditingMode>) {
