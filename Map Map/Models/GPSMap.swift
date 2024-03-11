@@ -13,8 +13,18 @@ import MapKit
 @objc(GPSMap)
 public class GPSMap: NSManagedObject { 
     /// A simple getter for GPS Map Coordinates.
+    var unwrappedBranches: [GPSMapBranch] {
+        return self.branches?.array as? [GPSMapBranch] ?? []
+    }
+    
+    /// Get an array of all the available connections for this MapMap
     var unwrappedConnections: [GPSMapCoordinateConnection] {
-        return (self.connections?.array as? [GPSMapCoordinateConnection] ?? []).filter { $0.end != nil }
+        return self.connections?.array as? [GPSMapCoordinateConnection] ?? []
+    }
+    
+    /// All connections that do not have an associated branch
+    var unsortedConnections: [GPSMapCoordinateConnection] {
+        return unwrappedConnections.filter({ $0.branch == nil })
     }
     
     /// Track how this GPS map is being edited.
@@ -31,15 +41,14 @@ public class GPSMap: NSManagedObject {
         set(newValue) { editing = newValue.rawValue }
     }
     
-    /// Add a new coordinate to this GPS Map.
-    /// - Parameter clLocation: Location to add.
-    /// - Returns: Added GPSMapCoordinate if it was successful.
+    /// Allow adding a new coordinate from a CLLocation.
+    /// - Parameter clLocation: CLLocation to add to this GPSMap.
+    /// - Returns: Created GPSMapCoordinate if successful.
     public func addNewCoordinate(clLocation: CLLocation) -> GPSMapCoordinate? {
         guard let moc = self.managedObjectContext
         else { return nil }
         let truncAlt = Int16(clLocation.altitude) // Track min/max altitude
         let newCoordinate = GPSMapCoordinate(location: clLocation, moc: moc)
-        
         if let lastConnection = self.unwrappedConnections.last {
             if self.heightMax < truncAlt { self.heightMax = truncAlt }
             else if self.heightMin > truncAlt { self.heightMin = truncAlt }
@@ -52,6 +61,7 @@ public class GPSMap: NSManagedObject {
                 lastConnection.end = newCoordinate
                 self.distance += Int32(clLocation.distance(from: startCoordinate.clLocation))
             }
+            else { return nil } // Something went horribly wrong to end up here >:(
             return newCoordinate
         }
         
@@ -59,6 +69,7 @@ public class GPSMap: NSManagedObject {
         self.heightMin = truncAlt
         // Create new connection with current as start
         self.addToConnections(GPSMapCoordinateConnection(start: newCoordinate, context: moc))
+        self.objectWillChange.send()
         return newCoordinate
     }
 }

@@ -19,7 +19,7 @@ struct MarkerV: View {
                     .resizable()
                     .scaledToFit()
                     .scaleEffect(0.6)
-                    .foregroundStyle(marker.forgroundColor)
+                    .foregroundStyle(marker.backgroundColor.contrastColor)
             }
             .ignoresSafeArea(.all)
     }

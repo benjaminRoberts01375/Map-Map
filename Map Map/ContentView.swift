@@ -51,7 +51,7 @@ struct ContentView: View {
                 }
                 switch editing {
                 case .mapMap(let mapMap): MapMapEditor(mapMap: mapMap)
-                case .gpsMap(let gpsMap): GPSMapEditorV(gpsMap: gpsMap)
+                case .gpsMap(let gpsMap): GPSMapPhaseController(gpsMap: gpsMap)
                 case .marker(let marker): MarkerEditorV(marker: marker)
                 case .measurement: MeasurementEditorV(editing: $editing)
                 case .nothing:

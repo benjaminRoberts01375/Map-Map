@@ -57,18 +57,6 @@ public class Marker: NSManagedObject {
         }
     }
     
-    /// Foreground color based on the background color.
-    var forgroundColor: Color {
-        if let backgroundColorComponents = self.color {
-            return Marker.calculateForegroundColor(
-                red: backgroundColorComponents.red,
-                green: backgroundColorComponents.green,
-                blue: backgroundColorComponents.blue
-            )
-        }
-        return .white
-    }
-    
     /// Optional rotation angle as a double instead of NSDecimalNumber.
     var lockRotationAngleDouble: Double? {
         get { return self.lockRotationAngle?.doubleValue }
@@ -84,31 +72,6 @@ public class Marker: NSManagedObject {
     var formattedMapMaps: [MapMap] {
         let mapMapSet = self.mapMap as? Set<MapMap> ?? []
         return mapMapSet.sorted(by: { $0.coordinates < $1.coordinates })
-    }
-    
-    /// Determine what the foreground color of a Marker based on the provided RGB values.
-    /// - Parameters:
-    ///   - red: Red values 0 to 1.
-    ///   - green: Green values 0 to 1.
-    ///   - blue: Blue values 0 to 1.
-    /// - Returns: Resulting visible color.
-    static func calculateForegroundColor(red: Double, green: Double, blue: Double) -> Color {
-        if red * 0.299 + green * 0.587 + blue * 0.114 > 0.5 { // Is a light color
-            return .black
-        }
-        return .white
-    }
-    
-    /// Determine what the foreground color of a Marker based on the provided color.
-    /// - Parameter color: Color to base foreground color on.
-    /// - Returns: Resulting visible color.
-    static func calculateForgroundColor(color: Color) -> Color {
-        var red: CGFloat = 0.0
-        var green: CGFloat = 0.0
-        var blue: CGFloat = 0.0
-        var alpha: CGFloat = 0.0
-        _ = UIColor(color).getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-        return Marker.calculateForegroundColor(red: red, green: green, blue: blue)
     }
 }
 

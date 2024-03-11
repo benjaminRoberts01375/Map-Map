@@ -7,15 +7,18 @@
 //
 
 import CoreData
-import Foundation
+import SwiftUI
 
 @objc(GPSMapCoordinateConnection)
 public class GPSMapCoordinateConnection: NSManagedObject {
     var start: GPSMapCoordinate? { self.coordinates?.array.first as? GPSMapCoordinate }
     public internal(set) var end: GPSMapCoordinate? {
-        get { self.coordinates?.array.last as? GPSMapCoordinate }
+        get {
+            if self.coordinates?.count ?? 0 < 2 { return nil }
+            return self.coordinates?.array.last as? GPSMapCoordinate
+        }
         set {
-            self.removeFromCoordinates(at: 1)
+            if self.coordinates?.count ?? 0 >= 2 { self.removeFromCoordinates(at: 1) }
             if let coordinate = newValue { self.addToCoordinates(coordinate) }
         }
     }

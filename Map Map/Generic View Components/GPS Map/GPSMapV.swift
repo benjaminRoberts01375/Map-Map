@@ -13,34 +13,36 @@ struct GPSMapV: View {
     @Environment(MapDetailsM.self) var mapDetails
     /// GPS Map to view.
     @ObservedObject var gpsMap: GPSMap
-    /// Connection points for drawing lines
-    @State var lineEnds: [Connection] = []
+    
+    @State var looseConnections: [[CGPoint]] = []
     
     var body: some View {
         ZStack {
-            ForEach(lineEnds) { connection in
-                Line(startingPos: CGSize(cgPoint: connection.start), endingPos: CGSize(cgPoint: connection.end)) // Outline line
+            ForEach(gpsMap.unwrappedBranches) { branch in
+                GPSMapBranchV(gpsMapBranch: branch)
+                    .onReceive(branch.objectWillChange) { setSSLineNodes() }
+            }
+            ForEach(looseConnections, id: \.self) { branch in
+                MultiLine(points: branch)
                     .stroke(style: StrokeStyle(lineWidth: 6, lineCap: .round))
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(GPSMapConnectionColor.defaultColor)
             }
         }
-        .onChange(of: mapDetails.mapCamera) { setSSLineEndPos() }
-        .onChange(of: gpsMap.connections?.count) { setSSLineEndPos() }
+        .onChange(of: mapDetails.mapCamera) { setSSLineNodes() }
+        .onReceive(gpsMap.objectWillChange) { setSSLineNodes() }
     }
     
     /// Update line positions from the line end positions func.
-    func setSSLineEndPos() {
+    func setSSLineNodes() {
         Task {
-            let lines = await calculateSSLineEndPos()
+            let lineNodes = await calculateSSLineEndPos()
             DispatchQueue.main.async {
-                self.lineEnds = lines
+                self.looseConnections = lineNodes
             }
         }
     }
     
-    /// Determine how to draw lines from coordinate points.
-    /// - Returns: Calculated positions.
-    func calculateSSLineEndPos() async -> [Connection] {
+    func calculateSSLineEndPos() async -> [[CGPoint]] {
         let spanMultiplier = 1.1
         let correctedSpan = MKCoordinateSpan(
             latitudeDelta: mapDetails.region.span.latitudeDelta * spanMultiplier,
@@ -52,19 +54,27 @@ struct GPSMapV: View {
             width: correctedSpan.latitudeDelta,
             height: correctedSpan.longitudeDelta
         )
-        var result: [Connection] = []
-        let pruner: Int = Int((mapDetails.mapCamera.distance / 200).rounded(.awayFromZero))
+        var final: [[CGPoint]] = []
+        var current: [CGPoint] = []
+        var lastCoord: GPSMapCoordinate?
         
-        for (index, connection) in gpsMap.unwrappedConnections.enumerated() where index % pruner == 0 {
+        for connection in gpsMap.unsortedConnections {
             if let startCoord = connection.start,
                let endCoord = connection.end,
                ssMapMesh.contains(CGPoint(x: startCoord.coordinates.latitude, y: startCoord.coordinates.longitude)) ||
                 ssMapMesh.contains(CGPoint(x: endCoord.coordinates.latitude, y: endCoord.coordinates.longitude)),
                let startPoint = mapDetails.mapProxy?.convert(startCoord.coordinates, to: .global),
                let endPoint = mapDetails.mapProxy?.convert(endCoord.coordinates, to: .global) {
-                result.append(Connection(start: result.last?.end ?? startPoint, end: endPoint))
+                if startCoord != lastCoord {
+                    final.append(current)
+                    current = .init()
+                    current.append(startPoint)
+                }
+                current.append(endPoint)
+                lastCoord = endCoord
             }
         }
-        return result
+        final.append(current)
+        return final
     }
 }
