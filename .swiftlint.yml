@@ -2,7 +2,7 @@
 included:
   - Source
   - Map Map
-
+  - GPSTrackingLA
 # Excluded paths
 excluded:
   - Carthage
