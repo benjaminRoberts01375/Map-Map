@@ -14,7 +14,7 @@ struct GPSTrackingLSLAV: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            HStack {
+            HStack(spacing: 0) {
                 Text(context.state.seconds.description)
                     .font(.system(size: 35))
                     .fontWidth(.condensed)
@@ -32,14 +32,16 @@ struct GPSTrackingLSLAV: View {
                             Spacer(minLength: 0)
                             Text(context.state.positionNotation.degreesToString(latitude: context.state.userLatitude))
                             Text(context.state.positionNotation.degreesToString(longitude: context.state.userLongitude))
-                                .font(.system(size: 15))
                         }
+                        .font(.system(size: 20))
+                        .fontWidth(.condensed)
                     case .DMS:
                         VStack(alignment: .trailing) {
                             Text(context.state.positionNotation.degreesToString(latitude: context.state.userLatitude))
                             Text(context.state.positionNotation.degreesToString(longitude: context.state.userLongitude))
                         }
-                        .font(.system(size: 15))
+                        .font(.system(size: 20))
+                        .fontWidth(.condensed)
                     }
                 }
             }
