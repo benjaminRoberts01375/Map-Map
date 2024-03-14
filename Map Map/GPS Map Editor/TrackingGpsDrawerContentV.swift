@@ -27,6 +27,8 @@ struct TrackingGpsDrawerContentV: View {
     @State var statsBottom: Bool = true
     /// ID for the current live activity if one is running.
     @State var activityID: String?
+    /// How to display coordinates on screen.
+    @AppStorage(UserDefaults.kCoordinateDisplayType) var locationDisplayType = UserDefaults.dCoordinateDisplayType
     
     var body: some View {
         VStack {
@@ -129,7 +131,8 @@ struct TrackingGpsDrawerContentV: View {
                 speed: speed,
                 highPoint: gpsMap.heightMax,
                 lowPoint: gpsMap.heightMin,
-                distance: gpsMap.distance
+                distance: gpsMap.distance, 
+                positionNotation: locationDisplayType
             ),
             staleDate: nil
         )
@@ -153,7 +156,8 @@ struct TrackingGpsDrawerContentV: View {
             speed: speed,
             highPoint: gpsMap.heightMax,
             lowPoint: gpsMap.heightMin,
-            distance: gpsMap.distance
+            distance: gpsMap.distance,
+            positionNotation: locationDisplayType
         )
         let activityContent = ActivityContent(state: newContentState, staleDate: nil)
         Task { await activity.update(activityContent) }
@@ -170,7 +174,8 @@ struct TrackingGpsDrawerContentV: View {
             speed: speed,
             highPoint: gpsMap.heightMax,
             lowPoint: gpsMap.heightMin,
-            distance: gpsMap.distance
+            distance: gpsMap.distance,
+            positionNotation: locationDisplayType
         )
         let activityContent = ActivityContent(state: newContentState, staleDate: nil)
         Task { await runningActiivty.end(activityContent, dismissalPolicy: .immediate)

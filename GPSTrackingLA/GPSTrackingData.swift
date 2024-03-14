@@ -23,5 +23,6 @@ extension GPSTrackingAttributes: ActivityAttributes {
         var highPoint: Int16
         var lowPoint: Int16
         var distance: Int32
+        var positionNotation: LocationDisplayMode
     }
 }
