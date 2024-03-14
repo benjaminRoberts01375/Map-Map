@@ -108,6 +108,7 @@
 		B5C9ED092BA35D0D00E6755C /* LocationDisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C9D7722B1195C10099041A /* LocationDisplayMode.swift */; };
 		B5C9ED0A2BA35EA400E6755C /* BigButtonVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07353A342ADCCB9700C698B0 /* BigButtonVModifier.swift */; };
 		B5C9ED0B2BA3758B00E6755C /* CLLocationDegreesE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D522F22AE5CCCF009364B3 /* CLLocationDegreesE.swift */; };
+		B5C9ED0C2BA3A6C000E6755C /* TimeIntervalE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B524C5B02B793047003600AA /* TimeIntervalE.swift */; };
 		B5CEC51B2B9B73CB001D4CCF /* MultiLineShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CEC51A2B9B73CB001D4CCF /* MultiLineShape.swift */; };
 		B5DB649D2B97CEBF00574184 /* GPSMapBranchV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DB649C2B97CEBF00574184 /* GPSMapBranchV.swift */; };
 		B5E5274D2B7693F60027300D /* GPSMapCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E5274C2B7693F60027300D /* GPSMapCoordinate.swift */; };
@@ -857,6 +858,7 @@
 				B509625C2BA0C163004AF6BE /* GPSTrackingData.swift in Sources */,
 				B509624D2BA0BF94004AF6BE /* GPSTrackingLA.swift in Sources */,
 				B509624B2BA0BF94004AF6BE /* GPSTrackingLABundle.swift in Sources */,
+				B5C9ED0C2BA3A6C000E6755C /* TimeIntervalE.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1011,6 +1013,7 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Map Map uses your location in the background to generate GPS Maps. 1";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Map Map uses your location in the background to generate GPS Maps. 2";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Map Map uses your location to show where you are on the map. That's it. (◕‿◕ ✿)";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1050,6 +1053,7 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Map Map uses your location in the background to generate GPS Maps. 1";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Map Map uses your location in the background to generate GPS Maps. 2";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Map Map uses your location to show where you are on the map. That's it. (◕‿◕ ✿)";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
