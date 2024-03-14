@@ -13,13 +13,35 @@ struct GPSTrackingLSLAV: View {
     let context: ActivityViewContext<GPSTrackingAttributes>
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             HStack {
                 Text(context.state.seconds.description)
                     .font(.system(size: 35))
                     .fontWidth(.condensed)
                     .bigButton(backgroundColor: .gray, minWidth: 120)
                 Spacer(minLength: 0)
+                VStack(alignment: .trailing) {
+                    Text(context.attributes.gpsMapName)
+                        .font(.system(size: 25))
+                        .fontWidth(.condensed)
+                        .bold()
+                        .lineLimit(1)
+                    switch context.state.positionNotation {
+                    case .degrees:
+                        HStack {
+                            Spacer(minLength: 0)
+                            Text(context.state.positionNotation.degreesToString(latitude: context.state.userLatitude))
+                            Text(context.state.positionNotation.degreesToString(longitude: context.state.userLongitude))
+                                .font(.system(size: 15))
+                        }
+                    case .DMS:
+                        VStack(alignment: .trailing) {
+                            Text(context.state.positionNotation.degreesToString(latitude: context.state.userLatitude))
+                            Text(context.state.positionNotation.degreesToString(longitude: context.state.userLongitude))
+                        }
+                        .font(.system(size: 15))
+                    }
+                }
             }
             .padding()
             HStack {
