@@ -12,7 +12,7 @@ import WidgetKit
 struct GPSTrackingLA: Widget { // View controller
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: GPSTrackingAttributes.self) { context in
-            VStack { }
+            GPSTrackingLSLAV(context: context)
         } dynamicIsland: { context in
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
@@ -25,7 +25,6 @@ struct GPSTrackingLA: Widget { // View controller
             } minimal: {
                 EmptyView()
             }
-
         }
     }
 }
