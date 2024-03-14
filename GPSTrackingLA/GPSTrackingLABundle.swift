@@ -5,8 +5,8 @@
 //  Created by Ben Roberts on 3/12/24.
 //
 
-import WidgetKit
 import SwiftUI
+import WidgetKit
 
 @main
 struct GPSTrackingLABundle: WidgetBundle {
