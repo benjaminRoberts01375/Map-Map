@@ -26,6 +26,8 @@ struct DefaultDrawerHeaderV: View {
     @State private var errorMessage: String = ""
     /// Trakcer for showing errors.
     @State private var errorPresented = false
+    /// GPS user location.
+    @State private var locationsHandler = LocationsHandler.shared
     
     var body: some View {
         HStack {
@@ -51,6 +53,7 @@ struct DefaultDrawerHeaderV: View {
                     Label("Files", systemImage: "folder.fill")
                 }
                 Button {
+                    locationsHandler.requestAlwaysLocation()
                     _ = GPSMap(moc: moc)
                 } label: {
                     Label("GPS", systemImage: "point.bottomleft.filled.forward.to.point.topright.scurvepath")

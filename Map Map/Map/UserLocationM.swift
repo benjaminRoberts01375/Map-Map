@@ -41,4 +41,18 @@ final class LocationsHandler {
     internal func stopLocationTracking() {
         self.updatesStarted = false
     }
+    
+    internal func requestAlwaysLocation() {
+        locationManager.requestAlwaysAuthorization()
+    }
+    
+    internal func startAlwaysLocation() {
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.showsBackgroundLocationIndicator = true
+    }
+    
+    internal func endAlwaysLocation() {
+        locationManager.allowsBackgroundLocationUpdates = false
+        locationManager.showsBackgroundLocationIndicator = false
+    }
 }
