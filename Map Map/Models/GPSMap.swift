@@ -27,20 +27,6 @@ public class GPSMap: NSManagedObject {
         return unwrappedConnections.filter({ $0.branch == nil })
     }
     
-    /// Track how this GPS map is being edited.
-    public enum EditingState: Int16 {
-        case settingUp = 0
-        case tracking = 1
-        case editing = 2
-        case viewing = 3
-    }
-    
-    /// Get the current editing state as an enum.
-    var unwrappedEditing: EditingState {
-        get { return EditingState(rawValue: self.editing) ?? .settingUp }
-        set(newValue) { editing = newValue.rawValue }
-    }
-    
     /// Allow adding a new coordinate from a CLLocation.
     /// - Parameter clLocation: CLLocation to add to this GPSMap.
     /// - Returns: Created GPSMapCoordinate if successful.
@@ -79,6 +65,6 @@ public extension GPSMap {
     /// - Parameter moc: Managed Object Context to insert this GPS map into.
     convenience init(moc: NSManagedObjectContext) {
         self.init(context: moc)
-        self.unwrappedEditing = .settingUp
+        self.isEditing = true
     }
 }

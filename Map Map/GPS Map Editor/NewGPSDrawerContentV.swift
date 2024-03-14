@@ -25,7 +25,11 @@ struct NewGPSDrawerContentV: View {
                     .frame(width: 205)
             }
             HStack {
-                Button { gpsMap.unwrappedEditing = .tracking } label: { Text("Start").bigButton(backgroundColor: .green) }
+                Button {
+                    // TODO: Create live activity
+                } label: {
+                    Text("Start").bigButton(backgroundColor: .green)
+                }
                 Button { moc.delete(gpsMap) } label: { Text("Nevermind").bigButton(backgroundColor: .red) }
             }
         }
