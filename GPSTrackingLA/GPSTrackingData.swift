@@ -18,9 +18,10 @@ extension GPSTrackingAttributes: ActivityAttributes {
         // Dynamic values:
         var userLongitude: Double
         var userLatitude: Double
-        var seconds: Int32
+        var seconds: TimeInterval
         var speed: Measurement<UnitSpeed>
         var highPoint: Int16
         var lowPoint: Int16
+        var distance: Int32
     }
 }
