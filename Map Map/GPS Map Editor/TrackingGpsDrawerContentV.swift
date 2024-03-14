@@ -5,6 +5,7 @@
 //  Created by Ben Roberts on 2/9/24.
 //
 
+import ActivityKit
 import SwiftUI
 
 struct TrackingGpsDrawerContentV: View {
@@ -24,6 +25,8 @@ struct TrackingGpsDrawerContentV: View {
     @State var showDoneConfirmation: Bool = false
     /// Track the position of the stats.
     @State var statsBottom: Bool = true
+    /// ID for the current live activity if one is running.
+    @State var activityID: String?
     
     var body: some View {
         VStack {
@@ -61,6 +64,7 @@ struct TrackingGpsDrawerContentV: View {
                         guard let moc = gpsMap.managedObjectContext
                         else { return }
                         try? moc.save()
+                        endLiveActivity()
                     }
                     else { showDoneConfirmation = true }
                 } label: {
@@ -101,7 +105,10 @@ struct TrackingGpsDrawerContentV: View {
                 gpsMap.trackingStartDate = date
                 startDate = date
             }
-            additionalSeconds = Int(Date().timeIntervalSince(startDate))
+            let newTime = Int(Date().timeIntervalSince(startDate))
+            if additionalSeconds == newTime { return }
+            self.additionalSeconds = newTime
+            updateLiveActivity()
         }
         .onChange(of: locationsHandler.lastLocation) { _ = gpsMap.addNewCoordinate(clLocation: $1) }
         .onChange(of: additionalSeconds) {
@@ -109,5 +116,67 @@ struct TrackingGpsDrawerContentV: View {
             self.speed = Measurement(value: Double(gpsMap.distance) / totalSeconds, unit: .metersPerSecond)
         }
         .onAppear { mapDetails.followUser() }
+        .onAppear { setupLiveActivity() }
+    }
+    
+    private func setupLiveActivity() {
+        let attributes = GPSTrackingAttributes(gpsMapName: gpsMap.name ?? "New GPS Map")
+        let initialContentState = ActivityContent(
+            state: GPSTrackingAttributes.ContentState(
+                userLongitude: locationsHandler.lastLocation.coordinate.longitude,
+                userLatitude: locationsHandler.lastLocation.coordinate.latitude,
+                seconds: Double(additionalSeconds + Int(gpsMap.durationSeconds)),
+                speed: speed,
+                highPoint: gpsMap.heightMax,
+                lowPoint: gpsMap.heightMin,
+                distance: gpsMap.distance
+            ),
+            staleDate: nil
+        )
+        guard let activity = try? Activity.request(
+            attributes: attributes,
+            content: initialContentState,
+            pushType: .none
+        )
+        else { return }
+        self.activityID = activity.id
+    }
+    
+    private func updateLiveActivity() {
+        guard let activityID = activityID,
+              let activity = Activity<GPSTrackingAttributes>.activities.first(where: { $0.id == activityID })
+        else { return }
+        let newContentState = GPSTrackingAttributes.ContentState(
+            userLongitude: locationsHandler.lastLocation.coordinate.longitude,
+            userLatitude: locationsHandler.lastLocation.coordinate.latitude,
+            seconds: Double(additionalSeconds + Int(gpsMap.durationSeconds)),
+            speed: speed,
+            highPoint: gpsMap.heightMax,
+            lowPoint: gpsMap.heightMin,
+            distance: gpsMap.distance
+        )
+        let activityContent = ActivityContent(state: newContentState, staleDate: nil)
+        Task { await activity.update(activityContent) }
+    }
+    
+    private func endLiveActivity() {
+        guard let activityID = activityID,
+              let runningActiivty = Activity<GPSTrackingAttributes>.activities.first(where: { $0.id == activityID })
+        else { return }
+        let newContentState = GPSTrackingAttributes.ContentState(
+            userLongitude: locationsHandler.lastLocation.coordinate.longitude,
+            userLatitude: locationsHandler.lastLocation.coordinate.latitude,
+            seconds: Double(additionalSeconds + Int(gpsMap.durationSeconds)),
+            speed: speed,
+            highPoint: gpsMap.heightMax,
+            lowPoint: gpsMap.heightMin,
+            distance: gpsMap.distance
+        )
+        let activityContent = ActivityContent(state: newContentState, staleDate: nil)
+        Task { await runningActiivty.end(activityContent, dismissalPolicy: .immediate)
+            DispatchQueue.main.async {
+                self.activityID = nil
+            }
+        }
     }
 }
