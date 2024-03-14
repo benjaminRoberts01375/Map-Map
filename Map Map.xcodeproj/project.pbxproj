@@ -98,6 +98,7 @@
 		B57D8A552B5E112C002B9F7C /* MarkupEditorSwitcherV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A542B5E112C002B9F7C /* MarkupEditorSwitcherV.swift */; };
 		B57D8A572B5EC079002B9F7C /* DisplayDrawingV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A562B5EC079002B9F7C /* DisplayDrawingV.swift */; };
 		B587C2752B46517C001DD4F9 /* StringE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B587C2742B46517C001DD4F9 /* StringE.swift */; };
+		B5986B222BA355C000A96601 /* GPSTrackingLSLAV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5986B212BA3558B00A96601 /* GPSTrackingLSLAV.swift */; };
 		B59B348E2B9E454F0083B458 /* RangeSlider in Frameworks */ = {isa = PBXBuildFile; productRef = B59B348D2B9E454F0083B458 /* RangeSlider */; };
 		B59B34902B9E4D900083B458 /* ColorE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59B348F2B9E4D900083B458 /* ColorE.swift */; };
 		B5A111012B6EF67F00C8681A /* MapImage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A111002B6EF67F00C8681A /* MapImage+CoreDataClass.swift */; };
@@ -237,6 +238,7 @@
 		B57D8A542B5E112C002B9F7C /* MarkupEditorSwitcherV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupEditorSwitcherV.swift; sourceTree = "<group>"; };
 		B57D8A562B5EC079002B9F7C /* DisplayDrawingV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayDrawingV.swift; sourceTree = "<group>"; };
 		B587C2742B46517C001DD4F9 /* StringE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringE.swift; sourceTree = "<group>"; };
+		B5986B212BA3558B00A96601 /* GPSTrackingLSLAV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTrackingLSLAV.swift; sourceTree = "<group>"; };
 		B59B348F2B9E4D900083B458 /* ColorE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorE.swift; sourceTree = "<group>"; };
 		B5A111002B6EF67F00C8681A /* MapImage+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MapImage+CoreDataClass.swift"; path = "/Users/ben/Desktop/Map Map/Map Map/Models/MapImage+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		B5B6C78A2B68733F00F352BC /* UserDefaultsE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsE.swift; sourceTree = "<group>"; };
@@ -531,6 +533,7 @@
 			children = (
 				B509624A2BA0BF94004AF6BE /* GPSTrackingLABundle.swift */,
 				B509624C2BA0BF94004AF6BE /* GPSTrackingLA.swift */,
+				B5986B212BA3558B00A96601 /* GPSTrackingLSLAV.swift */,
 				B509625A2BA0C163004AF6BE /* GPSTrackingData.swift */,
 				B509624E2BA0BF95004AF6BE /* Assets.xcassets */,
 				B50962502BA0BF95004AF6BE /* Info.plist */,
@@ -844,6 +847,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5986B222BA355C000A96601 /* GPSTrackingLSLAV.swift in Sources */,
 				B509625C2BA0C163004AF6BE /* GPSTrackingData.swift in Sources */,
 				B509624D2BA0BF94004AF6BE /* GPSTrackingLA.swift in Sources */,
 				B509624B2BA0BF94004AF6BE /* GPSTrackingLABundle.swift in Sources */,
