@@ -61,6 +61,16 @@ struct GPSTrackingLSLAV: View {
             .fontWidth(.condensed)
             .background(colorScheme == .dark ? Color(red: 0.15, green: 0.31, blue: 0.19) : .white)
         }
+        .background(
+            LinearGradient(
+                colors: [.clear, colorScheme == .dark ? .black.opacity(0.5) : .clear],
+                startPoint: UnitPoint(
+                    x: UnitPoint.center.x / 2,
+                    y: UnitPoint.center.y
+                ),
+                endPoint: .trailing
+            )
+        )
         .background(colorScheme == .dark ? Color(red: 0.27, green: 0.45, blue: 0.28) : Color(red: 0.65, green: 0.82, blue: 0.48))
     }
 }
