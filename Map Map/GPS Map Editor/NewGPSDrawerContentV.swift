@@ -26,7 +26,7 @@ struct NewGPSDrawerContentV: View {
             }
             HStack {
                 Button {
-                    // TODO: Create live activity
+                    gpsMap.isTracking = true
                 } label: {
                     Text("Start").bigButton(backgroundColor: .green)
                 }
