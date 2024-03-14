@@ -80,6 +80,8 @@
 		B509624D2BA0BF94004AF6BE /* GPSTrackingLA.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509624C2BA0BF94004AF6BE /* GPSTrackingLA.swift */; };
 		B509624F2BA0BF95004AF6BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B509624E2BA0BF95004AF6BE /* Assets.xcassets */; };
 		B50962542BA0BF95004AF6BE /* GPSTrackingLAExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B50962442BA0BF94004AF6BE /* GPSTrackingLAExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B509625B2BA0C163004AF6BE /* GPSTrackingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509625A2BA0C163004AF6BE /* GPSTrackingData.swift */; };
+		B509625C2BA0C163004AF6BE /* GPSTrackingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509625A2BA0C163004AF6BE /* GPSTrackingData.swift */; };
 		B50C23572B62D46800093054 /* MapMapAnnotationV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50C23562B62D46800093054 /* MapMapAnnotationV.swift */; };
 		B51655CE2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51655CD2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift */; };
 		B51655D02B3CB5A4006FBE67 /* MapMeasurementConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51655CF2B3CB5A4006FBE67 /* MapMeasurementConnection.swift */; };
@@ -218,6 +220,7 @@
 		B509624E2BA0BF95004AF6BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B50962502BA0BF95004AF6BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B50962512BA0BF95004AF6BE /* GPSTrackingLA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GPSTrackingLA.entitlements; sourceTree = "<group>"; };
+		B509625A2BA0C163004AF6BE /* GPSTrackingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTrackingData.swift; sourceTree = "<group>"; };
 		B50C23562B62D46800093054 /* MapMapAnnotationV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapAnnotationV.swift; sourceTree = "<group>"; };
 		B51655CD2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MapMeasurementCoordinate+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B51655CF2B3CB5A4006FBE67 /* MapMeasurementConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMeasurementConnection.swift; sourceTree = "<group>"; };
@@ -528,6 +531,7 @@
 			children = (
 				B509624A2BA0BF94004AF6BE /* GPSTrackingLABundle.swift */,
 				B509624C2BA0BF94004AF6BE /* GPSTrackingLA.swift */,
+				B509625A2BA0C163004AF6BE /* GPSTrackingData.swift */,
 				B509624E2BA0BF95004AF6BE /* Assets.xcassets */,
 				B50962502BA0BF95004AF6BE /* Info.plist */,
 				B50962512BA0BF95004AF6BE /* GPSTrackingLA.entitlements */,
@@ -752,6 +756,7 @@
 				0776EB062B05586B00F89BFC /* MapMapV.swift in Sources */,
 				07249C0D2B1682970088B721 /* MarkerSymbolPickerItemV.swift in Sources */,
 				07BE4BB82B0A7E3A00FDE9D2 /* MapButtonsV.swift in Sources */,
+				B509625B2BA0C163004AF6BE /* GPSTrackingData.swift in Sources */,
 				07D522F32AE5CCCF009364B3 /* CLLocationDegreesE.swift in Sources */,
 				B50C23572B62D46800093054 /* MapMapAnnotationV.swift in Sources */,
 				B524C5B12B793047003600AA /* TimeIntervalE.swift in Sources */,
@@ -839,6 +844,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B509625C2BA0C163004AF6BE /* GPSTrackingData.swift in Sources */,
 				B509624D2BA0BF94004AF6BE /* GPSTrackingLA.swift in Sources */,
 				B509624B2BA0BF94004AF6BE /* GPSTrackingLABundle.swift in Sources */,
 			);
@@ -992,6 +998,8 @@
 				INFOPLIST_KEY_CFBundleDisplayName = MapMap;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Map Map uses your camera for taking photos of maps. That's it. (◕‿◕ ✿)";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Map Map uses your location in the background to generate GPS Maps. 1";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Map Map uses your location in the background to generate GPS Maps. 2";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Map Map uses your location to show where you are on the map. That's it. (◕‿◕ ✿)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1029,6 +1037,8 @@
 				INFOPLIST_KEY_CFBundleDisplayName = MapMap;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Map Map uses your camera for taking photos of maps. That's it. (◕‿◕ ✿)";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Map Map uses your location in the background to generate GPS Maps. 1";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Map Map uses your location in the background to generate GPS Maps. 2";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Map Map uses your location to show where you are on the map. That's it. (◕‿◕ ✿)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
