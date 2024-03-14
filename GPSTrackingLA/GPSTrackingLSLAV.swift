@@ -57,8 +57,8 @@ struct GPSTrackingLSLAV: View {
             }
             .foregroundStyle(.secondary)
             .fontWidth(.condensed)
-            .background(colorScheme == .dark ? .black : .white)
+            .background(colorScheme == .dark ? Color(red: 0.15, green: 0.31, blue: 0.19) : .white)
         }
-        .background(colorScheme == .dark ? Color(red: 0.33, green: 0.45, blue: 0.28) : Color(red: 0.65, green: 0.82, blue: 0.48))
+        .background(colorScheme == .dark ? Color(red: 0.27, green: 0.45, blue: 0.28) : Color(red: 0.65, green: 0.82, blue: 0.48))
     }
 }
