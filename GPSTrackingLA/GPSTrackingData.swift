@@ -1,5 +1,5 @@
 //
-//  LAState.swift
+//  GPSTrackingData.swift
 //  Map Map
 //
 //  Created by Ben Roberts on 3/12/24.
