@@ -14,6 +14,8 @@ struct NewGPSDrawerContentV: View {
     @Binding var workingName: String
     /// GPS map to edit.
     @ObservedObject var gpsMap: GPSMap
+    /// Track the presents of an alert informing the user they do not have proper location services configured.
+    @State var locationNotAlwaysError: Bool = false
     /// Track the presents of an alert informing the user they have not permitted map map to track location at all.
     @State var locationNeverAvailable: Bool = false
     /// GPS user location.
@@ -32,6 +34,7 @@ struct NewGPSDrawerContentV: View {
                 Button {
                     switch locationsHandler.authorizationStatus {
                     case .authorizedAlways: gpsMap.isTracking = true
+                    case .authorizedWhenInUse: locationNotAlwaysError = true
                     default: locationNeverAvailable = true
                     }
                 } label: {
@@ -40,6 +43,10 @@ struct NewGPSDrawerContentV: View {
                 Button { moc.delete(gpsMap) } label: { Text("Nevermind").bigButton(backgroundColor: .red) }
             }
         }
-        .locationNeverAvailable(isPresented: $locationNeverAvailable) { gpsMap.isTracking = true }
+        .locationNotAlwaysAvailable(isPresented: $locationNotAlwaysError) {
+            try? moc.save()
+            moc.delete(gpsMap)
+        }
+        .locationNeverAvailable(isPresented: $locationNeverAvailable) { gpsMap.isTracking = true}
     }
 }
