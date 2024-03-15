@@ -20,6 +20,8 @@ final class LocationsHandler {
     public var lastLocation = CLLocation()
     /// Track if we're currently getting the user's location.
     private var updatesStarted: Bool = false
+    /// Track if we are currently looking to get background map updates.
+    public var authorizationStatus: CLAuthorizationStatus { locationManager.authorizationStatus }
     
     internal func startLocationTracking() {
         Task {
