@@ -1014,8 +1014,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = MapMap;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Map Map uses your camera for taking photos of maps. That's it. (◕‿◕ ✿)";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Map Map uses your location in the background to generate GPS Maps. 1";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Map Map uses your location in the background to generate GPS Maps. 2";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Map Map uses your location in the background to generate GPS Maps.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Map Map uses your location to show where you are on the map. That's it. (◕‿◕ ✿)";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1054,8 +1053,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = MapMap;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Map Map uses your camera for taking photos of maps. That's it. (◕‿◕ ✿)";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Map Map uses your location in the background to generate GPS Maps. 1";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Map Map uses your location in the background to generate GPS Maps. 2";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Map Map uses your location in the background to generate GPS Maps.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Map Map uses your location to show where you are on the map. That's it. (◕‿◕ ✿)";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
