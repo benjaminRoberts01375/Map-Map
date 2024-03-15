@@ -167,6 +167,7 @@ struct TrackingGpsDrawerContentV: View {
         guard let activityID = activityID,
               let runningActiivty = Activity<GPSTrackingAttributes>.activities.first(where: { $0.id == activityID })
         else { return }
+        locationsHandler.endAlwaysLocation()
         let newContentState = GPSTrackingAttributes.ContentState(
             userLongitude: locationsHandler.lastLocation.coordinate.longitude,
             userLatitude: locationsHandler.lastLocation.coordinate.latitude,
