@@ -8,18 +8,20 @@
 import SwiftUI
 
 struct LocationNeverAvailableVModifier: ViewModifier {
-    @Binding var locationNotAlwaysError: Bool
+    /// Control the presentation of the alert.
+    @Binding var isPresented: Bool
+    /// Action to take when cancel button is pressed.
     var cancelAction: () -> Void
     
     func body(content: Content) -> some View {
         content
-            .alert("Don't close Map Map!", isPresented: $locationNotAlwaysError) {
+            .alert("Don't close Map Map!", isPresented: $isPresented) {
                 Button("Ok", role: .cancel) { cancelAction() }
                 Button("Settings") {
                     guard let settingsURL = URL(string: UIApplication.openSettingsURLString)
                     else { return }
                     UIApplication.shared.open(settingsURL)
-                    locationNotAlwaysError = false
+                    isPresented = false
                 }
                 .keyboardShortcut(.defaultAction)
             } message: {
@@ -39,6 +41,6 @@ extension View {
     ///   - cancelAction: What to do when the action is cancelled.
     /// - Returns: This view with an alert attached
     func locationNeverAvailable(isPresented: Binding<Bool>, cancelAction: @escaping () -> Void) -> some View {
-        modifier(LocationNeverAvailableVModifier(locationNotAlwaysError: isPresented, cancelAction: cancelAction))
+        modifier(LocationNeverAvailableVModifier(isPresented: isPresented, cancelAction: cancelAction))
     }
 }
