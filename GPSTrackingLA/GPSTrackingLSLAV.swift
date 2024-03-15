@@ -9,7 +9,9 @@ import SwiftUI
 import WidgetKit
 
 struct GPSTrackingLSLAV: View {
+    /// Current color scheme (dark vs light) of the system.
     @Environment(\.colorScheme) var colorScheme
+    /// Context of the current Activity View, supplying state.
     let context: ActivityViewContext<GPSTrackingAttributes>
     
     var body: some View {

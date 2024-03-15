@@ -10,7 +10,9 @@ import SwiftUI
 import WidgetKit
 
 struct GPSTrackingLA: Widget { // View controller
+    /// Accent green color.
     let islandColor: Color = Color(red: 0.65, green: 0.82, blue: 0.48)
+    /// Amount of padding for live activity in Dynamic Island.
     let paddingDistance: CGFloat = 7
     
     var body: some WidgetConfiguration {

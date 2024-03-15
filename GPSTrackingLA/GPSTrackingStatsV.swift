@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct GPSTrackingStatsV: View {
+    /// Distance the user has traveled during this GPS Map.
     let distance: Double
+    /// Current speed of the user.
     let speed: Measurement<UnitSpeed>
+    /// Highest point in the GPS Map.
     let highPoint: Double
+    /// Lowest point in the GPS Map.
     let lowPoint: Double
     
     var body: some View {
