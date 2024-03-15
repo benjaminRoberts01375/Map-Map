@@ -109,6 +109,7 @@
 		B5C9ED0A2BA35EA400E6755C /* BigButtonVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07353A342ADCCB9700C698B0 /* BigButtonVModifier.swift */; };
 		B5C9ED0B2BA3758B00E6755C /* CLLocationDegreesE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D522F22AE5CCCF009364B3 /* CLLocationDegreesE.swift */; };
 		B5C9ED0C2BA3A6C000E6755C /* TimeIntervalE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B524C5B02B793047003600AA /* TimeIntervalE.swift */; };
+		B5C9ED0F2BA4ADCB00E6755C /* GPSTrackingStatsV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C9ED0E2BA4ADCB00E6755C /* GPSTrackingStatsV.swift */; };
 		B5CEC51B2B9B73CB001D4CCF /* MultiLineShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CEC51A2B9B73CB001D4CCF /* MultiLineShape.swift */; };
 		B5DB649D2B97CEBF00574184 /* GPSMapBranchV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DB649C2B97CEBF00574184 /* GPSMapBranchV.swift */; };
 		B5E5274D2B7693F60027300D /* GPSMapCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E5274C2B7693F60027300D /* GPSMapCoordinate.swift */; };
@@ -248,6 +249,7 @@
 		B5B6C78A2B68733F00F352BC /* UserDefaultsE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsE.swift; sourceTree = "<group>"; };
 		B5B6C78E2B695B6E00F352BC /* AudioAlertsVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAlertsVModifier.swift; sourceTree = "<group>"; };
 		B5B6D3762B4B89AA00861770 /* ViewSizeVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSizeVModifier.swift; sourceTree = "<group>"; };
+		B5C9ED0E2BA4ADCB00E6755C /* GPSTrackingStatsV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTrackingStatsV.swift; sourceTree = "<group>"; };
 		B5CEC51A2B9B73CB001D4CCF /* MultiLineShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLineShape.swift; sourceTree = "<group>"; };
 		B5DB649C2B97CEBF00574184 /* GPSMapBranchV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSMapBranchV.swift; sourceTree = "<group>"; };
 		B5E5274B2B7693F60027300D /* GPSMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GPSMap.swift; path = "/Users/ben/Desktop/Map Map/Map Map/Models/GPSMap.swift"; sourceTree = "<absolute>"; };
@@ -537,6 +539,7 @@
 			children = (
 				B509624A2BA0BF94004AF6BE /* GPSTrackingLABundle.swift */,
 				B509624C2BA0BF94004AF6BE /* GPSTrackingLA.swift */,
+				B5C9ED0E2BA4ADCB00E6755C /* GPSTrackingStatsV.swift */,
 				B5986B212BA3558B00A96601 /* GPSTrackingLSLAV.swift */,
 				B509625A2BA0C163004AF6BE /* GPSTrackingData.swift */,
 				B509624E2BA0BF95004AF6BE /* Assets.xcassets */,
@@ -855,6 +858,7 @@
 				B5986B222BA355C000A96601 /* GPSTrackingLSLAV.swift in Sources */,
 				B5C9ED0B2BA3758B00E6755C /* CLLocationDegreesE.swift in Sources */,
 				B5C9ED0A2BA35EA400E6755C /* BigButtonVModifier.swift in Sources */,
+				B5C9ED0F2BA4ADCB00E6755C /* GPSTrackingStatsV.swift in Sources */,
 				B509625C2BA0C163004AF6BE /* GPSTrackingData.swift in Sources */,
 				B509624D2BA0BF94004AF6BE /* GPSTrackingLA.swift in Sources */,
 				B509624B2BA0BF94004AF6BE /* GPSTrackingLABundle.swift in Sources */,

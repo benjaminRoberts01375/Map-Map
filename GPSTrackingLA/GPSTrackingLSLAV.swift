@@ -46,19 +46,12 @@ struct GPSTrackingLSLAV: View {
                 }
             }
             .padding()
-            HStack {
-                Spacer()
-                Text(LocationDisplayMode.metersToString(meters: Double(context.state.distance)))
-                Spacer()
-                Text("\(LocationDisplayMode.speedToString(speed: context.state.speed))")
-                Spacer()
-                Text("\(LocationDisplayMode.metersToString(meters: Double(context.state.highPoint))) ↑")
-                Spacer()
-                Text("\(LocationDisplayMode.metersToString(meters: Double(context.state.lowPoint))) ↓")
-                Spacer()
-            }
-            .foregroundStyle(.secondary)
-            .fontWidth(.condensed)
+            GPSTrackingStatsV(
+                distance: Double(context.state.distance),
+                speed: (context.state.speed),
+                highPoint: Double(context.state.highPoint),
+                lowPoint: Double(context.state.lowPoint)
+            )
             .background(colorScheme == .dark ? Color(red: 0.15, green: 0.31, blue: 0.19) : .white)
         }
         .background(
