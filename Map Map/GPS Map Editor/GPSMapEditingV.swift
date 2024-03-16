@@ -50,13 +50,6 @@ struct GPSMapEditingV: View {
                     Text("Done").bigButton(backgroundColor: .blue)
                 }
                 Button {
-                    moc.reset()
-                    gpsMap.isEditing = false
-                } label: {
-                    Text("Cancel")
-                        .bigButton(backgroundColor: .gray)
-                }
-                Button {
                     moc.delete(gpsMap)
                     try? moc.save()
                 } label: {
