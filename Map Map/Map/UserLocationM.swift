@@ -27,7 +27,7 @@ final class LocationsHandler {
         Task {
             if locationManager.authorizationStatus == .notDetermined { locationManager.requestWhenInUseAuthorization() }
             self.updatesStarted = true
-            let updates = CLLocationUpdate.liveUpdates(.otherNavigation)
+            let updates = CLLocationUpdate.liveUpdates(.fitness)
             for try await update in updates {
                 if !self.updatesStarted { return }  // End location updates by breaking out of the loop.
                 if let loc = update.location {
