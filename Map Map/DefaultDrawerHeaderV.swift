@@ -92,9 +92,7 @@ struct DefaultDrawerHeaderV: View {
             case .failure: return
             }
         }
-        .sheet(isPresented: $cameraPresented, content: {
-            CameraV()
-        })
+        .sheet(isPresented: $cameraPresented) { CameraV() }
     }
     
     /// Creates a MapMap from a URL if the resulting data is a `PNG` or `JPEG`.
