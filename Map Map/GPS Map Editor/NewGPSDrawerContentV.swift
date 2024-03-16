@@ -14,6 +14,12 @@ struct NewGPSDrawerContentV: View {
     @Binding var workingName: String
     /// GPS map to edit.
     @ObservedObject var gpsMap: GPSMap
+    /// Track the presents of an alert informing the user they do not have proper location services configured.
+    @State var locationNotAlwaysError: Bool = false
+    /// Track the presents of an alert informing the user they have not permitted map map to track location at all.
+    @State var locationNeverAvailable: Bool = false
+    /// GPS user location.
+    @State private var locationsHandler = LocationsHandler.shared
     
     var body: some View {
         VStack {
@@ -25,9 +31,22 @@ struct NewGPSDrawerContentV: View {
                     .frame(width: 205)
             }
             HStack {
-                Button { gpsMap.unwrappedEditing = .tracking } label: { Text("Start").bigButton(backgroundColor: .green) }
+                Button {
+                    switch locationsHandler.authorizationStatus {
+                    case .authorizedAlways: gpsMap.isTracking = true
+                    case .authorizedWhenInUse: locationNotAlwaysError = true
+                    default: locationNeverAvailable = true
+                    }
+                } label: {
+                    Text("Start").bigButton(backgroundColor: .green)
+                }
                 Button { moc.delete(gpsMap) } label: { Text("Nevermind").bigButton(backgroundColor: .red) }
             }
+        }
+        .locationNotAlwaysAvailable(isPresented: $locationNotAlwaysError) { gpsMap.isTracking = true }
+        .locationNeverAvailable(isPresented: $locationNeverAvailable) {
+            try? moc.save()
+            moc.delete(gpsMap)
         }
     }
 }

@@ -49,14 +49,14 @@ struct MapV: View {
             mapDetails.mapCamera = update.camera
         }
         .mapStyle(.standard(elevation: .realistic))
-        .onChange(of: editor, { _, newValue in
+        .onChange(of: editor) { _, newValue in
             switch newValue {
             case .nothing:
                 tappableMapMaps = .tappable
             default:
                 tappableMapMaps = .viewable
             }
-        })
+        }
     }
     
     /// Given a specific rotation and MapMap, a UIBezierPath is formed to allow for precise calculations.

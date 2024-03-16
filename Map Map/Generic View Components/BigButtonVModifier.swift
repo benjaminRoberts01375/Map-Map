@@ -16,7 +16,7 @@ struct BigButton: ViewModifier {
     func body(content: Content) -> some View {
         content
             .foregroundStyle(.white)
-            .frame(minWidth: minWidth, maxWidth: maxWidth, minHeight: 40)
+            .frame(minWidth: minWidth, maxWidth: max(maxWidth, minWidth + 1), minHeight: 40)
             .background(background)
             .clipShape(RoundedRectangle(cornerRadius: 10))
     }

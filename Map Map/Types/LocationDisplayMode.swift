@@ -9,7 +9,7 @@ import MapKit
 import SwiftUI
 
 /// A type dedicated for tracking the location coordinate display type.
-public enum LocationDisplayMode: Int {
+public enum LocationDisplayMode: Int, Codable {
     /// Display coordinates in degrees (only decimals).
     /// Example: 23.123456º
     case degrees

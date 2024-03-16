@@ -74,6 +74,14 @@
 		07FDC62F2AB25E0000D92113 /* Map_Map.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07FDC62D2AB25E0000D92113 /* Map_Map.xcdatamodeld */; };
 		07FDC6362AB26ADB00D92113 /* MapV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FDC6352AB26ADB00D92113 /* MapV.swift */; };
 		9EC8AD0DB60D7AA9327E3563 /* Pods_Map_Map.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9F51AE19721651D3510199A /* Pods_Map_Map.framework */; };
+		B50962462BA0BF94004AF6BE /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B50962452BA0BF94004AF6BE /* WidgetKit.framework */; };
+		B50962482BA0BF94004AF6BE /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B50962472BA0BF94004AF6BE /* SwiftUI.framework */; };
+		B509624B2BA0BF94004AF6BE /* GPSTrackingLABundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509624A2BA0BF94004AF6BE /* GPSTrackingLABundle.swift */; };
+		B509624D2BA0BF94004AF6BE /* GPSTrackingLA.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509624C2BA0BF94004AF6BE /* GPSTrackingLA.swift */; };
+		B509624F2BA0BF95004AF6BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B509624E2BA0BF95004AF6BE /* Assets.xcassets */; };
+		B50962542BA0BF95004AF6BE /* GPSTrackingLAExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B50962442BA0BF94004AF6BE /* GPSTrackingLAExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B509625B2BA0C163004AF6BE /* GPSTrackingDataM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509625A2BA0C163004AF6BE /* GPSTrackingDataM.swift */; };
+		B509625C2BA0C163004AF6BE /* GPSTrackingDataM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509625A2BA0C163004AF6BE /* GPSTrackingDataM.swift */; };
 		B50C23572B62D46800093054 /* MapMapAnnotationV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50C23562B62D46800093054 /* MapMapAnnotationV.swift */; };
 		B51655CE2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51655CD2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift */; };
 		B51655D02B3CB5A4006FBE67 /* MapMeasurementConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51655CF2B3CB5A4006FBE67 /* MapMeasurementConnection.swift */; };
@@ -90,12 +98,20 @@
 		B57D8A552B5E112C002B9F7C /* MarkupEditorSwitcherV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A542B5E112C002B9F7C /* MarkupEditorSwitcherV.swift */; };
 		B57D8A572B5EC079002B9F7C /* DisplayDrawingV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A562B5EC079002B9F7C /* DisplayDrawingV.swift */; };
 		B587C2752B46517C001DD4F9 /* StringE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B587C2742B46517C001DD4F9 /* StringE.swift */; };
+		B5986B222BA355C000A96601 /* GPSTrackingLSLAV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5986B212BA3558B00A96601 /* GPSTrackingLSLAV.swift */; };
 		B59B348E2B9E454F0083B458 /* RangeSlider in Frameworks */ = {isa = PBXBuildFile; productRef = B59B348D2B9E454F0083B458 /* RangeSlider */; };
 		B59B34902B9E4D900083B458 /* ColorE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59B348F2B9E4D900083B458 /* ColorE.swift */; };
 		B5A111012B6EF67F00C8681A /* MapImage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A111002B6EF67F00C8681A /* MapImage+CoreDataClass.swift */; };
 		B5B6C78B2B68733F00F352BC /* UserDefaultsE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6C78A2B68733F00F352BC /* UserDefaultsE.swift */; };
 		B5B6C78F2B695B6E00F352BC /* AudioAlertsVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6C78E2B695B6E00F352BC /* AudioAlertsVModifier.swift */; };
 		B5B6D3772B4B89AA00861770 /* ViewSizeVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6D3762B4B89AA00861770 /* ViewSizeVModifier.swift */; };
+		B5C9ED092BA35D0D00E6755C /* LocationDisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C9D7722B1195C10099041A /* LocationDisplayMode.swift */; };
+		B5C9ED0A2BA35EA400E6755C /* BigButtonVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07353A342ADCCB9700C698B0 /* BigButtonVModifier.swift */; };
+		B5C9ED0B2BA3758B00E6755C /* CLLocationDegreesE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D522F22AE5CCCF009364B3 /* CLLocationDegreesE.swift */; };
+		B5C9ED0C2BA3A6C000E6755C /* TimeIntervalE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B524C5B02B793047003600AA /* TimeIntervalE.swift */; };
+		B5C9ED0F2BA4ADCB00E6755C /* GPSTrackingStatsV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C9ED0E2BA4ADCB00E6755C /* GPSTrackingStatsV.swift */; };
+		B5C9ED112BA4DE7E00E6755C /* LocationNeverAvailableVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C9ED102BA4DE7E00E6755C /* LocationNeverAvailableVModifier.swift */; };
+		B5C9ED142BA4E05200E6755C /* LocationNotAlwaysVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C9ED132BA4E05200E6755C /* LocationNotAlwaysVModifier.swift */; };
 		B5CEC51B2B9B73CB001D4CCF /* MultiLineShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CEC51A2B9B73CB001D4CCF /* MultiLineShape.swift */; };
 		B5DB649D2B97CEBF00574184 /* GPSMapBranchV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DB649C2B97CEBF00574184 /* GPSMapBranchV.swift */; };
 		B5E5274D2B7693F60027300D /* GPSMapCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E5274C2B7693F60027300D /* GPSMapCoordinate.swift */; };
@@ -110,6 +126,30 @@
 		B5FADE572B5C6F0600AD933C /* MarkupV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FADE562B5C6F0600AD933C /* MarkupV.swift */; };
 		B5FADE5A2B5C6F9700AD933C /* MarkupEditorVIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FADE592B5C6F9700AD933C /* MarkupEditorVIOS.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B50962522BA0BF95004AF6BE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07FDC6172AB25DFD00D92113 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B50962432BA0BF94004AF6BE;
+			remoteInfo = GPSTrackingLAExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B50962552BA0BF95004AF6BE /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B50962542BA0BF95004AF6BE /* GPSTrackingLAExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		07082FAC2AFACE6E003255E3 /* CameraPreviewV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewV.swift; sourceTree = "<group>"; };
@@ -180,6 +220,15 @@
 		07FDC63B2AB2786700D92113 /* Map-Map-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Map-Map-Info.plist"; sourceTree = SOURCE_ROOT; };
 		2BF969175838179562740CBB /* Pods-Map Map.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Map Map.release.xcconfig"; path = "Target Support Files/Pods-Map Map/Pods-Map Map.release.xcconfig"; sourceTree = "<group>"; };
 		5316FAC2DD1436EC2B935EB2 /* Pods-Map Map.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Map Map.debug.xcconfig"; path = "Target Support Files/Pods-Map Map/Pods-Map Map.debug.xcconfig"; sourceTree = "<group>"; };
+		B50962442BA0BF94004AF6BE /* GPSTrackingLAExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GPSTrackingLAExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		B50962452BA0BF94004AF6BE /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = /System/Library/Frameworks/WidgetKit.framework; sourceTree = "<absolute>"; };
+		B50962472BA0BF94004AF6BE /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = /System/Library/Frameworks/SwiftUI.framework; sourceTree = "<absolute>"; };
+		B509624A2BA0BF94004AF6BE /* GPSTrackingLABundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTrackingLABundle.swift; sourceTree = "<group>"; };
+		B509624C2BA0BF94004AF6BE /* GPSTrackingLA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTrackingLA.swift; sourceTree = "<group>"; };
+		B509624E2BA0BF95004AF6BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B50962502BA0BF95004AF6BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B50962512BA0BF95004AF6BE /* GPSTrackingLA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GPSTrackingLA.entitlements; sourceTree = "<group>"; };
+		B509625A2BA0C163004AF6BE /* GPSTrackingDataM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTrackingDataM.swift; sourceTree = "<group>"; };
 		B50C23562B62D46800093054 /* MapMapAnnotationV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapAnnotationV.swift; sourceTree = "<group>"; };
 		B51655CD2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MapMeasurementCoordinate+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B51655CF2B3CB5A4006FBE67 /* MapMeasurementConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMeasurementConnection.swift; sourceTree = "<group>"; };
@@ -196,11 +245,15 @@
 		B57D8A542B5E112C002B9F7C /* MarkupEditorSwitcherV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupEditorSwitcherV.swift; sourceTree = "<group>"; };
 		B57D8A562B5EC079002B9F7C /* DisplayDrawingV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayDrawingV.swift; sourceTree = "<group>"; };
 		B587C2742B46517C001DD4F9 /* StringE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringE.swift; sourceTree = "<group>"; };
+		B5986B212BA3558B00A96601 /* GPSTrackingLSLAV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTrackingLSLAV.swift; sourceTree = "<group>"; };
 		B59B348F2B9E4D900083B458 /* ColorE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorE.swift; sourceTree = "<group>"; };
 		B5A111002B6EF67F00C8681A /* MapImage+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MapImage+CoreDataClass.swift"; path = "/Users/ben/Desktop/Map Map/Map Map/Models/MapImage+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		B5B6C78A2B68733F00F352BC /* UserDefaultsE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsE.swift; sourceTree = "<group>"; };
 		B5B6C78E2B695B6E00F352BC /* AudioAlertsVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAlertsVModifier.swift; sourceTree = "<group>"; };
 		B5B6D3762B4B89AA00861770 /* ViewSizeVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSizeVModifier.swift; sourceTree = "<group>"; };
+		B5C9ED0E2BA4ADCB00E6755C /* GPSTrackingStatsV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTrackingStatsV.swift; sourceTree = "<group>"; };
+		B5C9ED102BA4DE7E00E6755C /* LocationNeverAvailableVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNeverAvailableVModifier.swift; sourceTree = "<group>"; };
+		B5C9ED132BA4E05200E6755C /* LocationNotAlwaysVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNotAlwaysVModifier.swift; sourceTree = "<group>"; };
 		B5CEC51A2B9B73CB001D4CCF /* MultiLineShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLineShape.swift; sourceTree = "<group>"; };
 		B5DB649C2B97CEBF00574184 /* GPSMapBranchV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSMapBranchV.swift; sourceTree = "<group>"; };
 		B5E5274B2B7693F60027300D /* GPSMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GPSMap.swift; path = "/Users/ben/Desktop/Map Map/Map Map/Models/GPSMap.swift"; sourceTree = "<absolute>"; };
@@ -226,6 +279,15 @@
 				0776EB0B2B056C0D00F89BFC /* AlertToast in Frameworks */,
 				9EC8AD0DB60D7AA9327E3563 /* Pods_Map_Map.framework in Frameworks */,
 				B59B348E2B9E454F0083B458 /* RangeSlider in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B50962412BA0BF94004AF6BE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B50962482BA0BF94004AF6BE /* SwiftUI.framework in Frameworks */,
+				B50962462BA0BF94004AF6BE /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +337,7 @@
 		0762DD662AD46CFA00C36D33 /* Generic View Components */ = {
 			isa = PBXGroup;
 			children = (
+				B5C9ED122BA4DE8300E6755C /* Alerts */,
 				B5B6C78E2B695B6E00F352BC /* AudioAlertsVModifier.swift */,
 				07353A342ADCCB9700C698B0 /* BigButtonVModifier.swift */,
 				0711E5B12AB39ABD0056AB4B /* BlurView.swift */,
@@ -408,6 +471,7 @@
 			isa = PBXGroup;
 			children = (
 				07FDC6212AB25DFD00D92113 /* Map Map */,
+				B50962492BA0BF94004AF6BE /* GPSTrackingLA */,
 				07FDC6202AB25DFD00D92113 /* Products */,
 				2FADA810DA0CD23A67681068 /* Pods */,
 				37F4E018363CE2B404522362 /* Frameworks */,
@@ -418,6 +482,7 @@
 			isa = PBXGroup;
 			children = (
 				07FDC61F2AB25DFD00D92113 /* Map Map.app */,
+				B50962442BA0BF94004AF6BE /* GPSTrackingLAExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -468,8 +533,34 @@
 			isa = PBXGroup;
 			children = (
 				F9F51AE19721651D3510199A /* Pods_Map_Map.framework */,
+				B50962452BA0BF94004AF6BE /* WidgetKit.framework */,
+				B50962472BA0BF94004AF6BE /* SwiftUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B50962492BA0BF94004AF6BE /* GPSTrackingLA */ = {
+			isa = PBXGroup;
+			children = (
+				B509624A2BA0BF94004AF6BE /* GPSTrackingLABundle.swift */,
+				B509624C2BA0BF94004AF6BE /* GPSTrackingLA.swift */,
+				B5C9ED0E2BA4ADCB00E6755C /* GPSTrackingStatsV.swift */,
+				B5986B212BA3558B00A96601 /* GPSTrackingLSLAV.swift */,
+				B509625A2BA0C163004AF6BE /* GPSTrackingDataM.swift */,
+				B509624E2BA0BF95004AF6BE /* Assets.xcassets */,
+				B50962502BA0BF95004AF6BE /* Info.plist */,
+				B50962512BA0BF95004AF6BE /* GPSTrackingLA.entitlements */,
+			);
+			path = GPSTrackingLA;
+			sourceTree = "<group>";
+		};
+		B5C9ED122BA4DE8300E6755C /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				B5C9ED102BA4DE7E00E6755C /* LocationNeverAvailableVModifier.swift */,
+				B5C9ED132BA4E05200E6755C /* LocationNotAlwaysVModifier.swift */,
+			);
+			path = Alerts;
 			sourceTree = "<group>";
 		};
 		B5E527512B7694580027300D /* GPS Map Editor */ = {
@@ -529,10 +620,12 @@
 				07FDC61B2AB25DFD00D92113 /* Sources */,
 				07FDC61C2AB25DFD00D92113 /* Frameworks */,
 				07FDC61D2AB25DFD00D92113 /* Resources */,
+				B50962552BA0BF95004AF6BE /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B50962532BA0BF95004AF6BE /* PBXTargetDependency */,
 			);
 			name = "Map Map";
 			packageProductDependencies = (
@@ -544,6 +637,23 @@
 			productReference = 07FDC61F2AB25DFD00D92113 /* Map Map.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B50962432BA0BF94004AF6BE /* GPSTrackingLAExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B50962582BA0BF95004AF6BE /* Build configuration list for PBXNativeTarget "GPSTrackingLAExtension" */;
+			buildPhases = (
+				B50962402BA0BF94004AF6BE /* Sources */,
+				B50962412BA0BF94004AF6BE /* Frameworks */,
+				B50962422BA0BF94004AF6BE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GPSTrackingLAExtension;
+			productName = GPSTrackingLAExtension;
+			productReference = B50962442BA0BF94004AF6BE /* GPSTrackingLAExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -551,11 +661,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					07FDC61E2AB25DFD00D92113 = {
 						CreatedOnToolsVersion = 15.0;
+					};
+					B50962432BA0BF94004AF6BE = {
+						CreatedOnToolsVersion = 15.2;
 					};
 				};
 			};
@@ -578,6 +691,7 @@
 			projectRoot = "";
 			targets = (
 				07FDC61E2AB25DFD00D92113 /* Map Map */,
+				B50962432BA0BF94004AF6BE /* GPSTrackingLAExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -589,6 +703,14 @@
 			files = (
 				07FDC62A2AB25E0000D92113 /* Preview Assets.xcassets in Resources */,
 				07FDC6272AB25E0000D92113 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B50962422BA0BF94004AF6BE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B509624F2BA0BF95004AF6BE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,6 +767,7 @@
 				0743138F2B2FC45300909B7A /* LineLabelVModifier.swift in Sources */,
 				B5E527532B769C2D0027300D /* NewGPSDrawerContentV.swift in Sources */,
 				07BA6E342B000E460059310E /* CameraV.swift in Sources */,
+				B5C9ED112BA4DE7E00E6755C /* LocationNeverAvailableVModifier.swift in Sources */,
 				07B82A412B1D54AE00CC00D3 /* CombineMarkerListItemsV.swift in Sources */,
 				B5E527572B76CAFE0027300D /* TrackingGpsDrawerContentV.swift in Sources */,
 				B59B34902B9E4D900083B458 /* ColorE.swift in Sources */,
@@ -654,10 +777,12 @@
 				B57D8A532B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift in Sources */,
 				0711E5B22AB39ABD0056AB4B /* BlurView.swift in Sources */,
 				B548C17E2B6D72D800297E6A /* PhotoEditorCompositeV.swift in Sources */,
+				B5C9ED142BA4E05200E6755C /* LocationNotAlwaysVModifier.swift in Sources */,
 				07FDC6232AB25DFD00D92113 /* Map_MapApp.swift in Sources */,
 				0776EB062B05586B00F89BFC /* MapMapV.swift in Sources */,
 				07249C0D2B1682970088B721 /* MarkerSymbolPickerItemV.swift in Sources */,
 				07BE4BB82B0A7E3A00FDE9D2 /* MapButtonsV.swift in Sources */,
+				B509625B2BA0C163004AF6BE /* GPSTrackingDataM.swift in Sources */,
 				07D522F32AE5CCCF009364B3 /* CLLocationDegreesE.swift in Sources */,
 				B50C23572B62D46800093054 /* MapMapAnnotationV.swift in Sources */,
 				B524C5B12B793047003600AA /* TimeIntervalE.swift in Sources */,
@@ -741,7 +866,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B50962402BA0BF94004AF6BE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B5C9ED092BA35D0D00E6755C /* LocationDisplayMode.swift in Sources */,
+				B5986B222BA355C000A96601 /* GPSTrackingLSLAV.swift in Sources */,
+				B5C9ED0B2BA3758B00E6755C /* CLLocationDegreesE.swift in Sources */,
+				B5C9ED0A2BA35EA400E6755C /* BigButtonVModifier.swift in Sources */,
+				B5C9ED0F2BA4ADCB00E6755C /* GPSTrackingStatsV.swift in Sources */,
+				B509625C2BA0C163004AF6BE /* GPSTrackingDataM.swift in Sources */,
+				B509624D2BA0BF94004AF6BE /* GPSTrackingLA.swift in Sources */,
+				B509624B2BA0BF94004AF6BE /* GPSTrackingLABundle.swift in Sources */,
+				B5C9ED0C2BA3A6C000E6755C /* TimeIntervalE.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B50962532BA0BF95004AF6BE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B50962432BA0BF94004AF6BE /* GPSTrackingLAExtension */;
+			targetProxy = B50962522BA0BF95004AF6BE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		07FDC6302AB25E0000D92113 /* Debug */ = {
@@ -867,6 +1016,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5316FAC2DD1436EC2B935EB2 /* Pods-Map Map.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -880,7 +1030,9 @@
 				INFOPLIST_KEY_CFBundleDisplayName = MapMap;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Map Map uses your camera for taking photos of maps. That's it. (◕‿◕ ✿)";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Map Map uses your location in the background to generate GPS Maps.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Map Map uses your location to show where you are on the map. That's it. (◕‿◕ ✿)";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -903,6 +1055,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2BF969175838179562740CBB /* Pods-Map Map.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -916,7 +1069,9 @@
 				INFOPLIST_KEY_CFBundleDisplayName = MapMap;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Map Map uses your camera for taking photos of maps. That's it. (◕‿◕ ✿)";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Map Map uses your location in the background to generate GPS Maps.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Map Map uses your location to show where you are on the map. That's it. (◕‿◕ ✿)";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -929,6 +1084,82 @@
 				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.RobertsHouseHold.Map-Map";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B50962562BA0BF95004AF6BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = GPSTrackingLA/GPSTrackingLA.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 68A766T4GX;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GPSTrackingLA/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GPSTrackingLA;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.3;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.RobertsHouseHold.Map-Map.GPSTrackingLA";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B50962572BA0BF95004AF6BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = GPSTrackingLA/GPSTrackingLA.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 68A766T4GX;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GPSTrackingLA/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GPSTrackingLA;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.3;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.RobertsHouseHold.Map-Map.GPSTrackingLA";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -952,6 +1183,15 @@
 			buildConfigurations = (
 				07FDC6332AB25E0000D92113 /* Debug */,
 				07FDC6342AB25E0000D92113 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B50962582BA0BF95004AF6BE /* Build configuration list for PBXNativeTarget "GPSTrackingLAExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B50962562BA0BF95004AF6BE /* Debug */,
+				B50962572BA0BF95004AF6BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

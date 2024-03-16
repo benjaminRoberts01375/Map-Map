@@ -18,12 +18,12 @@ struct GPSMapPhaseController: View {
     /// GPS Map to edit.
     @ObservedObject var gpsMap: FetchedResults<GPSMap>.Element
     /// Track the current mode of editing.
-    @State var editingMode: EditingMode = .viewing
+    @State var editingMode: EditingMode
     
     init(gpsMap: GPSMap) {
         self.workingName = gpsMap.name ?? ""
         self.gpsMap = gpsMap
-        translateFromGPSEditingMode()
+        self.editingMode = gpsMap.isSetup ? .editing : .settingUp
     }
     
     enum EditingMode {
@@ -31,7 +31,6 @@ struct GPSMapPhaseController: View {
         case tracking
         case editing
         case editingBranch(GPSMapBranch)
-        case viewing
         case selectingBranch
     }
     
@@ -50,7 +49,6 @@ struct GPSMapPhaseController: View {
                         case .editing: GPSMapEditingV(gpsMap, editingMode: $editingMode)
                         case .selectingBranch: GPSMapBranchesV(gpsMap: gpsMap, editingMode: $editingMode)
                         case .editingBranch(let branch): GPSMapBranchEditingV(gpsMapBranch: branch, editingMode: $editingMode)
-                        case .viewing: EmptyView()
                         }
                     }
                     .padding(.bottom, isShortCard ? 0 : 10)
@@ -60,16 +58,6 @@ struct GPSMapPhaseController: View {
             }
         }
         .onAppear { mapDetails.preventFollowingUser() }
-        .onChange(of: gpsMap.unwrappedEditing, initial: true) { translateFromGPSEditingMode() }
-    }
-    
-    /// Interpret the gpsMap editing status for the UI.
-    func translateFromGPSEditingMode() {
-        switch gpsMap.unwrappedEditing {
-        case .settingUp: self.editingMode = .settingUp
-        case .tracking: self.editingMode = .tracking
-        case .editing: self.editingMode = .editing
-        case .viewing: self.editingMode = .viewing
-        }
+        .onChange(of: gpsMap.isTracking) { editingMode = $1 ? .tracking : .editing }
     }
 }
