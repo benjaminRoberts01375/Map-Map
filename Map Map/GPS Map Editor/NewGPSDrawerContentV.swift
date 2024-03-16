@@ -47,6 +47,6 @@ struct NewGPSDrawerContentV: View {
             try? moc.save()
             moc.delete(gpsMap)
         }
-        .locationNeverAvailable(isPresented: $locationNeverAvailable) { gpsMap.isTracking = true}
+        .locationNeverAvailable(isPresented: $locationNeverAvailable) { gpsMap.isTracking = true }
     }
 }
