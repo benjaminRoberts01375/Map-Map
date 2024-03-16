@@ -17,8 +17,6 @@ struct TrackingGpsDrawerContentV: View {
     @ObservedObject var gpsMap: GPSMap
     /// Fire a timer notification every 0.25 seconds.
     @State var timer = Timer.publish(every: 0.25, on: .main, in: .common).autoconnect()
-    /// Seconds since this view has been open.
-    @State var additionalSeconds: Int = .zero
     /// GPS user location.
     @State private var locationsHandler = LocationsHandler.shared
     /// Current speed of the user
@@ -29,11 +27,13 @@ struct TrackingGpsDrawerContentV: View {
     @State var statsBottom: Bool = true
     /// ID for the current live activity if one is running.
     @State var activityID: String?
+    /// Fill in gaps of time between connections being added.
+    @State var additionalTime: Int = 0
     
     var body: some View {
         VStack {
             HStack {
-                let totalSeconds: TimeInterval = Double(additionalSeconds + Int(gpsMap.durationSeconds))
+                let totalSeconds: TimeInterval = gpsMap.time + Double(additionalTime)
                 Text(totalSeconds.description)
                     .font(.system(size: 35))
                     .fontWidth(.condensed)
@@ -61,7 +61,6 @@ struct TrackingGpsDrawerContentV: View {
                     }
                 Button {
                     if showDoneConfirmation {
-                        gpsMap.durationSeconds += Int32(additionalSeconds)
                         gpsMap.isTracking = false
                         guard let moc = gpsMap.managedObjectContext
                         else { return }
@@ -100,22 +99,14 @@ struct TrackingGpsDrawerContentV: View {
         .animation(.easeInOut(duration: 0.25), value: showDoneConfirmation)
         .animation(.easeInOut(duration: 0.25), value: statsBottom)
         .onReceive(timer) { _ in
-            let startDate: Date
-            if let trackingStartDate = gpsMap.trackingStartDate { startDate = trackingStartDate }
-            else {
-                let date = Date()
-                gpsMap.trackingStartDate = date
-                startDate = date
-            }
-            let newTime = Int(Date().timeIntervalSince(startDate))
-            if additionalSeconds == newTime { return }
-            self.additionalSeconds = newTime
+            let newTime: Int = -Int(gpsMap.unwrappedConnections.last?.end?.timestamp?.timeIntervalSinceNow ?? 0.0)
+            if newTime != self.additionalTime { self.additionalTime = newTime }
             updateLiveActivity()
         }
         .onChange(of: locationsHandler.lastLocation) { _ = gpsMap.addNewCoordinate(clLocation: $1) }
-        .onChange(of: additionalSeconds) {
-            let totalSeconds: TimeInterval = Double(additionalSeconds + Int(gpsMap.durationSeconds))
-            self.speed = Measurement(value: Double(gpsMap.distance) / totalSeconds, unit: .metersPerSecond)
+        .onChange(of: gpsMap.connections?.count) {
+            self.additionalTime = 0
+            self.speed = Measurement(value: Double(gpsMap.distance) / (gpsMap.time), unit: .metersPerSecond)
         }
         .onAppear { mapDetails.followUser() }
         .onAppear { setupLiveActivity() }
@@ -129,7 +120,7 @@ struct TrackingGpsDrawerContentV: View {
             state: GPSTrackingAttributes.ContentState(
                 userLongitude: locationsHandler.lastLocation.coordinate.longitude,
                 userLatitude: locationsHandler.lastLocation.coordinate.latitude,
-                seconds: Double(additionalSeconds + Int(gpsMap.durationSeconds)),
+                seconds: gpsMap.time + Double(additionalTime),
                 speed: speed,
                 highPoint: gpsMap.heightMax,
                 lowPoint: gpsMap.heightMin,
@@ -155,7 +146,7 @@ struct TrackingGpsDrawerContentV: View {
         let newContentState = GPSTrackingAttributes.ContentState(
             userLongitude: locationsHandler.lastLocation.coordinate.longitude,
             userLatitude: locationsHandler.lastLocation.coordinate.latitude,
-            seconds: Double(additionalSeconds + Int(gpsMap.durationSeconds)),
+            seconds: gpsMap.time + Double(additionalTime),
             speed: speed,
             highPoint: gpsMap.heightMax,
             lowPoint: gpsMap.heightMin,
@@ -176,7 +167,7 @@ struct TrackingGpsDrawerContentV: View {
         let newContentState = GPSTrackingAttributes.ContentState(
             userLongitude: locationsHandler.lastLocation.coordinate.longitude,
             userLatitude: locationsHandler.lastLocation.coordinate.latitude,
-            seconds: Double(additionalSeconds + Int(gpsMap.durationSeconds)),
+            seconds: gpsMap.time + Double(additionalTime),
             speed: speed,
             highPoint: gpsMap.heightMax,
             lowPoint: gpsMap.heightMin,

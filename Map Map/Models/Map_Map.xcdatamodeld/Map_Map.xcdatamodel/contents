@@ -16,14 +16,13 @@
     <entity name="GPSMap" representedClassName="GPSMap" syncable="YES" codeGenerationType="category">
         <attribute name="distance" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="distanceMeters" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="durationSeconds" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="heightMax" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="heightMin" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="isEditing" transient="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="isSetup" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isTracking" transient="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="trackingStartDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="time" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="branches" optional="YES" toMany="YES" minCount="1" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapBranch" inverseName="gpsMap" inverseEntity="GPSMapBranch"/>
         <relationship name="connections" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapCoordinateConnection" inverseName="gpsMap" inverseEntity="GPSMapCoordinateConnection"/>
     </entity>

@@ -33,6 +33,10 @@ public class GPSMap: NSManagedObject {
     public func addNewCoordinate(clLocation: CLLocation) -> GPSMapCoordinate? {
         guard let moc = self.managedObjectContext
         else { return nil }
+        if let lastCoordinate = self.unwrappedConnections.last?.end,
+            let lastTimeStamp = lastCoordinate.timestamp { // Update the calculated time
+            self.time += clLocation.timestamp.timeIntervalSince(lastTimeStamp)
+        }
         let truncAlt = Int16(clLocation.altitude) // Track min/max altitude
         let newCoordinate = GPSMapCoordinate(location: clLocation, moc: moc)
         if let lastConnection = self.unwrappedConnections.last {
