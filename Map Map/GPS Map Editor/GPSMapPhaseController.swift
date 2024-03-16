@@ -35,26 +35,23 @@ struct GPSMapPhaseController: View {
     }
     
     var body: some View {
-        GeometryReader { geo in
-            ZStack {
-                BottomDrawer(
-                    verticalDetents: [.content],
-                    horizontalDetents: [.center],
-                    shortCardSize: UIDevice.current.userInterfaceIdiom == .pad ? 400 : 360
-                ) { isShortCard in
-                    VStack {
-                        switch editingMode {
-                        case .settingUp: NewGPSDrawerContentV(workingName: $workingName, gpsMap: gpsMap)
-                        case .tracking: TrackingGpsDrawerContentV(gpsMap: gpsMap)
-                        case .editing: GPSMapEditingV(gpsMap, editingMode: $editingMode)
-                        case .selectingBranch: GPSMapBranchesV(gpsMap: gpsMap, editingMode: $editingMode)
-                        case .editingBranch(let branch): GPSMapBranchEditingV(gpsMapBranch: branch, editingMode: $editingMode)
-                        }
+        ZStack {
+            BottomDrawer(
+                verticalDetents: [.content],
+                horizontalDetents: [.center],
+                shortCardSize: UIDevice.current.userInterfaceIdiom == .pad ? 400 : 360
+            ) { isShortCard in
+                VStack {
+                    switch editingMode {
+                    case .settingUp: NewGPSDrawerContentV(workingName: $workingName, gpsMap: gpsMap)
+                    case .tracking: TrackingGpsDrawerContentV(gpsMap: gpsMap)
+                    case .editing: GPSMapEditingV(gpsMap, editingMode: $editingMode)
+                    case .selectingBranch: GPSMapBranchesV(gpsMap: gpsMap, editingMode: $editingMode)
+                    case .editingBranch(let branch): GPSMapBranchEditingV(gpsMapBranch: branch, editingMode: $editingMode)
                     }
-                    .padding(.bottom, isShortCard ? 0 : 10)
-                    .padding(.horizontal, 15)
                 }
-                .safeAreaPadding(geo.safeAreaInsets)
+                .padding(.bottom, isShortCard ? 0 : 10)
+                .padding(.horizontal, 15)
             }
         }
         .onAppear { mapDetails.preventFollowingUser() }
