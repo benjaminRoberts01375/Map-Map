@@ -9,6 +9,10 @@ import ActivityKit
 import SwiftUI
 
 struct TrackingGpsDrawerContentV: View {
+    /// Current information about the base map.
+    @Environment(MapDetailsM.self) var mapDetails
+    /// How to display coordinates on screen.
+    @AppStorage(UserDefaults.kCoordinateDisplayType) var locationDisplayType = UserDefaults.dCoordinateDisplayType
     /// Current GPS Map being edited.
     @ObservedObject var gpsMap: GPSMap
     /// Fire a timer notification every 0.25 seconds.
@@ -17,8 +21,6 @@ struct TrackingGpsDrawerContentV: View {
     @State var additionalSeconds: Int = .zero
     /// GPS user location.
     @State private var locationsHandler = LocationsHandler.shared
-    /// Current information about the base map.
-    @Environment(MapDetailsM.self) var mapDetails
     /// Current speed of the user
     @State var speed: Measurement<UnitSpeed> = Measurement(value: 0, unit: .metersPerSecond)
     /// Track showing the confirmation dialog for the done button
@@ -27,8 +29,6 @@ struct TrackingGpsDrawerContentV: View {
     @State var statsBottom: Bool = true
     /// ID for the current live activity if one is running.
     @State var activityID: String?
-    /// How to display coordinates on screen.
-    @AppStorage(UserDefaults.kCoordinateDisplayType) var locationDisplayType = UserDefaults.dCoordinateDisplayType
     
     var body: some View {
         VStack {
@@ -121,6 +121,7 @@ struct TrackingGpsDrawerContentV: View {
         .onAppear { setupLiveActivity() }
     }
     
+    /// Initialize a live activity with data.
     private func setupLiveActivity() {
         locationsHandler.startAlwaysLocation()
         let attributes = GPSTrackingAttributes(gpsMapName: gpsMap.name ?? "New GPS Map")
@@ -146,6 +147,7 @@ struct TrackingGpsDrawerContentV: View {
         self.activityID = activity.id
     }
     
+    /// Update the displayed data in the most prevelent live activity.
     private func updateLiveActivity() {
         guard let activityID = activityID,
               let activity = Activity<GPSTrackingAttributes>.activities.first(where: { $0.id == activityID })
@@ -164,11 +166,13 @@ struct TrackingGpsDrawerContentV: View {
         Task { await activity.update(activityContent) }
     }
     
+    /// End the most prevelent live activity.
     private func endLiveActivity() {
         guard let activityID = activityID,
               let runningActiivty = Activity<GPSTrackingAttributes>.activities.first(where: { $0.id == activityID })
         else { return }
         locationsHandler.endAlwaysLocation()
+        // Last small amount of data
         let newContentState = GPSTrackingAttributes.ContentState(
             userLongitude: locationsHandler.lastLocation.coordinate.longitude,
             userLatitude: locationsHandler.lastLocation.coordinate.latitude,
