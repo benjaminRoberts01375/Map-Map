@@ -45,12 +45,13 @@ struct GPSMapEditingV: View {
             HStack {
                 Button {
                     try? moc.save()
-                    gpsMap.isEditing = true
+                    gpsMap.isEditing = false
                 } label: {
                     Text("Done").bigButton(backgroundColor: .blue)
                 }
                 Button {
                     moc.reset()
+                    gpsMap.isEditing = false
                 } label: {
                     Text("Cancel")
                         .bigButton(backgroundColor: .gray)
