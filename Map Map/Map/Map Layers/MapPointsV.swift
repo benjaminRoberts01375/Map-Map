@@ -5,6 +5,7 @@
 //  Created by Ben Roberts on 11/20/23.
 //
 
+import ActivityKit
 import MapKit
 import SwiftUI
 
@@ -36,6 +37,8 @@ struct MapPointsV: View {
     @State var lines: [Connection] = []
     /// Screen space positions of all line start and end points.
     @State var lineEnds: [MapMeasurementCoordinate : CGPoint] = [:]
+    /// Track if the app is currently in the foreground.
+    @Environment(\.scenePhase) private var scenePhase
     
     var body: some View {
         GeometryReader { geo in
@@ -125,6 +128,12 @@ struct MapPointsV: View {
             Task {
                 let positions = await calculateSSlineEndPos()
                 DispatchQueue.main.async { self.lineEnds = positions }
+            }
+        }
+        .onChange(of: scenePhase) {
+            switch scenePhase {
+            case .active: locationsHandler.startLocationTracking()
+            default: if Activity<GPSTrackingAttributes>.activities.isEmpty { locationsHandler.stopLocationTracking() }
             }
         }
     }
