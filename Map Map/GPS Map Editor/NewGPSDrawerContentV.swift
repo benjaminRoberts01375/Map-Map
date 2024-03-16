@@ -43,10 +43,10 @@ struct NewGPSDrawerContentV: View {
                 Button { moc.delete(gpsMap) } label: { Text("Nevermind").bigButton(backgroundColor: .red) }
             }
         }
-        .locationNotAlwaysAvailable(isPresented: $locationNotAlwaysError) {
+        .locationNotAlwaysAvailable(isPresented: $locationNotAlwaysError) { gpsMap.isTracking = true }
+        .locationNeverAvailable(isPresented: $locationNeverAvailable) {
             try? moc.save()
             moc.delete(gpsMap)
         }
-        .locationNeverAvailable(isPresented: $locationNeverAvailable) { gpsMap.isTracking = true }
     }
 }

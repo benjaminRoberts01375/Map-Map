@@ -16,7 +16,7 @@ struct LocationNeverAvailableVModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .alert("Don't close Map Map!", isPresented: $isPresented) {
-                Button("Ok", role: .cancel) { cancelAction() }
+                Button("Cancel", role: .cancel) { cancelAction() }
                 Button("Settings") {
                     guard let settingsURL = URL(string: UIApplication.openSettingsURLString)
                     else { return }
@@ -26,8 +26,8 @@ struct LocationNeverAvailableVModifier: ViewModifier {
                 .keyboardShortcut(.defaultAction)
             } message: {
                 Text("""
-                Looks like Map Map can't see your location when the app is closed. \
-                Make sure to leave Map Map open while making a GPS Map, or edit Map Map's settings.
+                Looks like Map Map can't ever see your location. \
+                GPS Maps need your location to trace out where you go. You can either not make a GPS Map, or edit Map Map's settings.
                 """)
             }
     }
