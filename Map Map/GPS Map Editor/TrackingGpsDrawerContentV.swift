@@ -122,6 +122,7 @@ struct TrackingGpsDrawerContentV: View {
     }
     
     private func setupLiveActivity() {
+        locationsHandler.startAlwaysLocation()
         let attributes = GPSTrackingAttributes(gpsMapName: gpsMap.name ?? "New GPS Map")
         let initialContentState = ActivityContent(
             state: GPSTrackingAttributes.ContentState(
@@ -134,7 +135,7 @@ struct TrackingGpsDrawerContentV: View {
                 distance: gpsMap.distance, 
                 positionNotation: locationDisplayType
             ),
-            staleDate: nil
+            staleDate: .now + 5
         )
         guard let activity = try? Activity.request(
             attributes: attributes,
@@ -159,7 +160,7 @@ struct TrackingGpsDrawerContentV: View {
             distance: gpsMap.distance,
             positionNotation: locationDisplayType
         )
-        let activityContent = ActivityContent(state: newContentState, staleDate: nil)
+        let activityContent = ActivityContent(state: newContentState, staleDate: .now + 5)
         Task { await activity.update(activityContent) }
     }
     
@@ -178,7 +179,7 @@ struct TrackingGpsDrawerContentV: View {
             distance: gpsMap.distance,
             positionNotation: locationDisplayType
         )
-        let activityContent = ActivityContent(state: newContentState, staleDate: nil)
+        let activityContent = ActivityContent(state: newContentState, staleDate: .now + 5)
         Task { await runningActiivty.end(activityContent, dismissalPolicy: .immediate)
             DispatchQueue.main.async {
                 self.activityID = nil
