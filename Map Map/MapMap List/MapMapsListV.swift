@@ -46,18 +46,18 @@ struct MapMapList: View {
             .clipShape(RoundedRectangle(cornerRadius: 15))
             
             if markers.contains(where: { $0.formattedMapMaps.isEmpty }) {
-                Text("Unsorted Markers")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding(.top)
-                    .padding(.bottom, 5)
                 VStack {
+                    Text("Unsorted Markers")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .padding(.top)
+                        .padding(.bottom, 5)
                     MapMapListUnsortedMarkersV()
+                        .padding(.top, 5)
+                        .background(colorScheme == .dark ? .gray20 : Color.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                        .padding(.bottom)
                 }
-                .padding(.top, 5)
-                .background(colorScheme == .dark ? .gray20 : Color.white)
-                .clipShape(RoundedRectangle(cornerRadius: 15))
-                .padding(.bottom)
             }
         }
         .ignoresSafeArea()
