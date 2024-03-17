@@ -7,15 +7,16 @@
 
 import SwiftUI
 
-struct LargeListItemV<ItemType: ListItem, V: View>: View {
+struct LargeListItemV<ItemType: ListItem>: View {
+    /// Current color scheme. Ex. Dark or Light mode.
+    @Environment(\.colorScheme) private var colorScheme
     @ObservedObject var listItem: ItemType
     private let thumbnailSize: CGFloat = 100
     private let cornerRadius: CGFloat = 10
     var action: () -> Void
-    var contextMenu: V
     
     var body: some View {
-        Button { 
+        Button {
             action()
         } label: {
             VStack(alignment: .leading, spacing: 0) {
@@ -43,8 +44,12 @@ struct LargeListItemV<ItemType: ListItem, V: View>: View {
                     Spacer(minLength: 0)
                 }
             }
-            .contextMenu { contextMenu }
-            .opacity(listItem.shown ? 1 : 0.5)
         }
+        .buttonStyle(.plain)
+        .opacity(listItem.shown ? 1 : 0.5)
+        .padding(.top, 5)
+        .padding(.horizontal)
+        .padding(.bottom)
+        .background(colorScheme == .dark ? .gray20 : Color.white)
     }
 }

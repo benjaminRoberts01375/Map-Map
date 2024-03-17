@@ -23,29 +23,26 @@ struct MapMapList: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            ForEach(mapMaps) { mapMap in // MARK: Map Maps
-                LargeListItemV(
-                    listItem: mapMap,
-                    action: { mapDetails.moveMapCameraTo(item: mapMap) },
-                    contextMenu: MapMapContextMenuV(mapMap: mapMap)
-                )
-                
-                ForEach(mapMap.formattedMarkers) { marker in
-                    SmallListItemV(
-                        listItem: marker,
-                        action: { mapDetails.moveMapCameraTo(item: marker) },
-                        contextMenu: MarkerContextMenuV(marker: marker)
-                    )
+            VStack(spacing: 0) {
+                ForEach(mapMaps) { mapMap in // MARK: Map Maps
+                    LargeListItemV(listItem: mapMap) { mapDetails.moveMapCameraTo(item: mapMap) }
+                        .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
+                    
+                    ForEach(mapMap.formattedMarkers) { marker in
+                        SmallListItemV(listItem: marker) { mapDetails.moveMapCameraTo(item: marker) }
+                            .contextMenu { MarkerContextMenuV(marker: marker) }
+                    }
                 }
             }
+            .clipShape(RoundedRectangle(cornerRadius: 15))
             
-            ForEach(gpsMaps) { gpsMap in // MARK: GPS Maps
-                LargeListItemV(
-                    listItem: gpsMap,
-                    action: { mapDetails.moveMapCameraTo(item: gpsMap) },
-                    contextMenu: GPSMapContextMenu(gpsMap: gpsMap)
-                )
+            VStack(spacing: 0) {
+                ForEach(gpsMaps) { gpsMap in // MARK: GPS Maps
+                    LargeListItemV(listItem: gpsMap) { mapDetails.moveMapCameraTo(item: gpsMap) }
+                        .contextMenu { GPSMapContextMenu(gpsMap: gpsMap) }
+                }
             }
+            .clipShape(RoundedRectangle(cornerRadius: 15))
             
             if markers.contains(where: { $0.formattedMapMaps.isEmpty }) { // MARK: Unsorted Markers
                 Text("Unsorted Markers")
@@ -53,13 +50,13 @@ struct MapMapList: View {
                     .fontWeight(.bold)
                     .padding(.top)
                     .padding(.bottom, 5)
-                ForEach(markers) { marker in
-                    SmallListItemV(
-                        listItem: marker,
-                        action: { mapDetails.moveMapCameraTo(item: marker) },
-                        contextMenu: MarkerContextMenuV(marker: marker)
-                    )
+                VStack(alignment: .leading, spacing: 0) {
+                    ForEach(markers) { marker in
+                        SmallListItemV(listItem: marker) { mapDetails.moveMapCameraTo(item: marker) }
+                            .contextMenu { MarkerContextMenuV(marker: marker) }
+                    }
                 }
+                .clipShape(RoundedRectangle(cornerRadius: 15))
             }
         }
         .ignoresSafeArea()
