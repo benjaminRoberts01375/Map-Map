@@ -13,6 +13,9 @@ import SwiftUI
 /// What the app is all about. Stores the GPS coordinates, scale, and more to place an image on the map.
 @objc(MapMap)
 public class MapMap: NSManagedObject {
+    // Default name for a MapMap when one is not available to display.
+    static let defaultName: String = "New Map Map"
+    
     /// Formatted coordinates of the MapMap.
     public var coordinates: CLLocationCoordinate2D {
         get { CLLocationCoordinate2D(latitude: self.mapMapLatitude, longitude: self.mapMapLongitude) }
