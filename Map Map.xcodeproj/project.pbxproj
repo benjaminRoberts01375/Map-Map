@@ -405,11 +405,9 @@
 			children = (
 				07FCC8562AD3750F00F88186 /* MapMapsListV.swift */,
 				B50A348E2BA753C5007FD78E /* List Items */,
-				07FD85602AE6DD1E0089652B /* MapMapE.swift */,
 				07B82A402B1D54AE00CC00D3 /* CombineMarkerListItemsV.swift */,
 				07DFF79D2B1E4C640041551B /* MapMapListUnsortedMarkersV.swift */,
 				07DFF79F2B1E4E010041551B /* MarkerFormattedListItemV.swift */,
-				07B82A3C2B1D479E00CC00D3 /* MarkerE.swift */,
 				07B82A3E2B1D4B6E00CC00D3 /* DisplayCoordinatesV.swift */,
 			);
 			path = "MapMap List";
@@ -570,6 +568,7 @@
 				B50A348C2BA7513F007FD78E /* ListItemP.swift */,
 				B50A348F2BA753D9007FD78E /* LargeListItemV.swift */,
 				B50A34912BA75407007FD78E /* SmalListItemV.swift */,
+				B50A349A2BA76564007FD78E /* List Item Conformance */,
 			);
 			path = "List Items";
 			sourceTree = "<group>";
@@ -580,6 +579,15 @@
 				B50A34952BA7612B007FD78E /* MapDisplayableP.swift */,
 			);
 			path = "Map Displayable";
+			sourceTree = "<group>";
+		};
+		B50A349A2BA76564007FD78E /* List Item Conformance */ = {
+			isa = PBXGroup;
+			children = (
+				07FD85602AE6DD1E0089652B /* MapMapE.swift */,
+				07B82A3C2B1D479E00CC00D3 /* MarkerE.swift */,
+			);
+			path = "List Item Conformance";
 			sourceTree = "<group>";
 		};
 		B5C9ED122BA4DE8300E6755C /* Alerts */ = {

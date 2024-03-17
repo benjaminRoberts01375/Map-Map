@@ -18,7 +18,7 @@ struct SmallListItemV<ItemType: ListItem>: View {
             AnyView(listItem.thumbnail)
             VStack {
                 Text(listItem.displayName)
-                DisplayCoordinatesV(coordinates: listItem.coordinates)
+                DisplayCoordinatesV(coordinates: listItem.coordinate)
             }
             Spacer(minLength: 0)
         }
