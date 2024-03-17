@@ -12,6 +12,9 @@ import SwiftUI
 
 @objc(Marker)
 public class Marker: NSManagedObject {
+    /// A default name to display when the marker's name is not available.
+    static let defaultName: String = "New Marker"
+    
     /// Handles rendering the thumbnail of this Marker.
     var renderedThumbnailImage: Image {
         if let thumbnailImage = thumbnailImage {
