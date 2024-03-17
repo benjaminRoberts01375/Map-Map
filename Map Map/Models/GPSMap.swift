@@ -11,7 +11,19 @@ import Foundation
 import MapKit
 
 @objc(GPSMap)
-public class GPSMap: NSManagedObject { 
+public class GPSMap: NSManagedObject {
+    /// Default name to display for the GPSMap if a name is not available.
+    static let defaultName: String = "New GPS Map"
+    
+    /// Center coordinate of this GPSMap
+    var coordinate: CLLocationCoordinate2D {
+        get { return CLLocationCoordinate2D(latitude: centerLatitude, longitude: centerLongitude) }
+        set(newValue) {
+            self.centerLatitude = newValue.latitude
+            self.centerLongitude = newValue.longitude
+        }
+    }
+    
     /// A simple getter for GPS Map Coordinates.
     var unwrappedBranches: [GPSMapBranch] {
         return self.branches?.array as? [GPSMapBranch] ?? []
