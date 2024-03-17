@@ -34,11 +34,10 @@ struct LargeListItemV<ItemType: ListItem>: View {
                     .background(.thickMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                     .padding(.trailing)
-                DisplayCoordinatesV(coordinates: listItem.coordinates)
+                DisplayCoordinatesV(coordinates: listItem.coordinate)
                 Spacer(minLength: 0)
             }
         }
         .opacity(listItem.shown ? 1 : 0.5)
     }
 }
-
