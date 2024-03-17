@@ -27,7 +27,7 @@ public class Marker: NSManagedObject {
     }
     
     /// Formats the coordinates of the Marker.
-    var coordinates: CLLocationCoordinate2D {
+    var coordinate: CLLocationCoordinate2D {
         get { CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude) }
         set(value) {
             self.latitude = value.latitude
@@ -83,8 +83,8 @@ extension Marker {
     /// - Parameters:
     ///   - coordinates: Coordinates to center the Marker on.
     ///   - context: Managed Object Context to store the Marker into
-    public convenience init(coordinates: CLLocationCoordinate2D, insertInto context: NSManagedObjectContext) {
+    public convenience init(coordinate: CLLocationCoordinate2D, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
-        self.coordinates = coordinates
+        self.coordinate = coordinate
     }
 }

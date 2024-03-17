@@ -42,9 +42,9 @@ struct MarkerContextMenuV: View {
         }
         
         Button {
-            let placemark = MKPlacemark(coordinate: marker.coordinates)
+            let placemark = MKPlacemark(coordinate: marker.coordinate)
             let mapItem = MKMapItem(placemark: placemark)
-            mapItem.openInMaps(launchOptions: [ MKLaunchOptionsMapCenterKey: marker.coordinates ])
+            mapItem.openInMaps(launchOptions: [ MKLaunchOptionsMapCenterKey: marker.coordinate ])
         } label: {
             Label("Open in Maps", systemImage: "map.fill")
         }

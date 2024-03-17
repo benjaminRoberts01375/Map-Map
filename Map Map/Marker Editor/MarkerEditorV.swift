@@ -126,7 +126,7 @@ struct MarkerEditorV: View {
         mapContext: MapProxy,
         mapMaps: FetchedResults<MapMap>
     ) -> [MapMap]? {
-        guard let markerPosition = mapContext.convert(marker.coordinates, to: .global)
+        guard let markerPosition = mapContext.convert(marker.coordinate, to: .global)
         else { return nil }
         let marker = MarkerEditorV.generateMarkerBoundingBox(markerPosition: markerPosition)
         var overlappingMapMaps: [MapMap] = []
@@ -162,7 +162,7 @@ struct MarkerEditorV: View {
     private func updateMarker() {
         marker.isEditing = false
         marker.name = workingName
-        marker.coordinates = mapDetails.region.center
+        marker.coordinate = mapDetails.region.center
         marker.lockRotationAngleDouble = saveAngle ? -mapDetails.mapCamera.heading : nil
         determineMarkerOverlap()
         try? moc.save()

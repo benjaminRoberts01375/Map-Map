@@ -239,7 +239,7 @@ struct MeasurementEditorV: View {
     /// - Returns: The first found Marker and it's position on screen.
     private func snapToMarker(_ point: CGSize) -> (Marker, CGSize)? {
         for marker in markers {
-            guard let markerPoint = mapDetails.mapProxy?.convert(marker.coordinates, to: .global)
+            guard let markerPoint = mapDetails.mapProxy?.convert(marker.coordinate, to: .global)
             else { continue }
             let markerPosition = CGSize(cgPoint: markerPoint)
             if markerPosition.distanceTo(point) < HandleV.handleSize {

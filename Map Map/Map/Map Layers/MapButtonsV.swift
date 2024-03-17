@@ -107,7 +107,7 @@ struct MapButtonsV: View {
     
     func checkOverMarker() {
         for marker in markers {
-            if let markerPos = mapDetails.mapProxy?.convert(marker.coordinates, to: .global) {
+            if let markerPos = mapDetails.mapProxy?.convert(marker.coordinate, to: .global) {
                 let xComponent = abs(markerPos.x - screenSize.width / 2)
                 let yComponent = abs(markerPos.y - screenSize.height / 2)
                 let distance = sqrt(pow(xComponent, 2) + pow(yComponent, 2))
@@ -126,7 +126,7 @@ struct MapButtonsV: View {
     }
     
     func addMarker() {
-        let newMarker = Marker(coordinates: mapDetails.region.center, insertInto: moc)
+        let newMarker = Marker(coordinate: mapDetails.region.center, insertInto: moc)
         if let mapProxy = mapDetails.mapProxy, let overlappedMapMaps = MarkerEditorV.markerOverMapMaps(
             newMarker,
             mapDetails: mapDetails,

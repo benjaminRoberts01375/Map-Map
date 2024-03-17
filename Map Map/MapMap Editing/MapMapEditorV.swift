@@ -135,7 +135,7 @@ struct MapMapEditor: View {
         var markers: [Marker] = []
         
         for marker in markers {
-            if let markerPosition = mapContext.convert(marker.coordinates, to: .global) {
+            if let markerPosition = mapContext.convert(marker.coordinate, to: .global) {
                 let markerBounds = MarkerEditorV.generateMarkerBoundingBox(markerPosition: markerPosition)
                 if mapMapBounds.intersects(markerBounds) {
                     markers.append(marker)
