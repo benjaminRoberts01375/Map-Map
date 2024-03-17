@@ -50,7 +50,7 @@ final class MapDetailsM {
             case .distance(let distance):
                 liveMapController = .camera(MapCamera(centerCoordinate: item.coordinate, distance: distance, heading: item.heading))
             case .span(let span):
-                liveMapController = .region(MKCoordinateRegion(center: item.coordinate, span: span))
+                liveMapController = .region(MKCoordinateRegion(center: item.coordinate, span: span * 1.15))
             }
         }
     }
