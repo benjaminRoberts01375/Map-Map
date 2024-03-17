@@ -72,7 +72,7 @@ struct MapPointsV: View {
                 if let position = mapDetails.mapProxy?.convert(marker.coordinates, to: .global), !marker.isEditing && marker.shown {
                     ZStack {
                         Button {
-                            mapDetails.moveMapCameraTo(marker: marker)
+                            mapDetails.moveMapCameraTo(item: marker)
                         } label: {
                             MarkerV(marker: marker)
                                 .rotationEffect(

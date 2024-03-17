@@ -31,7 +31,7 @@ struct MapMapAnnotationV: View {
             switch mapMapInteraction {
             case .tappable:
                 Button(
-                    action: { mapDetails.moveMapCameraTo(mapMap: mapMap) },
+                    action: { mapDetails.moveMapCameraTo(item: mapMap) },
                     label: {
                         MapMapV(mapMap: mapMap, mapType: .fullImage)
                             .frame(width: width)
