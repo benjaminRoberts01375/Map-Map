@@ -10,7 +10,7 @@ import MapKit
 protocol MapDisplayable {
     var coordinate: CLLocationCoordinate2D { get }
     var cameraAlignment: MapCameraAlignment { get }
-    var heading: Double? { get }
+    var heading: Double { get }
 }
 
 enum MapCameraAlignment {
