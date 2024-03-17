@@ -8,9 +8,8 @@
 import MapKit
 import SwiftUI
 
-protocol ListItem: ObservableObject {
+protocol ListItem: ObservableObject, MapDisplayable {
     var displayName: String { get }
     var thumbnail: any View { get }
     var shown: Bool { get }
-    var coordinates: CLLocationCoordinate2D { get }
 }
