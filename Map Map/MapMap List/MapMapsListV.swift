@@ -21,16 +21,21 @@ struct MapMapList: View {
     /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
     
+    let dividerOffset: CGFloat = 10
+    
     var body: some View {
         VStack(alignment: .leading) {
             VStack(spacing: 0) {
                 ForEach(mapMaps) { mapMap in // MARK: Map Maps
                     LargeListItemV(listItem: mapMap) { mapDetails.moveMapCameraTo(item: mapMap) }
                         .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
-                    
+                    Divider()
+                        .offset(y: dividerOffset)
                     ForEach(mapMap.formattedMarkers) { marker in
                         SmallListItemV(listItem: marker) { mapDetails.moveMapCameraTo(item: marker) }
                             .contextMenu { MarkerContextMenuV(marker: marker) }
+                        Divider()
+                            .offset(y: dividerOffset)
                     }
                 }
             }
@@ -40,6 +45,8 @@ struct MapMapList: View {
                 ForEach(gpsMaps) { gpsMap in // MARK: GPS Maps
                     LargeListItemV(listItem: gpsMap) { mapDetails.moveMapCameraTo(item: gpsMap) }
                         .contextMenu { GPSMapContextMenu(gpsMap: gpsMap) }
+                    Divider()
+                        .offset(y: dividerOffset)
                 }
             }
             .clipShape(RoundedRectangle(cornerRadius: 15))
@@ -54,6 +61,8 @@ struct MapMapList: View {
                     ForEach(markers) { marker in
                         SmallListItemV(listItem: marker) { mapDetails.moveMapCameraTo(item: marker) }
                             .contextMenu { MarkerContextMenuV(marker: marker) }
+                        Divider()
+                            .offset(y: dividerOffset)
                     }
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 15))
