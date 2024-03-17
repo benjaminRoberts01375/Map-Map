@@ -82,7 +82,8 @@
 		B50962542BA0BF95004AF6BE /* GPSTrackingLAExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B50962442BA0BF94004AF6BE /* GPSTrackingLAExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B509625B2BA0C163004AF6BE /* GPSTrackingDataM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509625A2BA0C163004AF6BE /* GPSTrackingDataM.swift */; };
 		B509625C2BA0C163004AF6BE /* GPSTrackingDataM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B509625A2BA0C163004AF6BE /* GPSTrackingDataM.swift */; };
-		B50A348D2BA7513F007FD78E /* ListItemV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A348C2BA7513F007FD78E /* ListItemV.swift */; };
+		B50A348D2BA7513F007FD78E /* ListItemP.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A348C2BA7513F007FD78E /* ListItemP.swift */; };
+		B50A34902BA753D9007FD78E /* LargeListItemV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A348F2BA753D9007FD78E /* LargeListItemV.swift */; };
 		B50C23572B62D46800093054 /* MapMapAnnotationV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50C23562B62D46800093054 /* MapMapAnnotationV.swift */; };
 		B51655CE2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51655CD2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift */; };
 		B51655D02B3CB5A4006FBE67 /* MapMeasurementConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51655CF2B3CB5A4006FBE67 /* MapMeasurementConnection.swift */; };
@@ -230,7 +231,8 @@
 		B50962502BA0BF95004AF6BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B50962512BA0BF95004AF6BE /* GPSTrackingLA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GPSTrackingLA.entitlements; sourceTree = "<group>"; };
 		B509625A2BA0C163004AF6BE /* GPSTrackingDataM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTrackingDataM.swift; sourceTree = "<group>"; };
-		B50A348C2BA7513F007FD78E /* ListItemV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemV.swift; sourceTree = "<group>"; };
+		B50A348C2BA7513F007FD78E /* ListItemP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemP.swift; sourceTree = "<group>"; };
+		B50A348F2BA753D9007FD78E /* LargeListItemV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeListItemV.swift; sourceTree = "<group>"; };
 		B50C23562B62D46800093054 /* MapMapAnnotationV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapAnnotationV.swift; sourceTree = "<group>"; };
 		B51655CD2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MapMeasurementCoordinate+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B51655CF2B3CB5A4006FBE67 /* MapMeasurementConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMeasurementConnection.swift; sourceTree = "<group>"; };
@@ -398,7 +400,7 @@
 			isa = PBXGroup;
 			children = (
 				07FCC8562AD3750F00F88186 /* MapMapsListV.swift */,
-				B50A348C2BA7513F007FD78E /* ListItemV.swift */,
+				B50A348E2BA753C5007FD78E /* List Items */,
 				07FD85602AE6DD1E0089652B /* MapMapListItemE.swift */,
 				07B82A402B1D54AE00CC00D3 /* CombineMarkerListItemsV.swift */,
 				07DFF79D2B1E4C640041551B /* MapMapListUnsortedMarkersV.swift */,
@@ -555,6 +557,15 @@
 				B50962512BA0BF95004AF6BE /* GPSTrackingLA.entitlements */,
 			);
 			path = GPSTrackingLA;
+			sourceTree = "<group>";
+		};
+		B50A348E2BA753C5007FD78E /* List Items */ = {
+			isa = PBXGroup;
+			children = (
+				B50A348C2BA7513F007FD78E /* ListItemP.swift */,
+				B50A348F2BA753D9007FD78E /* LargeListItemV.swift */,
+			);
+			path = "List Items";
 			sourceTree = "<group>";
 		};
 		B5C9ED122BA4DE8300E6755C /* Alerts */ = {
@@ -784,7 +795,7 @@
 				07FDC6232AB25DFD00D92113 /* Map_MapApp.swift in Sources */,
 				0776EB062B05586B00F89BFC /* MapMapV.swift in Sources */,
 				07249C0D2B1682970088B721 /* MarkerSymbolPickerItemV.swift in Sources */,
-				B50A348D2BA7513F007FD78E /* ListItemV.swift in Sources */,
+				B50A348D2BA7513F007FD78E /* ListItemP.swift in Sources */,
 				07BE4BB82B0A7E3A00FDE9D2 /* MapButtonsV.swift in Sources */,
 				B509625B2BA0C163004AF6BE /* GPSTrackingDataM.swift in Sources */,
 				07D522F32AE5CCCF009364B3 /* CLLocationDegreesE.swift in Sources */,
@@ -814,6 +825,7 @@
 				B51B70D92B72ACCC004B3B3D /* CameraPhotoEditorV.swift in Sources */,
 				07249C0B2B1681FF0088B721 /* WHStack.swift in Sources */,
 				07FCC8552AD3593F00F88186 /* DataController.swift in Sources */,
+				B50A34902BA753D9007FD78E /* LargeListItemV.swift in Sources */,
 				07082FAD2AFACE6E003255E3 /* CameraPreviewV.swift in Sources */,
 				07B82A3F2B1D4B6E00CC00D3 /* DisplayCoordinatesV.swift in Sources */,
 				072DDB322AF42B1F00E74963 /* CGPointE.swift in Sources */,

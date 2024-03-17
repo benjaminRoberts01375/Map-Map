@@ -1,19 +1,11 @@
 //
-//  ListItemP.swift
+//  LargeListItemV.swift
 //  Map Map
 //
 //  Created by Ben Roberts on 3/17/24.
 //
 
-import MapKit
 import SwiftUI
-
-protocol ListItem: ObservableObject {
-    var displayName: String { get }
-    var thumbnail: any View { get }
-    var shown: Bool { get }
-    var coordinates: CLLocationCoordinate2D { get }
-}
 
 struct LargeListItemV<ItemType: ListItem>: View {
     @ObservedObject var listItem: ItemType
@@ -49,3 +41,4 @@ struct LargeListItemV<ItemType: ListItem>: View {
         .opacity(listItem.shown ? 1 : 0.5)
     }
 }
+
