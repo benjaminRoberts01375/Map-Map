@@ -17,7 +17,7 @@ public class MapMap: NSManagedObject {
     static let defaultName: String = "New Map Map"
     
     /// Formatted coordinates of the MapMap.
-    public var coordinates: CLLocationCoordinate2D {
+    public var coordinate: CLLocationCoordinate2D {
         get { CLLocationCoordinate2D(latitude: self.mapMapLatitude, longitude: self.mapMapLongitude) }
         set(coordinates) {
             self.mapMapLatitude = coordinates.latitude

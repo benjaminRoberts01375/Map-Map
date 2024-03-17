@@ -74,7 +74,7 @@ public class Marker: NSManagedObject {
     /// All associated MapMaps with this Marker.
     var formattedMapMaps: [MapMap] {
         let mapMapSet = self.mapMap as? Set<MapMap> ?? []
-        return mapMapSet.sorted(by: { $0.coordinates < $1.coordinates })
+        return mapMapSet.sorted(by: { $0.coordinate < $1.coordinate })
     }
 }
 

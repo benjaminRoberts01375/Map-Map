@@ -34,7 +34,7 @@ struct MapV: View {
                 if let name = mapMap.mapMapName, mapMap.isSetup && !mapMap.isEditing && mapMap.shown {
                     Annotation(
                         "\(name)",
-                        coordinate: mapMap.coordinates,
+                        coordinate: mapMap.coordinate,
                         anchor: .center
                     ) {
                         MapMapAnnotationV(mapMap: mapMap, mapMapInteraction: tappableMapMaps)
@@ -104,7 +104,7 @@ struct MapV: View {
     ///   - mapScale: Scale of the map.
     /// - Returns: Bounds of the MapMap.
     public static func generateMapMapBounds(_ mapMap: MapMap, mapContext: MapProxy, mapScale: CGFloat) -> CGRect? {
-        guard let center = mapContext.convert(mapMap.coordinates, to: .local),
+        guard let center = mapContext.convert(mapMap.coordinate, to: .local),
               let imageSize = mapMap.imageSize
         else { return nil }
         let size = mapScale * mapMap.mapMapScale

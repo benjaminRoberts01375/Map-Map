@@ -7,9 +7,7 @@
 
 import MapKit
 
-extension MapMap: MapDisplayable {
-    var coordinate: CLLocationCoordinate2D { self.coordinates }
-    
+extension MapMap: MapDisplayable {    
     var cameraAlignment: MapCameraAlignment { .distance(self.mapDistance) }
     
     var heading: Double { -self.mapMapRotation }
