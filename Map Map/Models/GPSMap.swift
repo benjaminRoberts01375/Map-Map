@@ -64,6 +64,7 @@ public class GPSMap: NSManagedObject {
                 self.distance += Int32(clLocation.distance(from: startCoordinate.clLocation))
             }
             else { return nil } // Something went horribly wrong to end up here >:(
+            Task { await setCoordinateBounds() }
             return newCoordinate
         }
         
@@ -71,8 +72,33 @@ public class GPSMap: NSManagedObject {
         self.heightMin = truncAlt
         // Create new connection with current as start
         self.addToConnections(GPSMapCoordinateConnection(start: newCoordinate, context: moc))
+        self.coordinate = clLocation.coordinate
         self.objectWillChange.send()
         return newCoordinate
+    }
+    
+    // Determine center point and lat, long delta to contain this GPS Map
+    private func setCoordinateBounds() async {
+        var topLongitude: Double = -180
+        var bottomLongitude: Double = 180
+        var leadingLatitude: Double = -180
+        var trailingLatitude: Double = 180
+        
+        for connection in unwrappedConnections {
+            guard let coordinate = connection.start else { continue }
+            if coordinate.longitude > topLongitude { topLongitude = coordinate.longitude }
+            if coordinate.latitude > leadingLatitude { leadingLatitude = coordinate.latitude }
+            if coordinate.longitude < bottomLongitude { bottomLongitude = coordinate.longitude }
+            if coordinate.latitude < trailingLatitude { trailingLatitude = coordinate.latitude }
+        }
+        await MainActor.run { [leadingLatitude, trailingLatitude, topLongitude, bottomLongitude] in
+            self.coordinate = CLLocationCoordinate2D(
+                latitude: (leadingLatitude + trailingLatitude) / 2,
+                longitude: (topLongitude + bottomLongitude) / 2
+            )
+            self.latitudeDelta = leadingLatitude - trailingLatitude
+            self.longitudeDelta = topLongitude - bottomLongitude
+        }
     }
 }
 
