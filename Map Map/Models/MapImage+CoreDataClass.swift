@@ -134,7 +134,7 @@ public extension MapMapImage {
             return applyPerspectiveCorrectionFromCorners()
         }
         // Crop corners were defaults
-        Task { self.cropCorners = nil }
+        if let cropCorners = cropCorners { moc.delete(cropCorners) }
         return nil
     }
     
