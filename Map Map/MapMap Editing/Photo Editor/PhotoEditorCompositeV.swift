@@ -13,6 +13,8 @@ struct PhotoEditorCompositeV: View {
     let mapMap: MapMap
     /// Dismiss function for the view.
     @Environment(\.dismiss) private var dismiss
+    /// Current managed object context for this view.
+    @Environment(\.managedObjectContext) private var moc
     /// Positioning of handles.
     @State private var handleTracker: HandleTrackerM
     /// Screen space image size.
@@ -25,8 +27,8 @@ struct PhotoEditorCompositeV: View {
     init(mapMap: MapMap) {
         self.mapMap = mapMap
         self._handleTracker = State(initialValue: PhotoEditorV.generateInitialHandles(baseMapMap: mapMap))
-        self._screenSpaceImageSize = State(initialValue: mapMap.imageDefault?.size ?? .zero)
-        self.imageDimensions = mapMap.imageDefault?.size ?? .zero
+        self._screenSpaceImageSize = State(initialValue: mapMap.originalImage?.imageSize ?? .zero)
+        self.imageDimensions = mapMap.originalImage?.imageSize ?? .zero
     }
     
     var body: some View {
@@ -35,19 +37,19 @@ struct PhotoEditorCompositeV: View {
                 .background(.black)
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                 HStack {
-                    Button(
-                        action: {
-                            let inverseRatio = imageDimensions / screenSpaceImageSize
-                            let correctedCorners = handleTracker.rotatedStockCorners * inverseRatio
-                            PhotoEditorV.crop(
-                                corners: correctedCorners,
-                                orientation: handleTracker.orientation,
-                                mapMap: mapMap,
-                                dismiss: { dismiss() }
-                            )
-                        },
-                        label: { Text("Crop").bigButton(backgroundColor: .blue) }
-                    )
+                    Button {
+                        let inverseRatio = imageDimensions / screenSpaceImageSize
+                        let correctedCorners = handleTracker.rotatedStockCorners * inverseRatio
+                        guard let originalImage = mapMap.originalImage else { return }
+                        PhotoEditorV.crop(
+                            corners: correctedCorners,
+                            orientation: handleTracker.orientation,
+                            mapMapImage: originalImage,
+                            dismiss: { dismiss() }
+                        )
+                    } label: {
+                        Text("Crop").bigButton(backgroundColor: .blue)
+                    }
                     Button(
                         action: { reset() },
                         label: { Text("Reset").bigButton(backgroundColor: .gray) }
@@ -68,6 +70,6 @@ struct PhotoEditorCompositeV: View {
         handleTracker.stockCorners.topTrailing = CGSize(width: screenSpaceImageSize.width, height: .zero)
         handleTracker.stockCorners.bottomLeading = CGSize(width: .zero, height: screenSpaceImageSize.height)
         handleTracker.stockCorners.bottomTrailing = screenSpaceImageSize
-        mapMap.cropCorners = nil
+        if let cropCorners = mapMap.activeImage?.cropCorners { moc.delete(cropCorners) }
     }
 }

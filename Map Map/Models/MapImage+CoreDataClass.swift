@@ -1,5 +1,5 @@
 //
-//  MapImage+CoreDataClass.swift
+//  MapMapImage+CoreDataClass.swift
 //  
 //
 //  Created by Ben Roberts on 2/3/24.
@@ -9,104 +9,158 @@
 import CoreData
 import SwiftUI
 
-@objc(MapImage)
-public class MapImage: NSManagedObject {
-    /// Current status type of this MapMap.
-    public enum ImageStatus {
+@objc(MapMapImage)
+public class MapMapImage: NSManagedObject {
+    static let thumbnailSize: CGSize = CGSize(width: 300, height: 300)
+    var imageSize: CGSize {
+        get { CGSize(width: imageWidth, height: imageHeight) }
+        set(newValue) {
+            self.imageWidth = newValue.width
+            self.imageHeight = newValue.height
+        }
+    }
+    
+    var imageStatus: ImageStatus = .empty
+    var thumbnailStatus: ImageStatus = .empty
+    var unwrappedOrientation: Orientation {
+        Orientation(rawValue: self.orientation) ?? .standard
+    }
+    
+    public enum ImageStatus: Equatable {
         case empty
         case loading
-        case success(Image)
+        case successful(UIImage)
         case failure
     }
-    /// Resolution of the thumbnail.
-    static let thumbnailSize: CGSize = CGSize(width: 300, height: 300)
-    /// This image
-    @Published public var image: ImageStatus = .empty
-    /// Thumbnail of this image.
-    @Published public var thumbnail: ImageStatus = .empty
-    /// Simple getter and private setter for this image.
-    private(set) var size: CGSize {
-        get { CGSize(width: CGFloat(self.imageWidth), height: CGFloat(self.imageHeight)) }
-        set(newValue) {
-            self.imageWidth = Int16(newValue.width)
-            self.imageHeight = Int16(newValue.height)
-        }
-    }
     
-    /// Formatted image type.
-    public var imageType: ImageType {
-        get { ImageType(rawValue: self.type) ?? .original }
-        set(newValue) { self.type = newValue.rawValue }
-    }
-    
-    /// Orientation of image.
-    private(set) var orientation: Orientation {
-        get { Orientation(rawValue: self.wrappedOrientation) ?? .standard }
-        set(newValue) { self.wrappedOrientation = newValue.rawValue }
-    }
-    
-    /// Generate a thumbnail from this image.
-    private func generateThumbnail() async {
+    private func loadImage() async -> UIImage? {
         guard let imageData = imageData,
               let uiImage = UIImage(data: imageData)
-        else { return }
-        await generateThumbnail(image: uiImage)
+        else { return nil }
+        return uiImage
     }
     
-    /// Generate a thumbnail from the provided image.
-    /// - Parameter image: Base image.
-    func generateThumbnail(image: UIImage) async {
-        guard let thumbnail = await image.byPreparingThumbnail(ofSize: MapImage.thumbnailSize)
-        else {
-            DispatchQueue.main.async { self.thumbnail = .failure }
-            return
-        }
-        await MainActor.run { [thumbnail] in
-            self.thumbnail = .success(Image(uiImage: thumbnail))
-        }
-        self.thumbnailData = thumbnail.jpegData(compressionQuality: 0.1)
-    }
-    
-    /// Load the image and thumbnail from Core Data.
-    func loadImageFromCD() {
-        self.image = .loading
-        guard let imageData = imageData,
-              let uiImage = UIImage(data: imageData)
-        else {
-            image = .failure
-            return
-        }
-        self.image = .success(Image(uiImage: uiImage))
-        
+    private func loadThumbnail() async -> UIImage? {
         guard let thumbnailData = thumbnailData,
-              let uiThumbnail = UIImage(data: thumbnailData)
-        else {
-            Task { await generateThumbnail() }
-            return
-        }
-        self.thumbnail = .success(Image(uiImage: uiThumbnail))
+              let uiImage = UIImage(data: thumbnailData)
+        else { return nil }
+        return uiImage
     }
     
-    /// Type of image.
-    public enum ImageType: Int16 {
-        case original = 0
-        case cropped = 1
+    public func loadFromCD() async {
+        await MainActor.run {
+            self.thumbnailStatus = .loading
+            self.imageStatus = .loading
+        }
+        guard let uiImage = await loadImage()
+        else {
+            await MainActor.run {
+                self.thumbnailStatus = .failure
+                self.imageStatus = .failure
+            }
+            return
+        }
+        await MainActor.run { imageStatus = .successful(uiImage) }
+        if let thumbnailImage = await loadThumbnail() {
+            await MainActor.run { thumbnailStatus = .successful(thumbnailImage) }
+            return // All is good in the world
+        }
+        if let thumbnail = await generateThumbnail(from: uiImage) { // WHERE'D THE THUMBNAIL GO?!
+            await MainActor.run { thumbnailStatus = .successful(thumbnail) }
+        }
+        else { await MainActor.run { thumbnailStatus = .failure } } // WHY IS IT GONE?!??!
+    }
+    
+    private func generateThumbnail(from uiImage: UIImage) async -> UIImage? {
+        return await uiImage.byPreparingThumbnail(ofSize: MapMapImage.thumbnailSize)
     }
 }
 
-extension MapImage {
-    /// Creates a Map Image from a UIImage
+public extension MapMapImage {
+    /// Create a MapMap Image from a UIImage
     /// - Parameters:
-    ///   - image: Image to base Map Image on.
-    ///   - type: Type of image being created.
-    ///   - moc: Managed Object Context to save into.
-    public convenience init(image: UIImage, type: ImageType, orientation: Orientation = .standard, moc: NSManagedObjectContext) {
+    ///   - uiImage: UIImage to create from.
+    ///   - baseImage: If this MapMapImage is based off another MapMap image, a path can be created back.
+    ///   - moc: Managed Object Context to insert into
+    convenience init(uiImage: UIImage, orientation: Orientation = .standard, moc: NSManagedObjectContext) {
         self.init(context: moc)
-        self.imageType = type
-        self.image = .success(Image(uiImage: image))
-        self.size = image.size
-        self.orientation = orientation
-        Task { _ = await generateThumbnail(image: image) }
-        self.imageData = image.jpegData(compressionQuality: 0.1)
+        self.thumbnailStatus = .loading
+        self.imageStatus = .successful(uiImage)
+        self.orientation = orientation.rawValue
+        self.imageWidth = uiImage.size.width
+        self.imageHeight = uiImage.size.height
+        self.imageData = uiImage.jpegData(compressionQuality: 0.1)
+        Task {
+            if let thumbnail = await generateThumbnail(from: uiImage) {
+                await MainActor.run {
+                    self.thumbnailStatus = .successful(thumbnail)
+                    self.thumbnailData = thumbnail.jpegData(compressionQuality: 0.1)
+                }
+            }
+            else { await MainActor.run { self.thumbnailStatus = .failure } }
+        }
     }
 }
+
+public extension MapMapImage {
+    /// Check if the stored four corners are equal to multiple CGSizes.
+    /// - Parameters:
+    ///   - newCorners: Four cropped corners of an image.
+    /// - Returns: Bool stating if the two are the same or not.
+    func checkSameCorners(_ newCorners: CropCornersStorage) -> Bool {
+        if let cropCorners = cropCorners {
+            return cropCorners.topLeading == newCorners.topLeading.rounded() &&
+            cropCorners.topTrailing == newCorners.topTrailing.rounded() &&
+            cropCorners.bottomLeading == newCorners.bottomLeading.rounded() &&
+            cropCorners.bottomTrailing == newCorners.bottomTrailing.rounded()
+        }
+        return false
+    }
+    
+    /// Set the four corners.
+    /// - Parameter newCorners: Updated corners.
+    func setAndApplyCorners(corners newCorners: CropCornersStorage) -> UIImage? {
+        guard let moc = self.managedObjectContext
+        else { return nil }
+        let roundedCorners = newCorners.round()
+        if roundedCorners != imageSize {
+            self.cropCorners = MapMapImageCropCorners(
+                topLeading: newCorners.topLeading.rounded(),
+                topTrailing: newCorners.topTrailing.rounded(),
+                bottomLeading: newCorners.bottomLeading.rounded(),
+                bottomTrailing: newCorners.bottomTrailing.rounded(),
+                insertInto: moc
+            )
+            return applyPerspectiveCorrectionFromCorners()
+        }
+        // Crop corners were defaults
+        Task { self.cropCorners = nil }
+        return nil
+    }
+    
+    /// Applies image correction based on the four corners of the MapMap.
+    private func applyPerspectiveCorrectionFromCorners() -> UIImage? {
+        guard let mapMapRawEncodedImage = self.imageData, // Map map data
+              let ciImage = CIImage(data: mapMapRawEncodedImage),       // Type ciImage
+              let fourCorners = self.cropCorners,                       // Ensure fourCorners exists
+              let filter = CIFilter(name: "CIPerspectiveCorrection")    // Filter to use
+        else { return nil }
+        let context = CIContext()
+        
+        func cartesianVecForPoint(_ point: CGSize) -> CIVector {
+            return CIVector(x: point.width, y: ciImage.extent.height - point.height)
+        }
+        
+        filter.setValue(cartesianVecForPoint(fourCorners.topLeading), forKey: "inputTopLeft")
+        filter.setValue(cartesianVecForPoint(fourCorners.topTrailing), forKey: "inputTopRight")
+        filter.setValue(cartesianVecForPoint(fourCorners.bottomLeading), forKey: "inputBottomLeft")
+        filter.setValue(cartesianVecForPoint(fourCorners.bottomTrailing), forKey: "inputBottomRight")
+        filter.setValue(ciImage, forKey: kCIInputImageKey)
+        
+        guard let newCIImage = filter.outputImage,
+              let newCGImage = context.createCGImage(newCIImage, from: newCIImage.extent)
+        else { return nil }
+        
+        return UIImage(cgImage: consume newCGImage)
+    }
+ }

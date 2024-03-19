@@ -131,8 +131,8 @@ struct MarkerEditorV: View {
         let marker = MarkerEditorV.generateMarkerBoundingBox(markerPosition: markerPosition)
         var overlappingMapMaps: [MapMap] = []
         for mapMap in mapMaps {
-            if let mapMapBounds = MapV.generateMapMapRotatedConvexHull(
-                mapMap: mapMap,
+            if let mapMapImage = mapMap.activeImage, let mapMapBounds = MapV.generateMapMapRotatedConvexHull(
+                mapMapImage: mapMapImage,
                 mapDetails: mapDetails,
                 mapContext: mapContext
             )?.cgPath,

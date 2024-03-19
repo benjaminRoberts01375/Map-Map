@@ -10,6 +10,6 @@ import SwiftUI
 
 protocol ListItem: ObservableObject, MapDisplayable {
     var displayName: String { get }
-    var thumbnail: any View { get }
+    var thumbnail: any View { get } // maybe? (self) -> any View
     var shown: Bool { get }
 }

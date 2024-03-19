@@ -9,5 +9,5 @@ import SwiftUI
 
 extension MapMap: ListItem {
     var displayName: String { self.mapMapName ?? MapMap.defaultName }
-    var thumbnail: any View { MapMapV(mapMap: self, mapType: .thumbnail) }
+    var thumbnail: any View { MapMapV(self, imageType: .thumbnail) }
 }

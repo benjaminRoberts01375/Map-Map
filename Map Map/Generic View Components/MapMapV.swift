@@ -7,65 +7,77 @@
 
 import SwiftUI
 
-/// Simple renderer for MapMaps
 struct MapMapV: View {
-    /// MapMap being rendered.
-    @ObservedObject var mapMap: FetchedResults<MapMap>.Element
-    /// Type of MapMap photo.
-    let mapType: MapType
-    /// Status of the displayable map map.
-    @State private var status: MapImage.ImageStatus? = .loading
+    @ObservedObject var mapMap: MapMap
+    let mapMapImageType: MapType
+    @State var mapMapImage: MapMapImage?
+    @State var mapMapImageStatus: MapMapImage.ImageStatus?
+    
+    init(_ mapMap: MapMap, imageType: MapType) {
+        self.mapMap = mapMap
+        self.mapMapImageType = imageType
+        getMapFromType(imageType)
+    }
     
     /// What photo should be rendered for this MapMap
     public enum MapType {
         /// Thumbnail image.
         case thumbnail
         /// Full size MapMap with edits.
-        case fullImage
+        case image
         /// Unedited original MapMap image.
-        case original
+        case originalThumbnail
+        /// Unedited original Map Map thumbnail
+        case originalImage
     }
     
     var body: some View {
         VStack {
-            switch status {
+            switch mapMapImageStatus {
             case .empty:
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
-                    .task { mapMap.activeImage?.loadImageFromCD() }
-            case .loading:
+                    .task { await mapMapImage?.loadFromCD() }
+                    .onAppear { print("Empty") }
+            case .loading, .none:
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
-            case .success(let img):
-                img
-                    .resizable()
-                    .scaledToFit()
-                    .accessibilityLabel(mapMap.mapMapName ?? "Map Map")
-            case .failure, .none:
+                    .onAppear { print("Loading/none") }
+            case .failure:
                 Image(systemName: "exclamationmark.triangle.fill")
                     .resizable()
                     .scaledToFit()
                     .foregroundStyle(.yellow)
                     .accessibilityLabel("Could not load Map Map")
+                    .onAppear { print("Failed") }
+            case .successful(let uiImage):
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+                    .accessibilityLabel(mapMap.mapMapName ?? "Map Map")
+                    .onAppear { print("Successful") }
             }
         }
-        .onChange(of: mapMap.imageCropped, initial: true) { status = getMapFromType(mapType) }
-        .onChange(of: mapMap.imageDefault) { status = getMapFromType(mapType) }
+        .onChange(of: mapMap.unwrappedMapMapImageContainers.count) {
+            getMapFromType(mapMapImageType)
+        }
+        .onChange(of: mapMapImageStatus) { getMapFromType(mapMapImageType) }
     }
     
-    // swiftlint:disable accessibility_label_for_image
-    private func getMapFromType(_ mapType: MapType) -> MapImage.ImageStatus? {
+    private func getMapFromType(_ mapType: MapType) {
         switch mapType {
-        case .fullImage:
-            return mapMap.activeImage?.image
+        case .image:
+            mapMapImage = mapMap.unwrappedMapMapImageContainers.first?.unwrappedImages.last
+            mapMapImageStatus = mapMapImage?.imageStatus
         case .thumbnail:
-            return mapMap.activeImage?.thumbnail
-        case .original:
-            guard let mapData = mapMap.imageDefault?.imageData,
-                  let uiImage = UIImage(data: mapData)
-            else { return .failure }
-            return .success(Image(uiImage: uiImage))
+            mapMapImage = mapMap.unwrappedMapMapImageContainers.first?.unwrappedImages.last
+            mapMapImageStatus = mapMapImage?.thumbnailStatus
+        case .originalImage:
+            mapMapImage = mapMap.unwrappedMapMapImageContainers.first?.unwrappedImages.first
+            mapMapImageStatus = mapMapImage?.imageStatus
+        case .originalThumbnail:
+            mapMapImage = mapMap.unwrappedMapMapImageContainers.first?.unwrappedImages.first
+            mapMapImageStatus = mapMapImage?.thumbnailStatus
         }
     }
-    // swiftlint:enable accessibility_label_for_image
 }

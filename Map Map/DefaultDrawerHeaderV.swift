@@ -74,7 +74,7 @@ struct DefaultDrawerHeaderV: View {
                     guard let photoData = try? await rawPhoto.loadTransferable(type: Data.self),
                           let uiImage = UIImage(data: photoData)?.fixOrientation()
                     else { continue }
-                    _ = MapMap(uiPhoto: uiImage, moc: moc)
+                    await MainActor.run { _ = MapMap(uiImage: uiImage, moc: moc) }
                 }
             }
             rawPhotos = []
@@ -119,7 +119,7 @@ struct DefaultDrawerHeaderV: View {
         switch fileType {
         case .pdf: importPDF(data)
         case .png, .jpeg:
-            if let image = UIImage(data: data) { _ = MapMap(uiPhoto: image, moc: moc) }
+            if let image = UIImage(data: data) { _ = MapMap(uiImage: image, moc: moc) }
         default:
             errorMessage = "We're not sure what kind of file this is. Import only PDFs, JPEGs, and PNGs."
             errorPresented = true
@@ -151,6 +151,6 @@ struct DefaultDrawerHeaderV: View {
             // Draw the PDF page using PDFPage's draw method
             firstPage.draw(with: .cropBox, to: context.cgContext)
         }
-        _ = MapMap(uiPhoto: image, moc: moc)
+        _ = MapMap(uiImage: image, moc: moc)
     }
 }

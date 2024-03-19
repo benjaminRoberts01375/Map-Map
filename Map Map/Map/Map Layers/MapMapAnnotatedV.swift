@@ -8,11 +8,11 @@
 import SwiftUI
 
 /// Handle all display logic for a MapMap on the map.
-struct MapMapAnnotationV: View {
+struct MapMapAnnotatedV: View {
     /// Map details to be updated by this map.
     @Environment(MapDetailsM.self) private var mapDetails
     /// MapMap being displayed.
-    @ObservedObject var mapMap: FetchedResults<MapMap>.Element
+    @ObservedObject var mapMap: MapMap
     /// Update UI when drawing changes.
     @State var id: UUID = UUID()
     /// Track the current interaction of this mapmap.
@@ -33,16 +33,17 @@ struct MapMapAnnotationV: View {
                 Button(
                     action: { mapDetails.moveMapCameraTo(item: mapMap) },
                     label: {
-                        MapMapV(mapMap: mapMap, mapType: .fullImage)
+                        MapMapV(mapMap, imageType: .image)
                             .frame(width: width)
                     }
                 )
                 .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
             case .viewable:
-                MapMapV(mapMap: mapMap, mapType: .fullImage)
+                MapMapV(mapMap, imageType: .image)
                     .frame(width: width)
             }
-            if let drawing = mapMap.drawing, let pkDrawing = drawing.pkDrawing {
+            if let drawing = mapMap.unwrappedMapMapImageContainers.first?.unwrappedImages.last?.drawing,
+                let pkDrawing = drawing.pkDrawing {
                 GeometryReader { _ in
                     DisplayDrawingV(drawing: pkDrawing)
                         .frame(width: drawing.mapMapWidth, height: drawing.mapMapHeight)

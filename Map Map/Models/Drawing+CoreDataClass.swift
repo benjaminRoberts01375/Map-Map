@@ -10,8 +10,8 @@ import CoreData
 import Foundation
 import PencilKit
 
-@objc(Drawing)
-public class Drawing: NSManagedObject {
+@objc(MapMapDrawing)
+public class MapMapImageDrawing: NSManagedObject {
     var pkDrawing: PKDrawing? {
         get {
             if let data = self.drawingData {
@@ -21,7 +21,7 @@ public class Drawing: NSManagedObject {
             else { return nil }
         }
         set(newValue) {
-            if self.mapMap == nil { return }
+            if self.mapMapImage == nil { return }
             if let updatedData = newValue?.dataRepresentation() { self.drawingData = updatedData }
         }
     }
@@ -34,9 +34,9 @@ public class Drawing: NSManagedObject {
         }
     }
     
-    convenience init(context moc: NSManagedObjectContext, mapMap: MapMap, drawingData: Data) {
+    convenience init(context moc: NSManagedObjectContext, mapMapImage: MapMapImage, drawingData: Data) {
         self.init(context: moc)
-        mapMap.drawing = self
         self.drawingData = drawingData
+        self.mapMapImage = mapMapImage
     }
 }

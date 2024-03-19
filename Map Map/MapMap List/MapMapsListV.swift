@@ -31,7 +31,7 @@ struct MapMapList: View {
                         .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
                     Divider()
                         .offset(y: dividerOffset)
-                    ForEach(mapMap.formattedMarkers) { marker in
+                    ForEach(mapMap.unwrappedMarkers) { marker in
                         SmallListItemV(listItem: marker) { mapDetails.moveMapCameraTo(item: marker) }
                             .contextMenu { MarkerContextMenuV(marker: marker) }
                         Divider()
