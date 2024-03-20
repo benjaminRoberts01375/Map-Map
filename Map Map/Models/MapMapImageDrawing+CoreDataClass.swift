@@ -10,7 +10,7 @@ import CoreData
 import Foundation
 import PencilKit
 
-@objc(MapMapDrawing)
+@objc(MapMapImageDrawing)
 public class MapMapImageDrawing: NSManagedObject {
     var pkDrawing: PKDrawing? {
         get {
