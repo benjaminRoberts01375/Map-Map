@@ -17,7 +17,9 @@ struct MapMapV: View {
     }
     
     var body: some View {
-        if let container = self.mapMap.unwrappedMapMapImageContainers.first { MapMapImageContainerV(container, imageType: imageType) }
+        if let container = self.mapMap.unwrappedMapMapImageContainers.first {
+            MapMapImageContainerV(container, imageType: imageType, name: mapMap.displayName)
+        }
         else { MapMapImageFailedV() }
     }
 }
@@ -25,25 +27,27 @@ struct MapMapV: View {
 fileprivate struct MapMapImageContainerV: View {
     @ObservedObject var container: MapMapImageContainer
     let imageType: MapMapImageType
+    let name: String
     
-    init(_ container: MapMapImageContainer, imageType: MapMapImageType) {
+    init(_ container: MapMapImageContainer, imageType: MapMapImageType, name: String) {
         self.container = container
         self.imageType = imageType
+        self.name = name
     }
     
     var body: some View {
         switch imageType {
         case .image:
-            if let mapMapImage = container.unwrappedImages.last { MapMapImageV(image: mapMapImage, imageSize: .full) }
+            if let mapMapImage = container.unwrappedImages.last { MapMapImageV(image: mapMapImage, imageSize: .full, name: name) }
             else { MapMapImageFailedV() }
         case .thumbnail:
-            if let mapMapImage = container.unwrappedImages.last { MapMapImageV(image: mapMapImage, imageSize: .thumbnail) }
+            if let mapMapImage = container.unwrappedImages.last { MapMapImageV(image: mapMapImage, imageSize: .thumbnail, name: name) }
             else { MapMapImageFailedV() }
         case .originalImage:
-            if let mapMapImage = container.unwrappedImages.first { MapMapImageV(image: mapMapImage, imageSize: .full) }
+            if let mapMapImage = container.unwrappedImages.first { MapMapImageV(image: mapMapImage, imageSize: .full, name: name) }
             else { MapMapImageFailedV() }
         case .originalThumbnail:
-            if let mapMapImage = container.unwrappedImages.first { MapMapImageV(image: mapMapImage, imageSize: .thumbnail) }
+            if let mapMapImage = container.unwrappedImages.first { MapMapImageV(image: mapMapImage, imageSize: .thumbnail, name: name) }
             else { MapMapImageFailedV() }
         }
     }
@@ -52,6 +56,7 @@ fileprivate struct MapMapImageContainerV: View {
 fileprivate struct MapMapImageV: View {
     @ObservedObject var image: MapMapImage
     let imageSize: MapMapImageSize
+    let name: String
     
     enum MapMapImageSize {
         case thumbnail, full
@@ -67,7 +72,7 @@ fileprivate struct MapMapImageV: View {
             case .loading:
                 MapMapImageLoading()
             case .successful(let uIImage):
-                MapMapImageSuccessful(image: uIImage)
+                MapMapImageSuccessful(image: uIImage, name: name)
             case .failure:
                 MapMapImageFailedV()
             }
@@ -79,7 +84,7 @@ fileprivate struct MapMapImageV: View {
             case .loading:
                 MapMapImageLoading()
             case .successful(let uIImage):
-                MapMapImageSuccessful(image: uIImage)
+                MapMapImageSuccessful(image: uIImage, name: name)
             case .failure:
                 MapMapImageFailedV()
             }
@@ -106,11 +111,13 @@ fileprivate struct MapMapImageLoading: View {
 
 fileprivate struct MapMapImageSuccessful: View {
     let image: UIImage
+    let name: String
+    
     var body: some View {
         Image(uiImage: image)
             .resizable()
             .scaledToFit()
-//            .accessibilityLabel(mapMap.mapMapName ?? MapMap.defaultName)
+            .accessibilityLabel(name)
     }
 }
 
