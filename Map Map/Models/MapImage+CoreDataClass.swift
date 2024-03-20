@@ -20,8 +20,8 @@ public class MapMapImage: NSManagedObject {
         }
     }
     
-    var imageStatus: ImageStatus = .empty
-    var thumbnailStatus: ImageStatus = .empty
+    private(set) var imageStatus: ImageStatus = .empty { didSet { self.objectWillChange.send() } }
+    private(set) var thumbnailStatus: ImageStatus = .empty { didSet { self.objectWillChange.send() } }
     var unwrappedOrientation: Orientation {
         Orientation(rawValue: self.orientation) ?? .standard
     }
