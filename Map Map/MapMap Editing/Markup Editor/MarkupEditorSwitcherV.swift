@@ -32,7 +32,7 @@ struct MarkupEditorSwitcherV: View {
         self.isPhone = UIDevice.current.userInterfaceIdiom == .phone
         if let drawing = mapMap.activeImage?.drawing {
             if let pkDrawing = drawing.pkDrawing { canvasView.drawing = pkDrawing }
-            self.mapMapSize = CGSize(width: drawing.mapMapWidth, height: drawing.mapMapHeight)
+            self.mapMapSize = CGSize(width: drawing.width, height: drawing.height)
         }
     }
     
@@ -79,7 +79,7 @@ struct MarkupEditorSwitcherV: View {
         .onAppear { setupToolPicker() }
         .onDisappear {
             guard let mapImage = mapMap.activeImage,
-                let drawing = mapImage.drawing else { return }
+                  let drawing = mapImage.drawing else { return }
             if let pkDrawing = drawing.pkDrawing, pkDrawing.strokes.isEmpty {
                 moc.delete(drawing)
             }

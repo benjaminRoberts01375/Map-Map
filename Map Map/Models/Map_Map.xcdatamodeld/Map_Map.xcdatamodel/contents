@@ -82,8 +82,8 @@
     </entity>
     <entity name="MapMapImageDrawing" representedClassName="MapMapImageDrawing" syncable="YES" codeGenerationType="category">
         <attribute name="drawingData" attributeType="Binary"/>
-        <attribute name="mapMapHeight" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="mapMapWidth" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="height" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="width" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="mapMapImage" maxCount="1" deletionRule="Nullify" destinationEntity="MapMapImage" inverseName="drawing" inverseEntity="MapMapImage"/>
     </entity>
     <entity name="MapMeasurementCoordinate" representedClassName="MapMeasurementCoordinate" syncable="YES" codeGenerationType="category">

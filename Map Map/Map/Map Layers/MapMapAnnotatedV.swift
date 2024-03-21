@@ -46,8 +46,8 @@ struct MapMapAnnotatedV: View {
                 let pkDrawing = drawing.pkDrawing {
                 GeometryReader { _ in
                     DisplayDrawingV(drawing: pkDrawing)
-                        .frame(width: drawing.mapMapWidth, height: drawing.mapMapHeight)
-                        .scaleEffect(width / drawing.mapMapWidth, anchor: .topLeading)
+                        .frame(width: drawing.width, height: drawing.height)
+                        .scaleEffect(width / drawing.width, anchor: .topLeading)
                         .allowsHitTesting(false)
                         .onChange(of: drawing.drawingData) { self.id = UUID() }
                 }
