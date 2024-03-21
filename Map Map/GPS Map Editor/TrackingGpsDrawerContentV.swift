@@ -114,6 +114,7 @@ struct TrackingGpsDrawerContentV: View {
         }
         .onAppear { mapDetails.followUser() }
         .onAppear { setupLiveActivity() }
+        .onDisappear { gpsMap.isSetup = true }
     }
     
     /// Initialize a live activity with data.
