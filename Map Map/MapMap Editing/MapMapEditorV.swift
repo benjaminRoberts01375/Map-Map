@@ -111,7 +111,10 @@ struct MapMapEditor: View {
                 message: Text("To change the shape of you Map Map, you must delete your drawing."),
                 primaryButton: .destructive(
                     Text("Delete and Crop"),
-                    action: { if let drawing = mapMap.activeImage?.drawing { moc.delete(drawing) } }
+                    action: {
+                        if let drawing = mapMap.activeImage?.drawing { moc.delete(drawing) }
+                        showingPhotoEditor = true
+                    }
                 ),
                 secondaryButton: .cancel(Text("Cancel"))
             )
