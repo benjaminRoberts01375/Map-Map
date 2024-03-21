@@ -10,5 +10,5 @@ import MapKit
 extension MapMap: MapDisplayable {    
     var cameraAlignment: MapCameraAlignment { .distance(self.mapDistance) }
     
-    var heading: Double { -self.mapMapRotation }
+    var heading: Double { -self.mapRotation }
 }
