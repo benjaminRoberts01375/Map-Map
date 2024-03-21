@@ -99,7 +99,10 @@ struct TrackingGpsDrawerContentV: View {
         .animation(.easeInOut(duration: 0.25), value: showDoneConfirmation)
         .animation(.easeInOut(duration: 0.25), value: statsBottom)
         .onReceive(timer) { _ in
-            let newTime: Int = -Int(gpsMap.unwrappedConnections.last?.end?.timestamp?.timeIntervalSinceNow ?? 0.0)
+            let newTime: Int
+            if let endTime = gpsMap.unwrappedConnections.last?.end?.timestamp?.timeIntervalSinceNow { newTime = Int(-endTime) }
+            else if let startTime = gpsMap.unwrappedConnections.last?.start?.timestamp?.timeIntervalSinceNow { newTime = Int(-startTime) }
+            else { newTime = 0 }
             if newTime != self.additionalTime { self.additionalTime = newTime }
             updateLiveActivity()
         }
