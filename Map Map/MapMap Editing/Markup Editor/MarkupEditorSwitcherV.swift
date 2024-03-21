@@ -30,9 +30,9 @@ struct MarkupEditorSwitcherV: View {
     init(mapMap: FetchedResults<MapMap>.Element) {
         self.mapMap = mapMap
         self.isPhone = UIDevice.current.userInterfaceIdiom == .phone
-        if let drawing = mapMap.drawing {
+        if let drawing = mapMap.activeImage?.drawing {
             if let pkDrawing = drawing.pkDrawing { canvasView.drawing = pkDrawing }
-            self.mapMapSize = CGSize(width: drawing.mapMapWidth, height: drawing.mapMapHeight)
+            self.mapMapSize = CGSize(width: drawing.width, height: drawing.height)
         }
     }
     
@@ -47,8 +47,14 @@ struct MarkupEditorSwitcherV: View {
             ) { _ in
                 HStack {
                     Button {
-                        if let drawing = mapMap.drawing { drawing.drawingData = canvasView.drawing.dataRepresentation() }
-                        else { _ = Drawing(context: moc, mapMap: mapMap, drawingData: canvasView.drawing.dataRepresentation()) }
+                        if let drawing = mapMap.activeImage?.drawing { drawing.drawingData = canvasView.drawing.dataRepresentation() }
+                        else if let mapMapImage = mapMap.activeImage {
+                            _ = MapMapImageDrawing(
+                                context: moc,
+                                mapMapImage: mapMapImage,
+                                drawingData: canvasView.drawing.dataRepresentation()
+                            )
+                        }
                         dismiss()
                     } label: {
                         Text("Done")
@@ -61,7 +67,7 @@ struct MarkupEditorSwitcherV: View {
                             .bigButton(backgroundColor: .gray)
                     }
                     Button {
-                        if let drawing = mapMap.drawing { moc.delete(drawing) }
+                        if let drawing = mapMap.activeImage?.drawing { moc.delete(drawing) }
                         dismiss()
                     } label: {
                         Text("Delete")
@@ -72,11 +78,12 @@ struct MarkupEditorSwitcherV: View {
         }
         .onAppear { setupToolPicker() }
         .onDisappear {
-            guard let drawing = mapMap.drawing else { return }
+            guard let mapImage = mapMap.activeImage,
+                  let drawing = mapImage.drawing else { return }
             if let pkDrawing = drawing.pkDrawing, pkDrawing.strokes.isEmpty {
                 moc.delete(drawing)
             }
-            mapMap.drawing?.mapMapSize = mapMapSize
+            mapImage.drawing?.size = mapMapSize
         }
     }
     

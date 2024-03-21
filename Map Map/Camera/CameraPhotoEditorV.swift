@@ -9,6 +9,8 @@ import Bottom_Drawer
 import SwiftUI
 
 struct EditCameraPhotoV: View {
+    /// The current managed object context for this view.
+    @Environment(\.managedObjectContext) var moc
     /// MapMap with image being edited.
     @ObservedObject var mapMap: MapMap
     /// Current step for processing a taken photo.
@@ -26,8 +28,8 @@ struct EditCameraPhotoV: View {
         self.mapMap = mapMap
         self._cameraState = cameraState
         self._handleTracker = State(initialValue: PhotoEditorV.generateInitialHandles(baseMapMap: mapMap))
-        self._screenSpaceImageSize = State(initialValue: mapMap.activeImage?.size ?? .zero)
-        self.imageDimensions = mapMap.imageSize ?? .zero
+        self._screenSpaceImageSize = State(initialValue: mapMap.activeImage?.imageSize ?? .zero)
+        self.imageDimensions = mapMap.activeImage?.imageSize ?? .zero
     }
     
     var body: some View {
@@ -40,11 +42,12 @@ struct EditCameraPhotoV: View {
                         action: {
                             let inverseRatio = imageDimensions / screenSpaceImageSize
                             let correctedCorners = handleTracker.rotatedStockCorners * inverseRatio
-                            if !mapMap.checkSameCorners(correctedCorners) {
+                            guard let originalImage = mapMap.originalImage else { return }
+                            if let mapImage = mapMap.activeImage, !mapImage.checkSameCorners(correctedCorners) {
                                 PhotoEditorV.crop(
                                     corners: correctedCorners,
                                     orientation: handleTracker.orientation,
-                                    mapMap: mapMap,
+                                    mapMapImage: originalImage,
                                     dismiss: { mapMap.isEditing = true }
                                 )
                             }
@@ -72,6 +75,6 @@ struct EditCameraPhotoV: View {
         handleTracker.stockCorners.topTrailing = CGSize(width: screenSpaceImageSize.width, height: .zero)
         handleTracker.stockCorners.bottomLeading = CGSize(width: .zero, height: screenSpaceImageSize.height)
         handleTracker.stockCorners.bottomTrailing = screenSpaceImageSize
-        mapMap.cropCorners = nil
+        if let cropCorners = mapMap.activeImage?.cropCorners { moc.delete(cropCorners) }
     }
 }

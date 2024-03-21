@@ -10,7 +10,7 @@ import SwiftUI
 /// Render grid with handles.
 struct GridOverlayV: View {
     /// Grid corner positions.
-    @Binding var corners: FourCornersStorage
+    @Binding var corners: CropCornersStorage
     
     var body: some View {
         ZStack(alignment: .topLeading) {

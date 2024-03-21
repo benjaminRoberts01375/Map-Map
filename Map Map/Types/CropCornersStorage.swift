@@ -1,5 +1,5 @@
 //
-//  CornersM.swift
+//  CropCornersStorage.swift
 //  Map Map
 //
 //  Created by Ben Roberts on 11/16/23.
@@ -9,8 +9,8 @@ import Foundation
 
 /// A class that mirrors the functionality of the FourCorners core data class.
 @Observable
-final class FourCornersStorage: Equatable, CustomStringConvertible {
-    var description: String {
+public final class CropCornersStorage: Equatable, CustomStringConvertible {
+    public var description: String {
         return """
 Top Leading: \(topLeading), Top Trailing: \(topTrailing),
 Bottom Leading: \(bottomLeading), Bottom Trailing: \(bottomTrailing)
@@ -18,7 +18,7 @@ Bottom Leading: \(bottomLeading), Bottom Trailing: \(bottomTrailing)
     }
     
     /// A FourCornersStorage where every value is zero'ed.
-    static var zero = FourCornersStorage(topLeading: .zero, topTrailing: .zero, bottomLeading: .zero, bottomTrailing: .zero)
+    static var zero = CropCornersStorage(topLeading: .zero, topTrailing: .zero, bottomLeading: .zero, bottomTrailing: .zero)
     
     var topLeading: CGSize
     var topTrailing: CGSize
@@ -27,8 +27,8 @@ Bottom Leading: \(bottomLeading), Bottom Trailing: \(bottomTrailing)
     
     /// Returns a new FourCornersStorage that has been rounded.
     /// - Returns: Rounded FourCornersStorage.
-    func round() -> FourCornersStorage {
-        return FourCornersStorage(
+    func round() -> CropCornersStorage {
+        return CropCornersStorage(
             topLeading: topLeading.rounded(),
             topTrailing: topTrailing.rounded(),
             bottomLeading: bottomLeading.rounded(),
@@ -38,8 +38,8 @@ Bottom Leading: \(bottomLeading), Bottom Trailing: \(bottomTrailing)
     
     /// Take the current handles, and rotate them leftwards.
     /// - Returns: Self that has been rotated.
-    func rotateLeft() -> FourCornersStorage {
-        return FourCornersStorage(
+    func rotateLeft() -> CropCornersStorage {
+        return CropCornersStorage(
             topLeading: self.topTrailing,
             topTrailing: self.bottomTrailing,
             bottomLeading: self.topLeading,
@@ -49,8 +49,8 @@ Bottom Leading: \(bottomLeading), Bottom Trailing: \(bottomTrailing)
     
     /// Takes the current handles, and rotate them rightwards.
     /// - Returns: Self that has been rotated.
-    func rotateRight() -> FourCornersStorage {
-        return FourCornersStorage(
+    func rotateRight() -> CropCornersStorage {
+        return CropCornersStorage(
             topLeading: self.bottomLeading,
             topTrailing: self.topLeading,
             bottomLeading: self.bottomTrailing,
@@ -60,8 +60,8 @@ Bottom Leading: \(bottomLeading), Bottom Trailing: \(bottomTrailing)
     
     /// Returns a copy of this FourCornersStorage that has been rotated.
     /// - Returns: Self that has been rotated.
-    func rotateDown() -> FourCornersStorage {
-        return FourCornersStorage(
+    func rotateDown() -> CropCornersStorage {
+        return CropCornersStorage(
             topLeading: self.bottomTrailing,
             topTrailing: self.bottomLeading,
             bottomLeading: self.topTrailing, 
@@ -71,8 +71,8 @@ Bottom Leading: \(bottomLeading), Bottom Trailing: \(bottomTrailing)
     
     /// Allow simple copying of this class.
     /// - Returns: A copy of this class.
-    func copy() -> FourCornersStorage {
-        return FourCornersStorage(
+    func copy() -> CropCornersStorage {
+        return CropCornersStorage(
             topLeading: topLeading,
             topTrailing: topTrailing,
             bottomLeading: bottomLeading,
@@ -84,7 +84,7 @@ Bottom Leading: \(bottomLeading), Bottom Trailing: \(bottomTrailing)
     /// - Parameters:
     ///   - storage: Base.
     ///   - scalar: Multiplier.
-    static func *= (storage: FourCornersStorage, scalar: CGSize) {
+    static func *= (storage: CropCornersStorage, scalar: CGSize) {
         storage.topLeading *= scalar
         storage.topTrailing *= scalar
         storage.bottomLeading *= scalar
@@ -95,8 +95,8 @@ Bottom Leading: \(bottomLeading), Bottom Trailing: \(bottomTrailing)
     /// - Parameters:
     ///   - storage: Base.
     ///   - scalar: Multiplier.
-    static func * (storage: FourCornersStorage, scalar: CGSize) -> FourCornersStorage {
-        return FourCornersStorage(
+    static func * (storage: CropCornersStorage, scalar: CGSize) -> CropCornersStorage {
+        return CropCornersStorage(
             topLeading: storage.topLeading * scalar,
             topTrailing: storage.topTrailing * scalar,
             bottomLeading: storage.bottomLeading * scalar, 
@@ -108,7 +108,7 @@ Bottom Leading: \(bottomLeading), Bottom Trailing: \(bottomTrailing)
     /// - Parameters:
     ///   - lhs: Base FourCornersStorage
     ///   - rhs: Comparing to.
-    static func != (lhs: FourCornersStorage, rhs: CGSize) -> Bool {
+    static func != (lhs: CropCornersStorage, rhs: CGSize) -> Bool {
         lhs.topLeading != .zero ||
         lhs.topTrailing != CGSize(width: rhs.width, height: .zero) ||
         lhs.bottomLeading != CGSize(width: .zero, height: rhs.height) ||
@@ -120,7 +120,7 @@ Bottom Leading: \(bottomLeading), Bottom Trailing: \(bottomTrailing)
     ///   - lhs: Left FourCornersStorage.
     ///   - rhs: Right FourCornersStorage.
     /// - Returns: Compared result.
-    static func == (lhs: FourCornersStorage, rhs: FourCornersStorage) -> Bool {
+    public static func == (lhs: CropCornersStorage, rhs: CropCornersStorage) -> Bool {
         return lhs.topLeading == rhs.topLeading &&
         lhs.topTrailing == rhs.topTrailing &&
         lhs.bottomLeading == rhs.bottomLeading &&
@@ -141,7 +141,14 @@ Bottom Leading: \(bottomLeading), Bottom Trailing: \(bottomTrailing)
         bottomTrailing = fill
     }
     
-    init(corners: FourCorners) {
+    init(corners: CropCornersStorage) {
+        self.topLeading = corners.topLeading
+        self.topTrailing = corners.topTrailing
+        self.bottomLeading = corners.bottomLeading
+        self.bottomTrailing = corners.bottomTrailing
+    }
+    
+    init(corners: MapMapImageCropCorners) {
         self.topLeading = corners.topLeading
         self.topTrailing = corners.topTrailing
         self.bottomLeading = corners.bottomLeading

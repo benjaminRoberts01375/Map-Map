@@ -88,7 +88,7 @@ struct PhotoEditorV: View {
                         width: rotated ? geo.size.height : geo.size.width,
                         height: rotated ? geo.size.width : geo.size.height
                     )
-                    MapMapV(mapMap: mapMap, mapType: .original)
+                    MapMapV(mapMap, imageType: .originalImage)
                         .onViewResizes { _, update in
                             handleTracker.stockCorners *= update / self.screenSpaceImageSize
                             self.screenSpaceImageSize = update
@@ -108,8 +108,8 @@ struct PhotoEditorV: View {
             }
         }
         .task {
-            if mapMap.cropCorners == nil,
-               let mapMapImageData = mapMap.imageDefault?.imageData,
+            if mapMap.activeImage?.cropCorners == nil,
+               let mapMapImageData = mapMap.activeImage?.imageData,
                let ciImage = CIImage(data: mapMapImageData),
                let generatedCorners = PhotoEditorV.detectDocumentCorners(image: ciImage, displaySize: screenSpaceImageSize) {
                 DispatchQueue.main.async {
@@ -149,15 +149,15 @@ struct PhotoEditorV: View {
     ///   - imageData: Raw data from an image.
     ///   - displaySize: Size of the photo currently being displayed.
     /// - Returns: Positions of corners if found.
-    static func detectDocumentCorners(image: CIImage, displaySize: CGSize) -> FourCornersStorage? {
-        var corners: FourCornersStorage?
+    static func detectDocumentCorners(image: CIImage, displaySize: CGSize) -> CropCornersStorage? {
+        var corners: CropCornersStorage?
         let rectangleDetectionRequest = VNDetectRectanglesRequest { request, _ in
             guard let results = request.results as? [VNRectangleObservation], !results.isEmpty,
                   let rectangle = results.first // Get first rectangle
             else { return }
             
             // Scale coordinates from 0...1 to screen dimensions, and correct for upside down and mirror
-            corners = FourCornersStorage(
+            corners = CropCornersStorage(
                 topLeading: CGSize(
                     width: rectangle.topLeft.x * displaySize.width,
                     height: displaySize.height - rectangle.topLeft.y * displaySize.height
@@ -187,20 +187,24 @@ struct PhotoEditorV: View {
     ///   - corners: Corners to crop the default map image to.
     ///   - mapMap: Map Map to crop.
     ///   - dismiss: What to do once created.
-    static func crop(corners: FourCornersStorage, orientation: Orientation, mapMap: MapMap, dismiss: @escaping () -> Void) {
-        if !mapMap.checkSameCorners(corners) {
+    static func crop(corners: CropCornersStorage, orientation: Orientation, mapMapImage: MapMapImage, dismiss: @escaping () -> Void) {
+        if !mapMapImage.checkSameCorners(corners) {
             PhotoEditorV.perspectiveQueue.async {
-                guard let croppedImage = mapMap.setAndApplyCorners(corners: corners),
-                      let moc = mapMap.managedObjectContext
+                guard let croppedImage = mapMapImage.setAndApplyCorners(corners: corners),
+                      let moc = mapMapImage.managedObjectContext
                 else {
                     dismiss()
                     return
                 }
                 DispatchQueue.main.async {
-                    if let oldCroppedImage = mapMap.imageCropped { moc.delete(oldCroppedImage) }
+                    if mapMapImage.imageContainer?.unwrappedImages.count ?? 1 > 1, 
+                        let oldCroppedImage = mapMapImage.imageContainer?.unwrappedImages.last {
+                        moc.delete(oldCroppedImage)
+                    }
                     dismiss()
-                    let mapImage = MapImage(image: croppedImage, type: .cropped, orientation: orientation, moc: moc)
-                    mapMap.addToImages(mapImage)
+                    guard let imageContainer = mapMapImage.imageContainer
+                    else { return }
+                    imageContainer.addToImages(MapMapImage(uiImage: croppedImage, orientation: orientation, moc: moc))
                 }
             }
         }
@@ -211,17 +215,17 @@ struct PhotoEditorV: View {
     /// - Parameter mapMap: Base map map.
     /// - Returns: A handle tracker that is correctly rotated for the map map.
     static func generateInitialHandles(baseMapMap mapMap: MapMap) -> HandleTrackerM {
-        if let corners = mapMap.cropCorners, let orientation = mapMap.imageCropped?.orientation {
+        if let corners = mapMap.activeImage?.cropCorners, let orientation = mapMap.activeImage?.unwrappedOrientation {
             let handles: HandleTrackerM =
             switch orientation {
-            case .standard: HandleTrackerM(stockCorners: FourCornersStorage(corners: corners))
-            case .right: HandleTrackerM(stockCorners: FourCornersStorage(corners: corners).rotateLeft())
-            case .down: HandleTrackerM(stockCorners: FourCornersStorage(corners: corners).rotateDown())
-            case .left: HandleTrackerM(stockCorners: FourCornersStorage(corners: corners).rotateRight())
+            case .standard: HandleTrackerM(stockCorners: CropCornersStorage(corners: corners))
+            case .right: HandleTrackerM(stockCorners: CropCornersStorage(corners: corners).rotateLeft())
+            case .down: HandleTrackerM(stockCorners: CropCornersStorage(corners: corners).rotateDown())
+            case .left: HandleTrackerM(stockCorners: CropCornersStorage(corners: corners).rotateRight())
             }
             handles.orientation = orientation
             return handles
         }
-        else { return HandleTrackerM(stockCorners: FourCornersStorage(fill: mapMap.activeImage?.size ?? .zero)) }
+        else { return HandleTrackerM(stockCorners: CropCornersStorage(fill: mapMap.activeImage?.imageSize ?? .zero)) }
     }
 }

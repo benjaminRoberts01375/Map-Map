@@ -19,7 +19,7 @@ struct MarkupEditorVIPadOS: View {
     
     var body: some View {
         ZStack(alignment: .center) {
-            MapMapV(mapMap: mapMap, mapType: .fullImage)
+            MapMapV(mapMap, imageType: .image)
                 .onViewResizes { self.mapMapSize = $1 }
                 .overlay { DrawingView(canvasView: $canvasView) }
         }

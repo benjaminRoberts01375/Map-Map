@@ -105,7 +105,7 @@ struct ContentView: View {
         _ = provider.loadObject(ofClass: UIImage.self) { image, _ in
             guard let image = image as? UIImage
             else { return }
-            DispatchQueue.main.async { _ = MapMap(uiPhoto: image, moc: moc) }
+            DispatchQueue.main.async { _ = MapMap(uiImage: image, moc: moc) }
         }
         return true
     }
