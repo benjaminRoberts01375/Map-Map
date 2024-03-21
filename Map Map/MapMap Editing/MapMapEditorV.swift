@@ -101,7 +101,7 @@ struct MapMapEditor: View {
         }
         .onAppear {
             mapDetails.preventFollowingUser()
-            workingName = mapMap.mapMapName ?? "Untitled Map"
+            workingName = mapMap.displayName
         }
         .fullScreenCover(isPresented: $showingPhotoEditor) { PhotoEditorCompositeV(mapMap: mapMap) }
         .fullScreenCover(isPresented: $showingMarkupEditor) { MarkupEditorSwitcherV(mapMap: mapMap) }
@@ -150,7 +150,7 @@ struct MapMapEditor: View {
         mapMap.coordinate = mapDetails.region.center
         mapMap.mapMapRotation = -mapDetails.mapCamera.heading
         mapMap.mapMapScale = mapMapPosition.width * mapDetails.mapCamera.distance
-        mapMap.mapMapName = workingName
+        mapMap.name = workingName
         mapMap.mapDistance = mapDetails.mapCamera.distance
         mapMap.isEditing = false
         mapMap.isSetup = true

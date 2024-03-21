@@ -31,9 +31,9 @@ struct MapV: View {
             scope: mapScope
         ) {
             ForEach(mapMaps) { mapMap in
-                if let name = mapMap.mapMapName, mapMap.isSetup && !mapMap.isEditing && mapMap.shown {
+                if mapMap.isSetup && !mapMap.isEditing && mapMap.shown {
                     Annotation(
-                        "\(name)",
+                        "\(mapMap.displayName)",
                         coordinate: mapMap.coordinate,
                         anchor: .center
                     ) {
