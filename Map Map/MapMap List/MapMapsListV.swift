@@ -16,48 +16,56 @@ struct MapMapList: View {
     @FetchRequest(sortDescriptors: []) private var mapMaps: FetchedResults<MapMap>
     /// All available Markers.
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
-    /// All available Map Measurements.
-    @FetchRequest(sortDescriptors: []) private var measurements: FetchedResults<MapMeasurementCoordinate>
+    /// All available GPSMaps.
+    @FetchRequest(sortDescriptors: []) private var gpsMaps: FetchedResults<GPSMap>
     /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
-    /// Current color scheme. Ex. Dark or Light mode.
-    @Environment(\.colorScheme) private var colorScheme
+    
+    let dividerOffset: CGFloat = 10
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading) {
             VStack(spacing: 0) {
-                ForEach(mapMaps) { mapMap in
-                    Button(action: {
-                        mapDetails.moveMapCameraTo(mapMap: mapMap)
-                    }, label: {
-                        MapMapListItemV(mapMap: mapMap)
-                            .padding()
-                    })
-                    .buttonStyle(.plain)
-                    .background(colorScheme == .dark ? .gray20 : Color.white)
-                    .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
+                ForEach(mapMaps) { mapMap in // MARK: Map Maps
+                    LargeListItemV(listItem: mapMap) { mapDetails.moveMapCameraTo(item: mapMap) }
+                        .contextMenu { MapMapContextMenuV(mapMap: mapMap) }
                     Divider()
-                    if !mapMap.formattedMarkers.isEmpty {
-                        CombineMarkerListItemsV(mapMap: mapMap)
+                        .offset(y: dividerOffset)
+                    ForEach(mapMap.unwrappedMarkers) { marker in
+                        SmallListItemV(listItem: marker) { mapDetails.moveMapCameraTo(item: marker) }
+                            .contextMenu { MarkerContextMenuV(marker: marker) }
+                        Divider()
+                            .offset(y: dividerOffset)
                     }
                 }
             }
-            .background(colorScheme == .dark ? .gray20 : Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 15))
             
-            if markers.contains(where: { $0.formattedMapMaps.isEmpty }) {
-                VStack {
-                    Text("Unsorted Markers")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .padding(.top)
-                        .padding(.bottom, 5)
-                    MapMapListUnsortedMarkersV()
-                        .padding(.top, 5)
-                        .background(colorScheme == .dark ? .gray20 : Color.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                        .padding(.bottom)
+            VStack(spacing: 0) {
+                ForEach(gpsMaps) { gpsMap in // MARK: GPS Maps
+                    LargeListItemV(listItem: gpsMap) { mapDetails.moveMapCameraTo(item: gpsMap) }
+                        .contextMenu { GPSMapContextMenu(gpsMap: gpsMap) }
+                    Divider()
+                        .offset(y: dividerOffset)
                 }
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 15))
+            
+            if markers.contains(where: { $0.formattedMapMaps.isEmpty }) { // MARK: Unsorted Markers
+                Text("Unsorted Markers")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding(.top)
+                    .padding(.bottom, 5)
+                VStack(alignment: .leading, spacing: 0) {
+                    ForEach(markers) { marker in
+                        SmallListItemV(listItem: marker) { mapDetails.moveMapCameraTo(item: marker) }
+                            .contextMenu { MarkerContextMenuV(marker: marker) }
+                        Divider()
+                            .offset(y: dividerOffset)
+                    }
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 15))
             }
         }
         .ignoresSafeArea()

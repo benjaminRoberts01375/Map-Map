@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23E214" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Drawing" representedClassName="Drawing" syncable="YES" codeGenerationType="category">
-        <attribute name="drawingData" attributeType="Binary"/>
-        <attribute name="mapMapHeight" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="mapMapWidth" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="mapMap" maxCount="1" deletionRule="Nullify" destinationEntity="MapMap" inverseName="drawing" inverseEntity="MapMap"/>
-    </entity>
-    <entity name="FourCorners" representedClassName="FourCorners" syncable="YES" codeGenerationType="category">
-        <attribute name="rawBottomLeading" attributeType="String" defaultValueString="{0, 0}"/>
-        <attribute name="rawBottomTrailing" attributeType="String" defaultValueString="{0, 0}"/>
-        <attribute name="rawTopLeading" attributeType="String" defaultValueString="{0, 0}"/>
-        <attribute name="rawTopTrailing" attributeType="String" defaultValueString="{0, 0}"/>
-        <relationship name="mapMap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMap" inverseName="cropCorners" inverseEntity="MapMap"/>
-    </entity>
     <entity name="GPSMap" representedClassName="GPSMap" syncable="YES" codeGenerationType="category">
+        <attribute name="centerLatitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="centerLongitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="distance" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="distanceMeters" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="heightMax" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -21,7 +10,10 @@
         <attribute name="isEditing" transient="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="isSetup" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isTracking" transient="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="latitudeDelta" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitudeDelta" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="shown" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="time" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="branches" optional="YES" toMany="YES" minCount="1" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapBranch" inverseName="gpsMap" inverseEntity="GPSMapBranch"/>
         <relationship name="connections" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapCoordinateConnection" inverseName="gpsMap" inverseEntity="GPSMapCoordinateConnection"/>
@@ -54,29 +46,45 @@
         <relationship name="coordinates" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapCoordinate" inverseName="connections" inverseEntity="GPSMapCoordinate"/>
         <relationship name="gpsMap" maxCount="1" deletionRule="Nullify" destinationEntity="GPSMap" inverseName="connections" inverseEntity="GPSMap"/>
     </entity>
-    <entity name="MapImage" representedClassName="MapImage" syncable="YES" codeGenerationType="category">
-        <attribute name="imageData" optional="YES" attributeType="Binary"/>
-        <attribute name="imageHeight" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="imageWidth" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="thumbnailData" optional="YES" attributeType="Binary"/>
-        <attribute name="type" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="wrappedOrientation" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="mapMap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMap" inverseName="images" inverseEntity="MapMap"/>
-    </entity>
     <entity name="MapMap" representedClassName="MapMap" syncable="YES" codeGenerationType="category">
         <attribute name="isEditing" transient="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isSetup" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="mapDistance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="mapMapLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="mapMapLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="mapMapName" optional="YES" attributeType="String"/>
-        <attribute name="mapMapRotation" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="mapMapScale" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="mapRotation" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="scale" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="shown" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
-        <relationship name="cropCorners" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FourCorners" inverseName="mapMap" inverseEntity="FourCorners"/>
-        <relationship name="drawing" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Drawing" inverseName="mapMap" inverseEntity="Drawing"/>
-        <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MapImage" inverseName="mapMap" inverseEntity="MapImage"/>
+        <relationship name="mapMapImageContainers" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="MapMapImageContainer" inverseName="mapMap" inverseEntity="MapMapImageContainer"/>
         <relationship name="markers" toMany="YES" deletionRule="Nullify" destinationEntity="Marker" inverseName="mapMap" inverseEntity="Marker"/>
+    </entity>
+    <entity name="MapMapImage" representedClassName="MapMapImage" syncable="YES" codeGenerationType="category">
+        <attribute name="imageData" attributeType="Binary"/>
+        <attribute name="imageHeight" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="imageWidth" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="orientation" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="thumbnailData" attributeType="Binary"/>
+        <relationship name="cropCorners" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMapImageCropCorners" inverseName="mapMapImage" inverseEntity="MapMapImageCropCorners"/>
+        <relationship name="drawing" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMapImageDrawing" inverseName="mapMapImage" inverseEntity="MapMapImageDrawing"/>
+        <relationship name="imageContainer" maxCount="1" deletionRule="Nullify" destinationEntity="MapMapImageContainer" inverseName="images" inverseEntity="MapMapImageContainer"/>
+    </entity>
+    <entity name="MapMapImageContainer" representedClassName="MapMapImageContainer" syncable="YES" codeGenerationType="category">
+        <relationship name="images" toMany="YES" minCount="1" deletionRule="Nullify" ordered="YES" destinationEntity="MapMapImage" inverseName="imageContainer" inverseEntity="MapMapImage"/>
+        <relationship name="mapMap" maxCount="1" deletionRule="Nullify" destinationEntity="MapMap" inverseName="mapMapImageContainers" inverseEntity="MapMap"/>
+    </entity>
+    <entity name="MapMapImageCropCorners" representedClassName="MapMapImageCropCorners" syncable="YES" codeGenerationType="category">
+        <attribute name="rawBottomLeading" attributeType="String" defaultValueString="{0, 0}"/>
+        <attribute name="rawBottomTrailing" attributeType="String" defaultValueString="{0, 0}"/>
+        <attribute name="rawTopLeading" attributeType="String" defaultValueString="{0, 0}"/>
+        <attribute name="rawTopTrailing" attributeType="String" defaultValueString="{0, 0}"/>
+        <relationship name="mapMapImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMapImage" inverseName="cropCorners" inverseEntity="MapMapImage"/>
+    </entity>
+    <entity name="MapMapImageDrawing" representedClassName="MapMapImageDrawing" syncable="YES" codeGenerationType="category">
+        <attribute name="drawingData" attributeType="Binary"/>
+        <attribute name="height" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="width" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="mapMapImage" maxCount="1" deletionRule="Nullify" destinationEntity="MapMapImage" inverseName="drawing" inverseEntity="MapMapImage"/>
     </entity>
     <entity name="MapMeasurementCoordinate" representedClassName="MapMeasurementCoordinate" syncable="YES" codeGenerationType="category">
         <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>

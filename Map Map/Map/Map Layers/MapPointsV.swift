@@ -69,10 +69,10 @@ struct MapPointsV: View {
             }
             
             ForEach(markers) { marker in
-                if let position = mapDetails.mapProxy?.convert(marker.coordinates, to: .global), !marker.isEditing && marker.shown {
+                if let position = mapDetails.mapProxy?.convert(marker.coordinate, to: .global), !marker.isEditing && marker.shown {
                     ZStack {
                         Button {
-                            mapDetails.moveMapCameraTo(marker: marker)
+                            mapDetails.moveMapCameraTo(item: marker)
                         } label: {
                             MarkerV(marker: marker)
                                 .rotationEffect(
@@ -139,7 +139,7 @@ struct MapPointsV: View {
     }
     
     func isOverMarker(_ marker: Marker) -> Bool {
-        guard let markerPos = mapDetails.mapProxy?.convert(marker.coordinates, to: .global) else { return false }
+        guard let markerPos = mapDetails.mapProxy?.convert(marker.coordinate, to: .global) else { return false }
         let xComponent = abs(markerPos.x - screenSize.width / 2)
         let yComponent = abs(markerPos.y - (screenSize.height / 2 - markerOffset))
         let distance = sqrt(pow(xComponent, 2) + pow(yComponent, 2))

@@ -26,7 +26,7 @@ struct MapMapContextMenuV: View {
         }
         
         Button {
-            mapDetails.moveMapCameraTo(mapMap: mapMap)
+            mapDetails.moveMapCameraTo(item: mapMap)
             mapMap.isEditing = true
         } label: {
             Label("Edit Map Map", systemImage: "pencil")

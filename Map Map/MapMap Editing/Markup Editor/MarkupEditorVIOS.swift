@@ -49,7 +49,7 @@ struct MarkupEditorVIOS: View {
                 Color.clear
                 VStack {
                     ZStack {
-                        MapMapV(mapMap: mapMap, mapType: .fullImage)
+                        MapMapV(mapMap, imageType: .image)
                             .onViewResizes { mapMapSize = $1 }
                             .overlay { DrawingView(canvasView: $canvasView) }
                     }

@@ -7,65 +7,120 @@
 
 import SwiftUI
 
-/// Simple renderer for MapMaps
 struct MapMapV: View {
-    /// MapMap being rendered.
-    @ObservedObject var mapMap: FetchedResults<MapMap>.Element
-    /// Type of MapMap photo.
-    let mapType: MapType
-    /// Status of the displayable map map.
-    @State private var status: MapImage.ImageStatus? = .loading
+    @ObservedObject var mapMap: MapMap
+    let imageType: MapMapImageType
     
-    /// What photo should be rendered for this MapMap
-    public enum MapType {
-        /// Thumbnail image.
-        case thumbnail
-        /// Full size MapMap with edits.
-        case fullImage
-        /// Unedited original MapMap image.
-        case original
+    init(_ mapMap: MapMap, imageType: MapMapImageType) {
+        self.mapMap = mapMap
+        self.imageType = imageType
     }
     
     var body: some View {
-        VStack {
-            switch status {
-            case .empty:
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
-                    .task { mapMap.activeImage?.loadImageFromCD() }
-            case .loading:
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
-            case .success(let img):
-                img
-                    .resizable()
-                    .scaledToFit()
-                    .accessibilityLabel(mapMap.mapMapName ?? "Map Map")
-            case .failure, .none:
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .foregroundStyle(.yellow)
-                    .accessibilityLabel("Could not load Map Map")
-            }
+        if let container = self.mapMap.unwrappedMapMapImageContainers.first {
+            MapMapImageContainerV(container, imageType: imageType, name: mapMap.displayName)
         }
-        .onChange(of: mapMap.imageCropped, initial: true) { status = getMapFromType(mapType) }
-        .onChange(of: mapMap.imageDefault) { status = getMapFromType(mapType) }
+        else { MapMapImageFailedV() }
+    }
+}
+
+fileprivate struct MapMapImageContainerV: View {
+    @ObservedObject var container: MapMapImageContainer
+    let imageType: MapMapImageType
+    let name: String
+    
+    init(_ container: MapMapImageContainer, imageType: MapMapImageType, name: String) {
+        self.container = container
+        self.imageType = imageType
+        self.name = name
     }
     
-    // swiftlint:disable accessibility_label_for_image
-    private func getMapFromType(_ mapType: MapType) -> MapImage.ImageStatus? {
-        switch mapType {
-        case .fullImage:
-            return mapMap.activeImage?.image
+    var body: some View {
+        switch imageType {
+        case .image:
+            if let mapMapImage = container.unwrappedImages.last { MapMapImageV(image: mapMapImage, imageSize: .full, name: name) }
+            else { MapMapImageFailedV() }
         case .thumbnail:
-            return mapMap.activeImage?.thumbnail
-        case .original:
-            guard let mapData = mapMap.imageDefault?.imageData,
-                  let uiImage = UIImage(data: mapData)
-            else { return .failure }
-            return .success(Image(uiImage: uiImage))
+            if let mapMapImage = container.unwrappedImages.last { MapMapImageV(image: mapMapImage, imageSize: .thumbnail, name: name) }
+            else { MapMapImageFailedV() }
+        case .originalImage:
+            if let mapMapImage = container.unwrappedImages.first { MapMapImageV(image: mapMapImage, imageSize: .full, name: name) }
+            else { MapMapImageFailedV() }
+        case .originalThumbnail:
+            if let mapMapImage = container.unwrappedImages.first { MapMapImageV(image: mapMapImage, imageSize: .thumbnail, name: name) }
+            else { MapMapImageFailedV() }
         }
     }
-    // swiftlint:enable accessibility_label_for_image
+}
+
+fileprivate struct MapMapImageV: View {
+    @ObservedObject var image: MapMapImage
+    let imageSize: MapMapImageSize
+    let name: String
+    
+    enum MapMapImageSize {
+        case thumbnail, full
+    }
+    
+    var body: some View {
+        switch imageSize {
+        case .thumbnail:
+            switch image.thumbnailStatus {
+            case .empty:
+                MapMapImageLoading()
+                    .task { await image.loadFromCD() }
+            case .loading:
+                MapMapImageLoading()
+            case .successful(let uIImage):
+                MapMapImageSuccessful(image: uIImage, name: name)
+            case .failure:
+                MapMapImageFailedV()
+            }
+        case .full:
+            switch image.imageStatus {
+            case .empty:
+                MapMapImageLoading()
+                    .task { await image.loadFromCD() }
+            case .loading:
+                MapMapImageLoading()
+            case .successful(let uIImage):
+                MapMapImageSuccessful(image: uIImage, name: name)
+            case .failure:
+                MapMapImageFailedV()
+            }
+        }
+    }
+}
+
+fileprivate struct MapMapImageFailedV: View {
+    var body: some View {
+        Image(systemName: "exclamationmark.triangle.fill")
+            .resizable()
+            .scaledToFit()
+            .foregroundStyle(.yellow)
+            .accessibilityLabel("Could not load Map Map")
+    }
+}
+
+fileprivate struct MapMapImageLoading: View {
+    var body: some View {
+        ProgressView()
+            .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
+    }
+}
+
+fileprivate struct MapMapImageSuccessful: View {
+    let image: UIImage
+    let name: String
+    
+    var body: some View {
+        Image(uiImage: image)
+            .resizable()
+            .scaledToFit()
+            .accessibilityLabel(name)
+    }
+}
+
+enum MapMapImageType {
+    case image, thumbnail, originalImage, originalThumbnail
 }

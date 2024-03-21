@@ -23,7 +23,7 @@ struct CameraV: View {
             CameraPreviewV(photoPassthrough: $cameraState)
         case .editingPhoto(let image):
             let mapMap: MapMap = {
-               let newMapMap = MapMap(uiPhoto: image, moc: moc)
+               let newMapMap = MapMap(uiImage: image, moc: moc)
                 newMapMap.isEditing = false
                 return newMapMap
             }()

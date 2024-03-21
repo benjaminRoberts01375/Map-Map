@@ -12,6 +12,9 @@ import SwiftUI
 
 @objc(Marker)
 public class Marker: NSManagedObject {
+    /// A default name to display when the marker's name is not available.
+    static let defaultName: String = "New Marker"
+    
     /// Handles rendering the thumbnail of this Marker.
     var renderedThumbnailImage: Image {
         if let thumbnailImage = thumbnailImage {
@@ -24,7 +27,7 @@ public class Marker: NSManagedObject {
     }
     
     /// Formats the coordinates of the Marker.
-    var coordinates: CLLocationCoordinate2D {
+    var coordinate: CLLocationCoordinate2D {
         get { CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude) }
         set(value) {
             self.latitude = value.latitude
@@ -71,7 +74,7 @@ public class Marker: NSManagedObject {
     /// All associated MapMaps with this Marker.
     var formattedMapMaps: [MapMap] {
         let mapMapSet = self.mapMap as? Set<MapMap> ?? []
-        return mapMapSet.sorted(by: { $0.coordinates < $1.coordinates })
+        return mapMapSet.sorted(by: { $0.coordinate < $1.coordinate })
     }
 }
 
@@ -80,8 +83,8 @@ extension Marker {
     /// - Parameters:
     ///   - coordinates: Coordinates to center the Marker on.
     ///   - context: Managed Object Context to store the Marker into
-    public convenience init(coordinates: CLLocationCoordinate2D, insertInto context: NSManagedObjectContext) {
+    public convenience init(coordinate: CLLocationCoordinate2D, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
-        self.coordinates = coordinates
+        self.coordinate = coordinate
     }
 }

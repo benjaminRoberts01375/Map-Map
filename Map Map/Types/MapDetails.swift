@@ -43,32 +43,15 @@ final class MapDetailsM {
         }
     }
     
-    /// Translate the map to the desired marker location and scale.
-    /// - Parameter marker: Marker to move to.
-    func moveMapCameraTo(marker: Marker) {
+    /// Move the map camera to cover the specified item.
+    func moveMapCameraTo(item: MapDisplayable) {
         withAnimation {
-            let distance: Double = 6000
-            liveMapController = .camera(
-                MapCamera(
-                    centerCoordinate: marker.coordinates,
-                    distance: distance,
-                    heading: -(marker.lockRotationAngleDouble ?? 0)
-                )
-            )
-        }
-    }
-    
-    /// Translate the map to the desired MapMap location and scale.
-    /// - Parameter mapMap: MapMap to move to.
-    func moveMapCameraTo(mapMap: MapMap) {
-        withAnimation {
-            liveMapController = .camera(
-                MapCamera(
-                    centerCoordinate: mapMap.coordinates,
-                    distance: mapMap.mapDistance,
-                    heading: -mapMap.mapMapRotation
-                )
-            )
+            switch item.cameraAlignment {
+            case .distance(let distance):
+                liveMapController = .camera(MapCamera(centerCoordinate: item.coordinate, distance: distance, heading: item.heading))
+            case .span(let span):
+                liveMapController = .region(MKCoordinateRegion(center: item.coordinate, span: span * 1.15))
+            }
         }
     }
     

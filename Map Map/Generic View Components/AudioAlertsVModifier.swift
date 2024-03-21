@@ -38,7 +38,7 @@ struct AudioAlertsVModifier: ViewModifier {
     private func determineMarkersToSpeak(userLocation: CLLocation) -> [Marker] {
         var newMarkers: [Marker] = []
         for marker in markers {
-            let markerPos = CLLocation(latitude: marker.coordinates.latitude, longitude: marker.coordinates.longitude)
+            let markerPos = CLLocation(latitude: marker.coordinate.latitude, longitude: marker.coordinate.longitude)
             let distance: Measurement<UnitLength> = Measurement(value: markerPos.distance(from: userLocation), unit: .meters)
             // Just entered range of new marker
             if distance <= AudioAlertsVModifier.markerAlertRadius && !inRadiusOfMarkers.contains(marker) {
