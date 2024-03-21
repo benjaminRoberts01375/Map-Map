@@ -78,7 +78,7 @@ struct MapV: View {
               let mapMap: MapMap = mapMapImage.imageContainer?.mapMap
         else { return nil }
         let transform = CGAffineTransform(translationX: rect.midX - rect.width / 2, y: rect.midY - rect.height / 2)
-            .rotated(by: Angle(degrees: -mapDetails.mapCamera.heading - mapMap.mapMapRotation).radians)
+            .rotated(by: Angle(degrees: -mapDetails.mapCamera.heading - mapMap.mapRotation).radians)
             .translatedBy(x: -rect.midX, y: -rect.midY)
         let padding: CGFloat = 25
         let rotatedPoints: [CGPoint] = // Calculate rotated points

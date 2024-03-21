@@ -54,7 +54,7 @@ struct MapMapAnnotatedV: View {
                 .id(id)
             }
         }
-        .rotationEffect(Angle(degrees: -mapDetails.mapCamera.heading - mapMap.mapMapRotation))
+        .rotationEffect(Angle(degrees: -mapDetails.mapCamera.heading - mapMap.mapRotation))
         .offset(y: -7)
     }
 }
