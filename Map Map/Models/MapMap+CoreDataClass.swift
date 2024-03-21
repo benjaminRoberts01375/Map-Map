@@ -18,10 +18,10 @@ public class MapMap: NSManagedObject {
     
     /// Formatted coordinates of the MapMap.
     public var coordinate: CLLocationCoordinate2D {
-        get { CLLocationCoordinate2D(latitude: self.mapMapLatitude, longitude: self.mapMapLongitude) }
+        get { CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude) }
         set(coordinates) {
-            self.mapMapLatitude = coordinates.latitude
-            self.mapMapLongitude = coordinates.longitude
+            self.latitude = coordinates.latitude
+            self.longitude = coordinates.longitude
         }
     }
     
