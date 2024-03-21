@@ -9,5 +9,10 @@ import SwiftUI
 
 extension GPSMap: ListItem {
     var displayName: String { self.name ?? GPSMap.defaultName }
-    var thumbnail: any View { Color.clear }
+    var thumbnail: any View {
+        Image(systemName: "point.bottomleft.forward.to.point.topright.scurvepath.fill")
+            .resizable()
+            .scaledToFit()
+            .padding(30)
+    }
 }
