@@ -65,12 +65,12 @@
         <attribute name="imageWidth" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="orientation" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="thumbnailData" attributeType="Binary"/>
-        <relationship name="cropCorners" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMapImageCropCorners" inverseName="mapMapImage" inverseEntity="MapMapImageCropCorners"/>
-        <relationship name="drawing" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMapImageDrawing" inverseName="mapMapImage" inverseEntity="MapMapImageDrawing"/>
+        <relationship name="cropCorners" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MapMapImageCropCorners" inverseName="mapMapImage" inverseEntity="MapMapImageCropCorners"/>
+        <relationship name="drawing" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MapMapImageDrawing" inverseName="mapMapImage" inverseEntity="MapMapImageDrawing"/>
         <relationship name="imageContainer" maxCount="1" deletionRule="Nullify" destinationEntity="MapMapImageContainer" inverseName="images" inverseEntity="MapMapImageContainer"/>
     </entity>
     <entity name="MapMapImageContainer" representedClassName="MapMapImageContainer" syncable="YES" codeGenerationType="category">
-        <relationship name="images" toMany="YES" minCount="1" deletionRule="Nullify" ordered="YES" destinationEntity="MapMapImage" inverseName="imageContainer" inverseEntity="MapMapImage"/>
+        <relationship name="images" toMany="YES" minCount="1" deletionRule="Cascade" ordered="YES" destinationEntity="MapMapImage" inverseName="imageContainer" inverseEntity="MapMapImage"/>
         <relationship name="mapMap" maxCount="1" deletionRule="Nullify" destinationEntity="MapMap" inverseName="mapMapImageContainers" inverseEntity="MapMap"/>
     </entity>
     <entity name="MapMapImageCropCorners" representedClassName="MapMapImageCropCorners" syncable="YES" codeGenerationType="category">
@@ -78,7 +78,7 @@
         <attribute name="rawBottomTrailing" attributeType="String" defaultValueString="{0, 0}"/>
         <attribute name="rawTopLeading" attributeType="String" defaultValueString="{0, 0}"/>
         <attribute name="rawTopTrailing" attributeType="String" defaultValueString="{0, 0}"/>
-        <relationship name="mapMapImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMapImage" inverseName="cropCorners" inverseEntity="MapMapImage"/>
+        <relationship name="mapMapImage" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MapMapImage" inverseName="cropCorners" inverseEntity="MapMapImage"/>
     </entity>
     <entity name="MapMapImageDrawing" representedClassName="MapMapImageDrawing" syncable="YES" codeGenerationType="category">
         <attribute name="drawingData" attributeType="Binary"/>
