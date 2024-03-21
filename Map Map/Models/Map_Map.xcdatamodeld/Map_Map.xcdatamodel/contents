@@ -100,7 +100,7 @@
         <attribute name="name" optional="YES" attributeType="String" defaultValueString="Untitled Marker"/>
         <attribute name="shown" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="thumbnailImage" optional="YES" attributeType="String"/>
-        <relationship name="color" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MarkerColor" inverseName="marker" inverseEntity="MarkerColor"/>
+        <relationship name="color" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MarkerColor" inverseName="marker" inverseEntity="MarkerColor"/>
         <relationship name="mapMap" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MapMap" inverseName="markers" inverseEntity="MapMap"/>
     </entity>
     <entity name="MarkerColor" representedClassName="MarkerColor" syncable="YES" codeGenerationType="category">
