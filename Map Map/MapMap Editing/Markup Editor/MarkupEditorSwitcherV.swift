@@ -83,7 +83,7 @@ struct MarkupEditorSwitcherV: View {
             if let pkDrawing = drawing.pkDrawing, pkDrawing.strokes.isEmpty {
                 moc.delete(drawing)
             }
-            mapImage.imageSize = mapMapSize
+            mapImage.drawing?.size = mapMapSize
         }
     }
     
