@@ -106,7 +106,7 @@ struct TrackingGpsDrawerContentV: View {
             if newTime != self.additionalTime { self.additionalTime = newTime }
             updateLiveActivity()
         }
-        .onChange(of: locationsHandler.lastLocation, initial: true) { _ = gpsMap.addNewCoordinate(clLocation: $1)}
+        .onChange(of: locationsHandler.lastLocation, initial: true) { _ = gpsMap.addNewCoordinate(clLocation: $1) }
         .onChange(of: gpsMap.connections?.count) {
             self.additionalTime = 0
             self.speed = Measurement(value: Double(gpsMap.distance) / (gpsMap.time), unit: .metersPerSecond)
