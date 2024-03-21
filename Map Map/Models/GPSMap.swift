@@ -51,6 +51,7 @@ public class GPSMap: NSManagedObject {
         }
         let truncAlt = Int16(clLocation.altitude) // Track min/max altitude
         let newCoordinate = GPSMapCoordinate(location: clLocation, moc: moc)
+        newCoordinate.timestamp = .now
         if let lastConnection = self.unwrappedConnections.last {
             if self.heightMax < truncAlt { self.heightMax = truncAlt }
             else if self.heightMin > truncAlt { self.heightMin = truncAlt }
