@@ -107,6 +107,6 @@
         <attribute name="blue" attributeType="Double" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="green" attributeType="Double" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="red" attributeType="Double" defaultValueString="1" usesScalarValueType="YES"/>
-        <relationship name="marker" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Marker" inverseName="color" inverseEntity="Marker"/>
+        <relationship name="marker" maxCount="1" deletionRule="Cascade" destinationEntity="Marker" inverseName="color" inverseEntity="Marker"/>
     </entity>
 </model>
