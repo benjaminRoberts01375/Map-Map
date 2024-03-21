@@ -15,13 +15,13 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="shown" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="time" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="branches" optional="YES" toMany="YES" minCount="1" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapBranch" inverseName="gpsMap" inverseEntity="GPSMapBranch"/>
-        <relationship name="connections" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapCoordinateConnection" inverseName="gpsMap" inverseEntity="GPSMapCoordinateConnection"/>
+        <relationship name="branches" optional="YES" toMany="YES" minCount="1" deletionRule="Cascade" ordered="YES" destinationEntity="GPSMapBranch" inverseName="gpsMap" inverseEntity="GPSMapBranch"/>
+        <relationship name="connections" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="GPSMapCoordinateConnection" inverseName="gpsMap" inverseEntity="GPSMapCoordinateConnection"/>
     </entity>
     <entity name="GPSMapBranch" representedClassName="GPSMapBranch" syncable="YES" codeGenerationType="category">
         <attribute name="name" attributeType="String" defaultValueString=""/>
-        <relationship name="color" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GPSMapConnectionColor" inverseName="gpsBranch" inverseEntity="GPSMapConnectionColor"/>
-        <relationship name="connections" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapCoordinateConnection" inverseName="branch" inverseEntity="GPSMapCoordinateConnection"/>
+        <relationship name="color" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="GPSMapConnectionColor" inverseName="gpsBranch" inverseEntity="GPSMapConnectionColor"/>
+        <relationship name="connections" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="GPSMapCoordinateConnection" inverseName="branch" inverseEntity="GPSMapCoordinateConnection"/>
         <relationship name="gpsMap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GPSMap" inverseName="branches" inverseEntity="GPSMap"/>
     </entity>
     <entity name="GPSMapConnectionColor" representedClassName="GPSMapConnectionColor" syncable="YES" codeGenerationType="category">
@@ -43,7 +43,7 @@
     </entity>
     <entity name="GPSMapCoordinateConnection" representedClassName="GPSMapCoordinateConnection" syncable="YES" codeGenerationType="category">
         <relationship name="branch" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GPSMapBranch" inverseName="connections" inverseEntity="GPSMapBranch"/>
-        <relationship name="coordinates" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapCoordinate" inverseName="connections" inverseEntity="GPSMapCoordinate"/>
+        <relationship name="coordinates" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="GPSMapCoordinate" inverseName="connections" inverseEntity="GPSMapCoordinate"/>
         <relationship name="gpsMap" maxCount="1" deletionRule="Nullify" destinationEntity="GPSMap" inverseName="connections" inverseEntity="GPSMap"/>
     </entity>
     <entity name="MapMap" representedClassName="MapMap" syncable="YES" codeGenerationType="category">
@@ -65,12 +65,12 @@
         <attribute name="imageWidth" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="orientation" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="thumbnailData" attributeType="Binary"/>
-        <relationship name="cropCorners" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMapImageCropCorners" inverseName="mapMapImage" inverseEntity="MapMapImageCropCorners"/>
-        <relationship name="drawing" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMapImageDrawing" inverseName="mapMapImage" inverseEntity="MapMapImageDrawing"/>
+        <relationship name="cropCorners" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MapMapImageCropCorners" inverseName="mapMapImage" inverseEntity="MapMapImageCropCorners"/>
+        <relationship name="drawing" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MapMapImageDrawing" inverseName="mapMapImage" inverseEntity="MapMapImageDrawing"/>
         <relationship name="imageContainer" maxCount="1" deletionRule="Nullify" destinationEntity="MapMapImageContainer" inverseName="images" inverseEntity="MapMapImageContainer"/>
     </entity>
     <entity name="MapMapImageContainer" representedClassName="MapMapImageContainer" syncable="YES" codeGenerationType="category">
-        <relationship name="images" toMany="YES" minCount="1" deletionRule="Nullify" ordered="YES" destinationEntity="MapMapImage" inverseName="imageContainer" inverseEntity="MapMapImage"/>
+        <relationship name="images" toMany="YES" minCount="1" deletionRule="Cascade" ordered="YES" destinationEntity="MapMapImage" inverseName="imageContainer" inverseEntity="MapMapImage"/>
         <relationship name="mapMap" maxCount="1" deletionRule="Nullify" destinationEntity="MapMap" inverseName="mapMapImageContainers" inverseEntity="MapMap"/>
     </entity>
     <entity name="MapMapImageCropCorners" representedClassName="MapMapImageCropCorners" syncable="YES" codeGenerationType="category">
@@ -78,7 +78,7 @@
         <attribute name="rawBottomTrailing" attributeType="String" defaultValueString="{0, 0}"/>
         <attribute name="rawTopLeading" attributeType="String" defaultValueString="{0, 0}"/>
         <attribute name="rawTopTrailing" attributeType="String" defaultValueString="{0, 0}"/>
-        <relationship name="mapMapImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MapMapImage" inverseName="cropCorners" inverseEntity="MapMapImage"/>
+        <relationship name="mapMapImage" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MapMapImage" inverseName="cropCorners" inverseEntity="MapMapImage"/>
     </entity>
     <entity name="MapMapImageDrawing" representedClassName="MapMapImageDrawing" syncable="YES" codeGenerationType="category">
         <attribute name="drawingData" attributeType="Binary"/>
@@ -100,13 +100,13 @@
         <attribute name="name" optional="YES" attributeType="String" defaultValueString="Untitled Marker"/>
         <attribute name="shown" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="thumbnailImage" optional="YES" attributeType="String"/>
-        <relationship name="color" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MarkerColor" inverseName="marker" inverseEntity="MarkerColor"/>
+        <relationship name="color" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MarkerColor" inverseName="marker" inverseEntity="MarkerColor"/>
         <relationship name="mapMap" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MapMap" inverseName="markers" inverseEntity="MapMap"/>
     </entity>
     <entity name="MarkerColor" representedClassName="MarkerColor" syncable="YES" codeGenerationType="category">
         <attribute name="blue" attributeType="Double" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="green" attributeType="Double" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="red" attributeType="Double" defaultValueString="1" usesScalarValueType="YES"/>
-        <relationship name="marker" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Marker" inverseName="color" inverseEntity="Marker"/>
+        <relationship name="marker" maxCount="1" deletionRule="Cascade" destinationEntity="Marker" inverseName="color" inverseEntity="Marker"/>
     </entity>
 </model>
