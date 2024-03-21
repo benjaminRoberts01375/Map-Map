@@ -15,13 +15,13 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="shown" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="time" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="branches" optional="YES" toMany="YES" minCount="1" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapBranch" inverseName="gpsMap" inverseEntity="GPSMapBranch"/>
-        <relationship name="connections" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapCoordinateConnection" inverseName="gpsMap" inverseEntity="GPSMapCoordinateConnection"/>
+        <relationship name="branches" optional="YES" toMany="YES" minCount="1" deletionRule="Cascade" ordered="YES" destinationEntity="GPSMapBranch" inverseName="gpsMap" inverseEntity="GPSMapBranch"/>
+        <relationship name="connections" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="GPSMapCoordinateConnection" inverseName="gpsMap" inverseEntity="GPSMapCoordinateConnection"/>
     </entity>
     <entity name="GPSMapBranch" representedClassName="GPSMapBranch" syncable="YES" codeGenerationType="category">
         <attribute name="name" attributeType="String" defaultValueString=""/>
-        <relationship name="color" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GPSMapConnectionColor" inverseName="gpsBranch" inverseEntity="GPSMapConnectionColor"/>
-        <relationship name="connections" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapCoordinateConnection" inverseName="branch" inverseEntity="GPSMapCoordinateConnection"/>
+        <relationship name="color" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="GPSMapConnectionColor" inverseName="gpsBranch" inverseEntity="GPSMapConnectionColor"/>
+        <relationship name="connections" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="GPSMapCoordinateConnection" inverseName="branch" inverseEntity="GPSMapCoordinateConnection"/>
         <relationship name="gpsMap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GPSMap" inverseName="branches" inverseEntity="GPSMap"/>
     </entity>
     <entity name="GPSMapConnectionColor" representedClassName="GPSMapConnectionColor" syncable="YES" codeGenerationType="category">
@@ -43,7 +43,7 @@
     </entity>
     <entity name="GPSMapCoordinateConnection" representedClassName="GPSMapCoordinateConnection" syncable="YES" codeGenerationType="category">
         <relationship name="branch" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GPSMapBranch" inverseName="connections" inverseEntity="GPSMapBranch"/>
-        <relationship name="coordinates" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapCoordinate" inverseName="connections" inverseEntity="GPSMapCoordinate"/>
+        <relationship name="coordinates" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="GPSMapCoordinate" inverseName="connections" inverseEntity="GPSMapCoordinate"/>
         <relationship name="gpsMap" maxCount="1" deletionRule="Nullify" destinationEntity="GPSMap" inverseName="connections" inverseEntity="GPSMap"/>
     </entity>
     <entity name="MapMap" representedClassName="MapMap" syncable="YES" codeGenerationType="category">
