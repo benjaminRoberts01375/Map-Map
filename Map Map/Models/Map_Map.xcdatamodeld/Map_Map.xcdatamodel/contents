@@ -52,9 +52,9 @@
         <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="mapDistance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="mapMapScale" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="mapRotation" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="scale" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="shown" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <relationship name="mapMapImageContainers" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="MapMapImageContainer" inverseName="mapMap" inverseEntity="MapMapImageContainer"/>
         <relationship name="markers" toMany="YES" deletionRule="Nullify" destinationEntity="Marker" inverseName="mapMap" inverseEntity="Marker"/>

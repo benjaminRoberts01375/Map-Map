@@ -25,7 +25,7 @@ struct MapMapAnnotatedV: View {
     }
     
     var body: some View {
-        let calculatedWidth = 1 / mapDetails.mapCamera.distance * mapMap.mapMapScale
+        let calculatedWidth = 1 / mapDetails.mapCamera.distance * mapMap.scale
         let width = !calculatedWidth.isNormal || calculatedWidth < 0 ? 1 : calculatedWidth
         ZStack {
             switch mapMapInteraction {

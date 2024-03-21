@@ -148,8 +148,8 @@ struct MapMapEditor: View {
     /// Updates Map Map information based on the current state of the editor.
     private func updateMapMapInfo() {
         mapMap.coordinate = mapDetails.region.center
-        mapMap.mapMapScale = mapMapPosition.width * mapDetails.mapCamera.distance
         mapMap.mapRotation = -mapDetails.mapCamera.heading
+        mapMap.scale = mapMapPosition.width * mapDetails.mapCamera.distance
         mapMap.name = workingName
         mapMap.mapDistance = mapDetails.mapCamera.distance
         mapMap.isEditing = false

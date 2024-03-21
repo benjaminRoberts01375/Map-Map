@@ -109,7 +109,7 @@ struct MapV: View {
               let center = mapContext.convert(coordinate, to: .local),
               let mapMap = mapMapImage.imageContainer?.mapMap
         else { return nil }
-        let size = mapScale * mapMap.mapMapScale
+        let size = mapScale * mapMap.scale
         return CGRect(
             origin: center,
             size: CGSize(
