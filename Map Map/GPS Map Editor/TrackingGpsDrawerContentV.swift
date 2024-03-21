@@ -109,7 +109,8 @@ struct TrackingGpsDrawerContentV: View {
         .onChange(of: locationsHandler.lastLocation, initial: true) { _ = gpsMap.addNewCoordinate(clLocation: $1) }
         .onChange(of: gpsMap.connections?.count) {
             self.additionalTime = 0
-            self.speed = Measurement(value: Double(gpsMap.distance) / (gpsMap.time), unit: .metersPerSecond)
+            let proposedSpeed: Measurement<UnitSpeed> = Measurement(value: Double(gpsMap.distance) / (gpsMap.time), unit: .metersPerSecond)
+            self.speed = proposedSpeed.value.isNormal ? proposedSpeed : Measurement<UnitSpeed>(value: 0, unit: .metersPerSecond)
         }
         .onAppear { mapDetails.followUser() }
         .onAppear { setupLiveActivity() }
