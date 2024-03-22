@@ -12,6 +12,7 @@ struct StoreV: View {
     @Environment(\.dismiss) var dismiss
     @State var price = ""
     @State var presentNotAbleToRestorePurchases: Bool = false
+    @State var purchased: Bool = false
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -58,15 +59,30 @@ struct StoreV: View {
                     .padding(.horizontal)
                 }
                 Spacer()
-                if AppStore.canMakePayments {
+                if !AppStore.canMakePayments {
                     Text("Device Cannot Make Payments")
+                        .fontWeight(.bold)
+                        .frame(height: 50)
+                        .bigButton(backgroundColor: .blue.opacity(0.5), minWidth: 300)
+                }
+                else if purchased {
+                    Text("Thank You!")
                         .fontWeight(.bold)
                         .frame(height: 50)
                         .bigButton(backgroundColor: .blue.opacity(0.5), minWidth: 300)
                 }
                 else {
                     Button {
-                        
+                        Task {
+                            let products = try await Product.products(for: ["explorer_one_time"])
+                            guard let product = products.first else { return }
+                            let result = try await product.purchase()
+                            switch result {
+                            case .success(let verificationResult):
+                                purchased = true
+                            default: break
+                            }
+                        }
                     } label: {
                         Text("Become an Explorer" + price)
                             .fontWeight(.bold)
@@ -93,6 +109,8 @@ struct StoreV: View {
             .ignoresSafeArea()
         }
         .task { await getProductPrice() }
+        .task { await checkIfPurchased() }
+        .task { await doubleCheckPurchased() }
         .inAppPurchaseFailed(isPresented: $presentNotAbleToRestorePurchases)
     }
     
@@ -113,6 +131,22 @@ struct StoreV: View {
         catch {
             self.presentNotAbleToRestorePurchases = true
             print(error.localizedDescription)
+        }
+    }
+    
+    func checkIfPurchased() async {
+        let products = try? await Product.products(for: ["explorer_one_time"])
+        guard let product = products?.first else { return }
+        let purchased = await product.latestTransaction
+        await MainActor.run { self.purchased = purchased != nil }
+    }
+    
+    func doubleCheckPurchased() async {
+        for await update in Transaction.updates {
+            guard let productID = try? update.payloadValue.productID else { continue }
+            if productID == "explorer_one_time" {
+                await MainActor.run { purchased = true }
+            }
         }
     }
 }
