@@ -11,6 +11,7 @@ import SwiftUI
 struct StoreV: View {
     @Environment(\.dismiss) var dismiss
     @State var price = ""
+    @State var presentNotAbleToRestorePurchases: Bool = false
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -67,7 +68,7 @@ struct StoreV: View {
                 }
                 
                 Button {
-                    
+                    Task { await restorePurchases() }
                 } label: {
                     Text("Restore Purchases...")
                         .foregroundStyle(.blue)
@@ -84,6 +85,7 @@ struct StoreV: View {
             .ignoresSafeArea()
         }
         .task { await getProductPrice() }
+        .inAppPurchaseFailed(isPresented: $presentNotAbleToRestorePurchases)
     }
     
     func getProductPrice() async {
@@ -97,6 +99,14 @@ struct StoreV: View {
             print(error.localizedDescription)
         }
      }
+    
+    func restorePurchases() async {
+        do { try await AppStore.sync() }
+        catch {
+            self.presentNotAbleToRestorePurchases = true
+            print(error.localizedDescription)
+        }
+    }
 }
 
 #Preview {
