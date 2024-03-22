@@ -39,7 +39,7 @@ struct StoreV: View {
                             icon: "location.north.line.fill",
                             color: .red,
                             title: "GPS Maps",
-                            description: "Create custom maps with GPS and get real-time stats about your hike."
+                            description: "Create custom maps with GPS, and get real-time stats about your hike."
                         )
                         BulletPointV(
                             icon: "arrow.triangle.branch",
