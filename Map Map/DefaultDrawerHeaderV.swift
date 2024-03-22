@@ -28,6 +28,8 @@ struct DefaultDrawerHeaderV: View {
     @State private var errorPresented = false
     /// GPS user location.
     @State private var locationsHandler = LocationsHandler.shared
+    /// Track if the store is currently being presented to the user.
+    @State private var storePresented = false
     
     var body: some View {
         HStack {
@@ -93,6 +95,7 @@ struct DefaultDrawerHeaderV: View {
             }
         }
         .sheet(isPresented: $cameraPresented) { CameraV() }
+        .sheet(isPresented: $storePresented) { StoreV() }
     }
     
     /// Creates a MapMap from a URL if the resulting data is a `PNG` or `JPEG`.
