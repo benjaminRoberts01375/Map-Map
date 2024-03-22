@@ -116,7 +116,7 @@ struct StoreV: View {
     
     func getProductPrice() async {
         do {
-            let productIds = ["explorer_one_time"]
+            let productIds = [Product.kExplorer]
             let products = try await Product.products(for: productIds)
             guard let product = products.first else { return }
             await MainActor.run { price = " \(product.displayPrice)" }
@@ -135,7 +135,7 @@ struct StoreV: View {
     }
     
     func checkIfPurchased() async {
-        let products = try? await Product.products(for: ["explorer_one_time"])
+        let products = try? await Product.products(for: [Product.kExplorer])
         guard let product = products?.first else { return }
         let purchased = await product.latestTransaction
         await MainActor.run { self.purchased = purchased != nil }
@@ -144,7 +144,7 @@ struct StoreV: View {
     func doubleCheckPurchased() async {
         for await update in Transaction.updates {
             guard let productID = try? update.payloadValue.productID else { continue }
-            if productID == "explorer_one_time" {
+            if productID == Product.kExplorer {
                 await MainActor.run { purchased = true }
             }
         }
@@ -202,3 +202,5 @@ fileprivate struct BulletPointV: View {
         }
     }
 }
+
+extension Product { static let kExplorer: String = "explorer_one_time" }
