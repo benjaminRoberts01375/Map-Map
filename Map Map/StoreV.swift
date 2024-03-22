@@ -58,13 +58,21 @@ struct StoreV: View {
                     .padding(.horizontal)
                 }
                 Spacer()
-                Button {
-                    
-                } label: {
-                    Text("Become an Explorer" + price)
+                if AppStore.canMakePayments {
+                    Text("Device Cannot Make Payments")
                         .fontWeight(.bold)
                         .frame(height: 50)
-                        .bigButton(backgroundColor: .blue, minWidth: 300)
+                        .bigButton(backgroundColor: .blue.opacity(0.5), minWidth: 300)
+                }
+                else {
+                    Button {
+                        
+                    } label: {
+                        Text("Become an Explorer" + price)
+                            .fontWeight(.bold)
+                            .frame(height: 50)
+                            .bigButton(backgroundColor: .blue, minWidth: 300)
+                    }
                 }
                 
                 Button {
