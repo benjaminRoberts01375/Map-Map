@@ -115,6 +115,7 @@
 		B5B6C78B2B68733F00F352BC /* UserDefaultsE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6C78A2B68733F00F352BC /* UserDefaultsE.swift */; };
 		B5B6C78F2B695B6E00F352BC /* AudioAlertsVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6C78E2B695B6E00F352BC /* AudioAlertsVModifier.swift */; };
 		B5B6D3772B4B89AA00861770 /* ViewSizeVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6D3762B4B89AA00861770 /* ViewSizeVModifier.swift */; };
+		B5BB9F832BAE310500819DA6 /* RestorePurchaseFailedVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BB9F822BAE310500819DA6 /* RestorePurchaseFailedVModifier.swift */; };
 		B5C9ED092BA35D0D00E6755C /* LocationDisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C9D7722B1195C10099041A /* LocationDisplayMode.swift */; };
 		B5C9ED0A2BA35EA400E6755C /* BigButtonVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07353A342ADCCB9700C698B0 /* BigButtonVModifier.swift */; };
 		B5C9ED0B2BA3758B00E6755C /* CLLocationDegreesE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D522F22AE5CCCF009364B3 /* CLLocationDegreesE.swift */; };
@@ -271,6 +272,7 @@
 		B5B6C78A2B68733F00F352BC /* UserDefaultsE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsE.swift; sourceTree = "<group>"; };
 		B5B6C78E2B695B6E00F352BC /* AudioAlertsVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAlertsVModifier.swift; sourceTree = "<group>"; };
 		B5B6D3762B4B89AA00861770 /* ViewSizeVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSizeVModifier.swift; sourceTree = "<group>"; };
+		B5BB9F822BAE310500819DA6 /* RestorePurchaseFailedVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePurchaseFailedVModifier.swift; sourceTree = "<group>"; };
 		B5C9ED0E2BA4ADCB00E6755C /* GPSTrackingStatsV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTrackingStatsV.swift; sourceTree = "<group>"; };
 		B5C9ED102BA4DE7E00E6755C /* LocationNeverAvailableVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNeverAvailableVModifier.swift; sourceTree = "<group>"; };
 		B5C9ED132BA4E05200E6755C /* LocationNotAlwaysVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNotAlwaysVModifier.swift; sourceTree = "<group>"; };
@@ -637,6 +639,7 @@
 			children = (
 				B5C9ED102BA4DE7E00E6755C /* LocationNeverAvailableVModifier.swift */,
 				B5C9ED132BA4E05200E6755C /* LocationNotAlwaysVModifier.swift */,
+				B5BB9F822BAE310500819DA6 /* RestorePurchaseFailedVModifier.swift */,
 			);
 			path = Alerts;
 			sourceTree = "<group>";
@@ -950,6 +953,7 @@
 				07764B422AF96DFA0009525E /* DefaultDrawerHeaderV.swift in Sources */,
 				078C6DCB2B0B0100001AD131 /* CrosshairV.swift in Sources */,
 				B5F0D7622B7FDB68003B4FBE /* GPSMapV.swift in Sources */,
+				B5BB9F832BAE310500819DA6 /* RestorePurchaseFailedVModifier.swift in Sources */,
 				0762DD1F2AD37A1300C36D33 /* MapMap+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
