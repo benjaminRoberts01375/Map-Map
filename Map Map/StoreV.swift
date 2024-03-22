@@ -5,10 +5,12 @@
 //  Created by Ben Roberts on 3/21/24.
 //
 
+import StoreKit
 import SwiftUI
 
 struct StoreV: View {
     @Environment(\.dismiss) var dismiss
+    @State var price = ""
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -58,7 +60,7 @@ struct StoreV: View {
                 Button {
                     
                 } label: {
-                    Text("Become an Explorer $0.99")
+                    Text("Become an Explorer" + price)
                         .fontWeight(.bold)
                         .frame(height: 50)
                         .bigButton(backgroundColor: .blue, minWidth: 300)
@@ -81,10 +83,20 @@ struct StoreV: View {
             )
             .ignoresSafeArea()
         }
-        .onAppear {
-            
-        }
+        .task { await getProductPrice() }
     }
+    
+    func getProductPrice() async {
+        do {
+            let productIds = ["explorer_one_time"]
+            let products = try await Product.products(for: productIds)
+            guard let product = products.first else { return }
+            await MainActor.run { price = " \(product.displayPrice)" }
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+     }
 }
 
 #Preview {

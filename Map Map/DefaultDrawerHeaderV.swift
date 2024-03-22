@@ -37,6 +37,13 @@ struct DefaultDrawerHeaderV: View {
                 .font(.title)
                 .fontWeight(.bold)
                 .padding([.leading])
+            Button {
+                storePresented = true
+            } label: {
+                Image(systemName: "dollarsign.circle.fill")
+                    .accessibilityLabel("Debug")
+            }
+
             Menu {
                 Button(action: {
                     cameraPresented = true
