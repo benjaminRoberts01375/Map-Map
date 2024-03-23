@@ -59,7 +59,7 @@ struct MapButtonsV: View {
                 } label: {
                     Image(systemName: markersChirp ? "speaker.wave.3.fill" : "speaker")
                         .accessibilityLabel(markersChirp ? "Markers can make audio alerts." : "Markers cannot make audio alerts.")
-                        .mapButton()
+                        .mapButton(active: markersChirp)
                 }
                 switch markerButton {
                 case .add:
