@@ -14,7 +14,7 @@ struct StoreV: View {
     @Environment(\.colorScheme) var colorScheme
     @State var price = ""
     @State var presentNotAbleToRestorePurchases: Bool = false
-    @State var purchased: Bool = false
+    @Binding var purchased: Bool
     @State var confettiCounter: Int = 0
     
     var body: some View {
@@ -126,7 +126,6 @@ struct StoreV: View {
             }
         }
         .task { await getProductPrice() }
-        .task { await checkIfPurchased() }
         .task { await doubleCheckPurchased() }
         .inAppPurchaseFailed(isPresented: $presentNotAbleToRestorePurchases)
     }
@@ -151,14 +150,6 @@ struct StoreV: View {
         }
     }
     
-    func checkIfPurchased() async {
-        let products = try? await Product.products(for: [Product.kExplorer])
-        guard let product = products?.first else { return }
-        if await product.latestTransaction != nil {
-            await MainActor.run { userPurchased() }
-        }
-    }
-    
     func doubleCheckPurchased() async {
         for await update in Transaction.updates {
             guard let productID = try? update.payloadValue.productID else { continue }
@@ -176,7 +167,7 @@ struct StoreV: View {
 
 #Preview {
     Color.clear
-        .sheet(isPresented: .constant(true)) { StoreV() }
+        .sheet(isPresented: .constant(true)) { StoreV(purchased: .constant(true)) }
 }
 
 fileprivate struct MapMapExplorerTitleV: View {

@@ -69,6 +69,6 @@ struct DefaultDrawerHeaderV: View {
             }
         }
         .sheet(isPresented: $viewModel.cameraPresented) { CameraV() }
-        .sheet(isPresented: $viewModel.storePresented) { StoreV() }
+        .sheet(isPresented: $viewModel.storePresented) { StoreV(purchased: $viewModel.boughtExplorer) }
     }
 }
