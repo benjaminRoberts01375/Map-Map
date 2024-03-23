@@ -65,14 +65,14 @@ struct StoreV: View {
                     .padding(.horizontal)
                 }
                 Spacer()
-                if !AppStore.canMakePayments {
-                    Text("Device Cannot Make Payments")
+                if purchased {
+                    Text("Thank You!")
                         .fontWeight(.bold)
                         .frame(height: 50)
                         .bigButton(backgroundColor: .blue.opacity(0.5), minWidth: 300)
                 }
-                else if purchased {
-                    Text("Thank You!")
+                else if AppStore.canMakePayments {
+                    Text("Device Cannot Make Payments")
                         .fontWeight(.bold)
                         .frame(height: 50)
                         .bigButton(backgroundColor: .blue.opacity(0.5), minWidth: 300)
