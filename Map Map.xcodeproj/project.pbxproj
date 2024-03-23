@@ -103,6 +103,7 @@
 		B55148E62BAE68D80096D604 /* DefaultDrawerHeaderVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55148E52BAE68D80096D604 /* DefaultDrawerHeaderVM.swift */; };
 		B55148E82BAE6B500096D604 /* AddMapMenuV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55148E72BAE6B500096D604 /* AddMapMenuV.swift */; };
 		B55148EC2BAE6FC30096D604 /* ProductE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55148EB2BAE6FC30096D604 /* ProductE.swift */; };
+		B55148EE2BAE6FF30096D604 /* BulletPointV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55148ED2BAE6FF30096D604 /* BulletPointV.swift */; };
 		B56595762B7402BC00F6D856 /* HandleTrackerM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56595752B7402BC00F6D856 /* HandleTrackerM.swift */; };
 		B576A7C42B8842D80031C860 /* GPSMapBranch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576A7C32B8842D80031C860 /* GPSMapBranch.swift */; };
 		B57D8A532B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A522B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift */; };
@@ -264,6 +265,7 @@
 		B55148E52BAE68D80096D604 /* DefaultDrawerHeaderVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDrawerHeaderVM.swift; sourceTree = "<group>"; };
 		B55148E72BAE6B500096D604 /* AddMapMenuV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMapMenuV.swift; sourceTree = "<group>"; };
 		B55148EB2BAE6FC30096D604 /* ProductE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductE.swift; sourceTree = "<group>"; };
+		B55148ED2BAE6FF30096D604 /* BulletPointV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletPointV.swift; sourceTree = "<group>"; };
 		B56595752B7402BC00F6D856 /* HandleTrackerM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleTrackerM.swift; sourceTree = "<group>"; };
 		B576A7C32B8842D80031C860 /* GPSMapBranch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GPSMapBranch.swift; path = "/Users/ben/Desktop/Map Map/Map Map/Models/GPS Map/GPSMapBranch.swift"; sourceTree = "<absolute>"; };
 		B57D8A522B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupEditorVIPadOS.swift; sourceTree = "<group>"; };
@@ -521,6 +523,7 @@
 				07FDC6242AB25DFD00D92113 /* ContentView.swift */,
 				B55148E92BAE6B7C0096D604 /* Default Drawer Header */,
 				B5AA73AC2BAD1418000CC28B /* StoreV.swift */,
+				B55148ED2BAE6FF30096D604 /* BulletPointV.swift */,
 				077CBEAF2AD5088100741F27 /* MapMap List */,
 				07FCC85F2AD3764A00F88186 /* Map */,
 				07082FAF2AFACE7A003255E3 /* Camera */,
@@ -893,6 +896,7 @@
 				B50A34962BA7612B007FD78E /* MapDisplayableP.swift in Sources */,
 				B50A34A52BA767BD007FD78E /* MapMapMapDisplayableE.swift in Sources */,
 				B50C23572B62D46800093054 /* MapMapAnnotatedV.swift in Sources */,
+				B55148EE2BAE6FF30096D604 /* BulletPointV.swift in Sources */,
 				B524C5B12B793047003600AA /* TimeIntervalE.swift in Sources */,
 				07A9C6AF2AF1B78C00C3AED4 /* FourCorners+CoreDataClass.swift in Sources */,
 				0773AEDB2B0BDE94007D7CDB /* Marker+CoreDataClass.swift in Sources */,
