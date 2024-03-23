@@ -28,28 +28,7 @@ struct DefaultDrawerHeaderV: View {
             }
 
             Menu {
-                Button {
-                    viewModel.cameraPresented = true
-                } label: {
-                    Label("Camera", systemImage: "camera.fill")
-                }
-                Button {
-                    viewModel.photosPickerPresented = true
-                } label: {
-                    Label("Photo Library", systemImage: "photo.on.rectangle.angled")
-                        .symbolRenderingMode(.hierarchical)
-                }
-                Button {
-                    viewModel.filePickerPresented = true
-                } label: {
-                    Label("Files", systemImage: "folder.fill")
-                }
-                Button {
-                    viewModel.locationsHandler.requestAlwaysLocation()
-                    _ = GPSMap(moc: moc)
-                } label: {
-                    Label("GPS", systemImage: "point.bottomleft.filled.forward.to.point.topright.scurvepath")
-                }
+                AddMapMenuV(viewModel: $viewModel)
             } label: {
                 Image(systemName: "plus.circle.fill")
                     .symbolRenderingMode(.hierarchical)
