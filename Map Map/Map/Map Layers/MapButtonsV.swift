@@ -54,7 +54,13 @@ struct MapButtonsV: View {
                 MapUserLocationButton(scope: mapScope)
                     .background(.thickMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
-                
+                Button {
+                    withAnimation { markersChirp.toggle() }
+                } label: {
+                    Image(systemName: markersChirp ? "speaker.wave.3.fill" : "speaker")
+                        .accessibilityLabel(markersChirp ? "Markers can make audio alerts." : "Markers cannot make audio alerts.")
+                        .mapButton()
+                }
                 switch markerButton {
                 case .add:
                     Button {
@@ -80,13 +86,6 @@ struct MapButtonsV: View {
                     Image(systemName: "ruler")
                         .accessibilityLabel("Edit Measurements Button")
                         .rotationEffect(Angle(degrees: -45))
-                        .mapButton()
-                }
-                Button {
-                    withAnimation { markersChirp.toggle() }
-                } label: {
-                    Image(systemName: markersChirp ? "speaker.wave.3.fill" : "speaker")
-                        .accessibilityLabel(markersChirp ? "Markers can make audio alerts." : "Markers cannot make audio alerts.")
                         .mapButton()
                 }
             }
