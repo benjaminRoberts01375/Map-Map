@@ -68,7 +68,7 @@ struct MapMapEditor: View {
                         Button(
                             action: { showingMarkupEditor = true },
                             label: {
-                                Image(systemName: "pencil.tip.crop.circle.fill")
+                                Image(systemName: "pencil.tip")
                                     .resizable()
                                     .scaledToFit()
                                     .accessibilityLabel("Markup MapMap")
