@@ -684,13 +684,13 @@
 		B5C9ED122BA4DE8300E6755C /* Alerts */ = {
 			isa = PBXGroup;
 			children = (
-				B5C9ED102BA4DE7E00E6755C /* LocationNeverAvailableVModifier.swift */,
-				B55148F82BAF64BF0096D604 /* NoFilePermissionVModifier.swift */,
 				B55148FA2BAF660B0096D604 /* FileNotReadableVModifier.swift */,
+				B5C9ED102BA4DE7E00E6755C /* LocationNeverAvailableVModifier.swift */,
+				B5C9ED132BA4E05200E6755C /* LocationNotAlwaysVModifier.swift */,
+				B55148F82BAF64BF0096D604 /* NoFilePermissionVModifier.swift */,
+				B5BB9F822BAE310500819DA6 /* RestorePurchaseFailedVModifier.swift */,
 				B55148FE2BAF67020096D604 /* UnableToReadPDFVModifier.swift */,
 				B55148FC2BAF66710096D604 /* UnknownImageTypeVModifier.swift */,
-				B5C9ED132BA4E05200E6755C /* LocationNotAlwaysVModifier.swift */,
-				B5BB9F822BAE310500819DA6 /* RestorePurchaseFailedVModifier.swift */,
 			);
 			path = Alerts;
 			sourceTree = "<group>";
