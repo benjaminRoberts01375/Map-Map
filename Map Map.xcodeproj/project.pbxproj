@@ -99,6 +99,7 @@
 		B534C72D2B890D6C00FD6901 /* GPSMapBranchEditingV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B534C72C2B890D6C00FD6901 /* GPSMapBranchEditingV.swift */; };
 		B53C948C2B57162400768C66 /* CropGrabberV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53C948B2B57162400768C66 /* CropGrabberV.swift */; };
 		B548C17E2B6D72D800297E6A /* PhotoEditorCompositeV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548C17D2B6D72D800297E6A /* PhotoEditorCompositeV.swift */; };
+		B55148E42BAE4FAC0096D604 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B55148E32BAE4FAC0096D604 /* ConfettiSwiftUI */; };
 		B56595762B7402BC00F6D856 /* HandleTrackerM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56595752B7402BC00F6D856 /* HandleTrackerM.swift */; };
 		B576A7C42B8842D80031C860 /* GPSMapBranch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576A7C32B8842D80031C860 /* GPSMapBranch.swift */; };
 		B57D8A532B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A522B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift */; };
@@ -297,6 +298,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B55148E42BAE4FAC0096D604 /* ConfettiSwiftUI in Frameworks */,
 				07A0D7172AD1C28400F462A0 /* Bottom Drawer in Frameworks */,
 				0776EB0B2B056C0D00F89BFC /* AlertToast in Frameworks */,
 				9EC8AD0DB60D7AA9327E3563 /* Pods_Map_Map.framework in Frameworks */,
@@ -713,6 +715,7 @@
 				07A0D7162AD1C28400F462A0 /* Bottom Drawer */,
 				0776EB0A2B056C0D00F89BFC /* AlertToast */,
 				B59B348D2B9E454F0083B458 /* RangeSlider */,
+				B55148E32BAE4FAC0096D604 /* ConfettiSwiftUI */,
 			);
 			productName = "Map Map";
 			productReference = 07FDC61F2AB25DFD00D92113 /* Map Map.app */;
@@ -766,6 +769,7 @@
 				07A0D7152AD1C28400F462A0 /* XCRemoteSwiftPackageReference "SwiftUI-Bottom-Drawer" */,
 				0776EB092B056C0D00F89BFC /* XCRemoteSwiftPackageReference "AlertToast" */,
 				B59B348C2B9E454F0083B458 /* XCRemoteSwiftPackageReference "RangeSlider" */,
+				B55148E22BAE4FAC0096D604 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 			);
 			productRefGroup = 07FDC6202AB25DFD00D92113 /* Products */;
 			projectDirPath = "";
@@ -1307,6 +1311,14 @@
 				kind = branch;
 			};
 		};
+		B55148E22BAE4FAC0096D604 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		B59B348C2B9E454F0083B458 /* XCRemoteSwiftPackageReference "RangeSlider" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/benjaminRoberts01375/RangeSlider";
@@ -1327,6 +1339,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 07A0D7152AD1C28400F462A0 /* XCRemoteSwiftPackageReference "SwiftUI-Bottom-Drawer" */;
 			productName = "Bottom Drawer";
+		};
+		B55148E32BAE4FAC0096D604 /* ConfettiSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B55148E22BAE4FAC0096D604 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;
+			productName = ConfettiSwiftUI;
 		};
 		B59B348D2B9E454F0083B458 /* RangeSlider */ = {
 			isa = XCSwiftPackageProductDependency;

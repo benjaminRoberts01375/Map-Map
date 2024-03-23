@@ -5,6 +5,7 @@
 //  Created by Ben Roberts on 3/21/24.
 //
 
+import ConfettiSwiftUI
 import StoreKit
 import SwiftUI
 
@@ -13,6 +14,7 @@ struct StoreV: View {
     @State var price = ""
     @State var presentNotAbleToRestorePurchases: Bool = false
     @State var purchased: Bool = false
+    @State var confettiCounter: Int = 0
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -35,6 +37,10 @@ struct StoreV: View {
             VStack {
                 MapMapExplorerTitleV()
                     .padding(20)
+                    .background {
+                        Color.clear
+                            .confettiCannon(counter: $confettiCounter, radius: 700, repetitions: 1000, repetitionInterval: 1)
+                    }
                 ScrollView {
                     VStack(spacing: 25) {
                         BulletPointV(
@@ -78,8 +84,8 @@ struct StoreV: View {
                             guard let product = products.first else { return }
                             let result = try await product.purchase()
                             switch result {
-                            case .success(let verificationResult):
-                                purchased = true
+                            case .success:
+                                await MainActor.run { userPurchased() }
                             default: break
                             }
                         }
@@ -137,17 +143,23 @@ struct StoreV: View {
     func checkIfPurchased() async {
         let products = try? await Product.products(for: [Product.kExplorer])
         guard let product = products?.first else { return }
-        let purchased = await product.latestTransaction
-        await MainActor.run { self.purchased = purchased != nil }
+        if await product.latestTransaction != nil {
+            await MainActor.run { userPurchased() }
+        }
     }
     
     func doubleCheckPurchased() async {
         for await update in Transaction.updates {
             guard let productID = try? update.payloadValue.productID else { continue }
             if productID == Product.kExplorer {
-                await MainActor.run { purchased = true }
+                await MainActor.run { userPurchased() }
             }
         }
+    }
+    
+    func userPurchased() {
+        purchased = true
+        self.confettiCounter += 1
     }
 }
 
