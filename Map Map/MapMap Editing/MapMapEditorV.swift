@@ -51,26 +51,32 @@ struct MapMapEditor: View {
                             .background(Color.gray.opacity(0.7))
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                             .frame(width: 205)
-                        Button(action: {
+                        Button {
                             if mapMap.activeImage?.drawing == nil { showingPhotoEditor = true } // Drawing exists
                             else { showingPhotoEditorAlert = true } // No drawing
-                        }, label: {
+                        } label: {
                             Image(systemName: "crop")
+                                .resizable()
+                                .scaledToFit()
                                 .accessibilityLabel("Crop MapMap Button")
-                                .padding(4)
+                                .frame(width: 20, height: 20)
+                                .padding(5)
                                 .background(.gray)
                                 .clipShape(Circle())
-                        })
+                        }
                         .buttonStyle(.plain)
-                        Button(action: {
-                            showingMarkupEditor = true
-                        }, label: {
-                            Image(systemName: "pencil.tip.crop.circle.fill")
-                                .accessibilityLabel("Markup MapMap")
-                                .padding(4)
-                                .background(.gray)
-                                .clipShape(Circle())
-                        })
+                        Button(
+                            action: { showingMarkupEditor = true },
+                            label: {
+                                Image(systemName: "pencil.tip.crop.circle.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .accessibilityLabel("Markup MapMap")
+                                    .frame(width: 20, height: 20)
+                                    .padding(5)
+                                    .background(.gray)
+                                    .clipShape(Circle())
+                            })
                         .buttonStyle(.plain)
                     }
                     HStack {
