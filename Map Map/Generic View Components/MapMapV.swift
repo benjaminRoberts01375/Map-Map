@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct MapMapV: View {
+    /// MapMap to display.
     @ObservedObject var mapMap: MapMap
+    /// The kind of image to render.
     let imageType: MapMapImageType
     
     init(_ mapMap: MapMap, imageType: MapMapImageType) {
@@ -25,8 +27,11 @@ struct MapMapV: View {
 }
 
 fileprivate struct MapMapImageContainerV: View {
+    /// Map Map Image container that holds image to render.
     @ObservedObject var container: MapMapImageContainer
+    /// Kind of image to render.
     let imageType: MapMapImageType
+    /// Map Map name
     let name: String
     
     init(_ container: MapMapImageContainer, imageType: MapMapImageType, name: String) {
@@ -38,24 +43,27 @@ fileprivate struct MapMapImageContainerV: View {
     var body: some View {
         switch imageType {
         case .image:
-            if let mapMapImage = container.unwrappedImages.last { MapMapImageV(image: mapMapImage, imageSize: .full, name: name) }
+            if let mapMapImage = container.unwrappedImages.last { MapMapImageV(image: mapMapImage, imageType: .full, name: name) }
             else { MapMapImageFailedV() }
         case .thumbnail:
-            if let mapMapImage = container.unwrappedImages.last { MapMapImageV(image: mapMapImage, imageSize: .thumbnail, name: name) }
+            if let mapMapImage = container.unwrappedImages.last { MapMapImageV(image: mapMapImage, imageType: .thumbnail, name: name) }
             else { MapMapImageFailedV() }
         case .originalImage:
-            if let mapMapImage = container.unwrappedImages.first { MapMapImageV(image: mapMapImage, imageSize: .full, name: name) }
+            if let mapMapImage = container.unwrappedImages.first { MapMapImageV(image: mapMapImage, imageType: .full, name: name) }
             else { MapMapImageFailedV() }
         case .originalThumbnail:
-            if let mapMapImage = container.unwrappedImages.first { MapMapImageV(image: mapMapImage, imageSize: .thumbnail, name: name) }
+            if let mapMapImage = container.unwrappedImages.first { MapMapImageV(image: mapMapImage, imageType: .thumbnail, name: name) }
             else { MapMapImageFailedV() }
         }
     }
 }
 
 fileprivate struct MapMapImageV: View {
+    /// MapMap image to render
     @ObservedObject var image: MapMapImage
-    let imageSize: MapMapImageSize
+    /// Kind of image to render.
+    let imageType: MapMapImageSize
+    /// Name of parent map map.
     let name: String
     
     enum MapMapImageSize {
@@ -63,7 +71,7 @@ fileprivate struct MapMapImageV: View {
     }
     
     var body: some View {
-        switch imageSize {
+        switch imageType {
         case .thumbnail:
             switch image.thumbnailStatus {
             case .empty:

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NoFilePermissionVModifier: ViewModifier {
+    /// Boolean to control if the alert is shown.
     @Binding var isPresented: Bool
     
     func body(content: Content) -> some View {
@@ -23,6 +24,10 @@ struct NoFilePermissionVModifier: ViewModifier {
 }
 
 extension View {
+    /// An alert specific to telling the user that Map Map cannot access this file.
+    /// - Parameters:
+    ///   - isPresented: Boolean to control if the alert is shown.
+    /// - Returns: This view with an alert attached
     func noFilePermission(isPresented: Binding<Bool>) -> some View {
         modifier(NoFilePermissionVModifier(isPresented: isPresented))
     }

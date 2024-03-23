@@ -95,18 +95,14 @@ struct CameraPreviewV: View {
         .onDisappear { cameraService.tearDownCamera() }
     }
     
+    /// Handle rotating the image
     func adjustAngle() {
         switch UIDevice.current.orientation {
-        case .landscapeLeft:
-            rotationAngle = Angle(degrees: 270)
-        case .landscapeRight:
-            rotationAngle = Angle(degrees: 90)
-        case .portrait:
-            rotationAngle = Angle(degrees: 0)
-        case .portraitUpsideDown:
-            rotationAngle = Angle(degrees: 180)
-        default:
-            rotationAngle = Angle(degrees: 0)
+        case .landscapeLeft: rotationAngle = Angle(degrees: 270)
+        case .landscapeRight: rotationAngle = Angle(degrees: 90)
+        case .portrait: rotationAngle = Angle(degrees: 0)
+        case .portraitUpsideDown: rotationAngle = Angle(degrees: 180)
+        default: rotationAngle = Angle(degrees: 0)
         }
     }
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 extension StoreV {
+    /// Bullet points for why to get the Explorer package.
     struct BulletPointListV: View {
         var body: some View {
             ScrollView {

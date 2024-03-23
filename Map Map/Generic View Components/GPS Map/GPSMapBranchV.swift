@@ -32,6 +32,7 @@ struct GPSMapBranchV: View {
         }
     }
     
+    /// Calculate the screen-space line ending positions by converting coordinates to SS.
     func calculateSSLineEndPos() async -> [CGPoint] {
         let spanMultiplier = 1.1
         let correctedSpan = MKCoordinateSpan(

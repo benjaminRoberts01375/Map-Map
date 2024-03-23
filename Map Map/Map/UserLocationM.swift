@@ -23,7 +23,8 @@ final class LocationsHandler {
     /// Track if we are currently looking to get background map updates.
     public var authorizationStatus: CLAuthorizationStatus { locationManager.authorizationStatus }
     
-    internal func startLocationTracking() {
+    /// Handle startup for user location tracking.
+    func startLocationTracking() {
         Task {
             if locationManager.authorizationStatus == .notDetermined { locationManager.requestWhenInUseAuthorization() }
             self.updatesStarted = true

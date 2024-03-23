@@ -10,7 +10,9 @@ import SwiftUI
 
 @main
 struct MapMapApp: App {
+    /// Core data storage for environment.
     @StateObject private var dataController = DataController()
+    /// Map details for environment.
     @State private var mapDetails = MapDetailsM()
     
     var body: some Scene {

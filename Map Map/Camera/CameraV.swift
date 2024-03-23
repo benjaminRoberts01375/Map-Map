@@ -9,7 +9,9 @@ import SwiftUI
 
 /// Handle switching between the live camera and the camera output.
 struct CameraV: View {
+    /// Managed object context to store Core Data entities into.
     @Environment(\.managedObjectContext) var moc
+    /// Current phase of taking photos.
     @State private var cameraState: CameraState = .takingPhoto
     
     enum CameraState {

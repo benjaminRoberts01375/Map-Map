@@ -27,11 +27,17 @@ final class CameraPreviewVM {
         output.maxPhotoQualityPrioritization = .quality
     }
     
+    /// Start up the camera
+    /// - Parameters:
+    ///   - delegate: Allow for callbacks from system.
+    ///   - completion: What to do when a photo is successfully taken.
     func start(delegate: AVCapturePhotoCaptureDelegate, completion: @escaping (Error?) -> Void) {
         self.delegate = delegate
         checkPermissions(completion: completion)
     }
     
+    /// Ensure the camera's permitted to take a photo.
+    /// - Parameter completion: What to do when a photo is successfully taken.
     private func checkPermissions(completion: @escaping (Error?) -> Void) {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .notDetermined:
@@ -51,6 +57,8 @@ final class CameraPreviewVM {
         }
     }
     
+    /// Configure camera
+    /// - Parameter completion: What to do when a photo is successfully taken.
     private func setupCamera(completion: @escaping (Error?) -> Void) async {
         if session != nil { return }
         let session = AVCaptureSession()
@@ -77,6 +85,7 @@ final class CameraPreviewVM {
     /// Shuts down the camera
     public func tearDownCamera() { session?.stopRunning() }
     
+    /// Capture the current camera view.
     func capturePhoto() {
         checkPermissions { if $0 == nil { return } }
         guard let delegate = delegate else { return }

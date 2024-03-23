@@ -9,8 +9,11 @@ import StoreKit
 import SwiftUI
 
 extension StoreV {
+    /// Handle switching out the button type depending on device and app status.
     struct PurchaseButtonV: View {
+        /// Track if the Explorer package has been purchased
         @Binding var purchased: Bool
+        /// Price of the explorer package.
         @State var price: String = ""
         
         var body: some View {

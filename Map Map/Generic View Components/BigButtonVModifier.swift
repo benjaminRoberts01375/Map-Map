@@ -9,8 +9,11 @@ import SwiftUI
 
 /// Format the label of a button to appear as a large button for the bottom drawers.
 struct BigButton: ViewModifier {
+    /// Background color.
     let background: Color
+    /// The minimum width of the view.
     let minWidth: CGFloat
+    /// The maximum width of the view.
     let maxWidth: CGFloat
     
     func body(content: Content) -> some View {

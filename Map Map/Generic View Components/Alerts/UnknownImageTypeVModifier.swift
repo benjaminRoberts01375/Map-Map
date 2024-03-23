@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct UnknownImageTypeVModifier: ViewModifier {
+    /// Boolean to control if the alert is shown
     @Binding var isPresented: Bool
     
     func body(content: Content) -> some View {
@@ -21,6 +22,10 @@ struct UnknownImageTypeVModifier: ViewModifier {
 }
 
 extension View {
+    /// An alert specific to telling the user that the image type is invalid.
+    /// - Parameters:
+    ///   - cancelAction: What to do when the action is cancelled.
+    /// - Returns: This view with an alert attached
     func unknownImageType(isPresented: Binding<Bool>) -> some View {
         modifier(UnknownImageTypeVModifier(isPresented: isPresented))
     }

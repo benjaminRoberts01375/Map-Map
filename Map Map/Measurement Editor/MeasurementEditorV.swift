@@ -130,7 +130,7 @@ struct MeasurementEditorV: View {
                         selectedMeasurement = measurement
                     } label: {
                         HandleV(
-                            position: binding(for: measurement), 
+                            position: handlePositionBinding(for: measurement), 
                             color: selectedMeasurement == measurement ? Color.highlightBlue : HandleV.defaultColor,
                             deferPosition: true
                         )
@@ -186,6 +186,7 @@ struct MeasurementEditorV: View {
         }
     }
     
+    /// Create screen-space handle positions from coordinate positions.
     func generateSSHandlePositions() {
         var handlePositions: [MapMeasurementCoordinate : CGSize] = [:]
         
@@ -199,7 +200,8 @@ struct MeasurementEditorV: View {
         self.handlePositions = handlePositions
     }
     
-    func binding(for key: MapMeasurementCoordinate) -> Binding<CGSize> {
+    /// Create a binding from coordinates to CGSize
+    func handlePositionBinding(for key: MapMeasurementCoordinate) -> Binding<CGSize> {
         Binding<CGSize>(
             get: { self.handlePositions[key] ?? .zero },
             set: { newVal in
@@ -214,6 +216,7 @@ struct MeasurementEditorV: View {
         )
     }
     
+    /// Delete invalid measurements.
     func cleanupMeasurements() {
         for measurement in measurements where measurement.formattedNeighbors.count == .zero {
             moc.delete(measurement)

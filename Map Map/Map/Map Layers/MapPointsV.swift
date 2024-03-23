@@ -138,6 +138,7 @@ struct MapPointsV: View {
         }
     }
     
+    /// Check if the center of the map is over a Marker.
     func isOverMarker(_ marker: Marker) -> Bool {
         guard let markerPos = mapDetails.mapProxy?.convert(marker.coordinate, to: .global) else { return false }
         let xComponent = abs(markerPos.x - screenSize.width / 2)
@@ -146,6 +147,7 @@ struct MapPointsV: View {
         return distance < MapPointsV.iconSize / 2
     }
     
+    /// Calculate the connections to that get drawn to screen.
     func connectionsToDraw() -> [Connection] {
         var visited: Set<MapMeasurementCoordinate> = []
         var connections: [Connection] = []
@@ -166,6 +168,7 @@ struct MapPointsV: View {
         return connections
     }
     
+    /// Convert the connections to a bunch of screen-space coordinates.
     func calculateSSlineEndPos() async -> [MapMeasurementCoordinate : CGPoint] {
         var result: [MapMeasurementCoordinate : CGPoint] = [:]
         for line in lines {
@@ -175,6 +178,7 @@ struct MapPointsV: View {
         return result
     }
     
+    /// Check if point should be drawn.
     func pointIsInBounds(_ point: CGPoint, screenSize: CGSize) -> Bool {
         let padding = 1.3
         return (point.x > -screenSize.width * padding) &&

@@ -20,7 +20,7 @@ struct MapMapList: View {
     @FetchRequest(sortDescriptors: []) private var gpsMaps: FetchedResults<GPSMap>
     /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
-    
+    /// How far to slide the divider to hide it when not needed.
     let dividerOffset: CGFloat = 10
     
     var body: some View {

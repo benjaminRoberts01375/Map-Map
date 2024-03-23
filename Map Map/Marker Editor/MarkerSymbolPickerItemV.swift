@@ -38,6 +38,4 @@ struct MarkerSymbolPickerItemV: View {
     }
 }
 
-#Preview {
-    MarkerSymbolPickerItemV(symbol: "map", backgroundColor: .red)
-}
+#Preview { MarkerSymbolPickerItemV(symbol: "map", backgroundColor: .red) }

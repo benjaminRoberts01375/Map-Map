@@ -7,4 +7,7 @@
 
 import StoreKit
 
-extension Product { static let kExplorer: String = "explorer_one_time" }
+extension Product {
+    /// Key for explorer package.
+    static let kExplorer: String = "explorer_one_time"
+}
