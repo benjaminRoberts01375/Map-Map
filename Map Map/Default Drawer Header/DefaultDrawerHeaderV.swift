@@ -20,13 +20,6 @@ struct DefaultDrawerHeaderV: View {
                 .font(.title)
                 .fontWeight(.bold)
                 .padding([.leading])
-            Button {
-                viewModel.storePresented = true
-            } label: {
-                Image(systemName: "dollarsign.circle.fill")
-                    .accessibilityLabel("Debug")
-            }
-
             Menu {
                 AddMapMenuV(viewModel: $viewModel)
             } label: {

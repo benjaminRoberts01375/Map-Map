@@ -15,27 +15,34 @@ extension DefaultDrawerHeaderV {
         @Binding var viewModel: DefaultDrawerHeaderV.ViewModel
         
         var body: some View {
-            Button {
-                viewModel.cameraPresented = true
-            } label: {
-                Label("Camera", systemImage: "camera.fill")
+            Button(
+                action: { viewModel.cameraPresented = true },
+                label: { Label("Camera", systemImage: "camera.fill") }
+            )
+            Button(
+                action: { viewModel.photosPickerPresented = true },
+                label: {
+                    Label("Photo Library", systemImage: "photo.on.rectangle.angled")
+                        .symbolRenderingMode(.hierarchical)
+                }
+            )
+            Button(
+                action: { viewModel.filePickerPresented = true },
+                label: { Label("Files", systemImage: "folder.fill") }
+            )
+            if viewModel.boughtExplorer {
+                Button {
+                    viewModel.locationsHandler.requestAlwaysLocation()
+                    _ = GPSMap(moc: moc)
+                } label: {
+                    Label("GPS", systemImage: "point.bottomleft.filled.forward.to.point.topright.scurvepath")
+                }
             }
-            Button {
-                viewModel.photosPickerPresented = true
-            } label: {
-                Label("Photo Library", systemImage: "photo.on.rectangle.angled")
-                    .symbolRenderingMode(.hierarchical)
-            }
-            Button {
-                viewModel.filePickerPresented = true
-            } label: {
-                Label("Files", systemImage: "folder.fill")
-            }
-            Button {
-                viewModel.locationsHandler.requestAlwaysLocation()
-                _ = GPSMap(moc: moc)
-            } label: {
-                Label("GPS", systemImage: "point.bottomleft.filled.forward.to.point.topright.scurvepath")
+            else {
+                Button(
+                    action: { viewModel.storePresented = true },
+                    label: { Label("GPS", systemImage: "dollarsign") }
+                )
             }
         }
     }
