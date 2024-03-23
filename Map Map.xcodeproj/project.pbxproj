@@ -528,11 +528,6 @@
 				07FDC6222AB25DFD00D92113 /* Map_MapApp.swift */,
 				07FDC6242AB25DFD00D92113 /* ContentView.swift */,
 				B55148E92BAE6B7C0096D604 /* Default Drawer Header */,
-				B5AA73AC2BAD1418000CC28B /* StoreV.swift */,
-				B55148EF2BAE70370096D604 /* MapMapExplorerTitleV.swift */,
-				B55148ED2BAE6FF30096D604 /* BulletPointV.swift */,
-				B55148F12BAE70800096D604 /* BulletPointListV.swift */,
-				B55148F32BAE70F70096D604 /* PurchaseButtonV.swift */,
 				077CBEAF2AD5088100741F27 /* MapMap List */,
 				07FCC85F2AD3764A00F88186 /* Map */,
 				07082FAF2AFACE7A003255E3 /* Camera */,
@@ -640,8 +635,21 @@
 				07764B412AF96DFA0009525E /* DefaultDrawerHeaderV.swift */,
 				B55148E52BAE68D80096D604 /* DefaultDrawerHeaderVM.swift */,
 				B55148E72BAE6B500096D604 /* AddMapMenuV.swift */,
+				B55148F52BAE722E0096D604 /* Store */,
 			);
 			path = "Default Drawer Header";
+			sourceTree = "<group>";
+		};
+		B55148F52BAE722E0096D604 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				B5AA73AC2BAD1418000CC28B /* StoreV.swift */,
+				B55148F12BAE70800096D604 /* BulletPointListV.swift */,
+				B55148ED2BAE6FF30096D604 /* BulletPointV.swift */,
+				B55148EF2BAE70370096D604 /* MapMapExplorerTitleV.swift */,
+				B55148F32BAE70F70096D604 /* PurchaseButtonV.swift */,
+			);
+			path = Store;
 			sourceTree = "<group>";
 		};
 		B5AA73A42BACA19B000CC28B /* Map Map */ = {
