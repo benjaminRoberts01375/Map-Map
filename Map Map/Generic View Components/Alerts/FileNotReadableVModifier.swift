@@ -12,7 +12,7 @@ struct FileNotReadableVModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .alert("File Not Permitted", isPresented: $isPresented) {
+            .alert("File Not Readable", isPresented: $isPresented) {
                 Button("Ok", role: .cancel) { self.isPresented = false }
             } message: {
                 Text("We're not able to read the file.")
@@ -25,4 +25,3 @@ extension View {
         modifier(FileNotReadableVModifier(isPresented: isPresented))
     }
 }
-
