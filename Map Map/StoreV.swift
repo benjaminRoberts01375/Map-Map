@@ -212,5 +212,3 @@ fileprivate struct BulletPointV: View {
         }
     }
 }
-
-extension Product { static let kExplorer: String = "explorer_one_time" }
