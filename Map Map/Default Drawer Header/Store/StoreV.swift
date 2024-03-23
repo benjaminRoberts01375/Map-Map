@@ -41,6 +41,7 @@ struct StoreV: View {
                     .background {
                         if purchased {
                             Color.clear
+                                .onAppear { confettiCounter += 1 }
                                 .confettiCannon(counter: $confettiCounter, radius: 700, repetitions: 1000, repetitionInterval: 1)
                         }
                     }
