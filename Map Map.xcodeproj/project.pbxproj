@@ -673,13 +673,21 @@
 			isa = PBXGroup;
 			children = (
 				B5F0D7632B7FDB84003B4FBE /* GPS Map */,
-				0776EB052B05586B00F89BFC /* MapMapV.swift */,
-				B55149092BAF822F0096D604 /* MapMapVFinalStateV.swift */,
-				B55149052BAF81490096D604 /* MapMapImageContainerV.swift */,
-				B55149072BAF81C20096D604 /* MapMapImageV.swift */,
+				B551490B2BAF82850096D604 /* Map Map */,
 				0740B8142B1972DB005EA0D2 /* MarkerV.swift */,
 			);
 			path = "Model Views";
+			sourceTree = "<group>";
+		};
+		B551490B2BAF82850096D604 /* Map Map */ = {
+			isa = PBXGroup;
+			children = (
+				0776EB052B05586B00F89BFC /* MapMapV.swift */,
+				B55149052BAF81490096D604 /* MapMapImageContainerV.swift */,
+				B55149072BAF81C20096D604 /* MapMapImageV.swift */,
+				B55149092BAF822F0096D604 /* MapMapVFinalStateV.swift */,
+			);
+			path = "Map Map";
 			sourceTree = "<group>";
 		};
 		B5AA73A42BACA19B000CC28B /* Map Map */ = {
