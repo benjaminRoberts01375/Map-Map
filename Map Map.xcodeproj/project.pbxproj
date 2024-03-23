@@ -113,6 +113,9 @@
 		B55148FF2BAF67020096D604 /* UnableToReadPDFVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55148FE2BAF67020096D604 /* UnableToReadPDFVModifier.swift */; };
 		B55149012BAF67F90096D604 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55149002BAF67F90096D604 /* AlertManager.swift */; };
 		B55149032BAF7DF00096D604 /* DeleteMapMapImageDrawingVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55149022BAF7DF00096D604 /* DeleteMapMapImageDrawingVModifier.swift */; };
+		B55149062BAF81490096D604 /* MapMapImageContainerV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55149052BAF81490096D604 /* MapMapImageContainerV.swift */; };
+		B55149082BAF81C20096D604 /* MapMapImageV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55149072BAF81C20096D604 /* MapMapImageV.swift */; };
+		B551490A2BAF822F0096D604 /* MapMapVFinalStateV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55149092BAF822F0096D604 /* MapMapVFinalStateV.swift */; };
 		B56595762B7402BC00F6D856 /* HandleTrackerM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56595752B7402BC00F6D856 /* HandleTrackerM.swift */; };
 		B576A7C42B8842D80031C860 /* GPSMapBranch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576A7C32B8842D80031C860 /* GPSMapBranch.swift */; };
 		B57D8A532B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A522B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift */; };
@@ -284,6 +287,9 @@
 		B55148FE2BAF67020096D604 /* UnableToReadPDFVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnableToReadPDFVModifier.swift; sourceTree = "<group>"; };
 		B55149002BAF67F90096D604 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		B55149022BAF7DF00096D604 /* DeleteMapMapImageDrawingVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteMapMapImageDrawingVModifier.swift; sourceTree = "<group>"; };
+		B55149052BAF81490096D604 /* MapMapImageContainerV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapImageContainerV.swift; sourceTree = "<group>"; };
+		B55149072BAF81C20096D604 /* MapMapImageV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapImageV.swift; sourceTree = "<group>"; };
+		B55149092BAF822F0096D604 /* MapMapVFinalStateV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMapVFinalStateV.swift; sourceTree = "<group>"; };
 		B56595752B7402BC00F6D856 /* HandleTrackerM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleTrackerM.swift; sourceTree = "<group>"; };
 		B576A7C32B8842D80031C860 /* GPSMapBranch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GPSMapBranch.swift; path = "/Users/ben/Desktop/Map Map/Map Map/Models/GPS Map/GPSMapBranch.swift"; sourceTree = "<absolute>"; };
 		B57D8A522B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupEditorVIPadOS.swift; sourceTree = "<group>"; };
@@ -668,6 +674,9 @@
 			children = (
 				B5F0D7632B7FDB84003B4FBE /* GPS Map */,
 				0776EB052B05586B00F89BFC /* MapMapV.swift */,
+				B55149092BAF822F0096D604 /* MapMapVFinalStateV.swift */,
+				B55149052BAF81490096D604 /* MapMapImageContainerV.swift */,
+				B55149072BAF81C20096D604 /* MapMapImageV.swift */,
 				0740B8142B1972DB005EA0D2 /* MarkerV.swift */,
 			);
 			path = "Model Views";
@@ -919,12 +928,14 @@
 				B50A34A72BA76FDD007FD78E /* GPSMapContextMenu.swift in Sources */,
 				B5C9ED112BA4DE7E00E6755C /* LocationNeverAvailableVModifier.swift in Sources */,
 				B50A349E2BA76634007FD78E /* GPSMapListItemE.swift in Sources */,
+				B55149082BAF81C20096D604 /* MapMapImageV.swift in Sources */,
 				B5E527572B76CAFE0027300D /* TrackingGpsDrawerContentV.swift in Sources */,
 				B59B34902B9E4D900083B458 /* ColorE.swift in Sources */,
 				B5B6C78B2B68733F00F352BC /* UserDefaultsE.swift in Sources */,
 				0776EB082B055C2200F89BFC /* GridOverlayV.swift in Sources */,
 				07FDC6252AB25DFD00D92113 /* ContentView.swift in Sources */,
 				B57D8A532B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift in Sources */,
+				B55149062BAF81490096D604 /* MapMapImageContainerV.swift in Sources */,
 				0711E5B22AB39ABD0056AB4B /* BlurView.swift in Sources */,
 				B548C17E2B6D72D800297E6A /* PhotoEditorCompositeV.swift in Sources */,
 				B5C9ED142BA4E05200E6755C /* LocationNotAlwaysVModifier.swift in Sources */,
@@ -949,6 +960,7 @@
 				B576A7C42B8842D80031C860 /* GPSMapBranch.swift in Sources */,
 				B5FA57F62B8660240057BCD7 /* GPSMapEditingV.swift in Sources */,
 				07EB79E72B01A7F600DC2699 /* UIImageE.swift in Sources */,
+				B551490A2BAF822F0096D604 /* MapMapVFinalStateV.swift in Sources */,
 				0762DD652AD4696B00C36D33 /* DoneButtonV.swift in Sources */,
 				07C2E07B2B128F9C003C292E /* AvailableThumbnailImages.swift in Sources */,
 				B53C948C2B57162400768C66 /* CropGrabberV.swift in Sources */,
