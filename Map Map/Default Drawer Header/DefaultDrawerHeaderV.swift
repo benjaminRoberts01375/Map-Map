@@ -43,12 +43,10 @@ struct DefaultDrawerHeaderV: View {
             }
             viewModel.rawPhotos = []
         }
-        .alert(
-            "Oh no!",
-            isPresented: $viewModel.errorPresented,
-            actions: { Button("Ok ( ͡° ͜ʖ ͡°)7", role: .cancel) { viewModel.errorPresented = false } },
-            message: { Text("\(viewModel.errorMessage) Sorry!") }
-        )
+        .unknownImageType(isPresented: $viewModel.alertManager.fileNotReadable)
+        .noFilePermission(isPresented: $viewModel.alertManager.noFilePermission)
+        .unableToReadPDF(isPresented: $viewModel.alertManager.unableToReadPDF)
+        .unknownImageType(isPresented: $viewModel.alertManager.unknownImageType)
         .photosPicker(
             isPresented: $viewModel.photosPickerPresented,
             selection: $viewModel.rawPhotos,

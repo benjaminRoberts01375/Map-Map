@@ -22,10 +22,8 @@ extension DefaultDrawerHeaderV {
         var filePickerPresented = false
         /// Tracker for showing the camera.
         var cameraPresented = false
-        /// An error message to display when needed.
-        var errorMessage: String = ""
-        /// Trakcer for showing errors.
-        var errorPresented = false
+        /// Tracker for showing errors.
+        var alertManager = AlertManager()
         /// GPS user location.
         var locationsHandler = LocationsHandler.shared
         /// Track if the store is currently being presented to the user.
@@ -45,7 +43,7 @@ extension DefaultDrawerHeaderV {
         func generateMapMapFromURL(_ url: URL, moc: NSManagedObjectContext) {
             // Get file permissions
             if !url.startAccessingSecurityScopedResource() {
-                errorMessage = "We're not able to get permission to open your file."
+                alertManager.noFilePermission = true
                 return
             }
             defer { url.stopAccessingSecurityScopedResource() }
@@ -54,8 +52,7 @@ extension DefaultDrawerHeaderV {
             let data: Data
             do { data = try Data(contentsOf: url) }
             catch {
-                errorMessage = "We're not able to read your file."
-                errorPresented = true
+                alertManager.fileNotReadable = true
                 return
             }
             // Determine file type
@@ -66,8 +63,7 @@ extension DefaultDrawerHeaderV {
             case .png, .jpeg:
                 if let image = UIImage(data: data) { _ = MapMap(uiImage: image, moc: moc) }
             default:
-                errorMessage = "We're not sure what kind of file this is. Import only PDFs, JPEGs, and PNGs."
-                errorPresented = true
+                alertManager.unknownImageType = true
                 return
             }
         }
@@ -78,8 +74,7 @@ extension DefaultDrawerHeaderV {
             guard let document = PDFDocument(data: rawData),
                   let firstPage = document.page(at: 0)
             else {
-                errorMessage = "We're not able to read your PDF."
-                errorPresented = true
+                alertManager.unableToReadPDF = true
                 return
             }
             
