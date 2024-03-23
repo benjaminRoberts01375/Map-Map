@@ -54,7 +54,7 @@ struct GPSTrackingLSLAV: View {
                 highPoint: Double(context.state.highPoint),
                 lowPoint: Double(context.state.lowPoint)
             )
-            .background(colorScheme == .dark ? Color(red: 0.15, green: 0.31, blue: 0.19) : .white)
+            .background(colorScheme == .dark ? .mapMapSecondary : .white)
         }
         .background(
             LinearGradient(

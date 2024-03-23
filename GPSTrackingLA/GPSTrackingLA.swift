@@ -10,8 +10,6 @@ import SwiftUI
 import WidgetKit
 
 struct GPSTrackingLA: Widget { // View controller
-    /// Accent green color.
-    let islandColor: Color = Color(red: 0.65, green: 0.82, blue: 0.48)
     /// Amount of padding for live activity in Dynamic Island.
     let paddingDistance: CGFloat = 7
     
@@ -46,7 +44,7 @@ struct GPSTrackingLA: Widget { // View controller
                                 .fontWidth(.condensed)
                                 .bold()
                                 .lineLimit(1)
-                                .foregroundStyle(islandColor)
+                                .foregroundStyle(.mapMapPrimary)
                             switch context.state.positionNotation {
                             case .degrees:
                                 HStack {
@@ -71,15 +69,15 @@ struct GPSTrackingLA: Widget { // View controller
                 
             } compactLeading: {
                 Text(LocationDisplayMode.metersToString(meters: Double(context.state.distance)))
-                    .foregroundStyle(islandColor)
+                    .foregroundStyle(.mapMapPrimary)
                     .padding(paddingDistance)
             } compactTrailing: {
                 Text(LocationDisplayMode.speedToString(speed: context.state.speed))
-                    .foregroundStyle(islandColor)
+                    .foregroundStyle(.mapMapPrimary)
                     .padding(paddingDistance)
             } minimal: {
                 Image(systemName: "map.fill")
-                    .foregroundStyle(islandColor)
+                    .foregroundStyle(.mapMapPrimary)
                     .padding(paddingDistance)
             }
         }
