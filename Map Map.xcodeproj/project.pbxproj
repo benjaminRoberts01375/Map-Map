@@ -516,9 +516,7 @@
 			children = (
 				07FDC6222AB25DFD00D92113 /* Map_MapApp.swift */,
 				07FDC6242AB25DFD00D92113 /* ContentView.swift */,
-				07764B412AF96DFA0009525E /* DefaultDrawerHeaderV.swift */,
-				B55148E52BAE68D80096D604 /* DefaultDrawerHeaderVM.swift */,
-				B55148E72BAE6B500096D604 /* AddMapMenuV.swift */,
+				B55148E92BAE6B7C0096D604 /* Default Drawer Header */,
 				B5AA73AC2BAD1418000CC28B /* StoreV.swift */,
 				077CBEAF2AD5088100741F27 /* MapMap List */,
 				07FCC85F2AD3764A00F88186 /* Map */,
@@ -619,6 +617,16 @@
 				B50A34A22BA7674B007FD78E /* MarkerMapDisplayableE.swift */,
 			);
 			path = "Map Displayable Conformance";
+			sourceTree = "<group>";
+		};
+		B55148E92BAE6B7C0096D604 /* Default Drawer Header */ = {
+			isa = PBXGroup;
+			children = (
+				07764B412AF96DFA0009525E /* DefaultDrawerHeaderV.swift */,
+				B55148E52BAE68D80096D604 /* DefaultDrawerHeaderVM.swift */,
+				B55148E72BAE6B500096D604 /* AddMapMenuV.swift */,
+			);
+			path = "Default Drawer Header";
 			sourceTree = "<group>";
 		};
 		B5AA73A42BACA19B000CC28B /* Map Map */ = {
