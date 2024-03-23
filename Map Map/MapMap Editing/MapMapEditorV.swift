@@ -76,7 +76,8 @@ struct MapMapEditor: View {
                                     .padding(5)
                                     .background(.gray)
                                     .clipShape(Circle())
-                            })
+                            }
+                        )
                         .buttonStyle(.plain)
                     }
                     HStack {
