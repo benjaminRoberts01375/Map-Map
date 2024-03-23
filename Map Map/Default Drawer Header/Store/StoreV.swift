@@ -48,14 +48,15 @@ struct StoreV: View {
                 BulletPointListV()
                 Spacer()
                 PurchaseButtonV(purchased: $purchased)
-                
                 Button {
                     Task { await restorePurchases() }
                 } label: {
                     Text("Restore Purchases...")
                         .foregroundStyle(.blue)
+                        .opacity(purchased ? 0 : 1)
                 }
                 .padding()
+                .disabled(purchased)
             }
         }
         .background {
@@ -78,6 +79,7 @@ struct StoreV: View {
         }
         .task { await doubleCheckPurchased() }
         .inAppPurchaseFailed(isPresented: $presentNotAbleToRestorePurchases)
+        .animation(.easeOut, value: purchased)
     }
     
     func restorePurchases() async {
