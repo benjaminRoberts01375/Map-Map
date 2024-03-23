@@ -44,7 +44,7 @@ struct GPSTrackingLA: Widget { // View controller
                                 .fontWidth(.condensed)
                                 .bold()
                                 .lineLimit(1)
-                                .foregroundStyle(Color.accentColor)
+                                .foregroundStyle(.mapMapPrimary)
                             switch context.state.positionNotation {
                             case .degrees:
                                 HStack {
@@ -69,15 +69,15 @@ struct GPSTrackingLA: Widget { // View controller
                 
             } compactLeading: {
                 Text(LocationDisplayMode.metersToString(meters: Double(context.state.distance)))
-                    .foregroundStyle(Color.accentColor)
+                    .foregroundStyle(.mapMapPrimary)
                     .padding(paddingDistance)
             } compactTrailing: {
                 Text(LocationDisplayMode.speedToString(speed: context.state.speed))
-                    .foregroundStyle(Color.accentColor)
+                    .foregroundStyle(.mapMapPrimary)
                     .padding(paddingDistance)
             } minimal: {
                 Image(systemName: "map.fill")
-                    .foregroundStyle(Color.accentColor)
+                    .foregroundStyle(.mapMapPrimary)
                     .padding(paddingDistance)
             }
         }
