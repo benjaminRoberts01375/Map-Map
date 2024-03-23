@@ -395,15 +395,12 @@
 				078C6DCA2B0B0100001AD131 /* CrosshairV.swift */,
 				B57D8A562B5EC079002B9F7C /* DisplayDrawingV.swift */,
 				0762DD642AD4696B00C36D33 /* DoneButtonV.swift */,
-				B5F0D7632B7FDB84003B4FBE /* GPS Map */,
 				072DDB2D2AF426E000E74963 /* HandleV.swift */,
 				0743138E2B2FC45300909B7A /* LineLabelVModifier.swift */,
 				079B603F2B2CC71D0073E936 /* LineShape.swift */,
 				B5CEC51A2B9B73CB001D4CCF /* MultiLineShape.swift */,
 				078C6DC72B0A9448001AD131 /* MapButtonVModifier.swift */,
 				073CCDEE2B2E577F00ECCD7B /* MapLabelVModifier.swift */,
-				0776EB052B05586B00F89BFC /* MapMapV.swift */,
-				0740B8142B1972DB005EA0D2 /* MarkerV.swift */,
 				079B60412B2D589E0073E936 /* PositionAlignmentVModifier.swift */,
 				B5B6D3762B4B89AA00861770 /* ViewSizeVModifier.swift */,
 				07249C0A2B1681FF0088B721 /* WHStack.swift */,
@@ -550,6 +547,7 @@
 				07FCC85A2AD3759500F88186 /* Models */,
 				073CCDF02B2F5EA600ECCD7B /* Context Menus */,
 				07656CEF2B2BF70200C087C9 /* Types */,
+				B55149042BAF80730096D604 /* Model Views */,
 				0762DD662AD46CFA00C36D33 /* Generic View Components */,
 				076F18AC2AEF79B300779E1D /* Non-Map Map Extensions */,
 				07FDC6262AB25E0000D92113 /* Assets.xcassets */,
@@ -663,6 +661,16 @@
 				B55148F32BAE70F70096D604 /* PurchaseButtonV.swift */,
 			);
 			path = Store;
+			sourceTree = "<group>";
+		};
+		B55149042BAF80730096D604 /* Model Views */ = {
+			isa = PBXGroup;
+			children = (
+				B5F0D7632B7FDB84003B4FBE /* GPS Map */,
+				0776EB052B05586B00F89BFC /* MapMapV.swift */,
+				0740B8142B1972DB005EA0D2 /* MarkerV.swift */,
+			);
+			path = "Model Views";
 			sourceTree = "<group>";
 		};
 		B5AA73A42BACA19B000CC28B /* Map Map */ = {
