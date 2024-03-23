@@ -85,7 +85,7 @@ struct MapButtonsV: View {
                 Button {
                     withAnimation { markersChirp.toggle() }
                 } label: {
-                    Image(systemName: markersChirp ? "speaker.wave.2.bubble.fill" : "speaker.wave.2.bubble")
+                    Image(systemName: markersChirp ? "speaker.wave.3.fill" : "speaker")
                         .accessibilityLabel(markersChirp ? "Markers can make audio alerts." : "Markers cannot make audio alerts.")
                         .mapButton()
                 }
