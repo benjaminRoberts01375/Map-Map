@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension StoreV {
+extension StoreV.BulletPointListV {
     struct BulletPointV: View {
         let icon: String
         let color: Color

@@ -44,29 +44,7 @@ struct StoreV: View {
                                 .confettiCannon(counter: $confettiCounter, radius: 700, repetitions: 1000, repetitionInterval: 1)
                         }
                     }
-                ScrollView {
-                    VStack(spacing: 25) {
-                        BulletPointV(
-                            icon: "location.north.line.fill",
-                            color: .red,
-                            title: "GPS Maps",
-                            description: "Create custom maps with GPS, and get real-time stats about your hike."
-                        )
-                        BulletPointV(
-                            icon: "arrow.triangle.branch",
-                            color: .brown,
-                            title: "Trail Division",
-                            description: "Divide your GPS Map into branches to match the trails."
-                        )
-                        BulletPointV(
-                            icon: "app.badge.checkmark",
-                            color: .mapMapPrimary,
-                            title: "Future Development",
-                            description: "Help fund future development, and get features beyond BYO map."
-                        )
-                    }
-                    .padding(.horizontal)
-                }
+                BulletPointListV()
                 Spacer()
                 if purchased {
                     Text("Thank You!")
