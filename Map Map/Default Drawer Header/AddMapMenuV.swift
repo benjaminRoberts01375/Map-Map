@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension DefaultDrawerHeaderV {
-    private struct AddMapMenuV: View {
+    struct AddMapMenuV: View {
         /// Current Core Data managed object context.
         @Environment(\.managedObjectContext) private var moc
         
