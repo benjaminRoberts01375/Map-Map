@@ -110,6 +110,7 @@
 		B55148F92BAF64BF0096D604 /* NoFilePermissionVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55148F82BAF64BF0096D604 /* NoFilePermissionVModifier.swift */; };
 		B55148FB2BAF660B0096D604 /* FileNotReadableVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55148FA2BAF660B0096D604 /* FileNotReadableVModifier.swift */; };
 		B55148FD2BAF66710096D604 /* UnknownImageTypeVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55148FC2BAF66710096D604 /* UnknownImageTypeVModifier.swift */; };
+		B55148FF2BAF67020096D604 /* UnableToReadPDFVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55148FE2BAF67020096D604 /* UnableToReadPDFVModifier.swift */; };
 		B56595762B7402BC00F6D856 /* HandleTrackerM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56595752B7402BC00F6D856 /* HandleTrackerM.swift */; };
 		B576A7C42B8842D80031C860 /* GPSMapBranch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576A7C32B8842D80031C860 /* GPSMapBranch.swift */; };
 		B57D8A532B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A522B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift */; };
@@ -278,6 +279,7 @@
 		B55148F82BAF64BF0096D604 /* NoFilePermissionVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoFilePermissionVModifier.swift; sourceTree = "<group>"; };
 		B55148FA2BAF660B0096D604 /* FileNotReadableVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileNotReadableVModifier.swift; sourceTree = "<group>"; };
 		B55148FC2BAF66710096D604 /* UnknownImageTypeVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownImageTypeVModifier.swift; sourceTree = "<group>"; };
+		B55148FE2BAF67020096D604 /* UnableToReadPDFVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnableToReadPDFVModifier.swift; sourceTree = "<group>"; };
 		B56595752B7402BC00F6D856 /* HandleTrackerM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleTrackerM.swift; sourceTree = "<group>"; };
 		B576A7C32B8842D80031C860 /* GPSMapBranch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GPSMapBranch.swift; path = "/Users/ben/Desktop/Map Map/Map Map/Models/GPS Map/GPSMapBranch.swift"; sourceTree = "<absolute>"; };
 		B57D8A522B5E10CC002B9F7C /* MarkupEditorVIPadOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupEditorVIPadOS.swift; sourceTree = "<group>"; };
@@ -685,6 +687,7 @@
 				B5C9ED102BA4DE7E00E6755C /* LocationNeverAvailableVModifier.swift */,
 				B55148F82BAF64BF0096D604 /* NoFilePermissionVModifier.swift */,
 				B55148FA2BAF660B0096D604 /* FileNotReadableVModifier.swift */,
+				B55148FE2BAF67020096D604 /* UnableToReadPDFVModifier.swift */,
 				B55148FC2BAF66710096D604 /* UnknownImageTypeVModifier.swift */,
 				B5C9ED132BA4E05200E6755C /* LocationNotAlwaysVModifier.swift */,
 				B5BB9F822BAE310500819DA6 /* RestorePurchaseFailedVModifier.swift */,
@@ -998,6 +1001,7 @@
 				B50A34A02BA766A3007FD78E /* GPSMapMapDisplayableE.swift in Sources */,
 				07249C002B1672D50088B721 /* MarkerSymbolPickerV.swift in Sources */,
 				07CCDBB52AEB214400BA9D43 /* UserLocationM.swift in Sources */,
+				B55148FF2BAF67020096D604 /* UnableToReadPDFVModifier.swift in Sources */,
 				07B82A3D2B1D479E00CC00D3 /* MarkerListItemE.swift in Sources */,
 				B57D8A552B5E112C002B9F7C /* MarkupEditorSwitcherV.swift in Sources */,
 				072DDB2E2AF426E000E74963 /* HandleV.swift in Sources */,
