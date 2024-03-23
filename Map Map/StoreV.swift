@@ -39,8 +39,10 @@ struct StoreV: View {
                 MapMapExplorerTitleV()
                     .padding(20)
                     .background {
-                        Color.clear
-                            .confettiCannon(counter: $confettiCounter, radius: 700, repetitions: 1000, repetitionInterval: 1)
+                        if purchased {
+                            Color.clear
+                                .confettiCannon(counter: $confettiCounter, radius: 700, repetitions: 1000, repetitionInterval: 1)
+                        }
                     }
                 ScrollView {
                     VStack(spacing: 25) {
@@ -85,8 +87,7 @@ struct StoreV: View {
                             guard let product = products.first else { return }
                             let result = try await product.purchase()
                             switch result {
-                            case .success:
-                                await MainActor.run { userPurchased() }
+                            case .success: await MainActor.run { self.purchased = true }
                             default: break
                             }
                         }
@@ -154,14 +155,9 @@ struct StoreV: View {
         for await update in Transaction.updates {
             guard let productID = try? update.payloadValue.productID else { continue }
             if productID == Product.kExplorer {
-                await MainActor.run { userPurchased() }
+                await MainActor.run { self.purchased = true }
             }
         }
-    }
-    
-    func userPurchased() {
-        purchased = true
-        self.confettiCounter += 1
     }
 }
 
