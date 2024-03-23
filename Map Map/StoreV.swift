@@ -11,6 +11,7 @@ import SwiftUI
 
 struct StoreV: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.colorScheme) var colorScheme
     @State var price = ""
     @State var presentNotAbleToRestorePurchases: Bool = false
     @State var purchased: Bool = false
@@ -57,7 +58,7 @@ struct StoreV: View {
                         )
                         BulletPointV(
                             icon: "app.badge.checkmark",
-                            color: .accentColor,
+                            color: .mapMapPrimary,
                             title: "Future Development",
                             description: "Help fund future development, and get features beyond BYO map."
                         )
@@ -107,12 +108,22 @@ struct StoreV: View {
             }
         }
         .background {
-            LinearGradient(
-                colors: [.white, .accentColor.opacity(0.75)],
-                startPoint: UnitPoint(x: 0, y: UnitPoint.bottom.y * 0.75),
-                endPoint: UnitPoint(x: 0, y: UnitPoint.bottom.y * 0.45)
-            )
-            .ignoresSafeArea()
+            switch colorScheme {
+            case .dark:
+                LinearGradient(
+                    colors: [.black, .mapMapSecondary],
+                    startPoint: UnitPoint(x: 0, y: UnitPoint.bottom.y * 0.85),
+                    endPoint: UnitPoint(x: 0, y: UnitPoint.bottom.y * 0.25)
+                )
+                .ignoresSafeArea()
+            default:
+                LinearGradient(
+                    colors: [.white, .mapMapPrimary.opacity(0.75)],
+                    startPoint: UnitPoint(x: 0, y: UnitPoint.bottom.y * 0.75),
+                    endPoint: UnitPoint(x: 0, y: UnitPoint.bottom.y * 0.45)
+                )
+                .ignoresSafeArea()
+            }
         }
         .task { await getProductPrice() }
         .task { await checkIfPurchased() }
