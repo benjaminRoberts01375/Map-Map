@@ -38,7 +38,6 @@ struct MapMeasurementCoordinatesV: View {
             }
         }
         .onChange(of: mapMeasurementCoordinates.count, initial: true) {
-            print("Count changed")
             Task {
                 let connections = determineConnections()
                 await MainActor.run {
