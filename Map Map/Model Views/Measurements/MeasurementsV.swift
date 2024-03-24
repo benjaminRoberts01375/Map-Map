@@ -19,10 +19,12 @@ struct MeasurementsV: View {
                     ZStack {
                         ForEach(cluster) { edge in
                             ZStack {
-                                Line(startingPos: CGSize(cgPoint: edge.startPoint), endingPos: CGSize(cgPoint: edge.endPoint)) // Outline line
+                                // Outline line
+                                Line(startingPos: CGSize(cgPoint: edge.startPoint), endingPos: CGSize(cgPoint: edge.endPoint))
                                     .stroke(style: StrokeStyle(lineWidth: 6, lineCap: .round))
                                     .foregroundStyle(.black.opacity(0.5))
-                                Line(startingPos: CGSize(cgPoint: edge.startPoint), endingPos: CGSize(cgPoint: edge.endPoint)) // Foreground line
+                                // Foreground line
+                                Line(startingPos: CGSize(cgPoint: edge.startPoint), endingPos: CGSize(cgPoint: edge.endPoint))
                                     .stroke(style: StrokeStyle(lineWidth: 5, lineCap: .round))
                                     .lineLabel(
                                         startingPos: edge.startPoint,
