@@ -9,8 +9,8 @@ import SwiftUI
 
 extension MeasurementsV {
     @Observable
-    final class MeasurementsVM {
         
+    final class ViewModel {
     }
     
     func generateOnScreenPoints() {
