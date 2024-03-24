@@ -13,44 +13,17 @@ struct MeasurementsV: View {
     @State var viewModel: ViewModel = ViewModel()
     
     var body: some View {
-        GeometryReader { geo in
-            ZStack {
-                ForEach(Array(viewModel.ssClusters.enumerated()), id: \.offset) { _, cluster in
-                    ZStack {
-                        ForEach(cluster) { edge in
-                            ZStack {
-                                // Outline line
-                                Line(startingPos: CGSize(cgPoint: edge.startPoint), endingPos: CGSize(cgPoint: edge.endPoint))
-                                    .stroke(style: StrokeStyle(lineWidth: 6, lineCap: .round))
-                                    .foregroundStyle(.black.opacity(0.5))
-                                // Foreground line
-                                Line(startingPos: CGSize(cgPoint: edge.startPoint), endingPos: CGSize(cgPoint: edge.endPoint))
-                                    .stroke(style: StrokeStyle(lineWidth: 5, lineCap: .round))
-                                    .lineLabel(
-                                        startingPos: edge.startPoint,
-                                        endingPos: edge.endPoint,
-                                        distance: edge.distance
-                                    )
-                            }
-                        }
-                    }
-                }
+        ZStack {
+            ForEach(Array(viewModel.connections.enumerated()), id: \.offset) { _, connection in
+                ZStack { MeasurementV(connection: connection) }
             }
-            .onChange(of: measurementCoordinates.count, initial: true) {
-                print("Count changed")
-                Task {
-                    let edges = determineEdges()
-                    let ssEdges = determineSSConnectionPoints(screenSize: geo.size)
-                    await MainActor.run {
-                        self.viewModel.clusters = edges
-                        self.viewModel.ssClusters = ssEdges
-                    }
-                }
-            }
-            .onChange(of: mapDetails.mapCamera) {
-                Task {
-                    let ssEdges = determineSSConnectionPoints(screenSize: geo.size)
-                    await MainActor.run { self.viewModel.ssClusters = ssEdges }
+        }
+        .onChange(of: measurementCoordinates.count, initial: true) {
+            print("Count changed")
+            Task {
+                let connections = determineConnections()
+                await MainActor.run {
+                    self.viewModel.connections = connections
                 }
             }
         }
