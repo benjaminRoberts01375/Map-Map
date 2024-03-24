@@ -16,6 +16,22 @@ struct MeasurementsV: View {
         ZStack {
             ForEach(Array(viewModel.connections.enumerated()), id: \.offset) { _, connection in
                 ZStack { MeasurementV(connection: connection) }
+                    .onChange(of: connection.endNode.unwrappedNeighbors.count) {
+                        Task {
+                            let connections = determineConnections()
+                            await MainActor.run {
+                                self.viewModel.connections = connections
+                            }
+                        }
+                    }
+                    .onChange(of: connection.startNode.unwrappedNeighbors.count) {
+                        Task {
+                            let connections = determineConnections()
+                            await MainActor.run {
+                                self.viewModel.connections = connections
+                            }
+                        }
+                    }
             }
         }
         .onChange(of: measurementCoordinates.count, initial: true) {
