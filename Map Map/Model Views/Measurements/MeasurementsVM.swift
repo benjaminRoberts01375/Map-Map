@@ -49,7 +49,7 @@ extension MeasurementsV {
                     let end = CLLocation(latitude: neighborNode.latitude, longitude: neighborNode.longitude)
                     let startPos = CGPoint(x: currentNode.latitude, y: currentNode.longitude)
                     let endPos = CGPoint(x: neighborNode.latitude, y: neighborNode.longitude)
-                    if !visited.contains(neighborNode) && (ssMapMesh.contains(startPos) || ssMapMesh.contains(endPos)) {
+                    if ssMapMesh.contains(startPos) || ssMapMesh.contains(endPos) {
                         let connection = Connection(
                             startNode: currentNode,
                             endNode: neighborNode,
@@ -57,6 +57,8 @@ extension MeasurementsV {
                         )
                         connections.append(connection)
                         visited.insert(neighborNode)
+                    }
+                    if !visited.contains(neighborNode) {
                         queue.append(neighborNode)
                     }
                 }
