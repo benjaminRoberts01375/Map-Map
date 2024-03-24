@@ -210,7 +210,7 @@ struct MeasurementEditorV: View {
     
     /// Delete invalid measurements.
     func cleanupMeasurements() {
-        for measurement in measurements where measurement.formattedNeighbors.count == .zero {
+        for measurement in measurements where measurement.unwrappedNeighbors.count == .zero {
             moc.delete(measurement)
         }
     }

@@ -44,7 +44,7 @@ extension MeasurementsV {
             while !queue.isEmpty {
                 let currentNode = queue.removeFirst()
 
-                for neighborNode in currentNode.formattedNeighbors {
+                for neighborNode in currentNode.unwrappedNeighbors {
                     let start = CLLocation(latitude: currentNode.latitude, longitude: currentNode.longitude)
                     let end = CLLocation(latitude: neighborNode.latitude, longitude: neighborNode.longitude)
                     let startPos = CGPoint(x: currentNode.latitude, y: currentNode.longitude)
