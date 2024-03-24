@@ -68,17 +68,25 @@ extension MeasurementsV {
         return connections
     }
     
-    func determineSSConnectionPoints() -> [[SSConnection]] {
+    func determineSSConnectionPoints(screenSize: CGSize) -> [[SSConnection]] {
         var clusters: [[SSConnection]] = []
+        let screenArea = CGRect(
+            x: -screenSize.width,
+            y: -screenSize.height,
+            width: screenSize.width * 2,
+            height: screenSize.height * 2
+        )
+        
         for cluster in viewModel.clusters {
             var edges: [SSConnection] = []
             for edge in cluster {
-                guard let startPos = mapDetails.mapProxy?.convert(edge.startNode.coordinates, to: .global),
-                      let endPos = mapDetails.mapProxy?.convert(edge.endNode.coordinates, to: .global)
-                else { continue }
-                edges.append(
-                    SSConnection(startPoint: startPos, endPoint: endPos, distance: edge.distance)
-                )
+                if let startPos = mapDetails.mapProxy?.convert(edge.startNode.coordinates, to: .global),
+                   let endPos = mapDetails.mapProxy?.convert(edge.endNode.coordinates, to: .global),
+                   startPos.distanceTo(endPos) > 50 && (screenArea.contains(startPos) || screenArea.contains(endPos)) {
+                    edges.append(
+                        SSConnection(startPoint: startPos, endPoint: endPos, distance: edge.distance)
+                    )
+                }
             }
             clusters.append(edges)
         }
