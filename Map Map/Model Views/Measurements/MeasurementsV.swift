@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MeasurementsV: View {
     @Environment(MapDetailsM.self) var mapDetails
-    @FetchRequest(sortDescriptors: []) var measurementCoords: FetchedResults<MapMeasurementCoordinate>
+    @FetchRequest(sortDescriptors: []) var measurementCoordinates: FetchedResults<MapMeasurementCoordinate>
     @State var viewModel: ViewModel = ViewModel()
     
     var body: some View {
