@@ -33,14 +33,6 @@ struct MeasurementEditorV: View {
     /// Editor being used.
     @Binding var editing: Editor
     
-    /// Basic orientation and positioning for a line
-    enum Orientation {
-        case leftVertical
-        case rightVertical
-        case topHorizontal
-        case bottomHorizontal
-    }
-    
     /// Drag gesture for creating a line from scratch.
     var drawGesture: some Gesture {
         DragGesture(coordinateSpace: .global)
