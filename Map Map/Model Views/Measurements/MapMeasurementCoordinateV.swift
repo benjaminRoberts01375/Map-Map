@@ -9,11 +9,17 @@ import MapKit
 import SwiftUI
 
 struct MapMeasurementCoordinateV: View {
+    /// Map details of the background map.
     @Environment(MapDetailsM.self) var mapDetails
+    /// Starting coordinate to render.
     @ObservedObject var start: MapMeasurementCoordinate
+    /// Ending coordinate to render.
     @ObservedObject var end: MapMeasurementCoordinate
+    /// Starting coordinate as a CGPoint.
     @State var startPoint: CGPoint = .zero
+    /// Ending coordinate as a CGPoint,
     @State var endPoint: CGPoint = .zero
+    /// Distance between points.
     let distance: Measurement<UnitLength>
     
     init(connection: MapMeasurementCoordinatesV.Connection) {

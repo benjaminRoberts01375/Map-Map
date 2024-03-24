@@ -8,19 +8,22 @@
 import SwiftUI
 
 struct MapMeasurementCoordinatesV: View {
+    /// Details of the background map
     @Environment(MapDetailsM.self) var mapDetails
-    @FetchRequest(sortDescriptors: []) var measurementCoordinates: FetchedResults<MapMeasurementCoordinate>
-    @State var viewModel: ViewModel = ViewModel()
+    /// All available MapMeasurementCoordinates
+    @FetchRequest(sortDescriptors: []) var mapMeasurementCoordinates: FetchedResults<MapMeasurementCoordinate>
+    /// Connections formed by the map measurement coordinates
+    @State var connections: [Connection] = []
     
     var body: some View {
         ZStack {
-            ForEach(Array(viewModel.connections.enumerated()), id: \.offset) { _, connection in
+            ForEach(Array(connections.enumerated()), id: \.offset) { _, connection in
                 ZStack { MapMeasurementCoordinateV(connection: connection) }
                     .onChange(of: connection.endNode.unwrappedNeighbors.count) {
                         Task {
                             let connections = determineConnections()
                             await MainActor.run {
-                                self.viewModel.connections = connections
+                                self.connections = connections
                             }
                         }
                     }
@@ -28,18 +31,18 @@ struct MapMeasurementCoordinatesV: View {
                         Task {
                             let connections = determineConnections()
                             await MainActor.run {
-                                self.viewModel.connections = connections
+                                self.connections = connections
                             }
                         }
                     }
             }
         }
-        .onChange(of: measurementCoordinates.count, initial: true) {
+        .onChange(of: mapMeasurementCoordinates.count, initial: true) {
             print("Count changed")
             Task {
                 let connections = determineConnections()
                 await MainActor.run {
-                    self.viewModel.connections = connections
+                    self.connections = connections
                 }
             }
         }

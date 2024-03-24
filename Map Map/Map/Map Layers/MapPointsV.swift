@@ -36,7 +36,7 @@ struct MapPointsV: View {
     
     var body: some View {
         GeometryReader { _ in
-            MeasurementsV()
+            MapMeasurementCoordinatesV()
                 .allowsHitTesting(false)
             
             ForEach(gpsMaps) { gpsMap in

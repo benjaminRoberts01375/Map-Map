@@ -9,11 +9,6 @@ import MapKit
 import SwiftUI
 
 extension MapMeasurementCoordinatesV {
-    @Observable
-    final class ViewModel {
-        var connections: [Connection] = []
-    }
-    
     struct Connection {
         let startNode: MapMeasurementCoordinate
         let endNode: MapMeasurementCoordinate
@@ -36,7 +31,7 @@ extension MapMeasurementCoordinatesV {
             height: correctedSpan.longitudeDelta
         )
         
-        for node in measurementCoordinates {
+        for node in mapMeasurementCoordinates {
             if visited.contains(node) { continue }
             var queue: [MapMeasurementCoordinate] = [node]
             visited.insert(node)
