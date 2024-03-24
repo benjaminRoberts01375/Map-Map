@@ -11,7 +11,7 @@ import MapKit
 
 @objc(MapMeasurementCoordinate)
 public class MapMeasurementCoordinate: NSManagedObject {
-    public var formattedNeighbors: Set<MapMeasurementCoordinate> { self.neighbors as? Set<MapMeasurementCoordinate> ?? [] }
+    public var unwrappedNeighbors: [MapMeasurementCoordinate] { self.neighbors?.allObjects as? [MapMeasurementCoordinate] ?? [] }
     public var coordinates: CLLocationCoordinate2D {
         get { CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude) }
         set(update) {

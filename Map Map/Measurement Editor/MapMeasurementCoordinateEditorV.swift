@@ -1,5 +1,5 @@
 //
-//  MeasurementEditorV.swift
+//  MapMeasurementCoordinateEditorV.swift
 //  Map Map
 //
 //  Created by Ben Roberts on 12/15/23.
@@ -9,7 +9,7 @@ import Bottom_Drawer
 import MapKit
 import SwiftUI
 
-struct MeasurementEditorV: View {
+struct MapMeasurementCoordinateEditorV: View {
     /// Information about the map being plotted on top of.
     @Environment(MapDetailsM.self) var mapDetails
     /// All available Markers.
@@ -32,14 +32,6 @@ struct MeasurementEditorV: View {
     @State private var handlePositions: [MapMeasurementCoordinate : CGSize] = [:]
     /// Editor being used.
     @Binding var editing: Editor
-    
-    /// Basic orientation and positioning for a line
-    enum Orientation {
-        case leftVertical
-        case rightVertical
-        case topHorizontal
-        case bottomHorizontal
-    }
     
     /// Drag gesture for creating a line from scratch.
     var drawGesture: some Gesture {
@@ -210,7 +202,7 @@ struct MeasurementEditorV: View {
                 Task {
                     guard let mapCoords = mapDetails.mapProxy?.convert(CGPoint(size: newVal), from: .global)
                     else { return }
-                    key.coordinates = mapCoords
+                    await MainActor.run { key.coordinates = mapCoords }
                 }
             }
         )
@@ -218,7 +210,7 @@ struct MeasurementEditorV: View {
     
     /// Delete invalid measurements.
     func cleanupMeasurements() {
-        for measurement in measurements where measurement.formattedNeighbors.count == .zero {
+        for measurement in measurements where measurement.unwrappedNeighbors.count == .zero {
             moc.delete(measurement)
         }
     }

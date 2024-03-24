@@ -40,7 +40,7 @@
 		078C6DC82B0A9448001AD131 /* MapButtonVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C6DC72B0A9448001AD131 /* MapButtonVModifier.swift */; };
 		078C6DCB2B0B0100001AD131 /* CrosshairV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C6DCA2B0B0100001AD131 /* CrosshairV.swift */; };
 		078C6DD02B0B0996001AD131 /* CLLocationCoordinate2DE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C6DCF2B0B0996001AD131 /* CLLocationCoordinate2DE.swift */; };
-		079B603D2B2CBD150073E936 /* MeasurementEditorV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079B603C2B2CBD150073E936 /* MeasurementEditorV.swift */; };
+		079B603D2B2CBD150073E936 /* MapMeasurementCoordinateEditorV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079B603C2B2CBD150073E936 /* MapMeasurementCoordinateEditorV.swift */; };
 		079B60402B2CC71D0073E936 /* LineShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079B603F2B2CC71D0073E936 /* LineShape.swift */; };
 		079B60422B2D589E0073E936 /* PositionAlignmentVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079B60412B2D589E0073E936 /* PositionAlignmentVModifier.swift */; };
 		07A0D7172AD1C28400F462A0 /* Bottom Drawer in Frameworks */ = {isa = PBXBuildFile; productRef = 07A0D7162AD1C28400F462A0 /* Bottom Drawer */; };
@@ -132,6 +132,9 @@
 		B5B6C78B2B68733F00F352BC /* UserDefaultsE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6C78A2B68733F00F352BC /* UserDefaultsE.swift */; };
 		B5B6C78F2B695B6E00F352BC /* AudioAlertsVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6C78E2B695B6E00F352BC /* AudioAlertsVModifier.swift */; };
 		B5B6D3772B4B89AA00861770 /* ViewSizeVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6D3762B4B89AA00861770 /* ViewSizeVModifier.swift */; };
+		B5B7CEC32BB091CC00C002ED /* MapMeasurementCoordinatesV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B7CEC22BB091CC00C002ED /* MapMeasurementCoordinatesV.swift */; };
+		B5B7CEC52BB0921000C002ED /* MeasurementsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B7CEC42BB0921000C002ED /* MeasurementsVM.swift */; };
+		B5B7CECE2BB0D39900C002ED /* MapMeasurementCoordinateV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B7CECD2BB0D39900C002ED /* MapMeasurementCoordinateV.swift */; };
 		B5BB9F832BAE310500819DA6 /* RestorePurchaseFailedVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BB9F822BAE310500819DA6 /* RestorePurchaseFailedVModifier.swift */; };
 		B5C9ED092BA35D0D00E6755C /* LocationDisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C9D7722B1195C10099041A /* LocationDisplayMode.swift */; };
 		B5C9ED0A2BA35EA400E6755C /* BigButtonVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07353A342ADCCB9700C698B0 /* BigButtonVModifier.swift */; };
@@ -212,7 +215,7 @@
 		078C6DC72B0A9448001AD131 /* MapButtonVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapButtonVModifier.swift; sourceTree = "<group>"; };
 		078C6DCA2B0B0100001AD131 /* CrosshairV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrosshairV.swift; sourceTree = "<group>"; };
 		078C6DCF2B0B0996001AD131 /* CLLocationCoordinate2DE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2DE.swift; sourceTree = "<group>"; };
-		079B603C2B2CBD150073E936 /* MeasurementEditorV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementEditorV.swift; sourceTree = "<group>"; };
+		079B603C2B2CBD150073E936 /* MapMeasurementCoordinateEditorV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMeasurementCoordinateEditorV.swift; sourceTree = "<group>"; };
 		079B603F2B2CC71D0073E936 /* LineShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineShape.swift; sourceTree = "<group>"; };
 		079B60412B2D589E0073E936 /* PositionAlignmentVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionAlignmentVModifier.swift; sourceTree = "<group>"; };
 		07A9C6AB2AF1B78C00C3AED4 /* FourCorners+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FourCorners+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -305,6 +308,9 @@
 		B5B6C78A2B68733F00F352BC /* UserDefaultsE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsE.swift; sourceTree = "<group>"; };
 		B5B6C78E2B695B6E00F352BC /* AudioAlertsVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAlertsVModifier.swift; sourceTree = "<group>"; };
 		B5B6D3762B4B89AA00861770 /* ViewSizeVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSizeVModifier.swift; sourceTree = "<group>"; };
+		B5B7CEC22BB091CC00C002ED /* MapMeasurementCoordinatesV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMeasurementCoordinatesV.swift; sourceTree = "<group>"; };
+		B5B7CEC42BB0921000C002ED /* MeasurementsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementsVM.swift; sourceTree = "<group>"; };
+		B5B7CECD2BB0D39900C002ED /* MapMeasurementCoordinateV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMeasurementCoordinateV.swift; sourceTree = "<group>"; };
 		B5BB9F822BAE310500819DA6 /* RestorePurchaseFailedVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePurchaseFailedVModifier.swift; sourceTree = "<group>"; };
 		B5C9ED0E2BA4ADCB00E6755C /* GPSTrackingStatsV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTrackingStatsV.swift; sourceTree = "<group>"; };
 		B5C9ED102BA4DE7E00E6755C /* LocationNeverAvailableVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNeverAvailableVModifier.swift; sourceTree = "<group>"; };
@@ -487,7 +493,7 @@
 		079B603E2B2CBD200073E936 /* Measurement Editor */ = {
 			isa = PBXGroup;
 			children = (
-				079B603C2B2CBD150073E936 /* MeasurementEditorV.swift */,
+				079B603C2B2CBD150073E936 /* MapMeasurementCoordinateEditorV.swift */,
 			);
 			path = "Measurement Editor";
 			sourceTree = "<group>";
@@ -675,6 +681,7 @@
 				B5F0D7632B7FDB84003B4FBE /* GPS Map */,
 				B551490B2BAF82850096D604 /* Map Map */,
 				0740B8142B1972DB005EA0D2 /* MarkerV.swift */,
+				B5B7CEC62BB093B500C002ED /* Measurements */,
 			);
 			path = "Model Views";
 			sourceTree = "<group>";
@@ -709,6 +716,16 @@
 				07249C202B1692610088B721 /* MarkerColor+CoreDataClass.swift */,
 			);
 			path = Marker;
+			sourceTree = "<group>";
+		};
+		B5B7CEC62BB093B500C002ED /* Measurements */ = {
+			isa = PBXGroup;
+			children = (
+				B5B7CEC22BB091CC00C002ED /* MapMeasurementCoordinatesV.swift */,
+				B5B7CECD2BB0D39900C002ED /* MapMeasurementCoordinateV.swift */,
+				B5B7CEC42BB0921000C002ED /* MeasurementsVM.swift */,
+			);
+			path = Measurements;
 			sourceTree = "<group>";
 		};
 		B5C9ED122BA4DE8300E6755C /* Alerts */ = {
@@ -967,12 +984,14 @@
 				073F916B2B06794000AE56CB /* CropCornersStorage.swift in Sources */,
 				B576A7C42B8842D80031C860 /* GPSMapBranch.swift in Sources */,
 				B5FA57F62B8660240057BCD7 /* GPSMapEditingV.swift in Sources */,
+				B5B7CECE2BB0D39900C002ED /* MapMeasurementCoordinateV.swift in Sources */,
 				07EB79E72B01A7F600DC2699 /* UIImageE.swift in Sources */,
 				B551490A2BAF822F0096D604 /* MapMapVFinalStateV.swift in Sources */,
 				0762DD652AD4696B00C36D33 /* DoneButtonV.swift in Sources */,
 				07C2E07B2B128F9C003C292E /* AvailableThumbnailImages.swift in Sources */,
 				B53C948C2B57162400768C66 /* CropGrabberV.swift in Sources */,
 				0762DD682AD4713200C36D33 /* MapMapEditorV.swift in Sources */,
+				B5B7CEC32BB091CC00C002ED /* MapMeasurementCoordinatesV.swift in Sources */,
 				079B60402B2CC71D0073E936 /* LineShape.swift in Sources */,
 				B5AA73A82BACA203000CC28B /* MapMapImageDrawing+CoreDataClass.swift in Sources */,
 				B5E527502B7694530027300D /* GPSMapPhaseController.swift in Sources */,
@@ -1001,6 +1020,7 @@
 				B5CEC51B2B9B73CB001D4CCF /* MultiLineShape.swift in Sources */,
 				078C6DC82B0A9448001AD131 /* MapButtonVModifier.swift in Sources */,
 				073733432B096C10004B96D1 /* DoubleE.swift in Sources */,
+				B5B7CEC52BB0921000C002ED /* MeasurementsVM.swift in Sources */,
 				078C6DD02B0B0996001AD131 /* CLLocationCoordinate2DE.swift in Sources */,
 				073F91692B05C5A400AE56CB /* ToastInfo.swift in Sources */,
 				B534C72B2B89052D00FD6901 /* GPSMapBranchesV.swift in Sources */,
@@ -1020,7 +1040,7 @@
 				B5FADE572B5C6F0600AD933C /* MarkupV.swift in Sources */,
 				B587C2752B46517C001DD4F9 /* StringE.swift in Sources */,
 				B55148E62BAE68D80096D604 /* DefaultDrawerHeaderVM.swift in Sources */,
-				079B603D2B2CBD150073E936 /* MeasurementEditorV.swift in Sources */,
+				079B603D2B2CBD150073E936 /* MapMeasurementCoordinateEditorV.swift in Sources */,
 				B50A34A92BA78903007FD78E /* MKCoordinateSpanE.swift in Sources */,
 				B55149012BAF67F90096D604 /* AlertManager.swift in Sources */,
 				0744E7172AFB203D00D9F0B5 /* CameraPreviewVM.swift in Sources */,
