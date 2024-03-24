@@ -12,4 +12,8 @@ extension MeasurementsV {
     final class MeasurementsVM {
         
     }
+    
+    func generateOnScreenPoints() {
+        
+    }
 }

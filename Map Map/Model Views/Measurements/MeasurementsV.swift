@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MeasurementsV: View {
     @Environment(MapDetailsM.self) var mapDetails
-    @FetchRequest(sortDescriptors: []) var measurements: FetchedResults<MapMeasurementCoordinate>
+    @FetchRequest(sortDescriptors: []) var measurementCoords: FetchedResults<MapMeasurementCoordinate>
     
     var body: some View {
         /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Hello, world!@*/Text("Hello, world!")/*@END_MENU_TOKEN@*/

@@ -679,8 +679,7 @@
 				B5F0D7632B7FDB84003B4FBE /* GPS Map */,
 				B551490B2BAF82850096D604 /* Map Map */,
 				0740B8142B1972DB005EA0D2 /* MarkerV.swift */,
-				B5B7CEC22BB091CC00C002ED /* MeasurementsV.swift */,
-				B5B7CEC42BB0921000C002ED /* MeasurementsVM.swift */,
+				B5B7CEC62BB093B500C002ED /* Measurements */,
 			);
 			path = "Model Views";
 			sourceTree = "<group>";
@@ -715,6 +714,15 @@
 				07249C202B1692610088B721 /* MarkerColor+CoreDataClass.swift */,
 			);
 			path = Marker;
+			sourceTree = "<group>";
+		};
+		B5B7CEC62BB093B500C002ED /* Measurements */ = {
+			isa = PBXGroup;
+			children = (
+				B5B7CEC22BB091CC00C002ED /* MeasurementsV.swift */,
+				B5B7CEC42BB0921000C002ED /* MeasurementsVM.swift */,
+			);
+			path = Measurements;
 			sourceTree = "<group>";
 		};
 		B5C9ED122BA4DE8300E6755C /* Alerts */ = {
