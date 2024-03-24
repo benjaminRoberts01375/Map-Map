@@ -51,10 +51,8 @@ struct MapV: View {
         .mapStyle(.standard(elevation: .realistic))
         .onChange(of: editor) { _, newValue in
             switch newValue {
-            case .nothing:
-                tappableMapMaps = .tappable
-            default:
-                tappableMapMaps = .viewable
+            case .nothing: tappableMapMaps = .tappable
+            default: tappableMapMaps = .viewable
             }
         }
     }
