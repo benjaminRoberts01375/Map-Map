@@ -133,6 +133,7 @@
 		B5B6C78F2B695B6E00F352BC /* AudioAlertsVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6C78E2B695B6E00F352BC /* AudioAlertsVModifier.swift */; };
 		B5B6D3772B4B89AA00861770 /* ViewSizeVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6D3762B4B89AA00861770 /* ViewSizeVModifier.swift */; };
 		B5B7CEC32BB091CC00C002ED /* MeasurementsV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B7CEC22BB091CC00C002ED /* MeasurementsV.swift */; };
+		B5B7CEC52BB0921000C002ED /* MeasurementsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B7CEC42BB0921000C002ED /* MeasurementsVM.swift */; };
 		B5BB9F832BAE310500819DA6 /* RestorePurchaseFailedVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BB9F822BAE310500819DA6 /* RestorePurchaseFailedVModifier.swift */; };
 		B5C9ED092BA35D0D00E6755C /* LocationDisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C9D7722B1195C10099041A /* LocationDisplayMode.swift */; };
 		B5C9ED0A2BA35EA400E6755C /* BigButtonVModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07353A342ADCCB9700C698B0 /* BigButtonVModifier.swift */; };
@@ -307,6 +308,7 @@
 		B5B6C78E2B695B6E00F352BC /* AudioAlertsVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAlertsVModifier.swift; sourceTree = "<group>"; };
 		B5B6D3762B4B89AA00861770 /* ViewSizeVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSizeVModifier.swift; sourceTree = "<group>"; };
 		B5B7CEC22BB091CC00C002ED /* MeasurementsV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementsV.swift; sourceTree = "<group>"; };
+		B5B7CEC42BB0921000C002ED /* MeasurementsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementsVM.swift; sourceTree = "<group>"; };
 		B5BB9F822BAE310500819DA6 /* RestorePurchaseFailedVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePurchaseFailedVModifier.swift; sourceTree = "<group>"; };
 		B5C9ED0E2BA4ADCB00E6755C /* GPSTrackingStatsV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTrackingStatsV.swift; sourceTree = "<group>"; };
 		B5C9ED102BA4DE7E00E6755C /* LocationNeverAvailableVModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNeverAvailableVModifier.swift; sourceTree = "<group>"; };
@@ -678,6 +680,7 @@
 				B551490B2BAF82850096D604 /* Map Map */,
 				0740B8142B1972DB005EA0D2 /* MarkerV.swift */,
 				B5B7CEC22BB091CC00C002ED /* MeasurementsV.swift */,
+				B5B7CEC42BB0921000C002ED /* MeasurementsVM.swift */,
 			);
 			path = "Model Views";
 			sourceTree = "<group>";
@@ -1005,6 +1008,7 @@
 				B5CEC51B2B9B73CB001D4CCF /* MultiLineShape.swift in Sources */,
 				078C6DC82B0A9448001AD131 /* MapButtonVModifier.swift in Sources */,
 				073733432B096C10004B96D1 /* DoubleE.swift in Sources */,
+				B5B7CEC52BB0921000C002ED /* MeasurementsVM.swift in Sources */,
 				078C6DD02B0B0996001AD131 /* CLLocationCoordinate2DE.swift in Sources */,
 				073F91692B05C5A400AE56CB /* ToastInfo.swift in Sources */,
 				B534C72B2B89052D00FD6901 /* GPSMapBranchesV.swift in Sources */,
