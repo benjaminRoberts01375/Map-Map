@@ -31,11 +31,7 @@ final class LocationsHandler {
             let updates = CLLocationUpdate.liveUpdates(.fitness)
             for try await update in updates {
                 if !self.updatesStarted { return }  // End location updates by breaking out of the loop.
-                if let loc = update.location {
-                    withAnimation {
-                        self.lastLocation = loc
-                    }
-                }
+                if let loc = update.location { withAnimation { self.lastLocation = loc } }
             }
             return
         }
