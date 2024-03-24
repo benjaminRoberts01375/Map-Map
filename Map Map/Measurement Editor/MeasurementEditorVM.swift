@@ -5,11 +5,13 @@
 //  Created by Ben Roberts on 3/24/24.
 //
 
+import CoreData
+import MapKit
 import SwiftUI
 
 extension MeasurementEditorV {
     @Observable
-    final class ViewModel {
+    internal final class ViewModel {
         /// Real-world distance between the start and end points.
         var distance: Measurement<UnitLength> = Measurement(value: .zero, unit: .meters)
         /// Screen-space position of the measuring point.
@@ -23,78 +25,76 @@ extension MeasurementEditorV {
         /// All screen-space positions of the handles.
         var handlePositions: [MapMeasurementCoordinate : CGSize] = [:]
         /// Editor being used.
-        @ObservationIgnored 
+        @ObservationIgnored
         @Binding var editing: Editor
         
-        /// Basic orientation and positioning for a line
-        enum Orientation {
-            case leftVertical
-            case rightVertical
-            case topHorizontal
-            case bottomHorizontal
+        init(editing: Binding<Editor>) {
+            self._editing = editing
         }
-        
-        /// Drag gesture for creating a line from scratch.
-        var drawGesture: some Gesture {
-            DragGesture(coordinateSpace: .global)
-                .onChanged { update in
-                    if !isDragging {
-                        if let selectedMeasurement = selectedMeasurement,
-                            let measurementPos = mapDetails.mapProxy?.convert(selectedMeasurement.coordinates, to: .global) {
-                            startingPos = CGSize(cgPoint: measurementPos)
-                        }
-                        else { startingPos = CGSize(cgPoint: update.startLocation) }
-                        isDragging = true
-                    }
-                    let currentEndingPos = CGSize(cgPoint: update.location)
-                    if let snapPos = snapToMeasurement(currentEndingPos) { endingPos = snapPos.1 }
-                    else if let snapPos = snapToMarker(currentEndingPos) { endingPos = snapPos.1 }
-                    else { endingPos = currentEndingPos }
-                    
-                    guard let startingCoord = mapDetails.mapProxy?.convert(CGPoint(size: startingPos), from: .global),
-                          let endingCoord = mapDetails.mapProxy?.convert(CGPoint(size: endingPos), from: .global)
-                    else { return }
-                    let startingLoc = CLLocation(latitude: startingCoord.latitude, longitude: startingCoord.longitude)
-                    let endingLoc = CLLocation(latitude: endingCoord.latitude, longitude: endingCoord.longitude)
-                    self.distance = Measurement(value: endingLoc.distance(from: startingLoc), unit: .meters)
-                }
-                .onEnded { _ in
-                    isDragging = false
-                    if let startingMeasurement = selectedMeasurement {
-                        if let endingMeasurement = snapToMeasurement(endingPos) {
-                            startingMeasurement.addToNeighbors(endingMeasurement.0)
-                            self.selectedMeasurement = endingMeasurement.0
-                        }
-                        else {
-                            guard let endingCoordinate = mapDetails.mapProxy?.convert(CGPoint(size: endingPos), from: .global)
-                            else { return }
-                            let endingMeasurement = MapMeasurementCoordinate(coordinate: endingCoordinate, insertInto: moc)
-                            startingMeasurement.addToNeighbors(endingMeasurement)
-                            self.selectedMeasurement = endingMeasurement
-                        }
-                    }
-                    else {
-                        if let endingMeasurement = snapToMeasurement(endingPos) {
-                            guard let startingCoordinate = mapDetails.mapProxy?.convert(CGPoint(size: startingPos), from: .global)
-                            else { return }
-                            let startingMeasurement = MapMeasurementCoordinate(coordinate: startingCoordinate, insertInto: moc)
-                            startingMeasurement.addToNeighbors(endingMeasurement.0)
-                            self.selectedMeasurement = endingMeasurement.0
-                        }
-                        else {
-                            guard let startingCoordinate = mapDetails.mapProxy?.convert(CGPoint(size: startingPos), from: .global),
-                                  let endingCoordinate = mapDetails.mapProxy?.convert(CGPoint(size: endingPos), from: .global)
-                            else { return }
-                            let startingMeasurement = MapMeasurementCoordinate(coordinate: startingCoordinate, insertInto: moc)
-                            let endingMeasurement = MapMeasurementCoordinate(coordinate: endingCoordinate, insertInto: moc)
-                            startingMeasurement.addToNeighbors(endingMeasurement)
-                            self.selectedMeasurement = endingMeasurement
-                        }
-                    }
-                    startingPos = .zero
-                    endingPos = .zero
-                    cleanupMeasurements()
-                }
+    }
+    
+    /// Basic orientation and positioning for a line
+    enum Orientation {
+        case leftVertical
+        case rightVertical
+        case topHorizontal
+        case bottomHorizontal
+    }
+    
+    func preDrag(startLocation: CGSize) {
+        if let selectedMeasurement = viewModel.selectedMeasurement,
+           let measurementPos = mapDetails.mapProxy?.convert(selectedMeasurement.coordinates, to: .global) {
+            viewModel.startingPos = CGSize(cgPoint: measurementPos)
+        }
+        else { viewModel.startingPos = startLocation }
+        viewModel.isDragging = true
+    }
+    
+    func snapToAnything(dragPosition: CGSize) {
+        if let snapPos = snapToMeasurement(dragPosition) { viewModel.endingPos = snapPos.1 } // Found a measurement to snap to
+        else if let snapPos = snapToMarker(dragPosition) { viewModel.endingPos = snapPos.1 } // Found a marker to snap to
+        else { viewModel.endingPos = dragPosition } // Nothing snapped
+    }
+    
+    func calculateDistanceBetweenPoints() -> Measurement<UnitLength>? {
+        guard let startingCoord = mapDetails.mapProxy?.convert(CGPoint(size: viewModel.startingPos), from: .global),
+              let endingCoord = mapDetails.mapProxy?.convert(CGPoint(size: viewModel.endingPos), from: .global)
+        else { return nil }
+        let startingLoc = CLLocation(latitude: startingCoord.latitude, longitude: startingCoord.longitude)
+        let endingLoc = CLLocation(latitude: endingCoord.latitude, longitude: endingCoord.longitude)
+        return Measurement(value: endingLoc.distance(from: startingLoc), unit: .meters)
+    }
+    
+    func combineSnapStartMeasurement(startingMeasurement: MapMeasurementCoordinate) {
+        if let endingMeasurement = snapToMeasurement(viewModel.endingPos) {
+            startingMeasurement.addToNeighbors(endingMeasurement.0)
+            viewModel.selectedMeasurement = endingMeasurement.0
+        }
+        else {
+            guard let endingCoordinate = mapDetails.mapProxy?.convert(CGPoint(size: viewModel.endingPos), from: .global)
+            else { return }
+            let endingMeasurement = MapMeasurementCoordinate(coordinate: endingCoordinate, insertInto: moc)
+            startingMeasurement.addToNeighbors(endingMeasurement)
+            viewModel.selectedMeasurement = endingMeasurement
+        }
+    }
+    
+    func combineSnapStartMeasurement() {
+        if let endingMeasurement = snapToMeasurement(viewModel.endingPos) {
+            guard let startingCoordinate = mapDetails.mapProxy?.convert(CGPoint(size: viewModel.startingPos), from: .global)
+            else { return }
+            let startingMeasurement = MapMeasurementCoordinate(coordinate: startingCoordinate, insertInto: moc)
+            startingMeasurement.addToNeighbors(endingMeasurement.0)
+            viewModel.selectedMeasurement = endingMeasurement.0
+        }
+        else {
+            guard let startingCoordinate = mapDetails.mapProxy?.convert(CGPoint(size: viewModel.startingPos), from: .global),
+                  let endingCoordinate = mapDetails.mapProxy?.convert(CGPoint(size: viewModel.endingPos), from: .global)
+            else { return }
+            let startingMeasurement = MapMeasurementCoordinate(coordinate: startingCoordinate, insertInto: moc)
+            let endingMeasurement = MapMeasurementCoordinate(coordinate: endingCoordinate, insertInto: moc)
+            startingMeasurement.addToNeighbors(endingMeasurement)
+            viewModel.selectedMeasurement = endingMeasurement
         }
     }
     
@@ -109,16 +109,16 @@ extension MeasurementEditorV {
             if let snapPoint = snapToMarker(updatedHandlePosition) { updatedHandlePosition = snapPoint.1 }
             handlePositions[measurement] = updatedHandlePosition
         }
-        self.handlePositions = handlePositions
+        viewModel.handlePositions = handlePositions
     }
     
     /// Create a binding from coordinates to CGSize
     func handlePositionBinding(for key: MapMeasurementCoordinate) -> Binding<CGSize> {
         Binding<CGSize>(
-            get: { self.handlePositions[key] ?? .zero },
+            get: { viewModel.handlePositions[key] ?? .zero },
             set: { newVal in
-                self.handlePositions[key] = newVal
-                self.selectedMeasurement = key
+                viewModel.handlePositions[key] = newVal
+                viewModel.selectedMeasurement = key
                 Task {
                     guard let mapCoords = mapDetails.mapProxy?.convert(CGPoint(size: newVal), from: .global)
                     else { return }
@@ -140,7 +140,7 @@ extension MeasurementEditorV {
     /// - Returns: The first found MapMeasurementCoordinate and it's position on screen.
     private func snapToMeasurement(_ point: CGSize) -> (MapMeasurementCoordinate, CGSize)? {
         for measurement in measurements {
-            guard let handlePosition = handlePositions[measurement]
+            guard let handlePosition = viewModel.handlePositions[measurement]
             else { continue }
             if handlePosition.distanceTo(point) < HandleV.handleSize {
                 return (measurement, handlePosition)

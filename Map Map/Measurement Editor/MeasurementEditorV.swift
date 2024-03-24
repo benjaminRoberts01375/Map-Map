@@ -6,7 +6,6 @@
 //
 
 import Bottom_Drawer
-import MapKit
 import SwiftUI
 
 struct MeasurementEditorV: View {
@@ -17,7 +16,31 @@ struct MeasurementEditorV: View {
     /// Measurement to edit.
     @FetchRequest(sortDescriptors: []) var measurements: FetchedResults<MapMeasurementCoordinate>
     /// Managed object context the measurement is stored in.
-    @Environment(\.managedObjectContext) private var moc
+    @Environment(\.managedObjectContext) internal var moc
+    /// View model to store back-end logic.
+    @State var viewModel: ViewModel
+    
+    init(editing: Binding<Editor>) {
+        self._viewModel = State(initialValue: ViewModel(editing: editing))
+    }
+    
+    var drawGesture: some Gesture {
+        DragGesture(coordinateSpace: .global)
+            .onChanged { update in
+                if !viewModel.isDragging {
+                    preDrag(startLocation: CGSize(cgPoint: update.startLocation))
+                }
+                snapToAnything(dragPosition: CGSize(cgPoint: update.location))
+                if let newDistance = calculateDistanceBetweenPoints() { viewModel.distance = newDistance}
+            }
+            .onEnded { _ in
+                viewModel.isDragging = false
+                if let startingMeasurement = viewModel.selectedMeasurement {
+                    combineSnapStartMeasurement(startingMeasurement: startingMeasurement)
+                }
+                else { combineSnapStartMeasurement() }
+            }
+    }
     
     var body: some View {
         GeometryReader { _ in
@@ -25,34 +48,38 @@ struct MeasurementEditorV: View {
                 Color.black
                     .opacity(0.5)
                     .ignoresSafeArea()
-                    .onTapGesture { selectedMeasurement = nil }
+                    .onTapGesture { viewModel.selectedMeasurement = nil }
                     .accessibilityAddTraits(.isButton)
                     .gesture(drawGesture)
-                if endingPos != startingPos {
+                if viewModel.endingPos != viewModel.startingPos {
                     ZStack {
-                        Line(startingPos: startingPos, endingPos: endingPos)
+                        Line(startingPos: viewModel.startingPos, endingPos: viewModel.endingPos)
                             .stroke(style: StrokeStyle(lineWidth: 5, lineCap: .round))
                             .shadow(radius: 2)
-                            .lineLabel(startingPos: CGPoint(size: startingPos), endingPos: CGPoint(size: endingPos), distance: distance)
-                        if selectedMeasurement == nil { HandleV(position: $startingPos) }
-                        HandleV(position: $endingPos)
+                            .lineLabel(
+                                startingPos: CGPoint(size: viewModel.startingPos),
+                                endingPos: CGPoint(size: viewModel.endingPos), 
+                                distance: viewModel.distance
+                            )
+                        if viewModel.selectedMeasurement == nil { HandleV(position: $viewModel.startingPos) }
+                        HandleV(position: $viewModel.endingPos)
                     }
                     .ignoresSafeArea()
                 }
                 
                 ForEach(measurements) { measurement in
                     Button {
-                        selectedMeasurement = measurement
+                        viewModel.selectedMeasurement = measurement
                     } label: {
                         HandleV(
-                            position: handlePositionBinding(for: measurement), 
-                            color: selectedMeasurement == measurement ? Color.highlightBlue : HandleV.defaultColor,
+                            position: handlePositionBinding(for: measurement),
+                            color: viewModel.selectedMeasurement == measurement ? Color.highlightBlue : HandleV.defaultColor,
                             deferPosition: true
                         )
                     }
                     .position(
-                        x: handlePositions[measurement]?.width ?? .zero,
-                        y: handlePositions[measurement]?.height ?? .zero
+                        x: viewModel.handlePositions[measurement]?.width ?? .zero,
+                        y: viewModel.handlePositions[measurement]?.height ?? .zero
                     )
                 }
                 .ignoresSafeArea()
@@ -64,7 +91,7 @@ struct MeasurementEditorV: View {
                         HStack {
                             // Done button
                             Button {
-                                editing = .nothing
+                                viewModel.editing = .nothing
                                 cleanupMeasurements()
                                 try? moc.save()
                             } label: {
@@ -74,16 +101,16 @@ struct MeasurementEditorV: View {
                             
                             // Delete button
                             Button( action: {
-                                guard let selectedMeasurement = selectedMeasurement
+                                guard let selectedMeasurement = viewModel.selectedMeasurement
                                 else { return }
                                 moc.delete(selectedMeasurement)
-                                self.selectedMeasurement = nil
+                                viewModel.selectedMeasurement = nil
                                 try? moc.save()
                             }, label: {
                                 Text("Delete")
-                                    .bigButton(backgroundColor: .red.opacity(selectedMeasurement != nil ? 1 : 0.5))
+                                    .bigButton(backgroundColor: .red.opacity(viewModel.selectedMeasurement != nil ? 1 : 0.5))
                             })
-                            .disabled(selectedMeasurement == nil)
+                            .disabled(viewModel.selectedMeasurement == nil)
                         }
                     }
                 }
@@ -97,7 +124,7 @@ struct MeasurementEditorV: View {
             generateSSHandlePositions()
         }
         .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)) { _ in
-            cleanupMeasurements()
+            generateSSHandlePositions()
         }
     }
 }
