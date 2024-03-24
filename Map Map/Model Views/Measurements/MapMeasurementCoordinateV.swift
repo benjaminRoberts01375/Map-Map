@@ -1,5 +1,5 @@
 //
-//  MeasurementV.swift
+//  MapMeasurementCoordinates.swift
 //  Map Map
 //
 //  Created by Ben Roberts on 3/24/24.
@@ -8,7 +8,7 @@
 import MapKit
 import SwiftUI
 
-struct MeasurementV: View {
+struct MapMeasurementCoordinateV: View {
     @Environment(MapDetailsM.self) var mapDetails
     @ObservedObject var start: MapMeasurementCoordinate
     @ObservedObject var end: MapMeasurementCoordinate
@@ -16,7 +16,7 @@ struct MeasurementV: View {
     @State var endPoint: CGPoint = .zero
     let distance: Measurement<UnitLength>
     
-    init(connection: MeasurementsV.Connection) {
+    init(connection: MapMeasurementCoordinatesV.Connection) {
         self.start = connection.startNode
         self.end = connection.endNode
         self.distance = connection.distance

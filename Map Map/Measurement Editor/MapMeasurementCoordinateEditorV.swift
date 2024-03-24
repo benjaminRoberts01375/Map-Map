@@ -1,5 +1,5 @@
 //
-//  MeasurementEditorV.swift
+//  MapMeasurementCoordinateEditorV.swift
 //  Map Map
 //
 //  Created by Ben Roberts on 12/15/23.
@@ -9,7 +9,7 @@ import Bottom_Drawer
 import MapKit
 import SwiftUI
 
-struct MeasurementEditorV: View {
+struct MapMeasurementCoordinateEditorV: View {
     /// Information about the map being plotted on top of.
     @Environment(MapDetailsM.self) var mapDetails
     /// All available Markers.

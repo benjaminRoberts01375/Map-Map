@@ -8,7 +8,7 @@
 import MapKit
 import SwiftUI
 
-extension MeasurementsV {
+extension MapMeasurementCoordinatesV {
     @Observable
     final class ViewModel {
         var connections: [Connection] = []

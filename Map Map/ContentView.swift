@@ -53,7 +53,7 @@ struct ContentView: View {
                 case .mapMap(let mapMap): MapMapEditor(mapMap: mapMap)
                 case .gpsMap(let gpsMap): GPSMapPhaseController(gpsMap: gpsMap)
                 case .marker(let marker): MarkerEditorV(marker: marker)
-                case .measurement: MeasurementEditorV(editing: $editing)
+                case .measurement: MapMeasurementCoordinateEditorV(editing: $editing)
                 case .nothing:
                     BottomDrawer(
                         verticalDetents: [.medium, .large, .header],

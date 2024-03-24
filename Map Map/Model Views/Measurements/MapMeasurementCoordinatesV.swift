@@ -1,5 +1,5 @@
 //
-//  MeasurementsV.swift
+//  MapMeasurementCoordinatesV.swift
 //  Map Map
 //
 //  Created by Ben Roberts on 3/24/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MeasurementsV: View {
+struct MapMeasurementCoordinatesV: View {
     @Environment(MapDetailsM.self) var mapDetails
     @FetchRequest(sortDescriptors: []) var measurementCoordinates: FetchedResults<MapMeasurementCoordinate>
     @State var viewModel: ViewModel = ViewModel()
@@ -15,7 +15,7 @@ struct MeasurementsV: View {
     var body: some View {
         ZStack {
             ForEach(Array(viewModel.connections.enumerated()), id: \.offset) { _, connection in
-                ZStack { MeasurementV(connection: connection) }
+                ZStack { MapMeasurementCoordinateV(connection: connection) }
                     .onChange(of: connection.endNode.unwrappedNeighbors.count) {
                         Task {
                             let connections = determineConnections()
