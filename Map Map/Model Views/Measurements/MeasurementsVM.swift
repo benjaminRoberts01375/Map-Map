@@ -18,13 +18,13 @@ extension MeasurementsV {
     struct Connection {
         let startNode: MapMeasurementCoordinate
         let endNode: MapMeasurementCoordinate
-        let distance: Double
+        let distance: Measurement<UnitLength>
     }
     
     struct SSConnection: Identifiable {
         let startPoint: CGPoint
         let endPoint: CGPoint
-        let distance: Double
+        let distance: Measurement<UnitLength>
         let id = UUID()
     }
     
@@ -48,7 +48,11 @@ extension MeasurementsV {
                     let start = CLLocation(latitude: currentNode.latitude, longitude: currentNode.longitude)
                     let end = CLLocation(latitude: neighborNode.latitude, longitude: neighborNode.longitude)
                     if !visited.contains(neighborNode) {
-                        let connection = Connection(startNode: currentNode, endNode: neighborNode, distance: start.distance(from: end))
+                        let connection = Connection(
+                            startNode: currentNode,
+                            endNode: neighborNode,
+                            distance: Measurement(value: start.distance(from: end), unit: .meters)
+                        )
                         clusterConnections.append(connection)
                         visited.insert(neighborNode)
                         queue.append(neighborNode)
@@ -72,7 +76,9 @@ extension MeasurementsV {
                 guard let startPos = mapDetails.mapProxy?.convert(edge.startNode.coordinates, to: .global),
                       let endPos = mapDetails.mapProxy?.convert(edge.endNode.coordinates, to: .global)
                 else { continue }
-                edges.append(SSConnection(startPoint: startPos, endPoint: endPos, distance: edge.distance))
+                edges.append(
+                    SSConnection(startPoint: startPos, endPoint: endPos, distance: edge.distance)
+                )
             }
             clusters.append(edges)
         }
