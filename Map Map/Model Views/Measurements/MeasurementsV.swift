@@ -33,7 +33,7 @@ struct MeasurementsV: View {
                 }
             }
         }
-        .onChange(of: measurementCoordinates.count) {
+        .onChange(of: measurementCoordinates.count, initial: true) {
             Task {
                 let edges = determineEdges()
                 let ssEdges = determineSSConnectionPoints()
