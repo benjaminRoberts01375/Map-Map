@@ -21,10 +21,11 @@ extension MeasurementsV {
         let distance: Double
     }
     
-    struct SSConnection {
+    struct SSConnection: Identifiable {
         let startPoint: CGPoint
         let endPoint: CGPoint
         let distance: Double
+        let id = UUID()
     }
     
     func determineEdges() -> [[Connection]] { // BFS
