@@ -19,6 +19,7 @@ public class MapMeasurementCoordinate: NSManagedObject {
             self.longitude = update.longitude
         }
     }
+    public var location: CLLocation { CLLocation(latitude: latitude, longitude: longitude) }
     
     public convenience init(coordinate: CLLocationCoordinate2D, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
