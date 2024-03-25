@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct MapLabelVModifier: ViewModifier {
+    @Environment(\.colorScheme) var colorScheme
     private let shadowRadius: CGFloat = 8
+    
     func body(content: Content) -> some View {
         content
-            .shadow(color: .black, radius: shadowRadius)
+            .foregroundStyle(colorScheme == .dark ? .white : .black)
+            .shadow(color: colorScheme == .dark ? .black : .white, radius: shadowRadius)
     }
 }
 
