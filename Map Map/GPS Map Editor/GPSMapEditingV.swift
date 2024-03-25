@@ -45,6 +45,7 @@ struct GPSMapEditingV: View {
             HStack {
                 Button {
                     try? moc.save()
+                    gpsMap.name = workingName
                     gpsMap.isEditing = false
                 } label: {
                     Text("Done").bigButton(backgroundColor: .blue)
