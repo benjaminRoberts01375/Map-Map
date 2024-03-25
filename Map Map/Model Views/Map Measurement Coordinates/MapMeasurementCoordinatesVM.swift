@@ -15,7 +15,11 @@ extension MapMeasurementCoordinatesV {
         let distance: Measurement<UnitLength>
     }
     
+    /// Determine all connections that the MapMeasurementCoordinates create
+    /// - Returns: All available connections
     func determineConnections() -> [Connection] { // BFS
+        if self.mapMeasurementCoordinates.count == 1, let lostSoul = self.mapMeasurementCoordinates.first { moc.delete(lostSoul) }
+        else if self.mapMeasurementCoordinates.count < 2 { return [] }
         var connections: [Connection] = []
         var visited: Set<MapMeasurementCoordinate> = []
         

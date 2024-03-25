@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MapMeasurementCoordinatesV: View {
+    /// Core Data managed object context
+    @Environment(\.managedObjectContext) var moc
     /// Details of the background map
     @Environment(MapDetailsM.self) var mapDetails
     /// All available MapMeasurementCoordinates
