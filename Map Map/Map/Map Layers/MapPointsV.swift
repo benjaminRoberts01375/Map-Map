@@ -34,7 +34,9 @@ struct MapPointsV: View {
     
     var body: some View {
         GeometryReader { _ in
-            ForEach(gpsMaps) { GPSMapV(gpsMap: $0) }
+            ForEach(gpsMaps) { gpsMap in
+                if gpsMap.shown { GPSMapV(gpsMap: gpsMap) }
+            }
             
             MapMeasurementCoordinatesV()
                 .allowsHitTesting(false)
