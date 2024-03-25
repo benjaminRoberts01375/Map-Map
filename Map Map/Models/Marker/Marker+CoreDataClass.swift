@@ -45,6 +45,7 @@ public class Marker: NSManagedObject {
                 guard let context = self.managedObjectContext else { return Color.red }
                 let defaultColor = MarkerColor(red: 0.95, green: 0.30, blue: 0.30, insertInto: context)
                 self.color = defaultColor
+                defaultColor.marker = self
                 return Color(red: defaultColor.red, green: defaultColor.green, blue: defaultColor.blue)
             }
         }
@@ -55,7 +56,15 @@ public class Marker: NSManagedObject {
                 var blue: CGFloat = 0.0
                 var alpha: CGFloat = 0.0
                 _ = UIColor(newValue).getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-                self.color = MarkerColor(red: red, green: green, blue: blue, insertInto: context)
+                if let color = self.color {
+                    color.red = red
+                    color.green = green
+                    color.blue = blue
+                }
+                else {
+                    let color = MarkerColor(red: red, green: green, blue: blue, insertInto: context)
+                    self.color = color
+                }
             }
         }
     }
