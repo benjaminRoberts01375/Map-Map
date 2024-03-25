@@ -48,19 +48,22 @@ struct GPSMapBranchesV: View {
                 
             }
             ScrollView(.horizontal) {
-                ForEach(gpsMap.unwrappedBranches) { branch in
-                    Button {
-                        self.editingMode = .editingBranch(branch)
-                    } label: {
-                        Text(branch.name ?? "Branch")
-                            .allowsTightening(true)
-                            .padding(.horizontal, 5)
-                            .foregroundStyle(branch.branchColor.contrastColor)
-                            .bigButton(backgroundColor: branch.branchColor, maxWidth: 150)
+                HStack {
+                    ForEach(gpsMap.unwrappedBranches) { branch in
+                        Button {
+                            self.editingMode = .editingBranch(branch)
+                        } label: {
+                            Text(branch.name ?? "Branch")
+                                .allowsTightening(true)
+                                .padding(.horizontal, 5)
+                                .foregroundStyle(branch.branchColor.contrastColor)
+                                .bigButton(backgroundColor: branch.branchColor, maxWidth: 150)
+                                .shadow(radius: 2)
+                        }
                     }
                 }
-                .shadow(radius: 2)
             }
+            .onAppear { print(gpsMap.unwrappedBranches.count) }
         }
     }
 }
