@@ -34,10 +34,11 @@ struct MapMeasurementCoordinateV: View {
                 // Outline line
                 Line(startingPos: CGSize(cgPoint: startPoint), endingPos: CGSize(cgPoint: endPoint))
                     .stroke(style: StrokeStyle(lineWidth: 6, lineCap: .round))
-                    .foregroundStyle(.black.opacity(0.5))
+                    .foregroundStyle(.white.opacity(0.5))
                 // Foreground line
                 Line(startingPos: CGSize(cgPoint: startPoint), endingPos: CGSize(cgPoint: endPoint))
                     .stroke(style: StrokeStyle(lineWidth: 5, lineCap: .round))
+                    .foregroundStyle(.black.opacity(0.5))
                     .lineLabel(
                         startingPos: startPoint,
                         endingPos: endPoint,
