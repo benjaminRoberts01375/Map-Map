@@ -34,12 +34,10 @@ struct MapPointsV: View {
     
     var body: some View {
         GeometryReader { _ in
+            ForEach(gpsMaps) { GPSMapV(gpsMap: $0) }
+            
             MapMeasurementCoordinatesV()
                 .allowsHitTesting(false)
-            
-            ForEach(gpsMaps) { gpsMap in
-                GPSMapV(gpsMap: gpsMap)
-            }
             
             ForEach(markers) { marker in
                 if let position = mapDetails.mapProxy?.convert(marker.coordinate, to: .global), !marker.isEditing && marker.shown {
