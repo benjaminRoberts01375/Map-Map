@@ -25,8 +25,6 @@ struct MapPointsV: View {
     let screenSize: CGSize
     /// Marker icon size.
     static let iconSize: CGFloat = 30
-    /// User location icon size.
-    private let userLocationSize: CGFloat = 24
     /// Offset marker slightly for correct alignment.
     private let markerOffset: CGFloat = -2
     /// Min line length
@@ -75,8 +73,7 @@ struct MapPointsV: View {
                     longitude: locationsHandler.lastLocation.coordinate.longitude
                 )
                 if let screenSpaceUserLocation = mapDetails.mapProxy?.convert(userLocation, to: .global) {
-                    MapUserIcon()
-                        .frame(width: userLocationSize, height: userLocationSize)
+                    PingingUserIconV()
                         .position(screenSpaceUserLocation)
                 }
                 else { EmptyView() }
