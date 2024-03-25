@@ -37,28 +37,25 @@ extension MapMeasurementCoordinatesV {
         
         for node in mapMeasurementCoordinates {
             if visited.contains(node) { continue }
-            var queue: [MapMeasurementCoordinate] = [node]
-            visited.insert(node)
+            var queue: Set<MapMeasurementCoordinate> = [node]
 
             while !queue.isEmpty {
                 let currentNode = queue.removeFirst()
+                visited.insert(currentNode)
 
                 for neighborNode in currentNode.unwrappedNeighbors {
                     let start = CLLocation(latitude: currentNode.latitude, longitude: currentNode.longitude)
                     let end = CLLocation(latitude: neighborNode.latitude, longitude: neighborNode.longitude)
                     let startPos = CGPoint(x: currentNode.latitude, y: currentNode.longitude)
                     let endPos = CGPoint(x: neighborNode.latitude, y: neighborNode.longitude)
-                    if ssMapMesh.contains(startPos) || ssMapMesh.contains(endPos) {
+                    if !visited.contains(neighborNode) && (ssMapMesh.contains(startPos) || ssMapMesh.contains(endPos)) {
                         let connection = Connection(
                             startNode: currentNode,
                             endNode: neighborNode,
                             distance: Measurement(value: start.distance(from: end), unit: .meters)
                         )
                         connections.append(connection)
-                        visited.insert(neighborNode)
-                    }
-                    if !visited.contains(neighborNode) {
-                        queue.append(neighborNode)
+                        queue.insert(neighborNode)
                     }
                 }
             }
