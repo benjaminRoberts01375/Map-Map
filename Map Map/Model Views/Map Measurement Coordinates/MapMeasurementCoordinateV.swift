@@ -20,12 +20,12 @@ struct MapMeasurementCoordinateV: View {
     /// Ending coordinate as a CGPoint,
     @State var endPoint: CGPoint = .zero
     /// Distance between points.
-    let distance: Measurement<UnitLength>
+    @State var distance: Measurement<UnitLength>
     
     init(connection: MapMeasurementCoordinatesV.Connection) {
         self.start = connection.startNode
         self.end = connection.endNode
-        self.distance = connection.distance
+        self._distance = State(initialValue: connection.distance)
     }
     
     var body: some View {
@@ -56,9 +56,11 @@ struct MapMeasurementCoordinateV: View {
     func determineSSPos() async {
         let startPos = mapDetails.mapProxy?.convert(start.coordinates, to: .global)
         let endPos = mapDetails.mapProxy?.convert(end.coordinates, to: .global)
+        let distance: Measurement<UnitLength> = Measurement(value: start.location.distance(from: end.location), unit: .meters) 
         await MainActor.run {
             self.startPoint = startPos ?? .zero
             self.endPoint = endPos ?? .zero
+            self.distance = distance
         }
     }
 }
