@@ -8,6 +8,7 @@
 import SwiftUI
 
 extension StoreV {
+    /// Display explorer text and MapMap icon.
     struct MapMapExplorerTitleV: View {
         var body: some View {
             VStack {

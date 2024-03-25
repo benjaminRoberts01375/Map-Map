@@ -95,6 +95,5 @@ Pods
 Map Map.xcworkspace
 
 # Art
-Art/AppStore/Bezels
-Art/AppStore/Fonts
-Art/AppStore/Symbols
+App Store Art/Bezels
+App Store Art/Map Map Art.xcf

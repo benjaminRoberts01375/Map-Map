@@ -8,6 +8,7 @@
 import SwiftUI
 
 extension StoreV.BulletPointListV {
+    /// A single advertising bullet point.
     struct BulletPointV: View {
         let icon: String
         let color: Color

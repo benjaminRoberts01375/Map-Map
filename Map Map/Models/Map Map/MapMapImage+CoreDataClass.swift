@@ -11,7 +11,10 @@ import SwiftUI
 
 @objc(MapMapImage)
 public class MapMapImage: NSManagedObject {
+    /// Resolution to use when generating a thumbnail
     static let thumbnailSize: CGSize = CGSize(width: 300, height: 300)
+    
+    /// Get the size of the image as a CGSize
     var imageSize: CGSize {
         get { CGSize(width: imageWidth, height: imageHeight) }
         set(newValue) {
@@ -19,12 +22,13 @@ public class MapMapImage: NSManagedObject {
             self.imageHeight = newValue.height
         }
     }
-    
+    /// Get the orientation of the image as a formatted orientation.
+    var unwrappedOrientation: Orientation { Orientation(rawValue: self.orientation) ?? .standard }
+
+    /// Current setup status of the image.
     private(set) var imageStatus: ImageStatus = .empty { didSet { self.objectWillChange.send() } }
+    /// Current setup status of the thumbnail.
     private(set) var thumbnailStatus: ImageStatus = .empty { didSet { self.objectWillChange.send() } }
-    var unwrappedOrientation: Orientation {
-        Orientation(rawValue: self.orientation) ?? .standard
-    }
     
     public enum ImageStatus: Equatable {
         case empty
@@ -33,6 +37,8 @@ public class MapMapImage: NSManagedObject {
         case failure
     }
     
+    /// Load image from Core Data
+    /// - Returns: Completed UIImage
     private func loadImage() async -> UIImage? {
         guard let imageData = imageData,
               let uiImage = UIImage(data: imageData)
@@ -40,13 +46,17 @@ public class MapMapImage: NSManagedObject {
         return uiImage
     }
     
+    /// Load thumbnail from Core Data.
+    /// - Returns: Completed UIImage.
     private func loadThumbnail() async -> UIImage? {
         guard let thumbnailData = thumbnailData,
               let uiImage = UIImage(data: thumbnailData)
         else { return nil }
         return uiImage
     }
-    
+
+    /// Asynchronously load the thumbnail and image from Core Data
+    /// - Note: If a thumbnail is not available, one will be generated from the main image.
     public func loadFromCD() async {
         await MainActor.run {
             self.thumbnailStatus = .loading
@@ -71,6 +81,7 @@ public class MapMapImage: NSManagedObject {
         else { await MainActor.run { thumbnailStatus = .failure } } // WHY IS IT GONE?!??!
     }
     
+    /// Generate a thumbnail from the base image.
     private func generateThumbnail(from uiImage: UIImage) async -> UIImage? {
         return await uiImage.byPreparingThumbnail(ofSize: MapMapImage.thumbnailSize)
     }

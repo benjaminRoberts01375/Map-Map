@@ -34,6 +34,12 @@ struct LocationNotAlwaysVModifier: ViewModifier {
 }
 
 extension View {
+    /// An alert specific to telling the user that GPS Maps need always location
+    /// and allow easy access to settings to change it.
+    /// - Parameters:
+    ///   - isPresented: Boolean to control if the alert is shown.
+    ///   - cancelAction: What to do when the action is cancelled.
+    /// - Returns: This view with an alert attached
     func locationNotAlwaysAvailable(isPresented: Binding<Bool>, cancelAction: @escaping () -> Void) -> some View {
         modifier(LocationNotAlwaysVModifier(isPresented: isPresented, cancelAction: cancelAction))
     }

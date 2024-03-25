@@ -11,7 +11,7 @@ import SwiftUI
 struct DefaultDrawerHeaderV: View {
     /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
-    
+    /// View model holding logic and functions.
     @State var viewModel: ViewModel = ViewModel()
     
     var body: some View {

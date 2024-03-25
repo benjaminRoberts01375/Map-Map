@@ -8,7 +8,9 @@
 import SwiftUI
 
 fileprivate struct OnViewResizes: ViewModifier {
+    /// Current size of the view.
     @State var size: CGSize = .zero
+    /// Initial and update sizes.
     let todo: (CGSize, CGSize) -> Void
     
     func body(content: Content) -> some View {

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct UnableToReadPDFVModifier: ViewModifier {
+    /// Boolean to control if the alert is shown.
     @Binding var isPresented: Bool
     
     func body(content: Content) -> some View {
@@ -21,6 +22,10 @@ struct UnableToReadPDFVModifier: ViewModifier {
 }
 
 extension View {
+    /// An alert specific to telling the user a PDF could not be read.
+    /// - Parameters:
+    ///   - isPresented: Boolean to control if the alert is shown.
+    /// - Returns: This view with an alert attached
     func unableToReadPDF(isPresented: Binding<Bool>) -> some View {
         modifier(UnableToReadPDFVModifier(isPresented: isPresented))
     }

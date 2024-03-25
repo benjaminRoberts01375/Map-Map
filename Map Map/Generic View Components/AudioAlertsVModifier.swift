@@ -74,6 +74,8 @@ struct AudioAlertsVModifier: ViewModifier {
 }
 
 extension View {
+    /// Attach Marker audio alerts to the view.
+    /// - Returns: Updated view.
     func audioAlerts() -> some View {
         return modifier(AudioAlertsVModifier())
     }

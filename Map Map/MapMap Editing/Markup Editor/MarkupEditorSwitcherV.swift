@@ -87,10 +87,11 @@ struct MarkupEditorSwitcherV: View {
         }
     }
     
+    /// Configure Pencil Kit tool picker.
     private func setupToolPicker() {
         toolPicker.setVisible(true, forFirstResponder: canvasView)
         toolPicker.addObserver(canvasView)
-        toolPicker.isRulerActive = true
+        toolPicker.isRulerActive = false
         canvasView.becomeFirstResponder()
         toolPicker.addObserver(canvasView)
     }

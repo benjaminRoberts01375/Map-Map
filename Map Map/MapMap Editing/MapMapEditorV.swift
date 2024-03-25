@@ -112,20 +112,7 @@ struct MapMapEditor: View {
         }
         .fullScreenCover(isPresented: $showingPhotoEditor) { PhotoEditorCompositeV(mapMap: mapMap) }
         .fullScreenCover(isPresented: $showingMarkupEditor) { MarkupEditorSwitcherV(mapMap: mapMap) }
-        .alert(isPresented: $showingPhotoEditorAlert) {
-            Alert(
-                title: Text("Map Map Drawing"),
-                message: Text("To change the shape of you Map Map, you must delete your drawing."),
-                primaryButton: .destructive(
-                    Text("Delete and Crop"),
-                    action: {
-                        if let drawing = mapMap.activeImage?.drawing { moc.delete(drawing) }
-                        showingPhotoEditor = true
-                    }
-                ),
-                secondaryButton: .cancel(Text("Cancel"))
-            )
-        }
+        .deleteMapMapImageDrawing(mapMap.activeImage, isPresented: $showingPhotoEditorAlert)
     }
     
     /// Determine all Markers that overlap a given MapMap

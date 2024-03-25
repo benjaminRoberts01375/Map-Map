@@ -10,9 +10,13 @@ import SwiftUI
 struct LargeListItemV<ItemType: ListItem>: View {
     /// Current color scheme. Ex. Dark or Light mode.
     @Environment(\.colorScheme) private var colorScheme
+    /// List item to display
     @ObservedObject var listItem: ItemType
+    /// Size of thumbnail.
     private let thumbnailSize: CGFloat = 100
+    /// Corner radius of thumbnails
     private let cornerRadius: CGFloat = 10
+    /// Action to take when tapped.
     var action: () -> Void
     
     var body: some View {

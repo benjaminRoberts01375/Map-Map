@@ -12,6 +12,7 @@ import PencilKit
 
 @objc(MapMapImageDrawing)
 public class MapMapImageDrawing: NSManagedObject {
+    /// Convert raw binary data to and from a PKDrawing
     var pkDrawing: PKDrawing? {
         get {
             if let data = self.drawingData {
@@ -26,6 +27,7 @@ public class MapMapImageDrawing: NSManagedObject {
         }
     }
     
+    /// Image Drawing dimensions as a CGSize.
     var size: CGSize {
         get { CGSize(width: self.width, height: self.height) }
         set(newValue) {

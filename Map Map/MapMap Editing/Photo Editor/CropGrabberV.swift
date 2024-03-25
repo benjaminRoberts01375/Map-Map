@@ -28,6 +28,7 @@ struct CropGrabberV: View {
         CGPoint(size: ((leadingPoint + trailingPoint) / 2))
     }
     
+    /// When given a line and an arbitary point, determine where on the line is the closest.
     func closestPointToPointOnVector(pointA: CGPoint, pointB: CGPoint, vectorV: CGVector) -> CGSize {
         let vectorBA = CGVector(dx: pointB.x - pointA.x, dy: pointB.y - pointA.y) // Calculate the vector from A to B
         let dotProduct = vectorBA.dx * vectorV.dx + vectorBA.dy * vectorV.dy // Calculate the dot product

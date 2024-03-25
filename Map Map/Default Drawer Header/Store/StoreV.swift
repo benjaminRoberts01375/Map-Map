@@ -10,11 +10,15 @@ import StoreKit
 import SwiftUI
 
 struct StoreV: View {
+    /// Dismiss function to hide this view.
     @Environment(\.dismiss) var dismiss
+    /// Current user coloring
     @Environment(\.colorScheme) var colorScheme
-    @State var price = ""
+    /// Alert presentation tracker.
     @State var presentNotAbleToRestorePurchases: Bool = false
+    /// Track if this package was purchased.
     @Binding var purchased: Bool
+    /// Confetti controller.
     @State var confettiCounter: Int = 0
     
     var body: some View {
@@ -82,6 +86,7 @@ struct StoreV: View {
         .animation(.easeOut, value: purchased)
     }
     
+    /// Restore purchases if not activated.
     func restorePurchases() async {
         do { try await AppStore.sync() }
         catch {
@@ -90,6 +95,7 @@ struct StoreV: View {
         }
     }
     
+    /// Catch if a purchase happened that wasn't previously caught.
     func doubleCheckPurchased() async {
         for await update in Transaction.updates {
             guard let productID = try? update.payloadValue.productID else { continue }

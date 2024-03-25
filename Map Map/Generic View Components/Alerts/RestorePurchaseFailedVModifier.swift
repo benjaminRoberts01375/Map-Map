@@ -8,6 +8,7 @@
 import SwiftUI
 
 fileprivate struct InAppPurchaseFailed: ViewModifier {
+    /// Boolean to control if the alert is shown.
     @Binding var isPresented: Bool
     
     func body(content: Content) -> some View {
@@ -22,6 +23,11 @@ fileprivate struct InAppPurchaseFailed: ViewModifier {
 }
 
 extension View {
+    /// An alert specific to telling the user that Map Map failed to restore
+    /// the in-app purchase
+    /// - Parameters:
+    ///   - isPresented: Boolean to control if the alert is shown.
+    /// - Returns: This view with an alert attached
     func inAppPurchaseFailed(isPresented: Binding<Bool>) -> some View {
         modifier(InAppPurchaseFailed(isPresented: isPresented))
     }

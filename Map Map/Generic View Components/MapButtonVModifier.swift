@@ -9,9 +9,13 @@ import SwiftUI
 
 /// Button to overlay on top of the map.
 struct MapButtonV: ViewModifier {
-    private let size: CGFloat = 45
-    let active: Bool
+    /// The current color scheme of the device (Ex. Dark vs Light mode)
     @Environment(\.colorScheme) var colorScheme
+    /// Dimensions of the button.
+    private let size: CGFloat = 45
+    /// Is currently being used.
+    let active: Bool
+    /// Calculated foreground color.
     var foregroundColor: Color {
         if active {
             switch colorScheme {

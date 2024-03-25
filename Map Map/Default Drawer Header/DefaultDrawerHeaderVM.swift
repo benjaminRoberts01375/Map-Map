@@ -12,6 +12,7 @@ import StoreKit
 import SwiftUI
 
 extension DefaultDrawerHeaderV {
+    /// View model for the DefaultDrawerHeaderV.
     @Observable
     final class ViewModel {
         /// Photos picked by the user from camera roll.
@@ -94,10 +95,12 @@ extension DefaultDrawerHeaderV {
             _ = MapMap(uiImage: image, moc: moc)
         }
         
+        /// Check the latest latest transaction for the explorer package. If one exists, there was a purchase.
+        /// - Returns: Bool if there was a purchase.
         func checkIfExplorerPurchased() async -> Bool {
             let products = try? await Product.products(for: [Product.kExplorer])
             guard let product = products?.first else { return false }
-            return await product.latestTransaction != nil
+            return await product.latestTransaction != nil // Can use a switch on this to get receipt
         }
     }
 }

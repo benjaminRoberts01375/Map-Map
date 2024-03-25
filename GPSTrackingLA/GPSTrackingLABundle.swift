@@ -10,7 +10,5 @@ import WidgetKit
 
 @main
 struct GPSTrackingLABundle: WidgetBundle {
-    var body: some Widget {
-        GPSTrackingLA()
-    }
+    var body: some Widget { GPSTrackingLA() }
 }

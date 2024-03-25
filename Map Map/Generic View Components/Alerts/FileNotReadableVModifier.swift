@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FileNotReadableVModifier: ViewModifier {
+    /// Boolean to control if the alert is shown.
     @Binding var isPresented: Bool
     
     func body(content: Content) -> some View {
@@ -21,6 +22,10 @@ struct FileNotReadableVModifier: ViewModifier {
 }
 
 extension View {
+    /// An alert specific to telling the user that the file cannot be read by the system.
+    /// - Parameters:
+    ///   - isPresented: Boolean to control if the alert is shown.
+    /// - Returns: This view with an alert attached.
     func fileNotReadable(isPresented: Binding<Bool>) -> some View {
         modifier(FileNotReadableVModifier(isPresented: isPresented))
     }

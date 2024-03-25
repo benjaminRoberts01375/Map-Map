@@ -9,7 +9,9 @@ import SwiftUI
 
 /// Basic done button.
 struct DoneButton: View {
+    /// Allow activating.
     var enabled: Bool = true
+    /// What to do when button is pressed. Default is nothing.
     var action: () -> Void = { }
     
     var body: some View {
