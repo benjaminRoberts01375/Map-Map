@@ -8,6 +8,8 @@
 import SwiftUI
 
 extension MapMapV {
+    enum MapMapImageSize { case thumbnail, full }
+    
     internal struct MapMapImageV: View {
         /// MapMap image to render
         @ObservedObject var image: MapMapImage
@@ -15,8 +17,6 @@ extension MapMapV {
         let imageType: MapMapImageSize
         /// Name of parent map map.
         let name: String
-        
-        enum MapMapImageSize { case thumbnail, full }
         
         var body: some View {
             switch imageType {
