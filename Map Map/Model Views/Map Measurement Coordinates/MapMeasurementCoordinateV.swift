@@ -56,7 +56,7 @@ struct MapMeasurementCoordinateV: View {
     func determineSSPos() async {
         let startPos = mapDetails.mapProxy?.convert(start.coordinates, to: .global)
         let endPos = mapDetails.mapProxy?.convert(end.coordinates, to: .global)
-        let distance: Measurement<UnitLength> = Measurement(value: start.location.distance(from: end.location), unit: .meters) 
+        let distance: Measurement<UnitLength> = Measurement(value: start.clLocation.distance(from: end.clLocation), unit: .meters)
         await MainActor.run {
             self.startPoint = startPos ?? .zero
             self.endPoint = endPos ?? .zero
