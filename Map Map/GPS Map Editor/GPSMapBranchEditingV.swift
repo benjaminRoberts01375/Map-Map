@@ -60,6 +60,7 @@ struct GPSMapBranchEditingV: View {
             HStack {
                 Button {
                     gpsMapBranch.name = workingName
+                    self.gpsMapBranch.isSetup = true
                     editingMode = .selectingBranch
                 } label: {
                     Text("Done")
