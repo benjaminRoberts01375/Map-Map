@@ -80,11 +80,11 @@ struct GPSMapBranchEditingV: View {
         }
         .onChange(of: selectedRangeIndicies) { adjustConnectedBranches(oldIndicies: $0, newIndicies: $1) }
         .task {
-            let assignments = await saveCoordinateBranchAssignments()
+            let assignments: [GPSMapCoordinateConnection : GPSMapBranch] = await saveCoordinateBranchAssignments()
             if !self.gpsMapBranch.isSetup {
                 await MainActor.run { assignAllCoordinatesToBranch() }
             }
-            self.originalConnectionAssignments = assignments
+            await MainActor.run { self.originalConnectionAssignments = assignments }
         }
     }
     
