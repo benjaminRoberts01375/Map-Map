@@ -75,25 +75,33 @@ struct GPSMapBranchEditingV: View {
             }
         }
         .onChange(of: selectedRangeIndicies) { adjustConnectedBranches(oldIndicies: $0, newIndicies: $1) }
-        .task { await assignAllCoordinatesToBranch() }
+        .task {
+            let assignments = await saveCoordinateBranchAssignments()
+            if !self.gpsMapBranch.isSetup {
+                await MainActor.run { assignAllCoordinatesToBranch() }
+            }
+            self.originalConnectionAssignments = assignments
+        }
     }
     
-    /// Recursively go through each of the coordinates to remember their assignment before being switched to this branch.
-    func assignAllCoordinatesToBranch() async {
-        // Save initial coordinate - branch assignments
-        guard let gpsMap = gpsMapBranch.gpsMap else { return }
+    /// Save the original `GPSMapCoordinateConnection` branch assignments.
+    /// - Returns: Assignments.
+    func saveCoordinateBranchAssignments() async -> [GPSMapCoordinateConnection : GPSMapBranch] {
+        guard let gpsMap = gpsMapBranch.gpsMap else { return [:] }
         var connectionAssignments: [GPSMapCoordinateConnection : GPSMapBranch] = [:]
         for connection in gpsMap.unwrappedConnections {
             connectionAssignments[connection] = connection.branch
         }
+        return connectionAssignments
+    }
+    
+    /// Recursively go through each of the coordinates to remember their assignment before being switched to this branch.
+    func assignAllCoordinatesToBranch() {
         // Set every available coordinate to this branch
-        DispatchQueue.main.async {
-            self.originalConnectionAssignments = connectionAssignments
-            guard let connections = gpsMapBranch.gpsMap?.unwrappedConnections // Get all connections
-            else { return }
-            for connection in connections {
-                gpsMapBranch.addToConnections(connection)
-            }
+        guard let connections = gpsMapBranch.gpsMap?.unwrappedConnections // Get all connections
+        else { return }
+        for connection in connections {
+            gpsMapBranch.addToConnections(connection)
         }
     }
     
