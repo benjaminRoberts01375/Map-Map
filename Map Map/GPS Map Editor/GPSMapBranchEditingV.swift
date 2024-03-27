@@ -163,7 +163,8 @@ struct GPSMapBranchEditingV: View {
             // Reverse for loop
             for index in stride(from: Int(newIndicies.lowerBound) - 1, through: Int(oldIndicies.lowerBound), by: -1) {
                 if let branch = originalConnectionAssignments[connections[index]] {
-                    branch.addToConnections(connections[index])
+                    if branch == self.gpsMapBranch { gpsMapBranch.removeFromConnections(connections[index]) }
+                    else { branch.addToConnections(connections[index]) }
                 }
                 else { self.gpsMapBranch.removeFromConnections(connections[index]) }
             }
@@ -191,7 +192,8 @@ struct GPSMapBranchEditingV: View {
             guard let originalConnectionAssignments = originalConnectionAssignments else { return }
             for index in stride(from: Int(oldIndicies.upperBound) - 1, through: Int(newIndicies.upperBound), by: -1) {
                 if let branch = originalConnectionAssignments[connections[index]] {
-                    branch.addToConnections(connections[index])
+                    if branch == self.gpsMapBranch { gpsMapBranch.removeFromConnections(connections[index]) }
+                    else { branch.addToConnections(connections[index]) }
                 }
                 else { self.gpsMapBranch.removeFromConnections(connections[index]) }
             }
