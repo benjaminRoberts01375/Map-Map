@@ -65,6 +65,8 @@ struct GPSMapBranchEditingV: View {
                     gpsMapBranch.name = workingName
                     self.gpsMapBranch.isSetup = true
                     editingMode = .selectingBranch
+                    guard let gpsMap = gpsMapBranch.gpsMap else { return }
+                    for branch in gpsMap.unwrappedBranches where branch.unwrappedConnections.isEmpty { moc.delete(branch) }
                 } label: {
                     Text("Done")
                         .bigButton(backgroundColor: .blue)
