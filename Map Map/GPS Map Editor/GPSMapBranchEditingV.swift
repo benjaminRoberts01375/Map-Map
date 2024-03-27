@@ -32,7 +32,7 @@ struct GPSMapBranchEditingV: View {
         self.gpsMapBranch = gpsMapBranch
         self.workingName = gpsMapBranch.name ?? ""
         self.rangeIndicies = 0...Double(gpsMapBranch.gpsMap?.unwrappedConnections.count ?? 0)
-        self.selectedRangeIndicies = rangeIndicies
+        if !gpsMapBranch.isSetup { self.selectedRangeIndicies = rangeIndicies }
         self._editingMode = editingMode
         guard let firstConnection = gpsMapBranch.unwrappedConnections.first,
               let lastConnection = gpsMapBranch.unwrappedConnections.last,
