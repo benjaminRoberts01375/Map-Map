@@ -38,7 +38,10 @@ struct GPSMapBranchEditingV: View {
               let lastConnection = gpsMapBranch.unwrappedConnections.last,
               let firstIndex = gpsMapBranch.gpsMap?.unwrappedConnections.firstIndex(where: { $0 == firstConnection }),
               let lastIndex = gpsMapBranch.gpsMap?.unwrappedConnections.firstIndex(where: { $0 == lastConnection })
-        else { return }
+        else {
+            self.selectedRangeIndicies = rangeIndicies
+            return
+        }
         self.selectedRangeIndicies = // Crash prevention, may cause some minor UI bugs
         if firstIndex <= lastIndex { Double(firstIndex)...Double(lastIndex) }
         else { Double(lastIndex)...Double(firstIndex) }
