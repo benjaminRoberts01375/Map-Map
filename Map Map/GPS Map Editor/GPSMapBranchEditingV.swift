@@ -59,7 +59,7 @@ struct GPSMapBranchEditingV: View {
                     .labelsHidden()
             }
             HorizontalRangeSliderV(value: $selectedRangeIndicies, range: rangeIndicies)
-                .allowsHitTesting(!originalConnectionAssignments.isEmpty)
+                .allowsHitTesting(originalConnectionAssignments != nil)
             HStack {
                 Button {
                     gpsMapBranch.name = workingName
