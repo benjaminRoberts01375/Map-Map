@@ -39,13 +39,12 @@ public class GPSMap: NSManagedObject {
     public func addNewCoordinate(clLocation: CLLocation) -> GPSMapCoordinate? {
         guard let moc = self.managedObjectContext
         else { return nil }
+        let newCoordinate = GPSMapCoordinate(location: clLocation, moc: moc)
         if let lastCoordinate = self.unwrappedConnections.last?.end,
             let lastTimeStamp = lastCoordinate.timestamp { // Update the calculated time
-            self.time += clLocation.timestamp.timeIntervalSince(lastTimeStamp)
+            self.time += abs(lastTimeStamp.timeIntervalSince(newCoordinate.timestamp ?? .now))
         }
         let truncAlt = Int16(clLocation.altitude) // Track min/max altitude
-        let newCoordinate = GPSMapCoordinate(location: clLocation, moc: moc)
-        newCoordinate.timestamp = .now
         if let lastConnection = self.unwrappedConnections.last {
             if self.heightMax < truncAlt { self.heightMax = truncAlt }
             else if self.heightMin > truncAlt { self.heightMin = truncAlt }

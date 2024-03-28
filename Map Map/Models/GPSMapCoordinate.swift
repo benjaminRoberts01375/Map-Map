@@ -21,6 +21,7 @@ public extension GPSMapCoordinate {
     convenience init(location: CLLocation, moc: NSManagedObjectContext) {
         self.init(context: moc)
         self.clLocation = location
+        self.timestamp = .now
     }
     
     /// GPSMapCoordinate formatted as a clLocation
