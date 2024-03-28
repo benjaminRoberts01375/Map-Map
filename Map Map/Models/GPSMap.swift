@@ -25,19 +25,13 @@ public class GPSMap: NSManagedObject {
     }
     
     /// A simple getter for GPS Map Coordinates.
-    var unwrappedBranches: [GPSMapBranch] {
-        return self.branches?.array as? [GPSMapBranch] ?? []
-    }
+    var unwrappedBranches: [GPSMapBranch] { self.branches?.array as? [GPSMapBranch] ?? [] }
     
     /// Get an array of all the available connections for this MapMap
-    var unwrappedConnections: [GPSMapCoordinateConnection] {
-        return self.connections?.array as? [GPSMapCoordinateConnection] ?? []
-    }
+    var unwrappedConnections: [GPSMapCoordinateConnection] { self.connections?.array as? [GPSMapCoordinateConnection] ?? [] }
     
     /// All connections that do not have an associated branch
-    var unsortedConnections: [GPSMapCoordinateConnection] {
-        return unwrappedConnections.filter({ $0.branch == nil })
-    }
+    var unsortedConnections: [GPSMapCoordinateConnection] { unwrappedConnections.filter { $0.branch == nil } }
     
     /// Allow adding a new coordinate from a CLLocation.
     /// - Parameter clLocation: CLLocation to add to this GPSMap.
