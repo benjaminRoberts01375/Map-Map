@@ -14,12 +14,17 @@ struct MapMapApp: App {
     @StateObject private var dataController = DataController()
     /// Map details for environment.
     @State private var mapDetails = MapDetailsM()
+    /// Control if the satellite map is shown.
+    @AppStorage(UserDefaults.kShowSatelliteMap) var mapType = UserDefaults.dShowSatelliteMap
+    /// Current coloring of the UI elements
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environment(mapDetails)
+                .environment(\.colorScheme, mapType ? .dark : colorScheme)
         }
     }
 }
