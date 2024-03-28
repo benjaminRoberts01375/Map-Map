@@ -9,12 +9,19 @@ import SwiftUI
 
 struct MapLabelVModifier: ViewModifier {
     @Environment(\.colorScheme) var colorScheme
+    /// Control if the satellite map is shown.
+    @AppStorage(UserDefaults.kShowSatelliteMap) var mapType = UserDefaults.dShowSatelliteMap
     private let shadowRadius: CGFloat = 8
+    
+    var foregroundColor: Color {
+        if colorScheme == .dark || mapType { return .white }
+        return .black
+    }
     
     func body(content: Content) -> some View {
         content
-            .foregroundStyle(colorScheme == .dark ? .white : .black)
-            .shadow(color: colorScheme == .dark ? .black : .white, radius: shadowRadius)
+            .foregroundStyle(foregroundColor)
+            .shadow(color: foregroundColor == .white ? .black : .white, radius: shadowRadius)
     }
 }
 
