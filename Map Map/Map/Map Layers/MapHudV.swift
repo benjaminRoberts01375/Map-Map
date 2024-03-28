@@ -14,6 +14,8 @@ struct MapHudV: View {
     @Environment(MapDetailsM.self) private var mapDetails
     /// How to display coordinates on screen.
     @AppStorage(UserDefaults.kCoordinateDisplayType) var locationDisplayType = UserDefaults.dCoordinateDisplayType
+    /// Control if the satellite map is shown.
+    @AppStorage(UserDefaults.kShowSatelliteMap) var mapType = UserDefaults.dShowSatelliteMap
     /// Tracker for showing the heading.
     @State private var showHeading: Bool = false
     /// GPS user location.
@@ -74,7 +76,12 @@ struct MapHudV: View {
                     Label("Show Degrees", systemImage: "numbersign")
                 }
             }
-
+            Button {
+                mapType.toggle()
+            } label: {
+                if mapType { Label("Show Standard Map", systemImage: "scribble.variable") }
+                else { Label("Show Satellite Map", systemImage: "tree.fill") }
+            }
         }
         .onChange(of: mapDetails.mapCamera) { _, update in
             withAnimation {

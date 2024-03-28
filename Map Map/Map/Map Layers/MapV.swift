@@ -20,6 +20,8 @@ struct MapV: View {
     @State private var tappableMapMaps: MapMapAnnotatedV.MapMapInteraction = .tappable
     /// Current editor
     @Binding var editor: Editor
+    /// Control if the satellite map is shown.
+    @AppStorage(UserDefaults.kShowSatelliteMap) var mapType = UserDefaults.dShowSatelliteMap
     /// map ID.
     let mapScope: Namespace.ID
     
@@ -48,7 +50,7 @@ struct MapV: View {
             mapDetails.region = update.region
             mapDetails.mapCamera = update.camera
         }
-        .mapStyle(.standard(elevation: .realistic))
+        .mapStyle(mapType ? .imagery(elevation: .realistic) : .standard(elevation: .realistic))
         .onChange(of: editor) { _, newValue in
             switch newValue {
             case .nothing: tappableMapMaps = .tappable
