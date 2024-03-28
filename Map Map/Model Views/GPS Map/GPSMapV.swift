@@ -44,11 +44,7 @@ struct GPSMapV: View {
     
     /// Calculate the screen-space line ending positions by converting coordinates to SS.
     func calculateSSLineEndPos() async -> [[CGPoint]] {
-        let spanMultiplier = 1.1
-        let correctedSpan = MKCoordinateSpan(
-            latitudeDelta: mapDetails.region.span.latitudeDelta * spanMultiplier,
-            longitudeDelta: mapDetails.region.span.longitudeDelta * spanMultiplier
-        )
+        let correctedSpan = mapDetails.region.span * 1.1
         let ssMapMesh = CGRect(
             x: mapDetails.region.center.latitude - correctedSpan.latitudeDelta / 2,
             y: mapDetails.region.center.longitude - correctedSpan.longitudeDelta / 2,
