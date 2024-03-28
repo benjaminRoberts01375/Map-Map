@@ -24,10 +24,7 @@ extension MapMeasurementCoordinatesV {
         var visited: Set<MapMeasurementCoordinate> = []
         
         let spanMultiplier = 2.0
-        let correctedSpan = MKCoordinateSpan(
-            latitudeDelta: mapDetails.region.span.latitudeDelta * spanMultiplier,
-            longitudeDelta: mapDetails.region.span.longitudeDelta * spanMultiplier
-        )
+        let correctedSpan = mapDetails.region.span * spanMultiplier
         let ssMapMesh = CGRect(
             x: mapDetails.region.center.latitude - correctedSpan.latitudeDelta / 2,
             y: mapDetails.region.center.longitude - correctedSpan.longitudeDelta / 2,
