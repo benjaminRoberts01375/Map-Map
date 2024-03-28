@@ -11,7 +11,9 @@ import SwiftUI
 struct GPSMapBranchV: View {
     /// Info about the base map.
     @Environment(MapDetailsM.self) var mapDetails
+    /// GPS Map Branch to render.
     @ObservedObject var gpsMapBranch: GPSMapBranch
+    /// `GPSMapCoordinateConnection`s to render as a `CGPoint`s
     @State var lineNodes: [CGPoint] = []
     
     var body: some View {
