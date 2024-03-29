@@ -161,7 +161,7 @@ struct MarkerEditorV: View {
     /// Update the marker to the current status of the Marker Editor.
     private func updateMarker() {
         marker.isEditing = false
-        marker.name = workingName
+        if workingName != "" { marker.name = workingName }
         marker.coordinate = mapDetails.region.center
         marker.lockRotationAngleDouble = saveAngle ? -mapDetails.mapCamera.heading : nil
         determineMarkerOverlap()
