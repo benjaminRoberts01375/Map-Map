@@ -32,12 +32,42 @@ struct MapMapContextMenuV: View {
             if mapMap.shown { Label("Hide Map Map", systemImage: "eye.fill") }
             else { Label("Show Map Map", systemImage: "eye.slash.fill") }
         }
+        if !mapMap.unwrappedMarkers.isEmpty {
+            Divider()
+            DeleteMapMapV(mapMap)
+            
+            Button(role: .destructive) {
+                moc.delete(mapMap)
+                try? moc.save()
+            } label: {
+                Label("Delete Markers", systemImage: "trash.fill")
+            }
+            
+            Button(role: .destructive) {
+                moc.delete(mapMap)
+                try? moc.save()
+            } label: {
+                Label("Delete Map Map and Markers", systemImage: "trash.fill")
+            }
+        }
+        else { DeleteMapMapV(mapMap) }
+    }
+    
+    private struct DeleteMapMapV: View {
+        /// Current managed object context.
+        @Environment(\.managedObjectContext) private var moc
+        /// MapMap being interacted with.
+        @ObservedObject var mapMap: FetchedResults<MapMap>.Element
         
-        Button(role: .destructive) {
-            moc.delete(mapMap)
-            try? moc.save()
-        } label: {
-            Label("Delete Map Map", systemImage: "trash.fill")
+        init(_ mapMap: MapMap) { self.mapMap = mapMap }
+        
+        var body: some View {
+            Button(role: .destructive) {
+                moc.delete(mapMap)
+                try? moc.save()
+            } label: {
+                Label("Delete Map Map", systemImage: "trash.fill")
+            }
         }
     }
 }
