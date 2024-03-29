@@ -20,12 +20,6 @@ struct MarkerContextMenuV: View {
     var onDelete: (() -> Void)?
     
     var body: some View {
-        Button(role: .destructive) {
-            deleteMarker()
-        } label: {
-            Label("Delete Marker", systemImage: "trash.fill")
-        }
-        
         Button {
             marker.shown.toggle()
             try? moc.save()
@@ -47,6 +41,12 @@ struct MarkerContextMenuV: View {
             mapItem.openInMaps(launchOptions: [ MKLaunchOptionsMapCenterKey: marker.coordinate ])
         } label: {
             Label("Open in Maps", systemImage: "map.fill")
+        }
+        
+        Button(role: .destructive) {
+            deleteMarker()
+        } label: {
+            Label("Delete Marker", systemImage: "trash.fill")
         }
     }
     

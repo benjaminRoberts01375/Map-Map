@@ -28,13 +28,14 @@ struct TrackingGpsDrawerContentV: View {
     /// ID for the current live activity if one is running.
     @State var activityID: String?
     /// Fill in gaps of time between connections being added.
-    @State var additionalTime: Int = 0
+    @State var continuousTimeTrack: Int = 0
+    /// Base timestamp to use when displaying time.
+    @State var timeReference: Date?
     
     var body: some View {
         VStack {
             HStack {
-                let totalSeconds: TimeInterval = gpsMap.time + Double(additionalTime)
-                Text(totalSeconds.description)
+                Text(Double(continuousTimeTrack).description)
                     .font(.system(size: 35))
                     .fontWidth(.condensed)
                     .bigButton(backgroundColor: .gray, minWidth: 120)
@@ -99,16 +100,11 @@ struct TrackingGpsDrawerContentV: View {
         .animation(.easeInOut(duration: 0.25), value: showDoneConfirmation)
         .animation(.easeInOut(duration: 0.25), value: statsBottom)
         .onReceive(timer) { _ in
-            let newTime: Int
-            if let endTime = gpsMap.unwrappedConnections.last?.end?.timestamp?.timeIntervalSinceNow { newTime = Int(-endTime) }
-            else if let startTime = gpsMap.unwrappedConnections.last?.start?.timestamp?.timeIntervalSinceNow { newTime = Int(-startTime) }
-            else { newTime = 0 }
-            if newTime != self.additionalTime { self.additionalTime = newTime }
-            updateLiveActivity()
+            timeKeep()
         }
         .onChange(of: locationsHandler.lastLocation, initial: true) { _ = gpsMap.addNewCoordinate(clLocation: $1) }
         .onChange(of: gpsMap.connections?.count) {
-            self.additionalTime = 0
+            if timeReference == nil { timeReference = gpsMap.unwrappedConnections.first?.start?.timestamp ?? .now }
             let proposedSpeed: Measurement<UnitSpeed> = Measurement(value: Double(gpsMap.distance) / (gpsMap.time), unit: .metersPerSecond)
             self.speed = proposedSpeed.value.isNormal ? proposedSpeed : Measurement<UnitSpeed>(value: 0, unit: .metersPerSecond)
         }
@@ -125,7 +121,7 @@ struct TrackingGpsDrawerContentV: View {
             state: GPSTrackingAttributes.ContentState(
                 userLongitude: locationsHandler.lastLocation.coordinate.longitude,
                 userLatitude: locationsHandler.lastLocation.coordinate.latitude,
-                seconds: gpsMap.time + Double(additionalTime),
+                seconds: Double(continuousTimeTrack),
                 speed: speed,
                 highPoint: gpsMap.heightMax,
                 lowPoint: gpsMap.heightMin,
@@ -143,6 +139,15 @@ struct TrackingGpsDrawerContentV: View {
         self.activityID = activity.id
     }
     
+    private func timeKeep() {
+        guard let timeReference = timeReference else { return }
+        let newTime: Int = Int(abs(timeReference.timeIntervalSinceNow))
+        if newTime != self.continuousTimeTrack {
+            self.continuousTimeTrack = newTime
+            updateLiveActivity()
+        }
+    }
+    
     /// Update the displayed data in the most prevelent live activity.
     private func updateLiveActivity() {
         guard let activityID = activityID,
@@ -151,7 +156,7 @@ struct TrackingGpsDrawerContentV: View {
         let newContentState = GPSTrackingAttributes.ContentState(
             userLongitude: locationsHandler.lastLocation.coordinate.longitude,
             userLatitude: locationsHandler.lastLocation.coordinate.latitude,
-            seconds: gpsMap.time + Double(additionalTime),
+            seconds: Double(continuousTimeTrack),
             speed: speed,
             highPoint: gpsMap.heightMax,
             lowPoint: gpsMap.heightMin,
@@ -172,7 +177,7 @@ struct TrackingGpsDrawerContentV: View {
         let newContentState = GPSTrackingAttributes.ContentState(
             userLongitude: locationsHandler.lastLocation.coordinate.longitude,
             userLatitude: locationsHandler.lastLocation.coordinate.latitude,
-            seconds: gpsMap.time + Double(additionalTime),
+            seconds: Double(continuousTimeTrack),
             speed: speed,
             highPoint: gpsMap.heightMax,
             lowPoint: gpsMap.heightMin,

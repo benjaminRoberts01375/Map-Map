@@ -11,7 +11,9 @@ import SwiftUI
 struct GPSMapBranchV: View {
     /// Info about the base map.
     @Environment(MapDetailsM.self) var mapDetails
+    /// GPS Map Branch to render.
     @ObservedObject var gpsMapBranch: GPSMapBranch
+    /// `GPSMapCoordinateConnection`s to render as a `CGPoint`s
     @State var lineNodes: [CGPoint] = []
     
     var body: some View {
@@ -35,10 +37,7 @@ struct GPSMapBranchV: View {
     /// Calculate the screen-space line ending positions by converting coordinates to SS.
     func calculateSSLineEndPos() async -> [CGPoint] {
         let spanMultiplier = 1.1
-        let correctedSpan = MKCoordinateSpan(
-            latitudeDelta: mapDetails.region.span.latitudeDelta * spanMultiplier,
-            longitudeDelta: mapDetails.region.span.longitudeDelta * spanMultiplier
-        )
+        let correctedSpan = mapDetails.region.span * spanMultiplier
         let ssMapMesh = CGRect(
             x: mapDetails.region.center.latitude - correctedSpan.latitudeDelta / 2,
             y: mapDetails.region.center.longitude - correctedSpan.longitudeDelta / 2,

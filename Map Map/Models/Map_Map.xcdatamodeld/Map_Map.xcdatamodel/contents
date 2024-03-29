@@ -19,9 +19,10 @@
         <relationship name="connections" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="GPSMapCoordinateConnection" inverseName="gpsMap" inverseEntity="GPSMapCoordinateConnection"/>
     </entity>
     <entity name="GPSMapBranch" representedClassName="GPSMapBranch" syncable="YES" codeGenerationType="category">
+        <attribute name="isSetup" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String" defaultValueString=""/>
         <relationship name="color" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="GPSMapConnectionColor" inverseName="gpsBranch" inverseEntity="GPSMapConnectionColor"/>
-        <relationship name="connections" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="GPSMapCoordinateConnection" inverseName="branch" inverseEntity="GPSMapCoordinateConnection"/>
+        <relationship name="connections" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GPSMapCoordinateConnection" inverseName="branch" inverseEntity="GPSMapCoordinateConnection"/>
         <relationship name="gpsMap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GPSMap" inverseName="branches" inverseEntity="GPSMap"/>
     </entity>
     <entity name="GPSMapConnectionColor" representedClassName="GPSMapConnectionColor" syncable="YES" codeGenerationType="category">
@@ -32,13 +33,13 @@
     </entity>
     <entity name="GPSMapCoordinate" representedClassName="GPSMapCoordinate" syncable="YES" codeGenerationType="category">
         <attribute name="altitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="course" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="horizontalAccuracy" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="course" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="horizontalAccuracy" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="speed" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="verticalAccuracy" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="speed" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="verticalAccuracy" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="connections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GPSMapCoordinateConnection" inverseName="coordinates" inverseEntity="GPSMapCoordinateConnection"/>
     </entity>
     <entity name="GPSMapCoordinateConnection" representedClassName="GPSMapCoordinateConnection" syncable="YES" codeGenerationType="category">

@@ -25,19 +25,13 @@ public class GPSMap: NSManagedObject {
     }
     
     /// A simple getter for GPS Map Coordinates.
-    var unwrappedBranches: [GPSMapBranch] {
-        return self.branches?.array as? [GPSMapBranch] ?? []
-    }
+    var unwrappedBranches: [GPSMapBranch] { self.branches?.array as? [GPSMapBranch] ?? [] }
     
     /// Get an array of all the available connections for this MapMap
-    var unwrappedConnections: [GPSMapCoordinateConnection] {
-        return self.connections?.array as? [GPSMapCoordinateConnection] ?? []
-    }
+    var unwrappedConnections: [GPSMapCoordinateConnection] { self.connections?.array as? [GPSMapCoordinateConnection] ?? [] }
     
     /// All connections that do not have an associated branch
-    var unsortedConnections: [GPSMapCoordinateConnection] {
-        return unwrappedConnections.filter({ $0.branch == nil })
-    }
+    var unsortedConnections: [GPSMapCoordinateConnection] { unwrappedConnections.filter { $0.branch == nil } }
     
     /// Allow adding a new coordinate from a CLLocation.
     /// - Parameter clLocation: CLLocation to add to this GPSMap.
@@ -45,13 +39,12 @@ public class GPSMap: NSManagedObject {
     public func addNewCoordinate(clLocation: CLLocation) -> GPSMapCoordinate? {
         guard let moc = self.managedObjectContext
         else { return nil }
+        let newCoordinate = GPSMapCoordinate(location: clLocation, moc: moc)
         if let lastCoordinate = self.unwrappedConnections.last?.end,
             let lastTimeStamp = lastCoordinate.timestamp { // Update the calculated time
-            self.time += clLocation.timestamp.timeIntervalSince(lastTimeStamp)
+            self.time += abs(lastTimeStamp.timeIntervalSince(newCoordinate.timestamp ?? .now))
         }
         let truncAlt = Int16(clLocation.altitude) // Track min/max altitude
-        let newCoordinate = GPSMapCoordinate(location: clLocation, moc: moc)
-        newCoordinate.timestamp = .now
         if let lastConnection = self.unwrappedConnections.last {
             if self.heightMax < truncAlt { self.heightMax = truncAlt }
             else if self.heightMin > truncAlt { self.heightMin = truncAlt }

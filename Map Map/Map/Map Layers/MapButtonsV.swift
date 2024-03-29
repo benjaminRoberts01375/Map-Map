@@ -14,6 +14,8 @@ struct MapButtonsV: View {
     @FetchRequest(sortDescriptors: []) private var mapMaps: FetchedResults<MapMap>
     /// All available Markers
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
+    /// All available Map Measurement Coordiantes
+    @FetchRequest(sortDescriptors: []) private var measurements: FetchedResults<MapMeasurementCoordinate>
     /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
     /// Details about the map.
@@ -22,6 +24,10 @@ struct MapButtonsV: View {
     @AppStorage(UserDefaults.kAudioAlerts) var markersChirp = UserDefaults.dAudioAlerts
     /// Tracker for adding or removing markers.
     @State private var markerButton: MarkerButtonType = .add
+    /// Track showing and hiding the marker chirp button
+    @State var showMarkerChipButton: Bool = false
+    /// Track if the popover for showing the marker chirp keep open popover.
+    @State var showMarkerChirpKeepOpen: Bool = false
     /// Current editor being used.
     @Binding var editor: Editor
     /// Size of parent view.
@@ -54,12 +60,25 @@ struct MapButtonsV: View {
                 MapUserLocationButton(scope: mapScope)
                     .background(.thickMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
-                Button {
-                    withAnimation { markersChirp.toggle() }
-                } label: {
-                    Image(systemName: markersChirp ? "speaker.wave.3.fill" : "speaker")
-                        .accessibilityLabel(markersChirp ? "Markers can make audio alerts." : "Markers cannot make audio alerts.")
-                        .mapButton(active: markersChirp)
+                if showMarkerChipButton {
+                    Button {
+                        withAnimation { markersChirp.toggle() }
+                    } label: {
+                        Image(systemName: markersChirp ? "speaker.wave.3.fill" : "speaker.slash")
+                            .accessibilityLabel(markersChirp ? "Markers can make audio alerts." : "Markers cannot make audio alerts.")
+                            .mapButton(active: markersChirp)
+                    }
+                    .onChange(of: markersChirp, initial: true) {
+                        if markersChirp && 
+                            UserDefaults.standard.integer(forKey: UserDefaults.kMarkerChirpKeepOpen) != UserDefaults.vMarkerChirp {
+                            showMarkerChirpKeepOpen = true
+                            UserDefaults.standard.set(UserDefaults.vMarkerChirp, forKey: UserDefaults.kMarkerChirpKeepOpen)
+                        }
+                    }
+                    .popover(isPresented: $showMarkerChirpKeepOpen) {
+                        Text("Keep Map Map open to get audio alerts.")
+                            .padding()
+                    }
                 }
                 switch markerButton {
                 case .add:
@@ -88,6 +107,14 @@ struct MapButtonsV: View {
                         .rotationEffect(Angle(degrees: -45))
                         .mapButton()
                 }
+                .contextMenu {
+                    Button(role: .destructive) {
+                        for measurement in measurements { moc.delete(measurement) }
+                        try? moc.save()
+                    } label: {
+                        Label("Delete All Measurements", systemImage: "trash.fill")
+                    }
+                }
             }
             .background {
                 BlurView()
@@ -101,6 +128,16 @@ struct MapButtonsV: View {
         .onChange(of: mapDetails.region.center) { checkOverMarker() }
         .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)) { _ in
             checkOverMarker()
+        }
+        .onChange(of: markers.count, initial: true) {
+            withAnimation {
+                if markers.isEmpty {
+                    markersChirp = false
+                    self.showMarkerChipButton = false
+                    return
+                }
+                self.showMarkerChipButton = true
+            }
         }
     }
     

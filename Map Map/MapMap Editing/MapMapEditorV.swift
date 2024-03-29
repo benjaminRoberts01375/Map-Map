@@ -147,7 +147,7 @@ struct MapMapEditor: View {
         mapMap.coordinate = mapDetails.region.center
         mapMap.mapRotation = -mapDetails.mapCamera.heading
         mapMap.scale = mapMapPosition.width * mapDetails.mapCamera.distance
-        mapMap.name = workingName
+        mapMap.name = workingName == "" ? nil : workingName
         mapMap.mapDistance = mapDetails.mapCamera.distance
         mapMap.isEditing = false
         mapMap.isSetup = true

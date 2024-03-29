@@ -14,7 +14,7 @@ struct GPSMapBranchEditingV: View {
     /// GPS Map Branch currently being edited.
     @ObservedObject var gpsMapBranch: GPSMapBranch
     /// Track the original assignments of GPSMapCoordinateConnection to branches before adjustments by this branch.
-    @State var originalConnectionAssignments: [GPSMapCoordinateConnection : GPSMapBranch] = [:]
+    @State var originalConnectionAssignments: [GPSMapCoordinateConnection : GPSMapBranch]?
     /// Unapplied name of the branch.
     @State private var workingName: String
     /// Current selection of the ranged slider
@@ -32,13 +32,16 @@ struct GPSMapBranchEditingV: View {
         self.gpsMapBranch = gpsMapBranch
         self.workingName = gpsMapBranch.name ?? ""
         self.rangeIndicies = 0...Double(gpsMapBranch.gpsMap?.unwrappedConnections.count ?? 0)
-        self.selectedRangeIndicies = rangeIndicies
+        if !gpsMapBranch.isSetup { self.selectedRangeIndicies = rangeIndicies }
         self._editingMode = editingMode
         guard let firstConnection = gpsMapBranch.unwrappedConnections.first,
               let lastConnection = gpsMapBranch.unwrappedConnections.last,
               let firstIndex = gpsMapBranch.gpsMap?.unwrappedConnections.firstIndex(where: { $0 == firstConnection }),
               let lastIndex = gpsMapBranch.gpsMap?.unwrappedConnections.firstIndex(where: { $0 == lastConnection })
-        else { return }
+        else {
+            self.selectedRangeIndicies = rangeIndicies
+            return
+        }
         self.selectedRangeIndicies = // Crash prevention, may cause some minor UI bugs
         if firstIndex <= lastIndex { Double(firstIndex)...Double(lastIndex) }
         else { Double(lastIndex)...Double(firstIndex) }
@@ -56,10 +59,14 @@ struct GPSMapBranchEditingV: View {
                     .labelsHidden()
             }
             HorizontalRangeSliderV(value: $selectedRangeIndicies, range: rangeIndicies)
+                .allowsHitTesting(originalConnectionAssignments != nil)
             HStack {
                 Button {
                     gpsMapBranch.name = workingName
+                    self.gpsMapBranch.isSetup = true
                     editingMode = .selectingBranch
+                    guard let gpsMap = gpsMapBranch.gpsMap else { return }
+                    for branch in gpsMap.unwrappedBranches where branch.unwrappedConnections.isEmpty { moc.delete(branch) }
                 } label: {
                     Text("Done")
                         .bigButton(backgroundColor: .blue)
@@ -74,25 +81,33 @@ struct GPSMapBranchEditingV: View {
             }
         }
         .onChange(of: selectedRangeIndicies) { adjustConnectedBranches(oldIndicies: $0, newIndicies: $1) }
-        .task { await assignAllCoordinatesToBranch() }
+        .task {
+            let assignments: [GPSMapCoordinateConnection : GPSMapBranch] = await saveCoordinateBranchAssignments()
+            if !self.gpsMapBranch.isSetup {
+                await MainActor.run { assignAllCoordinatesToBranch() }
+            }
+            await MainActor.run { self.originalConnectionAssignments = assignments }
+        }
     }
     
-    /// Recursively go through each of the coordinates to remember their assignment before being switched to this branch.
-    func assignAllCoordinatesToBranch() async {
-        // Save initial coordinate - branch assignments
-        guard let gpsMap = gpsMapBranch.gpsMap else { return }
+    /// Save the original `GPSMapCoordinateConnection` branch assignments.
+    /// - Returns: Assignments.
+    func saveCoordinateBranchAssignments() async -> [GPSMapCoordinateConnection : GPSMapBranch] {
+        guard let gpsMap = gpsMapBranch.gpsMap else { return [:] }
         var connectionAssignments: [GPSMapCoordinateConnection : GPSMapBranch] = [:]
         for connection in gpsMap.unwrappedConnections {
             connectionAssignments[connection] = connection.branch
         }
+        return connectionAssignments
+    }
+    
+    /// Recursively go through each of the coordinates to remember their assignment before being switched to this branch.
+    func assignAllCoordinatesToBranch() {
         // Set every available coordinate to this branch
-        DispatchQueue.main.async {
-            self.originalConnectionAssignments = connectionAssignments
-            guard let connections = gpsMapBranch.gpsMap?.unwrappedConnections // Get all connections
-            else { return }
-            for connection in connections {
-                gpsMapBranch.addToConnections(connection)
-            }
+        guard let connections = gpsMapBranch.gpsMap?.unwrappedConnections // Get all connections
+        else { return }
+        for connection in connections {
+            gpsMapBranch.addToConnections(connection)
         }
     }
     
@@ -144,10 +159,12 @@ struct GPSMapBranchEditingV: View {
         }
         // If old index of lower bound is greater than new one (got slid up)
         else if oldIndicies.lowerBound < newIndicies.lowerBound {
+            guard let originalConnectionAssignments = originalConnectionAssignments else { return }
             // Reverse for loop
             for index in stride(from: Int(newIndicies.lowerBound) - 1, through: Int(oldIndicies.lowerBound), by: -1) {
                 if let branch = originalConnectionAssignments[connections[index]] {
-                    branch.addToConnections(connections[index])
+                    if branch == self.gpsMapBranch { gpsMapBranch.removeFromConnections(connections[index]) }
+                    else { branch.addToConnections(connections[index]) }
                 }
                 else { self.gpsMapBranch.removeFromConnections(connections[index]) }
             }
@@ -172,9 +189,11 @@ struct GPSMapBranchEditingV: View {
         }
         // If the new upper bound is less than the old upper bound (got slid down)
         else if newIndicies.upperBound < oldIndicies.upperBound {
+            guard let originalConnectionAssignments = originalConnectionAssignments else { return }
             for index in stride(from: Int(oldIndicies.upperBound) - 1, through: Int(newIndicies.upperBound), by: -1) {
                 if let branch = originalConnectionAssignments[connections[index]] {
-                    branch.addToConnections(connections[index])
+                    if branch == self.gpsMapBranch { gpsMapBranch.removeFromConnections(connections[index]) }
+                    else { branch.addToConnections(connections[index]) }
                 }
                 else { self.gpsMapBranch.removeFromConnections(connections[index]) }
             }

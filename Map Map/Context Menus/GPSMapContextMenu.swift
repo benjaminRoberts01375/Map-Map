@@ -16,13 +16,6 @@ struct GPSMapContextMenu: View {
     @ObservedObject var gpsMap: GPSMap
     
     var body: some View {
-        Button(role: .destructive) {
-            moc.delete(gpsMap)
-            try? moc.save()
-        } label: {
-            Label("Delete GPS Map", systemImage: "trash.fill")
-        }
-        
         Button {
             mapDetails.moveMapCameraTo(item: gpsMap)
             gpsMap.isEditing = true
@@ -36,6 +29,13 @@ struct GPSMapContextMenu: View {
         } label: {
             if gpsMap.shown { Label("Hide GPS Map", systemImage: "eye.fill") }
             else { Label("Show GPS Map", systemImage: "eye.slash.fill") }
+        }
+        
+        Button(role: .destructive) {
+            moc.delete(gpsMap)
+            try? moc.save()
+        } label: {
+            Label("Delete GPS Map", systemImage: "trash.fill")
         }
     }
 }

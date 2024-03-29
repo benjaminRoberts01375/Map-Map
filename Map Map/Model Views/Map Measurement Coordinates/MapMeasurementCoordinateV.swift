@@ -21,6 +21,8 @@ struct MapMeasurementCoordinateV: View {
     @State var endPoint: CGPoint = .zero
     /// Distance between points.
     @State var distance: Measurement<UnitLength>
+    /// Control if the satellite map is shown.
+    @AppStorage(UserDefaults.kShowSatelliteMap) var mapType = UserDefaults.dShowSatelliteMap
     
     init(connection: MapMeasurementCoordinatesV.Connection) {
         self.start = connection.startNode
@@ -34,11 +36,11 @@ struct MapMeasurementCoordinateV: View {
                 // Outline line
                 Line(startingPos: CGSize(cgPoint: startPoint), endingPos: CGSize(cgPoint: endPoint))
                     .stroke(style: StrokeStyle(lineWidth: 6, lineCap: .round))
-                    .foregroundStyle(.white.opacity(0.5))
+                    .foregroundStyle(mapType ? .black.opacity(0.5) : .white.opacity(0.5))
                 // Foreground line
                 Line(startingPos: CGSize(cgPoint: startPoint), endingPos: CGSize(cgPoint: endPoint))
                     .stroke(style: StrokeStyle(lineWidth: 5, lineCap: .round))
-                    .foregroundStyle(.black.opacity(0.5))
+                    .foregroundStyle(mapType ? .white : .black.opacity(0.5))
                     .lineLabel(
                         startingPos: startPoint,
                         endingPos: endPoint,
