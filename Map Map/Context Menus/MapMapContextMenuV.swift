@@ -18,13 +18,6 @@ struct MapMapContextMenuV: View {
     @ObservedObject var mapMap: FetchedResults<MapMap>.Element
     
     var body: some View {
-        Button(role: .destructive) {
-            moc.delete(mapMap)
-            try? moc.save()
-        } label: {
-            Label("Delete Map Map", systemImage: "trash.fill")
-        }
-        
         Button {
             mapDetails.moveMapCameraTo(item: mapMap)
             mapMap.isEditing = true
@@ -38,6 +31,13 @@ struct MapMapContextMenuV: View {
         } label: {
             if mapMap.shown { Label("Hide Map Map", systemImage: "eye.fill") }
             else { Label("Show Map Map", systemImage: "eye.slash.fill") }
+        }
+        
+        Button(role: .destructive) {
+            moc.delete(mapMap)
+            try? moc.save()
+        } label: {
+            Label("Delete Map Map", systemImage: "trash.fill")
         }
     }
 }
