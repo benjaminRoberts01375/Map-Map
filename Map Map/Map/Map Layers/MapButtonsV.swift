@@ -14,6 +14,8 @@ struct MapButtonsV: View {
     @FetchRequest(sortDescriptors: []) private var mapMaps: FetchedResults<MapMap>
     /// All available Markers
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
+    /// All available Map Measurement Coordiantes
+    @FetchRequest(sortDescriptors: []) private var measurements: FetchedResults<MapMeasurementCoordinate>
     /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
     /// Details about the map.
@@ -87,6 +89,14 @@ struct MapButtonsV: View {
                         .accessibilityLabel("Edit Measurements Button")
                         .rotationEffect(Angle(degrees: -45))
                         .mapButton()
+                }
+                .contextMenu {
+                    Button(role: .destructive) {
+                        for measurement in measurements { moc.delete(measurement) }
+                        try? moc.save()
+                    } label: {
+                        Label("Delete All Measurements", systemImage: "trash.fill")
+                    }
                 }
             }
             .background {
