@@ -24,4 +24,6 @@ extension UserDefaults {
     static let kMarkerChirpKeepOpen = "markerChirpKeepOpen"
     /// Default value for the User Defaults entry `kMarkerChirpKeepOpen`
     static let dMarkerChirpKeepOpen: Int = 0
+    /// The current version of the User Defaults entry for `kMarkerChirpKeepOpen`
+    static let vMarkerChirp: Int = 0
 }

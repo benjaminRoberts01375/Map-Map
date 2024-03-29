@@ -69,9 +69,10 @@ struct MapButtonsV: View {
                             .mapButton(active: markersChirp)
                     }
                     .onChange(of: markersChirp, initial: true) {
-                        if markersChirp && UserDefaults.standard.integer(forKey: UserDefaults.kMarkerChirpKeepOpen) != 1 {
+                        if markersChirp && 
+                            UserDefaults.standard.integer(forKey: UserDefaults.kMarkerChirpKeepOpen) != UserDefaults.vMarkerChirp {
                             showMarkerChirpKeepOpen = true
-                            UserDefaults.standard.set(1, forKey: UserDefaults.kMarkerChirpKeepOpen)
+                            UserDefaults.standard.set(UserDefaults.vMarkerChirp, forKey: UserDefaults.kMarkerChirpKeepOpen)
                         }
                     }
                     .popover(isPresented: $showMarkerChirpKeepOpen) {
