@@ -26,6 +26,8 @@ struct MapButtonsV: View {
     @State private var markerButton: MarkerButtonType = .add
     /// Track showing and hiding the marker chirp button
     @State var showMarkerChipButton: Bool = false
+    /// Track if the popover for showing the marker chirp keep open popover.
+    @State var showMarkerChirpKeepOpen: Bool = false
     /// Current editor being used.
     @Binding var editor: Editor
     /// Size of parent view.
@@ -65,6 +67,16 @@ struct MapButtonsV: View {
                         Image(systemName: markersChirp ? "speaker.wave.3.fill" : "speaker.slash")
                             .accessibilityLabel(markersChirp ? "Markers can make audio alerts." : "Markers cannot make audio alerts.")
                             .mapButton(active: markersChirp)
+                    }
+                    .onChange(of: markersChirp, initial: true) {
+                        if markersChirp && UserDefaults.standard.integer(forKey: UserDefaults.kMarkerChirpKeepOpen) != 1 {
+                            showMarkerChirpKeepOpen = true
+                            UserDefaults.standard.set(1, forKey: UserDefaults.kMarkerChirpKeepOpen)
+                        }
+                    }
+                    .popover(isPresented: $showMarkerChirpKeepOpen) {
+                        Text("Keep Map Map open to get audio alerts.")
+                            .padding()
                     }
                 }
                 switch markerButton {
