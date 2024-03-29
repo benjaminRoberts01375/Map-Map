@@ -24,6 +24,8 @@ struct MapButtonsV: View {
     @AppStorage(UserDefaults.kAudioAlerts) var markersChirp = UserDefaults.dAudioAlerts
     /// Tracker for adding or removing markers.
     @State private var markerButton: MarkerButtonType = .add
+    /// Track showing and hiding the marker chirp button
+    @State var showMarkerChipButton: Bool = false
     /// Current editor being used.
     @Binding var editor: Editor
     /// Size of parent view.
@@ -56,12 +58,14 @@ struct MapButtonsV: View {
                 MapUserLocationButton(scope: mapScope)
                     .background(.thickMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
-                Button {
-                    withAnimation { markersChirp.toggle() }
-                } label: {
-                    Image(systemName: markersChirp ? "speaker.wave.3.fill" : "speaker.slash")
-                        .accessibilityLabel(markersChirp ? "Markers can make audio alerts." : "Markers cannot make audio alerts.")
-                        .mapButton(active: markersChirp)
+                if showMarkerChipButton {
+                    Button {
+                        withAnimation { markersChirp.toggle() }
+                    } label: {
+                        Image(systemName: markersChirp ? "speaker.wave.3.fill" : "speaker.slash")
+                            .accessibilityLabel(markersChirp ? "Markers can make audio alerts." : "Markers cannot make audio alerts.")
+                            .mapButton(active: markersChirp)
+                    }
                 }
                 switch markerButton {
                 case .add:
@@ -111,6 +115,9 @@ struct MapButtonsV: View {
         .onChange(of: mapDetails.region.center) { checkOverMarker() }
         .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)) { _ in
             checkOverMarker()
+        }
+        .onChange(of: markers.count, initial: true) {
+            withAnimation { self.showMarkerChipButton = !markers.isEmpty }
         }
     }
     
