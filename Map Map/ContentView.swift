@@ -19,6 +19,10 @@ struct ContentView: View {
     @FetchRequest(sortDescriptors: []) private var gpsMaps: FetchedResults<GPSMap>
     /// All available Markers
     @FetchRequest(sortDescriptors: []) private var markers: FetchedResults<Marker>
+    /// Control if the satellite map is shown.
+    @AppStorage(UserDefaults.kShowSatelliteMap) var mapType = UserDefaults.dShowSatelliteMap
+    /// Current coloring of the UI elements
+    @Environment(\.colorScheme) var colorScheme
     /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
     /// Details for the main map.
@@ -93,6 +97,7 @@ struct ContentView: View {
             }
         }
         .audioAlerts()
+        .environment(\.colorScheme, mapType ? .dark : colorScheme)
     }
     
     /// Handles drag and drop of images from outside of Map Map.
