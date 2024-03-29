@@ -117,7 +117,14 @@ struct MapButtonsV: View {
             checkOverMarker()
         }
         .onChange(of: markers.count, initial: true) {
-            withAnimation { self.showMarkerChipButton = !markers.isEmpty }
+            withAnimation {
+                if markers.isEmpty {
+                    markersChirp = false
+                    self.showMarkerChipButton = false
+                    return
+                }
+                self.showMarkerChipButton = true
+            }
         }
     }
     
