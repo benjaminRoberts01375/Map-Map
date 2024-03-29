@@ -20,4 +20,8 @@ extension UserDefaults {
     static let kShowSatelliteMap: String = "showSatelliteMap"
     /// Default value for the User Defaults entry for showing the satellite map.
     static let dShowSatelliteMap: Bool = false
+    /// Key for the User Defaults entry for presenting a popup telling the user to keep the app open.
+    static let kMarkerChirpKeepOpen = "markerChirpKeepOpen"
+    /// Default value for the User Defaults entry `kMarkerChirpKeepOpen`
+    static let dMarkerChirpKeepOpen: Int = 0
 }
