@@ -37,13 +37,14 @@ struct MapMapContextMenuV: View {
             DeleteMapMapV(mapMap)
             
             Button(role: .destructive) {
-                moc.delete(mapMap)
+                for marker in mapMap.unwrappedMarkers { moc.delete(marker) }
                 try? moc.save()
             } label: {
                 Label("Delete Markers", systemImage: "trash.fill")
             }
             
             Button(role: .destructive) {
+                for marker in mapMap.unwrappedMarkers { moc.delete(marker) }
                 moc.delete(mapMap)
                 try? moc.save()
             } label: {
