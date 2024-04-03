@@ -85,8 +85,7 @@ extension DefaultDrawerHeaderV {
             
             let bounds = firstPage.bounds(for: .cropBox)
             let renderer = UIGraphicsImageRenderer(bounds: bounds)
-            
-            let image = renderer.image { context in
+            let imageData = renderer.pngData { context in // A workaround to renderer.image because of weird underlying data issues
                 // Flip the coordinate system
                 context.cgContext.translateBy(x: 0, y: bounds.size.height)
                 context.cgContext.scaleBy(x: 1.0, y: -1.0)
@@ -96,7 +95,9 @@ extension DefaultDrawerHeaderV {
                 // Draw the PDF page using PDFPage's draw method
                 firstPage.draw(with: .cropBox, to: context.cgContext)
             }
-            _ = MapMap(uiImage: image, moc: moc)
+            guard let imageAgain = UIImage(data: imageData)
+            else { return }
+            _ = MapMap(uiImage: imageAgain, moc: moc)
         }
         
         /// Check the latest latest transaction for the explorer package. If one exists, there was a purchase.

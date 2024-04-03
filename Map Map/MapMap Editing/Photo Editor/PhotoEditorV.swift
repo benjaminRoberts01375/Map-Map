@@ -204,7 +204,7 @@ struct PhotoEditorV: View {
                     dismiss()
                     guard let imageContainer = mapMapImage.imageContainer
                     else { return }
-                    imageContainer.addToImages(MapMapImage(uiImage: croppedImage, orientation: orientation, moc: moc))
+                    imageContainer.addToImages(MapMapImage(uiImage: croppedImage, orientation: orientation, cropCorners: corners, moc: moc))
                 }
             }
         }
@@ -215,17 +215,24 @@ struct PhotoEditorV: View {
     /// - Parameter mapMap: Base map map.
     /// - Returns: A handle tracker that is correctly rotated for the map map.
     static func generateInitialHandles(baseMapMap mapMap: MapMap) -> HandleTrackerM {
-        if let corners = mapMap.activeImage?.cropCorners, let orientation = mapMap.activeImage?.unwrappedOrientation {
-            let handles: HandleTrackerM =
-            switch orientation {
-            case .standard: HandleTrackerM(stockCorners: CropCornersStorage(corners: corners))
-            case .right: HandleTrackerM(stockCorners: CropCornersStorage(corners: corners).rotateLeft())
-            case .down: HandleTrackerM(stockCorners: CropCornersStorage(corners: corners).rotateDown())
-            case .left: HandleTrackerM(stockCorners: CropCornersStorage(corners: corners).rotateRight())
-            }
-            handles.orientation = orientation
-            return handles
+        var handleTracker: HandleTrackerM
+        if let imageCorners = mapMap.activeImage?.cropCorners {
+            handleTracker = HandleTrackerM(stockCorners: CropCornersStorage(corners: imageCorners))
         }
-        else { return HandleTrackerM(stockCorners: CropCornersStorage(fill: mapMap.activeImage?.imageSize ?? .zero)) }
+        else { handleTracker = HandleTrackerM(stockCorners: CropCornersStorage(fill: mapMap.activeImage?.imageSize ?? .zero)) }
+        
+        switch mapMap.activeImage?.unwrappedOrientation {
+        case .right:
+            handleTracker.orientation = .right
+            handleTracker.stockCorners = handleTracker.stockCorners.rotateLeft()
+        case .left:
+            handleTracker.orientation = .left
+            handleTracker.stockCorners = handleTracker.stockCorners.rotateRight()
+        case .down:
+            handleTracker.orientation = .down
+            handleTracker.stockCorners = handleTracker.stockCorners.rotateDown()
+        case .standard, .none: break
+        }
+        return handleTracker
     }
 }

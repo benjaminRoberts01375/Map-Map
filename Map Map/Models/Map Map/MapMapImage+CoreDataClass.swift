@@ -93,7 +93,12 @@ public extension MapMapImage {
     ///   - uiImage: UIImage to create from.
     ///   - baseImage: If this MapMapImage is based off another MapMap image, a path can be created back.
     ///   - moc: Managed Object Context to insert into
-    convenience init(uiImage: UIImage, orientation: Orientation = .standard, moc: NSManagedObjectContext) {
+    convenience init(
+        uiImage: UIImage,
+        orientation: Orientation = .standard,
+        cropCorners: CropCornersStorage? = nil,
+        moc: NSManagedObjectContext
+    ) {
         self.init(context: moc)
         self.thumbnailStatus = .loading
         self.imageStatus = .successful(uiImage)
@@ -101,6 +106,15 @@ public extension MapMapImage {
         self.imageWidth = uiImage.size.width
         self.imageHeight = uiImage.size.height
         self.imageData = uiImage.jpegData(compressionQuality: 0.1)
+        if let cropCorners = cropCorners {
+            self.cropCorners = MapMapImageCropCorners(
+                topLeading: cropCorners.topLeading,
+                topTrailing: cropCorners.topTrailing,
+                bottomLeading: cropCorners.bottomLeading,
+                bottomTrailing: cropCorners.bottomTrailing,
+                insertInto: moc
+            )
+        }
         Task {
             if let thumbnail = await generateThumbnail(from: uiImage) {
                 await MainActor.run {
