@@ -90,13 +90,17 @@ struct MapMapEditor: View {
                                 moc.reset()
                                 mapMap.endEditing()
                             }
-                            else { moc.delete(mapMap) }
+                            else {
+                                mapMap.endEditing()
+                                moc.delete(mapMap)
+                            }
                         } label: {
                             Text("Cancel")
                                 .bigButton(backgroundColor: .gray)
                         }
                         if mapMap.isSetup {
                             Button {
+                                mapMap.endEditing()
                                 moc.delete(mapMap)
                                 try? moc.save()
                             } label: {
