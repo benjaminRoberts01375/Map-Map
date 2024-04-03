@@ -101,11 +101,11 @@ extension Marker {
 extension Marker: EditableDataBlock {
     func startEditing() {
         self.isEditing = true
-        NotificationCenter.default.post(name: .kEditing, object: self)
+        NotificationCenter.default.post(name: .editingDataBlock, object: self)
     }
 
     func endEditing() {
         self.isEditing = false
-        NotificationCenter.default.post(name: .kEditing, object: self)
+        NotificationCenter.default.post(name: .editingDataBlock, object: self)
     }
 }

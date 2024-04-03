@@ -76,7 +76,7 @@ struct ContentView: View {
         .toast(isPresenting: $toastInfo.showing, tapToDismiss: false) {
             AlertToast(displayMode: .hud, type: .loading, title: "Saving", subTitle: toastInfo.info)
         }
-        .onReceive(NotificationCenter.default.publisher(for: .kEditing)) { notification in
+        .onReceive(NotificationCenter.default.publisher(for: .editingDataBlock)) { notification in
             if let editableData = notification.object as? MapMap {
                 self.editing = editableData.isEditing ? .mapMap(editableData) : .nothing
             }
