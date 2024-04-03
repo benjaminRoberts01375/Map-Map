@@ -105,6 +105,7 @@ struct MapButtonsV: View {
                     Image(systemName: "ruler")
                         .accessibilityLabel("Edit Measurements Button")
                         .rotationEffect(Angle(degrees: -45))
+                        .opacity(editor == .nothing ? 1 : 0.5)
                         .mapButton()
                 }
                 .contextMenu {
@@ -115,6 +116,7 @@ struct MapButtonsV: View {
                         Label("Delete All Measurements", systemImage: "trash.fill")
                     }
                 }
+                .disabled(editor != .nothing)
             }
             .background {
                 BlurView()
