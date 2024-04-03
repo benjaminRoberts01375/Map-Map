@@ -85,20 +85,23 @@ struct MapMapEditor: View {
                             action: { updateMapMapInfo() },
                             label: { Text("Done").bigButton(backgroundColor: .blue) }
                         )
-                        Button(action: {
-                            if mapMap.isSetup { moc.reset() }
+                        Button {
+                            if mapMap.isSetup {
+                                moc.reset()
+                                mapMap.endEditing()
+                            }
                             else { moc.delete(mapMap) }
-                        }, label: {
+                        } label: {
                             Text("Cancel")
                                 .bigButton(backgroundColor: .gray)
-                        })
+                        }
                         if mapMap.isSetup {
-                            Button( action: {
+                            Button {
                                 moc.delete(mapMap)
                                 try? moc.save()
-                            }, label: {
+                            } label: {
                                 Text("Delete")
-                            })
+                            }
                             .bigButton(backgroundColor: .red)
                         }
                     }
@@ -149,7 +152,7 @@ struct MapMapEditor: View {
         mapMap.scale = mapMapPosition.width * mapDetails.mapCamera.distance
         mapMap.name = workingName == "" ? nil : workingName
         mapMap.mapDistance = mapDetails.mapCamera.distance
-        mapMap.isEditing = false
+        mapMap.endEditing()
         mapMap.isSetup = true
         if let mapProxy = mapDetails.mapProxy,
             let mapMapImage = mapMap.activeImage,

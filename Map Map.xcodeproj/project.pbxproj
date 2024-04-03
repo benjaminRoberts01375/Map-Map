@@ -122,6 +122,7 @@
 		B57D8A552B5E112C002B9F7C /* MarkupEditorSwitcherV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A542B5E112C002B9F7C /* MarkupEditorSwitcherV.swift */; };
 		B57D8A572B5EC079002B9F7C /* DisplayDrawingV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D8A562B5EC079002B9F7C /* DisplayDrawingV.swift */; };
 		B587C2752B46517C001DD4F9 /* StringE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B587C2742B46517C001DD4F9 /* StringE.swift */; };
+		B59184EA2BBDAF0200879DE3 /* EditableDataBlockP.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59184E92BBDAF0200879DE3 /* EditableDataBlockP.swift */; };
 		B5986B222BA355C000A96601 /* GPSTrackingLSLAV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5986B212BA3558B00A96601 /* GPSTrackingLSLAV.swift */; };
 		B59B348E2B9E454F0083B458 /* RangeSlider in Frameworks */ = {isa = PBXBuildFile; productRef = B59B348D2B9E454F0083B458 /* RangeSlider */; };
 		B59B34902B9E4D900083B458 /* ColorE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59B348F2B9E4D900083B458 /* ColorE.swift */; };
@@ -299,6 +300,7 @@
 		B57D8A542B5E112C002B9F7C /* MarkupEditorSwitcherV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupEditorSwitcherV.swift; sourceTree = "<group>"; };
 		B57D8A562B5EC079002B9F7C /* DisplayDrawingV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayDrawingV.swift; sourceTree = "<group>"; };
 		B587C2742B46517C001DD4F9 /* StringE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringE.swift; sourceTree = "<group>"; };
+		B59184E92BBDAF0200879DE3 /* EditableDataBlockP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableDataBlockP.swift; sourceTree = "<group>"; };
 		B5986B212BA3558B00A96601 /* GPSTrackingLSLAV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTrackingLSLAV.swift; sourceTree = "<group>"; };
 		B59B348F2B9E4D900083B458 /* ColorE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorE.swift; sourceTree = "<group>"; };
 		B5AA73A52BACA1F5000CC28B /* MapMapImage+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MapMapImage+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -503,6 +505,7 @@
 			children = (
 				07FDC62D2AB25E0000D92113 /* Map_Map.xcdatamodeld */,
 				07FCC8542AD3593F00F88186 /* DataController.swift */,
+				B59184E92BBDAF0200879DE3 /* EditableDataBlockP.swift */,
 				B5FA57F22B8527B90057BCD7 /* GPS Map */,
 				B5AA73A42BACA19B000CC28B /* Map Map */,
 				B51655CD2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift */,
@@ -995,6 +998,7 @@
 				079B60402B2CC71D0073E936 /* LineShape.swift in Sources */,
 				B5AA73A82BACA203000CC28B /* MapMapImageDrawing+CoreDataClass.swift in Sources */,
 				B5E527502B7694530027300D /* GPSMapPhaseController.swift in Sources */,
+				B59184EA2BBDAF0200879DE3 /* EditableDataBlockP.swift in Sources */,
 				B5FADE5A2B5C6F9700AD933C /* MarkupEditorVIOS.swift in Sources */,
 				07A9C6BA2AF1CA3300C3AED4 /* PhotoEditorV.swift in Sources */,
 				072DDB302AF42A3E00E74963 /* IrregularGridV.swift in Sources */,

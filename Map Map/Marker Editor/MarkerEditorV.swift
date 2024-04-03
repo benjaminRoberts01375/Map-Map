@@ -87,7 +87,12 @@ struct MarkerEditorV: View {
                                 action: { updateMarker() },
                                 label: { Text("Done").bigButton(backgroundColor: .blue) }
                             )
-                            Button { moc.reset() } label: { Text("Cancel").bigButton(backgroundColor: .gray) }
+                            Button {
+                                moc.reset()
+                                marker.endEditing()
+                            } label: {
+                                Text("Cancel").bigButton(backgroundColor: .gray)
+                            }
                         }
                     }
                     .padding(.bottom, isShortCard ? 0 : 10)
@@ -165,6 +170,7 @@ struct MarkerEditorV: View {
         marker.coordinate = mapDetails.region.center
         marker.lockRotationAngleDouble = saveAngle ? -mapDetails.mapCamera.heading : nil
         determineMarkerOverlap()
+        marker.endEditing()
         try? moc.save()
     }
 }

@@ -49,3 +49,15 @@ extension MapMap {
         self.isEditing = true
     }
 }
+
+extension MapMap: EditableDataBlock {
+    func startEditing() {
+        self.isEditing = true
+        NotificationCenter.default.post(name: .editingDataBlock, object: self)
+    }
+
+    func endEditing() {
+        self.isEditing = false
+        NotificationCenter.default.post(name: .editingDataBlock, object: self)
+    }
+}

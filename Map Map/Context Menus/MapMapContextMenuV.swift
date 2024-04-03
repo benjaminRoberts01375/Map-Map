@@ -20,7 +20,7 @@ struct MapMapContextMenuV: View {
     var body: some View {
         Button {
             mapDetails.moveMapCameraTo(item: mapMap)
-            mapMap.isEditing = true
+            mapMap.startEditing()
         } label: {
             Label("Edit Map Map", systemImage: "pencil")
         }
