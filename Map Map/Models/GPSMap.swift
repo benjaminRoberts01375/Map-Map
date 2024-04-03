@@ -104,3 +104,15 @@ public extension GPSMap {
         self.isEditing = true
     }
 }
+
+extension GPSMap: EditableDataBlock {
+    func startEditing() {
+        self.isEditing = true
+        NotificationCenter.default.post(name: .kEditing, object: self)
+    }
+
+    func endEditing() {
+        self.isEditing = false
+        NotificationCenter.default.post(name: .kEditing, object: self)
+    }
+}
