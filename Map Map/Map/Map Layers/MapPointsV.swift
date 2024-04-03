@@ -31,6 +31,8 @@ struct MapPointsV: View {
     static let minLineLength: CGFloat = 70
     /// Track if the app is currently in the foreground.
     @Environment(\.scenePhase) private var scenePhase
+    /// Current editor being used.
+    @Binding var editor: Editor
     
     var body: some View {
         GeometryReader { _ in
@@ -55,6 +57,7 @@ struct MapPointsV: View {
                                 .offset(y: markerOffset)
                         }
                         .contextMenu { MarkerContextMenuV(marker: marker) }
+                        .disabled(editor != .nothing)
                         .frame(width: MapPointsV.iconSize, height: MapPointsV.iconSize)
                         if let markerName = marker.name, isOverMarker(marker) {
                             Text(markerName)
