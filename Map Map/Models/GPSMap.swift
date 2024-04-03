@@ -101,7 +101,7 @@ public extension GPSMap {
     /// - Parameter moc: Managed Object Context to insert this GPS map into.
     convenience init(moc: NSManagedObjectContext) {
         self.init(context: moc)
-        self.isEditing = true
+        startEditing()
     }
 }
 
