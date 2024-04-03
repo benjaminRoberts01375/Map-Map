@@ -11,4 +11,6 @@ import NotificationCenter
 extension Notification.Name {
     /// Notification name to be sent when Core Data is saving data.
     public static let savingToastNotification = Notification.Name("SavingData")
+    /// Notification name to be sent when Core Data is editing a particular data block.
+    public static let kEditing = Notification.Name("editingDataBlock")
 }
