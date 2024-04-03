@@ -73,7 +73,7 @@ struct ContentView: View {
             }
             .onAppear { mapDetails.mapProxy = mapContext }
         }
-        .toast(isPresenting: $toastInfo.showing, tapToDismiss: false, alert: {
+        .toast(isPresenting: $toastInfo.showing, tapToDismiss: false) {
             AlertToast(displayMode: .hud, type: .loading, title: "Saving", subTitle: toastInfo.info)
         })
         .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { _ in

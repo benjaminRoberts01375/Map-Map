@@ -85,20 +85,20 @@ struct MapMapEditor: View {
                             action: { updateMapMapInfo() },
                             label: { Text("Done").bigButton(backgroundColor: .blue) }
                         )
-                        Button(action: {
                             if mapMap.isSetup { moc.reset() }
+                        Button {
                             else { moc.delete(mapMap) }
-                        }, label: {
+                        } label: {
                             Text("Cancel")
                                 .bigButton(backgroundColor: .gray)
-                        })
+                        }
                         if mapMap.isSetup {
-                            Button( action: {
+                            Button {
                                 moc.delete(mapMap)
                                 try? moc.save()
-                            }, label: {
+                            } label: {
                                 Text("Delete")
-                            })
+                            }
                             .bigButton(backgroundColor: .red)
                         }
                     }
