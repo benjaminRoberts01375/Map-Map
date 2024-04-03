@@ -204,7 +204,7 @@ struct PhotoEditorV: View {
                     dismiss()
                     guard let imageContainer = mapMapImage.imageContainer
                     else { return }
-                    imageContainer.addToImages(MapMapImage(uiImage: croppedImage, orientation: orientation, moc: moc))
+                    imageContainer.addToImages(MapMapImage(uiImage: croppedImage, orientation: orientation, cropCorners: corners, moc: moc))
                 }
             }
         }
