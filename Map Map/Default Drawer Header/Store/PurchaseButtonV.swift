@@ -23,12 +23,12 @@ extension StoreV {
                     .frame(height: 50)
                     .bigButton(backgroundColor: .blue.opacity(0.5), minWidth: 300)
             }
-            else if AppStore.canMakePayments {
-                Text("Device Cannot Make Payments")
-                    .fontWeight(.bold)
-                    .frame(height: 50)
-                    .bigButton(backgroundColor: .blue.opacity(0.5), minWidth: 300)
-            }
+//            else if AppStore.canMakePayments {
+//                Text("Device Cannot Make Payments")
+//                    .fontWeight(.bold)
+//                    .frame(height: 50)
+//                    .bigButton(backgroundColor: .blue.opacity(0.5), minWidth: 300)
+//            }
             else {
                 Button {
                     Task {
