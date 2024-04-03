@@ -93,6 +93,13 @@ struct MarkerEditorV: View {
                             } label: {
                                 Text("Cancel").bigButton(backgroundColor: .gray)
                             }
+                            Button {
+                                marker.endEditing()
+                                moc.delete(marker)
+                                try? moc.save()
+                            } label: {
+                                Text("Delete").bigButton(backgroundColor: .red)
+                            }
                         }
                     }
                     .padding(.bottom, isShortCard ? 0 : 10)
