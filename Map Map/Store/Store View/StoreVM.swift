@@ -24,17 +24,5 @@ extension StoreV {
                 print(error.localizedDescription)
             }
         }
-        
-        /// Catch if a purchase happened that wasn't previously caught.
-        func doubleCheckPurchased() async -> Bool {
-            for await update in Transaction.updates {
-                guard let productID = try? update.payloadValue.productID else { continue }
-                if productID == Product.kExplorer {
-                    return true
-                }
-            }
-            return false
-        }
     }
 }
-

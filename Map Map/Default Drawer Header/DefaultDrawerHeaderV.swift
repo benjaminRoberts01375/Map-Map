@@ -11,10 +11,13 @@ import SwiftUI
 struct DefaultDrawerHeaderV: View {
     /// Current Core Data managed object context.
     @Environment(\.managedObjectContext) private var moc
+    /// Everything that has to do with purchases.
+    @Environment(Store.self) var store: Store
     /// View model holding logic and functions.
     @State var viewModel: ViewModel = ViewModel()
     
     var body: some View {
+        @Bindable var store = store
         HStack {
             Text("Your Map Maps")
                 .font(.title)
@@ -62,6 +65,6 @@ struct DefaultDrawerHeaderV: View {
             }
         }
         .sheet(isPresented: $viewModel.cameraPresented) { CameraV() }
-        .sheet(isPresented: $viewModel.storePresented) { StoreV(purchased: $viewModel.boughtExplorer) }
+        .sheet(isPresented: $store.explorerStorePresented) { StoreV() }
     }
 }

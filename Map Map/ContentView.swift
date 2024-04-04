@@ -9,6 +9,7 @@ import AlertToast
 import Bottom_Drawer
 import CoreData
 import MapKit
+import StoreKit
 import SwiftUI
 
 /// First displayed view in MapMap

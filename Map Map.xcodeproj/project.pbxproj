@@ -100,6 +100,7 @@
 		B5127ADA2BBF45B600CA3E7A /* StoreV Horizontal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5127AD92BBF45B600CA3E7A /* StoreV Horizontal.swift */; };
 		B5127ADC2BBF45BB00CA3E7A /* StoreV Vertical.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5127ADB2BBF45BB00CA3E7A /* StoreV Vertical.swift */; };
 		B5127ADE2BBF45EE00CA3E7A /* StoreVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5127ADD2BBF45EE00CA3E7A /* StoreVM.swift */; };
+		B5127AE02BBF492B00CA3E7A /* StoreM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5127ADF2BBF492B00CA3E7A /* StoreM.swift */; };
 		B51655CE2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51655CD2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift */; };
 		B51655D02B3CB5A4006FBE67 /* MapMeasurementConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51655CF2B3CB5A4006FBE67 /* MapMeasurementConnection.swift */; };
 		B51B70D92B72ACCC004B3B3D /* CameraPhotoEditorV.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51B70D82B72ACCC004B3B3D /* CameraPhotoEditorV.swift */; };
@@ -288,6 +289,7 @@
 		B5127AD92BBF45B600CA3E7A /* StoreV Horizontal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoreV Horizontal.swift"; sourceTree = "<group>"; };
 		B5127ADB2BBF45BB00CA3E7A /* StoreV Vertical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoreV Vertical.swift"; sourceTree = "<group>"; };
 		B5127ADD2BBF45EE00CA3E7A /* StoreVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreVM.swift; sourceTree = "<group>"; };
+		B5127ADF2BBF492B00CA3E7A /* StoreM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreM.swift; sourceTree = "<group>"; };
 		B51655CD2B3C9A64006FBE67 /* MapMeasurementCoordinate+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MapMeasurementCoordinate+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B51655CF2B3CB5A4006FBE67 /* MapMeasurementConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMeasurementConnection.swift; sourceTree = "<group>"; };
 		B51B70D82B72ACCC004B3B3D /* CameraPhotoEditorV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPhotoEditorV.swift; sourceTree = "<group>"; };
@@ -570,6 +572,7 @@
 			children = (
 				07FDC6222AB25DFD00D92113 /* Map_MapApp.swift */,
 				07FDC6242AB25DFD00D92113 /* ContentView.swift */,
+				B55148F52BAE722E0096D604 /* Store */,
 				B55148E92BAE6B7C0096D604 /* Default Drawer Header */,
 				077CBEAF2AD5088100741F27 /* MapMap List */,
 				07FCC85F2AD3764A00F88186 /* Map */,
@@ -712,7 +715,6 @@
 				B55148E52BAE68D80096D604 /* DefaultDrawerHeaderVM.swift */,
 				B55149002BAF67F90096D604 /* AlertManager.swift */,
 				B55148E72BAE6B500096D604 /* AddMapMenuV.swift */,
-				B55148F52BAE722E0096D604 /* Store */,
 			);
 			path = "Default Drawer Header";
 			sourceTree = "<group>";
@@ -720,6 +722,7 @@
 		B55148F52BAE722E0096D604 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				B5127ADF2BBF492B00CA3E7A /* StoreM.swift */,
 				B5127AD82BBF45AA00CA3E7A /* Store View */,
 				B55148F12BAE70800096D604 /* BulletPointListV.swift */,
 				B55148ED2BAE6FF30096D604 /* BulletPointV.swift */,
@@ -1044,6 +1047,7 @@
 				B551490A2BAF822F0096D604 /* MapMapVFinalStateV.swift in Sources */,
 				B5127AD02BBE867700CA3E7A /* UseHUDTip.swift in Sources */,
 				B5127ADE2BBF45EE00CA3E7A /* StoreVM.swift in Sources */,
+				B5127AE02BBF492B00CA3E7A /* StoreM.swift in Sources */,
 				0762DD652AD4696B00C36D33 /* DoneButtonV.swift in Sources */,
 				07C2E07B2B128F9C003C292E /* AvailableThumbnailImages.swift in Sources */,
 				B53C948C2B57162400768C66 /* CropGrabberV.swift in Sources */,
