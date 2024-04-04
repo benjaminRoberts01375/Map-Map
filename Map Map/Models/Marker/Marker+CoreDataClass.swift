@@ -95,7 +95,6 @@ extension Marker {
     public convenience init(coordinate: CLLocationCoordinate2D, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
         self.coordinate = coordinate
-        startEditing()
     }
 }
 
