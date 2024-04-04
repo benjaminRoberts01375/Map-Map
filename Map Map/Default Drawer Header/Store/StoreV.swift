@@ -51,7 +51,7 @@ struct StoreV: View {
                 Spacer()
                 PurchaseButtonV(purchased: $viewModel.purchased)
                 Button {
-                    Task { await restorePurchases() }
+                    Task { await viewModel.restorePurchases() }
                 } label: {
                     Text("Restore Purchases...")
                         .foregroundStyle(.blue)
@@ -79,28 +79,9 @@ struct StoreV: View {
                 .ignoresSafeArea()
             }
         }
-        .task { await doubleCheckPurchased() }
+        .task { await viewModel.doubleCheckPurchased() }
         .inAppPurchaseFailed(isPresented: $viewModel.presentNotAbleToRestorePurchases)
         .animation(.easeOut, value: viewModel.purchased)
-    }
-    
-    /// Restore purchases if not activated.
-    func restorePurchases() async {
-        do { try await AppStore.sync() }
-        catch {
-            self.viewModel.presentNotAbleToRestorePurchases = true
-            print(error.localizedDescription)
-        }
-    }
-    
-    /// Catch if a purchase happened that wasn't previously caught.
-    func doubleCheckPurchased() async {
-        for await update in Transaction.updates {
-            guard let productID = try? update.payloadValue.productID else { continue }
-            if productID == Product.kExplorer {
-                await MainActor.run { self.viewModel.purchased = true }
-            }
-        }
     }
 }
 
@@ -122,6 +103,25 @@ extension StoreV {
         
         init(purchased: Binding<Bool>) {
             self._purchased = purchased
+        }
+        
+        /// Restore purchases if not activated.
+        func restorePurchases() async {
+            do { try await AppStore.sync() }
+            catch {
+                self.presentNotAbleToRestorePurchases = true
+                print(error.localizedDescription)
+            }
+        }
+        
+        /// Catch if a purchase happened that wasn't previously caught.
+        func doubleCheckPurchased() async {
+            for await update in Transaction.updates {
+                guard let productID = try? update.payloadValue.productID else { continue }
+                if productID == Product.kExplorer {
+                    await MainActor.run { self.purchased = true }
+                }
+            }
         }
     }
 }
