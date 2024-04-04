@@ -29,6 +29,7 @@ struct DefaultDrawerHeaderV: View {
                     .accessibilityLabel("Add Map Map Button")
                     .frame(width: 22, height: 22)
             }
+            .popoverTip(AddMapMapTip())
             Spacer()
         }
         .onChange(of: viewModel.rawPhotos) { _, updatedRawPhotos in
