@@ -20,46 +20,8 @@ struct StoreV: View {
     init(purchased: Binding<Bool>) { self._viewModel = State(initialValue: ViewModel(purchased: purchased)) }
     
     var body: some View {
-        ZStack(alignment: .top) {
-            Color.clear
-            HStack {
-                Spacer()
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "x.circle.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .symbolRenderingMode(.hierarchical)
-                        .foregroundStyle(.gray)
-                        .frame(width: 40)
-                        .padding()
-                        .accessibilityLabel("Close Map Map Explorer buy page.")
-                }
-            }
-            VStack {
-                MapMapExplorerTitleV()
-                    .padding(20)
-                    .background {
-                        if viewModel.purchased {
-                            Color.clear
-                                .onAppear { viewModel.confettiCounter += 1 }
-                                .confettiCannon(counter: $viewModel.confettiCounter, radius: 700, repetitions: 1000, repetitionInterval: 1)
-                        }
-                    }
-                BulletPointListV()
-                Spacer()
-                PurchaseButtonV(purchased: $viewModel.purchased)
-                Button {
-                    Task { await viewModel.restorePurchases() }
-                } label: {
-                    Text("Restore Purchases...")
-                        .foregroundStyle(.blue)
-                        .opacity(viewModel.purchased ? 0 : 1)
-                }
-                .padding()
-                .disabled(viewModel.purchased)
-            }
+        GeometryReader { geo in
+            VerticalStoreV(viewModel: $viewModel)
         }
         .background {
             switch colorScheme {
@@ -91,6 +53,60 @@ struct StoreV: View {
 }
 
 extension StoreV {
+    struct VerticalStoreV: View {
+        /// Dismiss function to hide this view.
+        @Environment(\.dismiss) var dismiss
+        /// Current user coloring
+        @Environment(\.colorScheme) var colorScheme
+        /// Alert presentation tracker.
+        @Binding var viewModel: ViewModel
+        
+        var body: some View {
+            ZStack(alignment: .top) {
+                Color.clear
+                HStack {
+                    Spacer()
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "x.circle.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .symbolRenderingMode(.hierarchical)
+                            .foregroundStyle(.gray)
+                            .frame(width: 40)
+                            .padding()
+                            .accessibilityLabel("Close Map Map Explorer buy page.")
+                    }
+                }
+                VStack {
+                    MapMapExplorerTitleV()
+                        .padding(20)
+                        .background {
+                            if viewModel.purchased {
+                                Color.clear
+                                    .onAppear { viewModel.confettiCounter += 1 }
+                                    .confettiCannon(counter: $viewModel.confettiCounter, radius: 700, repetitions: 1000, repetitionInterval: 1)
+                            }
+                        }
+                    BulletPointListV()
+                    Spacer()
+                    PurchaseButtonV(purchased: $viewModel.purchased)
+                    Button {
+                        Task { await viewModel.restorePurchases() }
+                    } label: {
+                        Text("Restore Purchases...")
+                            .foregroundStyle(.blue)
+                            .opacity(viewModel.purchased ? 0 : 1)
+                    }
+                    
+                    .padding()
+                    .disabled(viewModel.purchased)
+                }
+            }
+        }
+    }
+    
     @Observable
     final class ViewModel {
         /// Alert presentation tracker.
