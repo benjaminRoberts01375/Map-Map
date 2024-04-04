@@ -140,6 +140,7 @@ struct MapMeasurementCoordinateEditorV: View {
                     HStack {
                         // Done button
                         Button {
+                            if measurements.count > 1 { ClearMeasurementsTip.discovered = true }
                             editing = .nothing
                             cleanupMeasurements()
                             try? moc.save()

@@ -114,6 +114,7 @@ struct MapButtonsV: View {
                     }
                 }
                 .disabled(editor != .nothing)
+                .popoverTip(ClearMeasurementsTip())
             }
             .background {
                 BlurView()
