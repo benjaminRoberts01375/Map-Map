@@ -52,7 +52,7 @@ struct MarkerEditorV: View {
                 .padding(.top, max(MapLayersV.minSafeAreaDistance, geo.safeAreaInsets.top))
                 MarkerV(marker: marker)
                     .allowsHitTesting(false)
-                    .frame(width: MapPointsV.iconSize, height: MapPointsV.iconSize)
+                    .frame(width: MarkerV.iconSize, height: MarkerV.iconSize)
                 BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                     VStack {
                         HStack {
@@ -87,7 +87,19 @@ struct MarkerEditorV: View {
                                 action: { updateMarker() },
                                 label: { Text("Done").bigButton(backgroundColor: .blue) }
                             )
-                            Button { moc.reset() } label: { Text("Cancel").bigButton(backgroundColor: .gray) }
+                            Button {
+                                moc.reset()
+                                marker.endEditing()
+                            } label: {
+                                Text("Cancel").bigButton(backgroundColor: .gray)
+                            }
+                            Button {
+                                marker.endEditing()
+                                moc.delete(marker)
+                                try? moc.save()
+                            } label: {
+                                Text("Delete").bigButton(backgroundColor: .red)
+                            }
                         }
                     }
                     .padding(.bottom, isShortCard ? 0 : 10)
@@ -151,8 +163,8 @@ struct MarkerEditorV: View {
             ovalIn: CGRect(
                 origin: markerPosition,
                 size: CGSize(
-                    width: MapPointsV.iconSize,
-                    height: MapPointsV.iconSize
+                    width: MarkerV.iconSize,
+                    height: MarkerV.iconSize
                 )
             )
         ).cgPath
@@ -165,6 +177,7 @@ struct MarkerEditorV: View {
         marker.coordinate = mapDetails.region.center
         marker.lockRotationAngleDouble = saveAngle ? -mapDetails.mapCamera.heading : nil
         determineMarkerOverlap()
+        marker.endEditing()
         try? moc.save()
     }
 }

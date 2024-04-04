@@ -9,6 +9,7 @@ import AlertToast
 import Bottom_Drawer
 import CoreData
 import MapKit
+import StoreKit
 import SwiftUI
 
 /// First displayed view in MapMap
@@ -73,20 +74,20 @@ struct ContentView: View {
             }
             .onAppear { mapDetails.mapProxy = mapContext }
         }
-        .toast(isPresenting: $toastInfo.showing, tapToDismiss: false, alert: {
+        .toast(isPresenting: $toastInfo.showing, tapToDismiss: false) {
             AlertToast(displayMode: .hud, type: .loading, title: "Saving", subTitle: toastInfo.info)
-        })
-        .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { _ in
-            switch self.editing {
-            case .measurement: return
-            default:
-                if let editingMapMap = mapMaps.first(where: { $0.isEditing }) { self.editing = .mapMap(editingMapMap) }
-                else if let editingMarker = markers.first(where: { $0.isEditing }) { self.editing = .marker(editingMarker) }
-                else if let editingGPSMap = gpsMaps.first(where: { $0.isEditing }) {
-                    self.editing = .gpsMap(editingGPSMap)
-                }
-                else { self.editing = .nothing }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .editingDataBlock)) { notification in
+            if let editableData = notification.object as? MapMap {
+                self.editing = editableData.isEditing ? .mapMap(editableData) : .nothing
             }
+            else if let editableData = notification.object as? GPSMap {
+                self.editing = editableData.isEditing ? .gpsMap(editableData) : .nothing
+            }
+            else if let editableData = notification.object as? Marker {
+                self.editing = editableData.isEditing ? .marker(editableData) : .nothing
+            }
+            else { self.editing = .nothing }
         }
         .onReceive(NotificationCenter.default.publisher(for: .savingToastNotification)) { notification in
             if let showing = notification.userInfo?["savingVal"] as? Bool {
@@ -98,6 +99,16 @@ struct ContentView: View {
         }
         .audioAlerts()
         .environment(\.colorScheme, mapType ? .dark : colorScheme)
+        .onAppear {
+            if !AddMapMapTip.discovered { // Update adding a Map Map tip
+                Timer.scheduledTimer(withTimeInterval: 15, repeats: false) { _ in
+                    AddMapMapTip.discovered = true
+                }
+            }
+            Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { _ in // Update using the HUD tip
+                Task { await UseHUDTip.count.donate() }
+            }
+        }
     }
     
     /// Handles drag and drop of images from outside of Map Map.

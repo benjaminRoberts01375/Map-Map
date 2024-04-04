@@ -30,7 +30,7 @@ struct MarkerContextMenuV: View {
         
         Button {
             mapDetails.moveMapCameraTo(item: marker)
-            marker.isEditing = true
+            marker.startEditing()
         } label: {
             Label("Edit Marker", systemImage: "pencil")
         }

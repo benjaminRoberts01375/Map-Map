@@ -7,6 +7,7 @@
 
 import MapKit
 import SwiftUI
+import TipKit
 
 @main
 struct MapMapApp: App {
@@ -15,11 +16,15 @@ struct MapMapApp: App {
     /// Map details for environment.
     @State private var mapDetails = MapDetailsM()
     
+    @State private var store = Store()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .task { try? Tips.configure() }
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environment(mapDetails)
+                .environment(store)
         }
     }
 }

@@ -135,11 +135,18 @@ struct MapMeasurementCoordinateEditorV: View {
             
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center]) { _ in
                 VStack {
-                    Text("Drag to measure.")
-                        .foregroundStyle(.secondary)
+                    if selectedMeasurement != nil {
+                        Text("Drag to measure from selected.")
+                            .foregroundStyle(.secondary)
+                    }
+                    else {
+                        Text("Drag to measure.")
+                            .foregroundStyle(.secondary)
+                    }
                     HStack {
                         // Done button
                         Button {
+                            if measurements.count > 1 { ClearMeasurementsTip.discovered = true }
                             editing = .nothing
                             cleanupMeasurements()
                             try? moc.save()

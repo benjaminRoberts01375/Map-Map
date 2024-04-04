@@ -18,7 +18,7 @@ struct GPSMapContextMenu: View {
     var body: some View {
         Button {
             mapDetails.moveMapCameraTo(item: gpsMap)
-            gpsMap.isEditing = true
+            gpsMap.startEditing()
         } label: {
             Label("Edit GPS Map", systemImage: "pencil")
         }

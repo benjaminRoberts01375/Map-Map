@@ -101,6 +101,18 @@ public extension GPSMap {
     /// - Parameter moc: Managed Object Context to insert this GPS map into.
     convenience init(moc: NSManagedObjectContext) {
         self.init(context: moc)
+        startEditing()
+    }
+}
+
+extension GPSMap: EditableDataBlock {
+    func startEditing() {
         self.isEditing = true
+        NotificationCenter.default.post(name: .editingDataBlock, object: self)
+    }
+
+    func endEditing() {
+        self.isEditing = false
+        NotificationCenter.default.post(name: .editingDataBlock, object: self)
     }
 }

@@ -48,7 +48,7 @@ struct EditCameraPhotoV: View {
                                     corners: correctedCorners,
                                     orientation: handleTracker.orientation,
                                     mapMapImage: originalImage,
-                                    dismiss: { mapMap.isEditing = true }
+                                    dismiss: { mapMap.startEditing() }
                                 )
                             }
                             else { mapMap.isEditing = true }

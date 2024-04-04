@@ -93,7 +93,12 @@ public extension MapMapImage {
     ///   - uiImage: UIImage to create from.
     ///   - baseImage: If this MapMapImage is based off another MapMap image, a path can be created back.
     ///   - moc: Managed Object Context to insert into
-    convenience init(uiImage: UIImage, orientation: Orientation = .standard, moc: NSManagedObjectContext) {
+    convenience init(
+        uiImage: UIImage,
+        orientation: Orientation = .standard,
+        cropCorners: CropCornersStorage? = nil,
+        moc: NSManagedObjectContext
+    ) {
         self.init(context: moc)
         self.thumbnailStatus = .loading
         self.imageStatus = .successful(uiImage)
@@ -101,6 +106,15 @@ public extension MapMapImage {
         self.imageWidth = uiImage.size.width
         self.imageHeight = uiImage.size.height
         self.imageData = uiImage.jpegData(compressionQuality: 0.1)
+        if let cropCorners = cropCorners {
+            self.cropCorners = MapMapImageCropCorners(
+                topLeading: cropCorners.topLeading,
+                topTrailing: cropCorners.topTrailing,
+                bottomLeading: cropCorners.bottomLeading,
+                bottomTrailing: cropCorners.bottomTrailing,
+                insertInto: moc
+            )
+        }
         Task {
             if let thumbnail = await generateThumbnail(from: uiImage) {
                 await MainActor.run {
@@ -119,7 +133,7 @@ public extension MapMapImage {
     ///   - newCorners: Four cropped corners of an image.
     /// - Returns: Bool stating if the two are the same or not.
     func checkSameCorners(_ newCorners: CropCornersStorage) -> Bool {
-        if let cropCorners = cropCorners {
+        if let cropCorners = self.imageContainer?.activeContainerImage?.cropCorners {
             return cropCorners.topLeading == newCorners.topLeading.rounded() &&
             cropCorners.topTrailing == newCorners.topTrailing.rounded() &&
             cropCorners.bottomLeading == newCorners.bottomLeading.rounded() &&
@@ -135,25 +149,22 @@ public extension MapMapImage {
         else { return nil }
         let roundedCorners = newCorners.round()
         if roundedCorners != imageSize {
-            self.cropCorners = MapMapImageCropCorners(
-                topLeading: newCorners.topLeading.rounded(),
-                topTrailing: newCorners.topTrailing.rounded(),
-                bottomLeading: newCorners.bottomLeading.rounded(),
-                bottomTrailing: newCorners.bottomTrailing.rounded(),
-                insertInto: moc
-            )
-            return applyPerspectiveCorrectionFromCorners()
+            return applyPerspectiveCorrectionFromCorners(fourCorners: roundedCorners)
         }
         // Crop corners were defaults
-        if let cropCorners = cropCorners { moc.delete(cropCorners) }
+        if self.imageContainer?.unwrappedImages.count ?? 1 > 1, // More than 1 image in this container
+            let activeImage = self.imageContainer?.mapMap?.activeImage {
+            moc.delete(activeImage)
+        }
         return nil
     }
     
     /// Applies image correction based on the four corners of the MapMap.
-    private func applyPerspectiveCorrectionFromCorners() -> UIImage? {
+    /// - Parameter fourCorners: Corners to use when cropping this image.
+    /// - Returns: Cropped image
+    private func applyPerspectiveCorrectionFromCorners(fourCorners: CropCornersStorage) -> UIImage? {
         guard let mapMapRawEncodedImage = self.imageData, // Map map data
               let ciImage = CIImage(data: mapMapRawEncodedImage),       // Type ciImage
-              let fourCorners = self.cropCorners,                       // Ensure fourCorners exists
               let filter = CIFilter(name: "CIPerspectiveCorrection")    // Filter to use
         else { return nil }
         let context = CIContext()

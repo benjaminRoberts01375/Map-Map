@@ -7,6 +7,7 @@
 
 import MapKit
 import SwiftUI
+import TipKit
 
 /// Map button controls.
 struct MapButtonsV: View {
@@ -47,6 +48,7 @@ struct MapButtonsV: View {
         HStack(alignment: .top, spacing: 0) {
             VStack {
                 MapHudV()
+                    .popoverTip(UseHUDTip())
                 MapScaleView(scope: mapScope)
             }
             .padding(.trailing, MapLayersV.minSafeAreaDistance)
@@ -69,16 +71,11 @@ struct MapButtonsV: View {
                             .mapButton(active: markersChirp)
                     }
                     .onChange(of: markersChirp, initial: true) {
-                        if markersChirp && 
-                            UserDefaults.standard.integer(forKey: UserDefaults.kMarkerChirpKeepOpen) != UserDefaults.vMarkerChirp {
-                            showMarkerChirpKeepOpen = true
-                            UserDefaults.standard.set(UserDefaults.vMarkerChirp, forKey: UserDefaults.kMarkerChirpKeepOpen)
+                        if markersChirp && MarkerChirpTip.count.donations.isEmpty {
+                            Task { await MarkerChirpTip.count.donate() }
                         }
                     }
-                    .popover(isPresented: $showMarkerChirpKeepOpen) {
-                        Text("Keep Map Map open to get audio alerts.")
-                            .padding()
-                    }
+                    .popoverTip(MarkerChirpTip())
                 }
                 switch markerButton {
                 case .add:
@@ -105,6 +102,7 @@ struct MapButtonsV: View {
                     Image(systemName: "ruler")
                         .accessibilityLabel("Edit Measurements Button")
                         .rotationEffect(Angle(degrees: -45))
+                        .opacity(editor == .nothing ? 1 : 0.5)
                         .mapButton()
                 }
                 .contextMenu {
@@ -115,6 +113,8 @@ struct MapButtonsV: View {
                         Label("Delete All Measurements", systemImage: "trash.fill")
                     }
                 }
+                .disabled(editor != .nothing)
+                .popoverTip(ClearMeasurementsTip())
             }
             .background {
                 BlurView()
@@ -147,7 +147,7 @@ struct MapButtonsV: View {
                 let xComponent = abs(markerPos.x - screenSize.width / 2)
                 let yComponent = abs(markerPos.y - screenSize.height / 2)
                 let distance = sqrt(pow(xComponent, 2) + pow(yComponent, 2))
-                if distance < MapPointsV.iconSize / 2 {
+                if distance < MarkerV.iconSize / 2 {
                     markerButton = .delete(marker)
                     return
                 }

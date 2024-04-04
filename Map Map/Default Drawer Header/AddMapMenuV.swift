@@ -13,6 +13,8 @@ extension DefaultDrawerHeaderV {
         /// Current Core Data managed object context.
         @Environment(\.managedObjectContext) private var moc
         
+        @Environment(Store.self) private var store
+        
         @Binding var viewModel: DefaultDrawerHeaderV.ViewModel
         
         var body: some View {
@@ -31,7 +33,7 @@ extension DefaultDrawerHeaderV {
                 action: { viewModel.filePickerPresented = true },
                 label: { Label("Files", systemImage: "folder.fill") }
             )
-            if viewModel.boughtExplorer {
+            if store.purchasedExplorer {
                 Button {
                     viewModel.locationsHandler.requestAlwaysLocation()
                     _ = GPSMap(moc: moc)
@@ -41,7 +43,7 @@ extension DefaultDrawerHeaderV {
             }
             else {
                 Button(
-                    action: { viewModel.storePresented = true },
+                    action: { store.explorerStorePresented = true },
                     label: { Label("GPS", systemImage: "dollarsign") }
                 )
             }
