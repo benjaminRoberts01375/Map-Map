@@ -15,13 +15,17 @@ struct StoreV: View {
     /// Current user coloring
     @Environment(\.colorScheme) var colorScheme
     /// Alert presentation tracker.
-    @State var viewModel: ViewModel
-    
-    init(purchased: Binding<Bool>) { self._viewModel = State(initialValue: ViewModel(purchased: purchased)) }
+    @State var viewModel: ViewModel = ViewModel()
+    /// Track if this package was purchased.
+    @Binding var purchased: Bool
     
     var body: some View {
         GeometryReader { geo in
-            VerticalStoreV(viewModel: $viewModel)
+            if geo.size.width > geo.size.height {
+                HorizontalStoreV(viewModel: $viewModel, purchased: $purchased)
+                    .padding()
+            }
+            else { VerticalStoreV(viewModel: $viewModel, purchased: $purchased) }
         }
         .background {
             switch colorScheme {
@@ -41,9 +45,12 @@ struct StoreV: View {
                 .ignoresSafeArea()
             }
         }
-        .task { await viewModel.doubleCheckPurchased() }
+        .task { 
+            let purchased = await viewModel.doubleCheckPurchased()
+            await MainActor.run { self.purchased = purchased }
+        }
         .inAppPurchaseFailed(isPresented: $viewModel.presentNotAbleToRestorePurchases)
-        .animation(.easeOut, value: viewModel.purchased)
+        .animation(.easeOut, value: purchased)
     }
 }
 
@@ -53,6 +60,59 @@ struct StoreV: View {
 }
 
 extension StoreV {
+    struct HorizontalStoreV: View {
+        /// Dismiss function to hide this view.
+        @Environment(\.dismiss) var dismiss
+        /// Current user coloring
+        @Environment(\.colorScheme) var colorScheme
+        /// Alert presentation tracker.
+        @Binding var viewModel: ViewModel
+        /// Track if this package was purchased.
+        @Binding var purchased: Bool
+        
+        var body: some View {
+            VStack {
+                HStack(alignment: .top) {
+                    MapMapExplorerTitleV()
+                        .background {
+                            if purchased {
+                                Color.clear
+                                    .onAppear { viewModel.confettiCounter += 1 }
+                                    .confettiCannon(counter: $viewModel.confettiCounter, radius: 700, repetitions: 1000, repetitionInterval: 1)
+                            }
+                        }
+                    BulletPointListV()
+                    
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "x.circle.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .symbolRenderingMode(.hierarchical)
+                            .foregroundStyle(.gray)
+                            .frame(width: 40)
+                            .padding()
+                            .accessibilityLabel("Close Map Map Explorer buy page.")
+                    }
+                }
+                Spacer()
+                HStack {
+                    Button {
+                        Task { await viewModel.restorePurchases() }
+                    } label: {
+                        Text("Restore Purchases...")
+                            .foregroundStyle(.blue)
+                            .opacity(purchased ? 0 : 1)
+                    }
+                    Spacer()
+                    PurchaseButtonV(purchased: $purchased)
+                }
+                .padding(.horizontal, 30)
+            }
+        }
+    }
+    
     struct VerticalStoreV: View {
         /// Dismiss function to hide this view.
         @Environment(\.dismiss) var dismiss
@@ -60,6 +120,8 @@ extension StoreV {
         @Environment(\.colorScheme) var colorScheme
         /// Alert presentation tracker.
         @Binding var viewModel: ViewModel
+        /// Track if this package was purchased.
+        @Binding var purchased: Bool
         
         var body: some View {
             ZStack(alignment: .top) {
@@ -83,7 +145,7 @@ extension StoreV {
                     MapMapExplorerTitleV()
                         .padding(20)
                         .background {
-                            if viewModel.purchased {
+                            if purchased {
                                 Color.clear
                                     .onAppear { viewModel.confettiCounter += 1 }
                                     .confettiCannon(counter: $viewModel.confettiCounter, radius: 700, repetitions: 1000, repetitionInterval: 1)
@@ -91,17 +153,17 @@ extension StoreV {
                         }
                     BulletPointListV()
                     Spacer()
-                    PurchaseButtonV(purchased: $viewModel.purchased)
+                    PurchaseButtonV(purchased: $purchased)
                     Button {
                         Task { await viewModel.restorePurchases() }
                     } label: {
                         Text("Restore Purchases...")
                             .foregroundStyle(.blue)
-                            .opacity(viewModel.purchased ? 0 : 1)
+                            .opacity(purchased ? 0 : 1)
                     }
                     
                     .padding()
-                    .disabled(viewModel.purchased)
+                    .disabled(purchased)
                 }
             }
         }
@@ -111,15 +173,8 @@ extension StoreV {
     final class ViewModel {
         /// Alert presentation tracker.
         var presentNotAbleToRestorePurchases: Bool = false
-        /// Track if this package was purchased.
-        @ObservationIgnored
-        @Binding var purchased: Bool
         /// Confetti controller.
         var confettiCounter: Int = 0
-        
-        init(purchased: Binding<Bool>) {
-            self._purchased = purchased
-        }
         
         /// Restore purchases if not activated.
         func restorePurchases() async {
@@ -131,13 +186,14 @@ extension StoreV {
         }
         
         /// Catch if a purchase happened that wasn't previously caught.
-        func doubleCheckPurchased() async {
+        func doubleCheckPurchased() async -> Bool {
             for await update in Transaction.updates {
                 guard let productID = try? update.payloadValue.productID else { continue }
                 if productID == Product.kExplorer {
-                    await MainActor.run { self.purchased = true }
+                    return true
                 }
             }
+            return false
         }
     }
 }
