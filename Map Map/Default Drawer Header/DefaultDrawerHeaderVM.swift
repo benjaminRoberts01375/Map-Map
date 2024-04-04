@@ -27,21 +27,6 @@ extension DefaultDrawerHeaderV {
         var alertManager = AlertManager()
         /// GPS user location.
         var locationsHandler = LocationsHandler.shared
-        /// Track if the store is currently being presented to the user.
-        var storePresented = false
-        /// Track if the user has gotten the explorer package
-        var boughtExplorer = false
-        
-        init() {
-//#if DEBUG
-//            self.boughtExplorer = true
-//#elseif DEBUG
-            Task {
-                let bought = await checkIfExplorerPurchased()
-                await MainActor.run { self.boughtExplorer = bought }
-            }
-//#endif
-        }
         
         /// Creates a MapMap from a URL if the resulting data is a `PNG` or `JPEG`.
         /// - Parameter url: URL to pull data from.
@@ -98,14 +83,6 @@ extension DefaultDrawerHeaderV {
             guard let imageAgain = UIImage(data: imageData)
             else { return }
             _ = MapMap(uiImage: imageAgain, moc: moc)
-        }
-        
-        /// Check the latest latest transaction for the explorer package. If one exists, there was a purchase.
-        /// - Returns: Bool if there was a purchase.
-        func checkIfExplorerPurchased() async -> Bool {
-            let products = try? await Product.products(for: [Product.kExplorer])
-            guard let product = products?.first else { return false }
-            return await product.latestTransaction != nil // Can use a switch on this to get receipt
         }
     }
 }

@@ -12,12 +12,12 @@ extension StoreV {
     /// Handle switching out the button type depending on device and app status.
     struct PurchaseButtonV: View {
         /// Track if the Explorer package has been purchased
-        @Binding var purchased: Bool
+        @Environment(Store.self) var store
         /// Price of the explorer package.
         @State var price: String = ""
         
         var body: some View {
-            if purchased {
+            if store.purchasedExplorer {
                 Text("Thank You!")
                     .fontWeight(.bold)
                     .frame(height: 50)
@@ -36,7 +36,7 @@ extension StoreV {
                         guard let product = products.first else { return }
                         let result = try await product.purchase()
                         switch result {
-                        case .success: await MainActor.run { self.purchased = true }
+                        case .success: await MainActor.run { store.purchasedExplorer = true }
                         default: break
                         }
                     }

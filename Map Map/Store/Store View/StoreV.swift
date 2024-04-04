@@ -14,18 +14,18 @@ struct StoreV: View {
     @Environment(\.dismiss) var dismiss
     /// Current user coloring
     @Environment(\.colorScheme) var colorScheme
+    /// Track the current status of purchases.
+    @Environment(Store.self) var store
     /// Alert presentation tracker.
     @State var viewModel: ViewModel = ViewModel()
-    /// Track if this package was purchased.
-    @Binding var purchased: Bool
     
     var body: some View {
         GeometryReader { geo in
             if geo.size.width > geo.size.height {
-                HorizontalStoreV(viewModel: $viewModel, purchased: $purchased)
+                HorizontalStoreV(viewModel: $viewModel)
                     .padding()
             }
-            else { VerticalStoreV(viewModel: $viewModel, purchased: $purchased) }
+            else { VerticalStoreV(viewModel: $viewModel) }
         }
         .background {
             switch colorScheme {
@@ -45,16 +45,12 @@ struct StoreV: View {
                 .ignoresSafeArea()
             }
         }
-        .task { 
-            let purchased = await viewModel.doubleCheckPurchased()
-            await MainActor.run { self.purchased = purchased }
-        }
         .inAppPurchaseFailed(isPresented: $viewModel.presentNotAbleToRestorePurchases)
-        .animation(.easeOut, value: purchased)
+        .animation(.easeOut, value: store.purchasedExplorer)
     }
 }
 
 #Preview {
     Color.clear
-        .sheet(isPresented: .constant(true)) { StoreV(purchased: .constant(true)) }
+        .sheet(isPresented: .constant(true)) { StoreV() }
 }

@@ -16,17 +16,22 @@ extension StoreV {
         /// Alert presentation tracker.
         @Binding var viewModel: ViewModel
         /// Track if this package was purchased.
-        @Binding var purchased: Bool
+        @Environment(Store.self) var store
         
         var body: some View {
             VStack {
                 HStack(alignment: .top) {
                     MapMapExplorerTitleV()
                         .background {
-                            if purchased {
+                            if store.purchasedExplorer {
                                 Color.clear
                                     .onAppear { viewModel.confettiCounter += 1 }
-                                    .confettiCannon(counter: $viewModel.confettiCounter, radius: 700, repetitions: 1000, repetitionInterval: 1)
+                                    .confettiCannon(
+                                        counter: $viewModel.confettiCounter,
+                                        radius: 700,
+                                        repetitions: 1000,
+                                        repetitionInterval: 1
+                                    )
                             }
                         }
                     BulletPointListV()
@@ -51,10 +56,10 @@ extension StoreV {
                     } label: {
                         Text("Restore Purchases...")
                             .foregroundStyle(.blue)
-                            .opacity(purchased ? 0 : 1)
+                            .opacity(store.purchasedExplorer ? 0 : 1)
                     }
                     Spacer()
-                    PurchaseButtonV(purchased: $purchased)
+                    PurchaseButtonV()
                 }
                 .padding(.horizontal, 30)
             }
