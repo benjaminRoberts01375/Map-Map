@@ -22,6 +22,7 @@ struct DefaultDrawerHeaderV: View {
                 .padding([.leading])
             Menu {
                 AddMapMenuV(viewModel: $viewModel)
+                    .onAppear { AddMapMapTip().invalidate(reason: .actionPerformed) }
             } label: {
                 Image(systemName: "plus.circle.fill")
                     .symbolRenderingMode(.hierarchical)
