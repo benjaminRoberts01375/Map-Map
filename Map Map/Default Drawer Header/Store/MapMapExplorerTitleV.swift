@@ -20,9 +20,9 @@ extension StoreV {
                     .clipShape(RoundedRectangle(cornerRadius: 25))
                     .shadow(radius: 10)
                 Text("Map Map")
-                    .font(.system(size: 70).bold())
-                Text("- Explorer -")
                     .font(.system(size: 50).bold())
+                Text("- Explorer -")
+                    .font(.system(size: 30).bold())
                     .scaleEffect(x: 0.9)
                 
             }
