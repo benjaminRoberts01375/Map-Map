@@ -15,17 +15,20 @@ public enum StoreError: Error {
 @Observable
 final class Store {
     /// Store if the user has purchased explorer.
-    #if DEBUG
-    var purchasedExplorer: Bool = true
-    #elseif DEBUG
-    var purchasedExplorer: Bool = false
-    #endif
+    var purchasedExplorer: Bool
     /// Task to run in background to listen for purchases.
     private var updateListenerTask: Task<Void, Error>?
     /// Track if the store is currently being presented to the user.
     var explorerStorePresented = false
     
-    init() { self.updateListenerTask = listenForTransactions() }
+    init() {
+        #if DEBUG
+        self.purchasedExplorer = true
+        #else
+        self.purchasedExplorer = false
+        #endif
+        self.updateListenerTask = listenForTransactions()
+    }
     
     deinit { self.updateListenerTask?.cancel() }
     
