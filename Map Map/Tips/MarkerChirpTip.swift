@@ -9,8 +9,6 @@ import TipKit
 
 struct MarkerChirpTip: Tip {
     static let count = Event(id: "MarkerChirpTipCount")
-    @Parameter(.transient)
-    static var discoveredThisSession: Bool = false
     
     var title: Text {
         Text("Marker Sounds")
@@ -31,10 +29,7 @@ struct MarkerChirpTip: Tip {
     
     var rules: [Rule] {
         [ 
-            #Rule(Self.count) {
-                $0.donations.count == 1
-            },
-            #Rule(Self.$discoveredThisSession) { $0 }
+            #Rule(Self.count) { $0.donations.count == 1 }
         ]
     }
 }

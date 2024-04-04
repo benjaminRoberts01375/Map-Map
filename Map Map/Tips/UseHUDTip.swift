@@ -28,6 +28,8 @@ struct UseHUDTip: Tip {
     }
     
     var rules: [Rule] {
-        [ #Rule(Self.count) { $0.donations.count == 3 } ]
+        [ 
+            #Rule(Self.count) { $0.donations.count == 3 }
+        ]
     }
 }

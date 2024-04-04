@@ -99,19 +99,12 @@ struct ContentView: View {
         .audioAlerts()
         .environment(\.colorScheme, mapType ? .dark : colorScheme)
         .onAppear {
-            if !AddMapMapTip.discovered {
+            if !AddMapMapTip.discovered { // Update adding a Map Map tip
                 Timer.scheduledTimer(withTimeInterval: 15, repeats: false) { _ in
-                    if mapMaps.isEmpty {
-                        AddMapMapTip.discovered = true
-                        AddMapMapTip.discoveredThisSession = true
-                    }
-                    else {
-                        AddMapMapTip.createdMapMap = true
-                        AddMapMapTip.discovered = true
-                    }
+                    AddMapMapTip.discovered = true
                 }
             }
-            Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { _ in
+            Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { _ in // Update using the HUD tip
                 Task { await UseHUDTip.count.donate() }
             }
         }

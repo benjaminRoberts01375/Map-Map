@@ -14,9 +14,6 @@ struct AddMapMapTip: Tip {
     @Parameter
     static var createdMapMap: Bool = false
     
-    @Parameter(.transient)
-    static var discoveredThisSession: Bool = false
-    
     var title: Text {
         Text("Add Your First Map Map")
     }

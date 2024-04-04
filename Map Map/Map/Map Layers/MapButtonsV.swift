@@ -72,7 +72,6 @@ struct MapButtonsV: View {
                     }
                     .onChange(of: markersChirp, initial: true) {
                         if markersChirp && MarkerChirpTip.count.donations.isEmpty {
-                            MarkerChirpTip.discoveredThisSession = true
                             Task { await MarkerChirpTip.count.donate() }
                         }
                     }
