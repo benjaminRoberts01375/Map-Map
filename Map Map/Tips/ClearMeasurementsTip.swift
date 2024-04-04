@@ -23,6 +23,11 @@ struct ClearMeasurementsTip: Tip {
         Image(systemName: "ruler")
     }
     
+    var options: [Option] {
+        // Show this tip once.
+        Tips.MaxDisplayCount(1)
+    }
+    
     var rules: [Rule] {
         [
             #Rule(Self.$discovered) { $0 }

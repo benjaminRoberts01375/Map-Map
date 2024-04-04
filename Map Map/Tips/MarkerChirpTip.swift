@@ -24,6 +24,11 @@ struct MarkerChirpTip: Tip {
         Image(systemName: "bolt.fill")
     }
     
+    var options: [Option] {
+        // Show this tip once.
+        Tips.MaxDisplayCount(1)
+    }
+    
     var rules: [Rule] {
         [ 
             #Rule(Self.count) {
