@@ -160,6 +160,8 @@ public extension MapMapImage {
     }
     
     /// Applies image correction based on the four corners of the MapMap.
+    /// - Parameter fourCorners: Corners to use when cropping this image.
+    /// - Returns: Cropped image
     private func applyPerspectiveCorrectionFromCorners(fourCorners: CropCornersStorage) -> UIImage? {
         guard let mapMapRawEncodedImage = self.imageData, // Map map data
               let ciImage = CIImage(data: mapMapRawEncodedImage),       // Type ciImage
