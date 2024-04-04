@@ -148,7 +148,7 @@ struct MapButtonsV: View {
                 let xComponent = abs(markerPos.x - screenSize.width / 2)
                 let yComponent = abs(markerPos.y - screenSize.height / 2)
                 let distance = sqrt(pow(xComponent, 2) + pow(yComponent, 2))
-                if distance < MapPointsV.iconSize / 2 {
+                if distance < MarkerV.iconSize / 2 {
                     markerButton = .delete(marker)
                     return
                 }

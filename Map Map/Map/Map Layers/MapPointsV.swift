@@ -21,8 +21,6 @@ struct MapPointsV: View {
     @State private var ssUserLocation: CGPoint?
     /// Size of the parent view.
     let screenSize: CGSize
-    /// Marker icon size.
-    static let iconSize: CGFloat = 30
     /// Track if the app is currently in the foreground.
     @Environment(\.scenePhase) private var scenePhase
     /// Current editor being used.

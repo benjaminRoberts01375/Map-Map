@@ -52,7 +52,7 @@ struct MarkerEditorV: View {
                 .padding(.top, max(MapLayersV.minSafeAreaDistance, geo.safeAreaInsets.top))
                 MarkerV(marker: marker)
                     .allowsHitTesting(false)
-                    .frame(width: MapPointsV.iconSize, height: MapPointsV.iconSize)
+                    .frame(width: MarkerV.iconSize, height: MarkerV.iconSize)
                 BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                     VStack {
                         HStack {
@@ -163,8 +163,8 @@ struct MarkerEditorV: View {
             ovalIn: CGRect(
                 origin: markerPosition,
                 size: CGSize(
-                    width: MapPointsV.iconSize,
-                    height: MapPointsV.iconSize
+                    width: MarkerV.iconSize,
+                    height: MarkerV.iconSize
                 )
             )
         ).cgPath

@@ -10,6 +10,8 @@ import SwiftUI
 struct MarkerV: View {
     /// Simple renderer for Markers.
     @ObservedObject var marker: FetchedResults<Marker>.Element
+    /// Marker icon size.
+    static let iconSize: CGFloat = 30
     
     var body: some View {
         Circle()
