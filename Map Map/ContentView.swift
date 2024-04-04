@@ -111,6 +111,9 @@ struct ContentView: View {
                     }
                 }
             }
+            Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { _ in
+                Task { await UseHUDTip.count.donate() }
+            }
         }
     }
     

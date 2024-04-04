@@ -48,6 +48,7 @@ struct MapButtonsV: View {
         HStack(alignment: .top, spacing: 0) {
             VStack {
                 MapHudV()
+                    .popoverTip(UseHUDTip())
                 MapScaleView(scope: mapScope)
             }
             .padding(.trailing, MapLayersV.minSafeAreaDistance)
