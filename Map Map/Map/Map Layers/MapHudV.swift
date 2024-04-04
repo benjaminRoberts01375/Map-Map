@@ -55,6 +55,7 @@ struct MapHudV: View {
         .clipShape(RoundedRectangle(cornerRadius: 11))
         .contextMenu {
             HUDContextMenuV()
+                .onAppear { UseHUDTip().invalidate(reason: .actionPerformed) }
         }
         .onChange(of: mapDetails.mapCamera) { _, update in
             withAnimation {
