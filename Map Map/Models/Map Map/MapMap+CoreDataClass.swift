@@ -46,6 +46,7 @@ extension MapMap {
     public convenience init(uiImage: UIImage, moc: NSManagedObjectContext) {
         self.init(context: moc)
         self.addToMapMapImageContainers(MapMapImageContainer(uiImage: uiImage, moc: moc))
+        AddMapMapTip.createdMapMap = true
         startEditing()
     }
 }

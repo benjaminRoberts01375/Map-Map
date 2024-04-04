@@ -7,6 +7,7 @@
 
 import MapKit
 import SwiftUI
+import TipKit
 
 /// Map button controls.
 struct MapButtonsV: View {
@@ -47,6 +48,7 @@ struct MapButtonsV: View {
         HStack(alignment: .top, spacing: 0) {
             VStack {
                 MapHudV()
+                    .popoverTip(UseHUDTip())
                 MapScaleView(scope: mapScope)
             }
             .padding(.trailing, MapLayersV.minSafeAreaDistance)
@@ -69,16 +71,12 @@ struct MapButtonsV: View {
                             .mapButton(active: markersChirp)
                     }
                     .onChange(of: markersChirp, initial: true) {
-                        if markersChirp && 
-                            UserDefaults.standard.integer(forKey: UserDefaults.kMarkerChirpKeepOpen) != UserDefaults.vMarkerChirp {
-                            showMarkerChirpKeepOpen = true
-                            UserDefaults.standard.set(UserDefaults.vMarkerChirp, forKey: UserDefaults.kMarkerChirpKeepOpen)
+                        if markersChirp && MarkerChirpTip.count.donations.isEmpty {
+                            MarkerChirpTip.discoveredThisSession = true
+                            Task { await MarkerChirpTip.count.donate() }
                         }
                     }
-                    .popover(isPresented: $showMarkerChirpKeepOpen) {
-                        Text("Keep Map Map open to get audio alerts.")
-                            .padding()
-                    }
+                    .popoverTip(MarkerChirpTip())
                 }
                 switch markerButton {
                 case .add:
@@ -117,6 +115,7 @@ struct MapButtonsV: View {
                     }
                 }
                 .disabled(editor != .nothing)
+                .popoverTip(ClearMeasurementsTip())
             }
             .background {
                 BlurView()

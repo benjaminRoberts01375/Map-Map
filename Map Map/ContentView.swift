@@ -98,6 +98,23 @@ struct ContentView: View {
         }
         .audioAlerts()
         .environment(\.colorScheme, mapType ? .dark : colorScheme)
+        .onAppear {
+            if !AddMapMapTip.discovered {
+                Timer.scheduledTimer(withTimeInterval: 15, repeats: false) { _ in
+                    if mapMaps.isEmpty {
+                        AddMapMapTip.discovered = true
+                        AddMapMapTip.discoveredThisSession = true
+                    }
+                    else {
+                        AddMapMapTip.createdMapMap = true
+                        AddMapMapTip.discovered = true
+                    }
+                }
+            }
+            Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { _ in
+                Task { await UseHUDTip.count.donate() }
+            }
+        }
     }
     
     /// Handles drag and drop of images from outside of Map Map.

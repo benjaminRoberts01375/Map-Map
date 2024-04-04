@@ -22,6 +22,7 @@ struct DefaultDrawerHeaderV: View {
                 .padding([.leading])
             Menu {
                 AddMapMenuV(viewModel: $viewModel)
+                    .onAppear { AddMapMapTip().invalidate(reason: .actionPerformed) }
             } label: {
                 Image(systemName: "plus.circle.fill")
                     .symbolRenderingMode(.hierarchical)
@@ -29,6 +30,7 @@ struct DefaultDrawerHeaderV: View {
                     .accessibilityLabel("Add Map Map Button")
                     .frame(width: 22, height: 22)
             }
+            .popoverTip(AddMapMapTip())
             Spacer()
         }
         .onChange(of: viewModel.rawPhotos) { _, updatedRawPhotos in
