@@ -148,7 +148,12 @@ extension StoreV {
                             if purchased {
                                 Color.clear
                                     .onAppear { viewModel.confettiCounter += 1 }
-                                    .confettiCannon(counter: $viewModel.confettiCounter, radius: 700, repetitions: 1000, repetitionInterval: 1)
+                                    .confettiCannon(
+                                        counter: $viewModel.confettiCounter,
+                                        radius: 900,
+                                        repetitions: 1000,
+                                        repetitionInterval: 1
+                                    )
                             }
                         }
                     BulletPointListV()
