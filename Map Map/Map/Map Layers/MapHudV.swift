@@ -14,8 +14,6 @@ struct MapHudV: View {
     @Environment(MapDetailsM.self) private var mapDetails
     /// How to display coordinates on screen.
     @AppStorage(UserDefaults.kCoordinateDisplayType) var locationDisplayType = UserDefaults.dCoordinateDisplayType
-    /// Control if the satellite map is shown.
-    @AppStorage(UserDefaults.kShowSatelliteMap) var mapType = UserDefaults.dShowSatelliteMap
     /// Tracker for showing the heading.
     @State private var showHeading: Bool = false
     /// GPS user location.
@@ -56,32 +54,7 @@ struct MapHudV: View {
         .background(.ultraThickMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 11))
         .contextMenu {
-            Button {
-                openCurrentLocationInMaps()
-            } label: {
-                Label("Open in Maps", systemImage: "map.fill")
-            }
-            Button {
-                switch locationDisplayType {
-                case .degrees:
-                    locationDisplayType = .DMS
-                case .DMS:
-                    locationDisplayType = .degrees
-                }
-            } label: {
-                switch locationDisplayType {
-                case .degrees:
-                    Label("Show Degrees, Minutes, Seconds", systemImage: "clock.fill")
-                case .DMS:
-                    Label("Show Degrees", systemImage: "numbersign")
-                }
-            }
-            Button {
-                mapType.toggle()
-            } label: {
-                if mapType { Label("Show Standard Map", systemImage: "scribble.variable") }
-                else { Label("Show Satellite Map", systemImage: "tree.fill") }
-            }
+            HUDContextMenuV()
         }
         .onChange(of: mapDetails.mapCamera) { _, update in
             withAnimation {
@@ -114,17 +87,6 @@ struct MapHudV: View {
         }
         
         return label
-    }
-    
-    /// Allows for opening the map's current location in Apple Maps.
-    private func openCurrentLocationInMaps() {
-        let placemark = MKPlacemark(coordinate: mapDetails.region.center)
-        let mapItem = MKMapItem(placemark: placemark)
-        let launchOptions: [String : Any] = [
-            MKLaunchOptionsMapCenterKey: mapDetails.region.center,
-            MKLaunchOptionsMapSpanKey: mapDetails.region.span
-        ]
-        mapItem.openInMaps(launchOptions: launchOptions)
     }
 }
 
