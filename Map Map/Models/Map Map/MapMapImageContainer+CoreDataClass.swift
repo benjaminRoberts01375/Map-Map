@@ -11,6 +11,8 @@ import SwiftUI
 @objc(MapMapImageContainer)
 public class MapMapImageContainer: NSManagedObject {
     var unwrappedImages: [MapMapImage] { self.images?.array as? [MapMapImage] ?? [] }
+    /// The Map Map Image to be considered the most relevant.
+    var activeContainerImage: MapMapImage? { self.unwrappedImages.last }
 }
 
 public extension MapMapImageContainer {

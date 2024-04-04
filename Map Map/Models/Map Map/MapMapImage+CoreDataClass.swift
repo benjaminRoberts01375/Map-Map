@@ -133,7 +133,7 @@ public extension MapMapImage {
     ///   - newCorners: Four cropped corners of an image.
     /// - Returns: Bool stating if the two are the same or not.
     func checkSameCorners(_ newCorners: CropCornersStorage) -> Bool {
-        if let cropCorners = cropCorners {
+        if let cropCorners = self.imageContainer?.activeContainerImage?.cropCorners {
             return cropCorners.topLeading == newCorners.topLeading.rounded() &&
             cropCorners.topTrailing == newCorners.topTrailing.rounded() &&
             cropCorners.bottomLeading == newCorners.bottomLeading.rounded() &&
@@ -149,14 +149,7 @@ public extension MapMapImage {
         else { return nil }
         let roundedCorners = newCorners.round()
         if roundedCorners != imageSize {
-            self.cropCorners = MapMapImageCropCorners(
-                topLeading: newCorners.topLeading.rounded(),
-                topTrailing: newCorners.topTrailing.rounded(),
-                bottomLeading: newCorners.bottomLeading.rounded(),
-                bottomTrailing: newCorners.bottomTrailing.rounded(),
-                insertInto: moc
-            )
-            return applyPerspectiveCorrectionFromCorners()
+            return applyPerspectiveCorrectionFromCorners(fourCorners: roundedCorners)
         }
         // Crop corners were defaults
         if self.imageContainer?.unwrappedImages.count ?? 1 > 1, // More than 1 image in this container
@@ -167,10 +160,9 @@ public extension MapMapImage {
     }
     
     /// Applies image correction based on the four corners of the MapMap.
-    private func applyPerspectiveCorrectionFromCorners() -> UIImage? {
+    private func applyPerspectiveCorrectionFromCorners(fourCorners: CropCornersStorage) -> UIImage? {
         guard let mapMapRawEncodedImage = self.imageData, // Map map data
               let ciImage = CIImage(data: mapMapRawEncodedImage),       // Type ciImage
-              let fourCorners = self.cropCorners,                       // Ensure fourCorners exists
               let filter = CIFilter(name: "CIPerspectiveCorrection")    // Filter to use
         else { return nil }
         let context = CIContext()
