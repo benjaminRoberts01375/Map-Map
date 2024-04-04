@@ -58,7 +58,7 @@ struct MapMapList: View {
                     .padding(.top)
                     .padding(.bottom, 5)
                 VStack(alignment: .leading, spacing: 0) {
-                    ForEach(markers) { marker in
+                    ForEach(markers.filter { $0.formattedMapMaps.isEmpty }) { marker in
                         SmallListItemV(listItem: marker) { mapDetails.moveMapCameraTo(item: marker) }
                             .contextMenu { MarkerContextMenuV(marker: marker) }
                         Divider()
