@@ -159,7 +159,10 @@ public extension MapMapImage {
             return applyPerspectiveCorrectionFromCorners()
         }
         // Crop corners were defaults
-        if let cropCorners = cropCorners { moc.delete(cropCorners) }
+        if self.imageContainer?.unwrappedImages.count ?? 1 > 1, // More than 1 image in this container
+            let activeImage = self.imageContainer?.mapMap?.activeImage {
+            moc.delete(activeImage)
+        }
         return nil
     }
     
