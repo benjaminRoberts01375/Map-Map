@@ -55,7 +55,7 @@ struct MapMapEditor: View {
                             if mapMap.activeImage?.drawing == nil { showingPhotoEditor = true } // Drawing exists
                             else { showingPhotoEditorAlert = true } // No drawing
                         } label: {
-                            Image(systemName: "crop")
+                            Image(systemName: "crop.rotate")
                                 .resizable()
                                 .scaledToFit()
                                 .accessibilityLabel("Crop MapMap Button")
