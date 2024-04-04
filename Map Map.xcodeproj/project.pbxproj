@@ -679,6 +679,15 @@
 			path = Tips;
 			sourceTree = "<group>";
 		};
+		B5127AD52BBF1CA300CA3E7A /* Markers */ = {
+			isa = PBXGroup;
+			children = (
+				B5127AD32BBF17AA00CA3E7A /* MarkersV.swift */,
+				0740B8142B1972DB005EA0D2 /* MarkerV.swift */,
+			);
+			path = Markers;
+			sourceTree = "<group>";
+		};
 		B55148E92BAE6B7C0096D604 /* Default Drawer Header */ = {
 			isa = PBXGroup;
 			children = (
@@ -708,8 +717,7 @@
 			children = (
 				B5F0D7632B7FDB84003B4FBE /* GPS Map */,
 				B551490B2BAF82850096D604 /* Map Map */,
-				0740B8142B1972DB005EA0D2 /* MarkerV.swift */,
-				B5127AD32BBF17AA00CA3E7A /* MarkersV.swift */,
+				B5127AD52BBF1CA300CA3E7A /* Markers */,
 				B5B7CEC62BB093B500C002ED /* Map Measurement Coordinates */,
 			);
 			path = "Model Views";
