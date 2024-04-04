@@ -27,7 +27,7 @@ extension StoreV {
                     )
                     BulletPointV(
                         icon: "app.badge.checkmark",
-                        color: .mapMapPrimary,
+                        color: Color.teal,
                         title: "Future Development",
                         description: "Help fund future development, and get features beyond BYO map."
                     )
