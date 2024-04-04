@@ -33,14 +33,14 @@ extension DefaultDrawerHeaderV {
         var boughtExplorer = false
         
         init() {
-#if DEBUG
-            self.boughtExplorer = true
-#elseif DEBUG
+//#if DEBUG
+//            self.boughtExplorer = true
+//#elseif DEBUG
             Task {
                 let bought = await checkIfExplorerPurchased()
                 await MainActor.run { self.boughtExplorer = bought }
             }
-#endif
+//#endif
         }
         
         /// Creates a MapMap from a URL if the resulting data is a `PNG` or `JPEG`.
