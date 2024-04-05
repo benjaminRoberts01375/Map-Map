@@ -1,11 +1,12 @@
 # Map Map 
 ![platforms](https://img.shields.io/badge/platforms-iPhone%20%7C%20iPad-green)
 
-|![iPhone 15 screenshot 5](https://github.com/benjaminRoberts01375/Map-Map/assets/61424934/d0188025-2d26-4390-909c-a6ecd39ddf36) | Your Map on a Map |
-| ----------- | ----------- |
-| Find a photo of a Map| ![IMG_0072 copy](https://github.com/benjaminRoberts01375/Map-Map/assets/61424934/e311c61a-800a-474f-8d27-879479278a52) |
-| ![iPhone 15 screenshot 8](https://github.com/benjaminRoberts01375/Map-Map/assets/61424934/f56faeed-e7fe-4c97-a376-04307c32eee1) | And see where you are |
-| Then jot it down | ![iPhone 15 screenshot 9](https://github.com/benjaminRoberts01375/Map-Map/assets/61424934/9502b529-5651-42d5-b3bb-48f22cb35426) |
+<img src="https://github.com/benjaminRoberts01375/Map-Map/assets/61424934/b33cc9f4-7019-42c3-9cbb-4d5145687d7e" width="200" alt="Photo of the Map Map app running.">
+<img src="https://github.com/benjaminRoberts01375/Map-Map/assets/61424934/32a1113e-07be-48ef-a153-f88f6bd243e0" width="200" alt="Photo of the Map Map app running.">
+<img src="https://github.com/benjaminRoberts01375/Map-Map/assets/61424934/f7bfc2e6-ea3d-46d8-a21d-b00c0f5a6630" width="200" alt="Photo of the Map Map app running.">
+<img src="https://github.com/benjaminRoberts01375/Map-Map/assets/61424934/7281420c-be49-415e-8f1b-0f21ac615efc" width="200" alt="Photo of the Map Map app running.">
+
+
 
 # Key features
 - Import or take a photo to turn into a Map Map.
