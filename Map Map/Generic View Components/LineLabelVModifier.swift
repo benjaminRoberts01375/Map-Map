@@ -89,7 +89,7 @@ struct LineLabelVModifier: ViewModifier {
         }
         else { // Metric
             if distance.value > 100 {
-                let formattedDistance = String(format: singleDecimal, distance.converted(to: .meters).value)
+                let formattedDistance = String(format: singleDecimal, distance.converted(to: .kilometers).value)
                 return "\(formattedDistance) km"
             }
             else {
