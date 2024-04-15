@@ -27,35 +27,38 @@ struct MapV: View {
     
     var body: some View {
         @Bindable var mapDetails = mapDetails
-        Map(
-            position: $mapDetails.liveMapController,
-            interactionModes: mapDetails.allowsInteraction ? [.pan, .rotate, .zoom] : [],
-            scope: mapScope
-        ) {
-            ForEach(mapMaps) { mapMap in
-                if mapMap.isSetup && !mapMap.isEditing && mapMap.shown {
-                    Annotation(
-                        "\(mapMap.displayName)",
-                        coordinate: mapMap.coordinate,
-                        anchor: .center
-                    ) {
-                        MapMapAnnotatedV(mapMap: mapMap, mapMapInteraction: tappableMapMaps)
-                            .environment(mapDetails)
+        MapReader { mapContext in
+            Map(
+                position: $mapDetails.liveMapController,
+                interactionModes: mapDetails.allowsInteraction ? [.pan, .rotate, .zoom] : [],
+                scope: mapScope
+            ) {
+                ForEach(mapMaps) { mapMap in
+                    if mapMap.isSetup && !mapMap.isEditing && mapMap.shown {
+                        Annotation(
+                            "\(mapMap.displayName)",
+                            coordinate: mapMap.coordinate,
+                            anchor: .center
+                        ) {
+                            MapMapAnnotatedV(mapMap: mapMap, mapMapInteraction: tappableMapMaps)
+                                .environment(mapDetails)
+                        }
                     }
                 }
             }
-        }
-        .mapControlVisibility(.hidden)
-        .onMapCameraChange(frequency: .continuous) { update in
-            mapDetails.region = update.region
-            mapDetails.mapCamera = update.camera
-        }
-        .mapStyle(mapType ? .imagery(elevation: .realistic) : .standard(elevation: .realistic))
-        .onChange(of: editor) { _, newValue in
-            switch newValue {
-            case .nothing: tappableMapMaps = .tappable
-            default: tappableMapMaps = .viewable
+            .mapControlVisibility(.hidden)
+            .onMapCameraChange(frequency: .continuous) { update in
+                mapDetails.region = update.region
+                mapDetails.mapCamera = update.camera
             }
+            .mapStyle(mapType ? .imagery(elevation: .realistic) : .standard(elevation: .realistic))
+            .onChange(of: editor) { _, newValue in
+                switch newValue {
+                case .nothing: tappableMapMaps = .tappable
+                default: tappableMapMaps = .viewable
+                }
+            }
+            .onAppear { self.mapDetails.mapProxy = mapContext }
         }
     }
     
