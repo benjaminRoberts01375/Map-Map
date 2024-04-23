@@ -97,21 +97,6 @@ struct ContentView: View {
             }
         }
     }
-    
-    /// Handles drag and drop of images from outside of Map Map.
-    /// - Parameter providers: All arguments given from drag and drop.
-    /// - Returns: Success boolean.
-    private func dropImage(providers: [NSItemProvider]) -> Bool {
-        guard let provider = providers.first
-        else { return false }
-        if !provider.hasItemConformingToTypeIdentifier("public.image") { return false }
-        _ = provider.loadObject(ofClass: UIImage.self) { image, _ in
-            guard let image = image as? UIImage
-            else { return }
-            DispatchQueue.main.async { _ = MapMap(uiImage: image, moc: moc) }
-        }
-        return true
-    }
 }
 
 #Preview { ContentView() }
