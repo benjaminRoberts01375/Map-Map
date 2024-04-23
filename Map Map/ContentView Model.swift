@@ -34,4 +34,42 @@ extension ContentView {
         }
         return true
     }
+    
+    /// Handle Notification Center notifications for when an `EditableDatablock` begins or ends editing.
+    /// - Parameter notification: Notification Center notification to check.
+    func editingDataBlock(notification: NotificationCenter.Publisher.Output) {
+        if let editableData = notification.object as? MapMap {
+            viewModel.editing = editableData.isEditing ? .mapMap(editableData) : .nothing
+        }
+        else if let editableData = notification.object as? GPSMap {
+            viewModel.editing = editableData.isEditing ? .gpsMap(editableData) : .nothing
+        }
+        else if let editableData = notification.object as? Marker {
+            viewModel.editing = editableData.isEditing ? .marker(editableData) : .nothing
+        }
+        else { viewModel.editing = .nothing }
+    }
+    
+    /// Display a toast notification when saving large CD change.
+    /// - Parameter notification: Notification to check against.
+    func savingToastNotification(notification: NotificationCenter.Publisher.Output) {
+        if let showing = notification.userInfo?["savingVal"] as? Bool {
+            viewModel.toastInfo.showing = showing
+        }
+        if let info = notification.userInfo?["name"] as? String {
+            viewModel.toastInfo.info = info
+        }
+    }
+    
+    /// Setup displaying tips.
+    func tipSetup() {
+        if !AddMapMapTip.discovered { // Update adding a Map Map tip
+            Timer.scheduledTimer(withTimeInterval: 15, repeats: false) { _ in
+                AddMapMapTip.discovered = true
+            }
+        }
+        Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { _ in // Update using the HUD tip
+            Task { await UseHUDTip.count.donate() }
+        }
+    }
 }
