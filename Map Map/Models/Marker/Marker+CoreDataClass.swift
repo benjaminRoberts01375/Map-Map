@@ -99,6 +99,8 @@ extension Marker {
 }
 
 extension Marker: EditableDataBlock {
+    var isSetup: Bool { true }
+    
     func startEditing() {
         self.isEditing = true
         NotificationCenter.default.post(name: .editingDataBlock, object: self)
