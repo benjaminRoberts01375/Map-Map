@@ -99,7 +99,10 @@ extension Marker {
 }
 
 extension Marker: EditableDataBlock {
-    var isSetup: Bool { true }
+    var isSetup: Bool {
+        get { true }
+        set { print("Marker is setup") }
+    }
     
     func startEditing() {
         self.isEditing = true
