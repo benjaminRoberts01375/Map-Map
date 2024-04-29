@@ -8,6 +8,9 @@
 import SwiftUI
 
 extension Marker: ListItem {
-    var displayName: String { self.name ?? Marker.defaultName }
+    var displayName: String {
+        get { self.name ?? Marker.defaultName }
+        set { self.name = newValue == "" ? nil : newValue }
+    }
     var thumbnail: any View { MarkerV(marker: self) }
 }

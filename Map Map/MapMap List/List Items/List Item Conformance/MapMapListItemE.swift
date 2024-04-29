@@ -8,6 +8,9 @@
 import SwiftUI
 
 extension MapMap: ListItem {
-    var displayName: String { self.name ?? MapMap.defaultName }
+    var displayName: String { 
+        get { self.name ?? MapMap.defaultName }
+        set { self.name = newValue == "" ? nil : newValue }
+    }
     var thumbnail: any View { MapMapV(self, imageType: .thumbnail) }
 }
