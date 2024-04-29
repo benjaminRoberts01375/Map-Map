@@ -26,12 +26,7 @@ extension MapDisplayableEditorV {
                 HStack {
                     // Done
                     Button(
-                        action: {
-                            viewModel.editing.displayName = viewModel.workingName
-                            viewModel.additionalSaveAction()
-                            if !viewModel.editing.isSetup { viewModel.editing.isSetup = true }
-                            viewModel.editing.endEditing()
-                        },
+                        action: { viewModel.save() },
                         label: { Text("Done").bigButton(backgroundColor: .blue) }
                     )
                     // Cancel

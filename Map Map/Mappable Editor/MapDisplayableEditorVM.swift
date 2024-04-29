@@ -26,5 +26,14 @@ extension MapDisplayableEditorV {
             self.additionalSaveAction = additionalSaveAction
             self.editing = editing
         }
+        
+        /// Save changes done from editing.
+        func save() {
+            editing.displayName = workingName
+            additionalSaveAction()
+            if !editing.isSetup { editing.isSetup = true }
+            editing.endEditing()
+            try? editing.managedObjectContext?.save()
+        }
     }
 }
