@@ -8,7 +8,7 @@
 import NotificationCenter
 
 protocol EditableDataBlock {
-    var isSetup: Bool { get }
+    var isSetup: Bool { get set }
     var isEditing: Bool { get set }
     func startEditing()
     func endEditing()
