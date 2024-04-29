@@ -11,46 +11,43 @@ import SwiftUI
 extension MapDisplayableEditorV {
     struct BottomButtonsV: View {
         @Environment(\.managedObjectContext) private var moc
-        @State var workingName: String
-        var actionButtons: () -> any View
-        var additionalSaveAction: () -> Void
-        @Binding var editing: any MapDisplayable & ListItem & EditableDataBlock & NSManagedObject
+        @Binding var viewModel: ViewModel
         
         var body: some View {
             VStack {
                 HStack {
-                    TextField("Map Map name", text: $workingName)
+                    TextField("Map Map name", text: $viewModel.workingName)
                         .padding(.all, 5)
                         .background(Color.gray.opacity(0.7))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .frame(width: 205)
-                    AnyView(actionButtons())
+                    AnyView(viewModel.actionButtons())
                 }
                 HStack {
                     // Done
                     Button(
                         action: {
-                            editing.displayName = workingName
-                            additionalSaveAction()
-                            if !editing.isSetup { editing.isSetup = true }
-                            editing.endEditing()
+                            viewModel.editing.displayName = viewModel.workingName
+                            viewModel.additionalSaveAction()
+                            if !viewModel.editing.isSetup { viewModel.editing.isSetup = true }
+                            viewModel.editing.endEditing()
                         },
                         label: { Text("Done").bigButton(backgroundColor: .blue) }
                     )
                     // Cancel
                     Button {
-                        if editing.isSetup { moc.reset() }
-                        else { moc.delete(editing) }
-                        editing.endEditing()
+                        if viewModel.editing.isSetup { moc.reset() }
+                        else { moc.delete(viewModel.editing) }
+                        viewModel.editing.endEditing()
                     } label: {
                         Text("Cancel")
-                            .bigButton(backgroundColor: editing.isSetup ? .gray : .red)
+                            .bigButton(backgroundColor: viewModel.editing.isSetup ? .gray : .red)
                     }
                     // Delete
-                    if editing.isSetup {
+                    if viewModel.editing.isSetup {
                         Button {
-                            editing.endEditing()
-                            moc.delete(editing)
+                            viewModel.editing.endEditing()
+                            moc.delete(viewModel.editing)
                             try? moc.save()
                         } label: {
                             Text("Delete")
