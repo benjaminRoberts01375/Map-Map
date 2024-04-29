@@ -35,5 +35,12 @@ extension MapDisplayableEditorV {
             editing.endEditing()
             try? editing.managedObjectContext?.save()
         }
+        
+        /// Rollback changes from the editor.
+        func cancel() {
+            if editing.isSetup { editing.managedObjectContext?.reset() }
+            else { editing.managedObjectContext?.delete(editing) }
+            editing.endEditing()
+        }
     }
 }
