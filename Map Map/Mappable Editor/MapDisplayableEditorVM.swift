@@ -42,5 +42,12 @@ extension MapDisplayableEditorV {
             else { editing.managedObjectContext?.delete(editing) }
             editing.endEditing()
         }
+        
+        /// Delete the object being edited.
+        func delete() {
+            editing.endEditing()
+            editing.managedObjectContext?.delete(editing)
+            try? editing.managedObjectContext?.save()
+        }
     }
 }

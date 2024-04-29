@@ -38,14 +38,10 @@ extension MapDisplayableEditorV {
                     )
                     // Delete
                     if viewModel.editing.isSetup {
-                        Button {
-                            viewModel.editing.endEditing()
-                            moc.delete(viewModel.editing)
-                            try? moc.save()
-                        } label: {
-                            Text("Delete")
-                                .bigButton(backgroundColor: .red)
-                        }
+                        Button(
+                            action: { viewModel.delete() },
+                            label: { Text("Delete").bigButton(backgroundColor: .red) }
+                        )
                     }
                 }
             }
