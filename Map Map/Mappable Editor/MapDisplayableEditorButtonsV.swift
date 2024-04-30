@@ -15,7 +15,7 @@ extension MapDisplayableEditorV {
         var body: some View {
             VStack {
                 HStack {
-                    TextField("Map Map name", text: $viewModel.workingName)
+                    TextField("Name", text: $viewModel.workingName)
                         .padding(.all, 5)
                         .background(Color.gray.opacity(0.7))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
