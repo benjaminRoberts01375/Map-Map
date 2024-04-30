@@ -44,9 +44,9 @@ struct ContentView: View {
                     .ignoresSafeArea()
             }
             switch viewModel.editing {
-            case .mapMap(let mapMap): MapMapEditor(mapMap: mapMap)
+            case .mapMap(let mapMap): MapMapMapDisplayableEditorV(mapMap: mapMap)
             case .gpsMap(let gpsMap): GPSMapPhaseController(gpsMap: gpsMap)
-            case .marker(let marker): MarkerEditorV(marker: marker)
+            case .marker(let marker): MarkerDisplayableEditorV(marker: marker)
             case .measurement: MapMeasurementCoordinateEditorV(editing: $viewModel.editing)
             case .nothing:
                 BottomDrawer(
@@ -64,7 +64,7 @@ struct ContentView: View {
         .toast(isPresenting: $viewModel.toastInfo.showing, tapToDismiss: false) {
             AlertToast(displayMode: .hud, type: .loading, title: "Saving", subTitle: viewModel.toastInfo.info)
         }
-        .onReceive(NotificationCenter.default.publisher(for: .editingDataBlock)) { self.editingDataBlock(notification: $0)}
+        .onReceive(NotificationCenter.default.publisher(for: .editingDataBlock)) { self.editingDataBlock(notification: $0) }
         .onReceive(NotificationCenter.default.publisher(for: .savingToastNotification)) { self.savingToastNotification(notification: $0) }
         .audioAlerts()
         .environment(\.colorScheme, mapType ? .dark : colorScheme)

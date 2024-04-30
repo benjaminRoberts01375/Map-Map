@@ -163,10 +163,9 @@ struct MapButtonsV: View {
     
     func addMarker() {
         let newMarker = Marker(coordinate: mapDetails.region.center, insertInto: moc)
-        if let mapProxy = mapDetails.mapProxy, let overlappedMapMaps = MarkerEditorV.markerOverMapMaps(
+        if let overlappedMapMaps = MarkerDisplayableEditorV.markerOverMapMaps(
             newMarker,
             mapDetails: mapDetails,
-            mapContext: mapProxy,
             mapMaps: mapMaps
         ) {
             for mapMap in overlappedMapMaps { newMarker.addToMapMap(mapMap) }
