@@ -101,7 +101,9 @@ extension Marker {
 extension Marker: EditableDataBlock {
     var isSetup: Bool {
         get { true }
-        set { print("Marker is setup") }
+        // swiftlint:disable unused_setter_value
+        set {  }
+        // swiftlint:enable unused_setter_value
     }
     
     func startEditing() {
