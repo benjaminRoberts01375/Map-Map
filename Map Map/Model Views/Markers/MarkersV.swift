@@ -23,10 +23,7 @@ struct MarkersV: View {
                         mapDetails.moveMapCameraTo(item: marker)
                     } label: {
                         MarkerV(marker: marker)
-                            .rotationEffect(
-                                Angle(degrees: -mapDetails.mapCamera.heading -
-                                      (marker.lockRotationAngleDouble ?? -mapDetails.mapCamera.heading))
-                            )
+                            .rotationEffect(Angle(degrees: -mapDetails.mapCamera.heading - (marker.lockRotationAngleDouble ?? 0)))
                     }
                     .contextMenu { MarkerContextMenuV(marker: marker) }
                     .frame(width: MarkerV.iconSize, height: MarkerV.iconSize)
