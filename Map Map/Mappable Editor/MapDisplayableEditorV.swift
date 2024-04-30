@@ -10,8 +10,6 @@ import SwiftUI
 
 struct MapDisplayableEditorV: View {
     @State var viewModel: ViewModel
-    /// Current Managed Object Context.
-    @Environment(\.managedObjectContext) private var moc
     
     init(
         editing: any MapDisplayable & ListItem & EditableDataBlock & NSManagedObject,

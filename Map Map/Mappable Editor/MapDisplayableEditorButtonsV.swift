@@ -10,7 +10,6 @@ import SwiftUI
 
 extension MapDisplayableEditorV {
     struct BottomButtonsV: View {
-        @Environment(\.managedObjectContext) private var moc
         @Binding var viewModel: ViewModel
         
         var body: some View {
