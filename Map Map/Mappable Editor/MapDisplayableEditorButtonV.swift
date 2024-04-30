@@ -11,8 +11,8 @@ extension MapDisplayableEditorV {
     struct EditorButton: View, Identifiable {
         let id = UUID()
         let systemImage: String
-        let action: () -> Void
         let label: String
+        let action: () -> Void
         
         var body: some View {
             Button {
