@@ -393,6 +393,7 @@
 		070159D82AD505300031647F /* MapMap Editing */ = {
 			isa = PBXGroup;
 			children = (
+				B5A556952BE13B310034C5A4 /* MapMapMapDisplayableEditorV.swift */,
 				0762DD672AD4713200C36D33 /* MapMapEditorV.swift */,
 				B5FADE582B5C6F2F00AD933C /* Markup Editor */,
 				0790A2142B01C7EF00863B29 /* Photo Editor */,
@@ -591,7 +592,6 @@
 				077CBEAF2AD5088100741F27 /* MapMap List */,
 				07FCC85F2AD3764A00F88186 /* Map */,
 				07082FAF2AFACE7A003255E3 /* Camera */,
-				070159D82AD505300031647F /* MapMap Editing */,
 				B5E527512B7694580027300D /* GPS Map Editor */,
 				07249BFE2B16725E0088B721 /* Marker Editor */,
 				079B603E2B2CBD200073E936 /* Measurement Editor */,
@@ -771,7 +771,7 @@
 		B5A556972BE13B350034C5A4 /* Map Displayable Editors */ = {
 			isa = PBXGroup;
 			children = (
-				B5A556952BE13B310034C5A4 /* MapMapMapDisplayableEditorV.swift */,
+				070159D82AD505300031647F /* MapMap Editing */,
 			);
 			path = "Map Displayable Editors";
 			sourceTree = "<group>";
