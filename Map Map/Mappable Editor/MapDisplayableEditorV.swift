@@ -5,6 +5,7 @@
 //  Created by Ben Roberts on 4/29/24.
 //
 
+import Bottom_Drawer
 import CoreData
 import SwiftUI
 
@@ -18,6 +19,12 @@ struct MapDisplayableEditorV: View {
     ) { self.viewModel = ViewModel(actionButtons: actionButtons, additionalSaveAction: additionalSaveAction, editing: editing) }
     
     var body: some View {
-        EmptyView()
+        ZStack {
+            Color.clear
+            BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
+                BottomButtonsV(viewModel: $viewModel)
+                    .padding(.bottom, isShortCard ? 0 : 10)
+            }
+        }
     }
 }
