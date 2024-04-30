@@ -46,7 +46,7 @@ struct ContentView: View {
             switch viewModel.editing {
             case .mapMap(let mapMap): MapMapMapDisplayableEditorV(mapMap: mapMap)
             case .gpsMap(let gpsMap): GPSMapPhaseController(gpsMap: gpsMap)
-            case .marker(let marker): MarkerEditorV(marker: marker)
+            case .marker(let marker): MarkerDisplayableEditorV(marker: marker)
             case .measurement: MapMeasurementCoordinateEditorV(editing: $viewModel.editing)
             case .nothing:
                 BottomDrawer(

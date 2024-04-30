@@ -58,7 +58,10 @@ struct MapMapMapDisplayableEditorV: View {
         
         for marker in markers {
             if let markerPosition = mapContext.convert(marker.coordinate, to: .global) {
-                let markerBounds = MarkerEditorV.generateMarkerBoundingBox(markerPosition: markerPosition)
+                let markerBounds = CGPath(
+                    rect: CGRect(origin: markerPosition, size: CGSize(width: MarkerV.iconSize, height: MarkerV.iconSize)),
+                    transform: .none
+                )
                 if mapMapBounds.intersects(markerBounds) {
                     layeredMarkers.append(marker)
                 }
