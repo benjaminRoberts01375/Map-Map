@@ -27,6 +27,7 @@ extension MapDisplayableEditorV {
                     .background(.gray)
                     .clipShape(Circle())
             }
+            .buttonStyle(.plain)
         }
     }
 }
