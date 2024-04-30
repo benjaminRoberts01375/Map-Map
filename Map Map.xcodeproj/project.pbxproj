@@ -590,7 +590,6 @@
 				07FCC85F2AD3764A00F88186 /* Map */,
 				07082FAF2AFACE7A003255E3 /* Camera */,
 				B5E527512B7694580027300D /* GPS Map Editor */,
-				07249BFE2B16725E0088B721 /* Marker Editor */,
 				079B603E2B2CBD200073E936 /* Measurement Editor */,
 				07FCC85A2AD3759500F88186 /* Models */,
 				073CCDF02B2F5EA600ECCD7B /* Context Menus */,
@@ -769,6 +768,7 @@
 			isa = PBXGroup;
 			children = (
 				070159D82AD505300031647F /* MapMap Editing */,
+				07249BFE2B16725E0088B721 /* Marker Editor */,
 			);
 			path = "Map Displayable Editors";
 			sourceTree = "<group>";
