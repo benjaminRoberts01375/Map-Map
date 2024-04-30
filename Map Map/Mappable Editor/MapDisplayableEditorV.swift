@@ -16,12 +16,22 @@ struct MapDisplayableEditorV: View {
     init(
         editing: any MapDisplayable & ListItem & EditableDataBlock & NSManagedObject,
         actionButtons: @escaping () -> any View,
+        overlay: @escaping () -> any View,
         additionalSaveAction: @escaping () -> Void
-    ) { self.viewModel = ViewModel(actionButtons: actionButtons, additionalSaveAction: additionalSaveAction, editing: editing) }
+    ) {
+        self.viewModel = ViewModel(
+            actionButtons: actionButtons,
+            additionalSaveAction: additionalSaveAction,
+            overlay: overlay,
+            editing: editing
+        )
+    }
     
     var body: some View {
         ZStack {
             Color.clear
+            AnyView(viewModel.overlay())
+                .ignoresSafeArea()
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                 BottomButtonsV(viewModel: $viewModel)
                     .padding(.bottom, isShortCard ? 0 : 10)

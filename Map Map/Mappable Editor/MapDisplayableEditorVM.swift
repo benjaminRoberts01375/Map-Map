@@ -15,16 +15,19 @@ extension MapDisplayableEditorV {
         var actionButtons: () -> any View
         var additionalSaveAction: () -> Void
         var editing: any MapDisplayable & ListItem & EditableDataBlock & NSManagedObject
+        var overlay: () -> any View
         
         init(
             actionButtons: @escaping () -> any View,
             additionalSaveAction: @escaping () -> Void,
+            overlay: @escaping () -> any View,
             editing: any MapDisplayable & ListItem & EditableDataBlock & NSManagedObject
         ) {
             self.workingName = editing.displayName
             self.actionButtons = actionButtons
             self.additionalSaveAction = additionalSaveAction
             self.editing = editing
+            self.overlay = overlay
         }
         
         /// Save changes done from editing.
