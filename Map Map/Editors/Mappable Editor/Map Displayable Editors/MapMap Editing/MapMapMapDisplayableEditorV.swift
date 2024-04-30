@@ -38,7 +38,7 @@ struct MapMapMapDisplayableEditorV: View {
         }
         .fullScreenCover(isPresented: $showingPhotoEditor) { PhotoEditorCompositeV(mapMap: mapMap) }
         .fullScreenCover(isPresented: $showingMarkupEditor) { MarkupEditorSwitcherV(mapMap: mapMap) }
-        .deleteMapMapImageDrawing(mapMap.activeImage, isPresented: $showingPhotoEditorAlert)
+        .deleteMapMapImageDrawing(mapMap.activeImage, isPresented: $showingPhotoEditorAlert, activator: $showingPhotoEditor)
     }
     
     /// Determine all Markers that overlap a given MapMap
