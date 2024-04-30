@@ -8,7 +8,8 @@
 import SwiftUI
 
 extension MapDisplayableEditorV {
-    struct EditorButton: View {
+    struct EditorButton: View, Identifiable {
+        let id = UUID()
         let systemImage: String
         let action: () -> Void
         let label: String

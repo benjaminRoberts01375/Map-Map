@@ -12,19 +12,19 @@ extension MapDisplayableEditorV {
     @Observable
     final class ViewModel {
         var workingName: String
-        var actionButtons: () -> any View
+        var editorButtons: [EditorButton]
         var additionalSaveAction: () -> Void
         var editing: any MapDisplayable & ListItem & EditableDataBlock & NSManagedObject
         var overlay: () -> any View
         
         init(
-            actionButtons: @escaping () -> any View,
+            actionButtons: [EditorButton],
             additionalSaveAction: @escaping () -> Void,
             overlay: @escaping () -> any View,
             editing: any MapDisplayable & ListItem & EditableDataBlock & NSManagedObject
         ) {
             self.workingName = editing.displayName
-            self.actionButtons = actionButtons
+            self.editorButtons = actionButtons
             self.additionalSaveAction = additionalSaveAction
             self.editing = editing
             self.overlay = overlay

@@ -20,7 +20,7 @@ extension MapDisplayableEditorV {
                         .background(Color.gray.opacity(0.7))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .frame(width: 205)
-                    AnyView(viewModel.actionButtons())
+                    ForEach(viewModel.editorButtons) { $0 }
                 }
                 HStack {
                     // Done

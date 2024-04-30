@@ -15,7 +15,7 @@ struct MapDisplayableEditorV: View {
     
     init(
         editing: any MapDisplayable & ListItem & EditableDataBlock & NSManagedObject,
-        actionButtons: @escaping () -> any View,
+        actionButtons: [EditorButton] = [],
         overlay: @escaping () -> any View,
         additionalSaveAction: @escaping () -> Void
     ) {
