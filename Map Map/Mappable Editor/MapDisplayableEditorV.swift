@@ -11,6 +11,7 @@ import SwiftUI
 
 struct MapDisplayableEditorV: View {
     @State var viewModel: ViewModel
+    @Environment(MapDetailsM.self) var mapDetails
     
     init(
         editing: any MapDisplayable & ListItem & EditableDataBlock & NSManagedObject,
@@ -26,5 +27,6 @@ struct MapDisplayableEditorV: View {
                     .padding(.bottom, isShortCard ? 0 : 10)
             }
         }
+        .onAppear { mapDetails.preventFollowingUser() }
     }
 }
