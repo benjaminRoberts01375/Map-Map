@@ -31,9 +31,7 @@ extension MapDisplayableEditorV {
                     // Cancel
                     Button(
                         action: { viewModel.cancel() },
-                        label: {
-                            Text("Cancel")
-                            .bigButton(backgroundColor: viewModel.editing.isSetup ? .gray : .red) }
+                        label: { Text("Cancel").bigButton(backgroundColor: viewModel.editing.isSetup ? .gray : .red) }
                     )
                     // Delete
                     if viewModel.editing.isSetup {
