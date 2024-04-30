@@ -32,6 +32,7 @@ struct MapDisplayableEditorV: View {
             Color.clear
             AnyView(viewModel.overlay())
                 .ignoresSafeArea()
+                .allowsHitTesting(false)
             BottomDrawer(verticalDetents: [.content], horizontalDetents: [.center], shortCardSize: 350) { isShortCard in
                 BottomButtonsV(viewModel: $viewModel)
                     .padding(.bottom, isShortCard ? 0 : 10)
