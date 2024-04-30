@@ -14,19 +14,18 @@ struct MarkersV: View {
     @Environment(MapDetailsM.self) private var mapDetails
     /// Screen size to use for Marker intersection calculations.
     let screenSize: CGSize
+    /// Screen-space location of markers
+    @State var locationCache: [Marker : CGPoint] = [:]
     
     var body: some View {
         ForEach(markers) { marker in
-            if let position = mapDetails.mapProxy?.convert(marker.coordinate, to: .global), !marker.isEditing && marker.shown {
+            if let position = locationCache[marker] {
                 ZStack {
                     Button {
                         mapDetails.moveMapCameraTo(item: marker)
                     } label: {
                         MarkerV(marker: marker)
-                            .rotationEffect(
-                                Angle(degrees: -mapDetails.mapCamera.heading -
-                                      (marker.lockRotationAngleDouble ?? -mapDetails.mapCamera.heading))
-                            )
+                            .rotationEffect(Angle(degrees: -mapDetails.mapCamera.heading - (marker.lockRotationAngleDouble ?? 0)))
                     }
                     .contextMenu { MarkerContextMenuV(marker: marker) }
                     .frame(width: MarkerV.iconSize, height: MarkerV.iconSize)
@@ -39,6 +38,19 @@ struct MarkersV: View {
                     }
                 }
                 .position(position)
+            }
+        }
+        .onChange(of: mapDetails.mapCamera, initial: true) {
+            if markers.isEmpty { return }
+            Task {
+                var locationCache: [Marker : CGPoint] = [:]
+                for marker in markers {
+                    if !marker.isEditing && marker.shown,
+                       let position = mapDetails.mapProxy?.convert(marker.coordinate, to: .global) {
+                       locationCache[marker] = position
+                    }
+                }
+                await MainActor.run { self.locationCache = locationCache }
             }
         }
     }

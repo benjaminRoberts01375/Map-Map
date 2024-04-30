@@ -99,6 +99,13 @@ extension Marker {
 }
 
 extension Marker: EditableDataBlock {
+    var isSetup: Bool {
+        get { true }
+        // swiftlint:disable unused_setter_value
+        set {  }
+        // swiftlint:enable unused_setter_value
+    }
+    
     func startEditing() {
         self.isEditing = true
         NotificationCenter.default.post(name: .editingDataBlock, object: self)

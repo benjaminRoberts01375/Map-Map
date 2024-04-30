@@ -11,6 +11,7 @@ struct DeleteMapMapImageDrawingVModifier: ViewModifier {
     @Binding var isPresented: Bool
     var mapMapImage: MapMapImage?
     @Environment(\.managedObjectContext) var moc
+    @Binding var activator: Bool
     
     func body(content: Content) -> some View {
         content
@@ -23,6 +24,7 @@ struct DeleteMapMapImageDrawingVModifier: ViewModifier {
                         action: {
                             if let drawing = mapMapImage?.drawing { moc.delete(drawing) }
                             isPresented = false
+                            activator = true
                         }
                     ),
                     secondaryButton: .cancel(Text("Cancel"))
@@ -32,7 +34,7 @@ struct DeleteMapMapImageDrawingVModifier: ViewModifier {
 }
 
 extension View {
-    func deleteMapMapImageDrawing(_ mapMapImage: MapMapImage?, isPresented: Binding<Bool>) -> some View {
-        modifier(DeleteMapMapImageDrawingVModifier(isPresented: isPresented, mapMapImage: mapMapImage) )
+    func deleteMapMapImageDrawing(_ mapMapImage: MapMapImage?, isPresented: Binding<Bool>, activator: Binding<Bool>) -> some View {
+        modifier(DeleteMapMapImageDrawingVModifier(isPresented: isPresented, mapMapImage: mapMapImage, activator: activator) )
     }
 }

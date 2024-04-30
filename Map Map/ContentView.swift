@@ -25,105 +25,50 @@ struct ContentView: View {
     /// Current coloring of the UI elements
     @Environment(\.colorScheme) var colorScheme
     /// Current Core Data managed object context.
-    @Environment(\.managedObjectContext) private var moc
-    /// Details for the main map.
-    @Environment(MapDetailsM.self) private var mapDetails
-    /// Object being edited
-    @State var editing: Editor = .nothing
-    /// Information to display in a Toast notification.
-    @State private var toastInfo: ToastInfo = ToastInfo()
-    /// Track if a drag and drop action may occur on this view.
-    @State private var dragAndDropTargeted: Bool = false
-    /// Control the opacity of the dark shade overlay.
-    @State private var shadeOpacity: CGFloat = 0
+    @Environment(\.managedObjectContext) var moc
+    /// Non-view data model
+    @State var viewModel: ViewModel = ViewModel()
     
     var body: some View {
-        MapReader { mapContext in
-            ZStack(alignment: .top) {
-                ZStack {
-                    MapLayersV(editor: $editing)
-                        .onDrop(of: [.image], isTargeted: $dragAndDropTargeted) { dropImage(providers: $0) }
-                    
-                    if dragAndDropTargeted {
-                        Color.black
-                            .opacity(shadeOpacity)
-                            .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true))
-                            .onAppear { withAnimation { shadeOpacity = 0.25 } }
-                            .onDisappear { withAnimation { shadeOpacity = 0 } }
-                            .allowsHitTesting(false)
-                            .ignoresSafeArea()
+        ZStack(alignment: .top) {
+            MapLayersV(editor: $viewModel.editing)
+                .onDrop(of: [.image], isTargeted: $viewModel.dragAndDropTargeted) { dropImage(providers: $0) }
+            
+            if viewModel.dragAndDropTargeted {
+                Color.black
+                    .opacity(viewModel.shadeOpacity)
+                    .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true))
+                    .onAppear { withAnimation { viewModel.shadeOpacity = 0.25 } }
+                    .onDisappear { withAnimation { viewModel.shadeOpacity = 0 } }
+                    .allowsHitTesting(false)
+                    .ignoresSafeArea()
+            }
+            switch viewModel.editing {
+            case .mapMap(let mapMap): MapMapMapDisplayableEditorV(mapMap: mapMap)
+            case .gpsMap(let gpsMap): GPSMapPhaseController(gpsMap: gpsMap)
+            case .marker(let marker): MarkerDisplayableEditorV(marker: marker)
+            case .measurement: MapMeasurementCoordinateEditorV(editing: $viewModel.editing)
+            case .nothing:
+                BottomDrawer(
+                    verticalDetents: [.medium, .large, .header],
+                    horizontalDetents: [.left, .right],
+                    shortCardSize: 315,
+                    header: { _ in DefaultDrawerHeaderV() },
+                    content: { _ in
+                        MapMapList()
+                            .padding(.horizontal)
                     }
-                }
-                switch editing {
-                case .mapMap(let mapMap): MapMapEditor(mapMap: mapMap)
-                case .gpsMap(let gpsMap): GPSMapPhaseController(gpsMap: gpsMap)
-                case .marker(let marker): MarkerEditorV(marker: marker)
-                case .measurement: MapMeasurementCoordinateEditorV(editing: $editing)
-                case .nothing:
-                    BottomDrawer(
-                        verticalDetents: [.medium, .large, .header],
-                        horizontalDetents: [.left, .right],
-                        shortCardSize: 315,
-                        header: { _ in DefaultDrawerHeaderV() },
-                        content: { _ in
-                            MapMapList()
-                                .padding(.horizontal)
-                        }
-                    )
-                }
-            }
-            .onAppear { mapDetails.mapProxy = mapContext }
-        }
-        .toast(isPresenting: $toastInfo.showing, tapToDismiss: false) {
-            AlertToast(displayMode: .hud, type: .loading, title: "Saving", subTitle: toastInfo.info)
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .editingDataBlock)) { notification in
-            if let editableData = notification.object as? MapMap {
-                self.editing = editableData.isEditing ? .mapMap(editableData) : .nothing
-            }
-            else if let editableData = notification.object as? GPSMap {
-                self.editing = editableData.isEditing ? .gpsMap(editableData) : .nothing
-            }
-            else if let editableData = notification.object as? Marker {
-                self.editing = editableData.isEditing ? .marker(editableData) : .nothing
-            }
-            else { self.editing = .nothing }
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .savingToastNotification)) { notification in
-            if let showing = notification.userInfo?["savingVal"] as? Bool {
-                toastInfo.showing = showing
-            }
-            if let info = notification.userInfo?["name"] as? String {
-                toastInfo.info = info
+                )
             }
         }
+        .toast(isPresenting: $viewModel.toastInfo.showing, tapToDismiss: false) {
+            AlertToast(displayMode: .hud, type: .loading, title: "Saving", subTitle: viewModel.toastInfo.info)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .editingDataBlock)) { self.editingDataBlock(notification: $0) }
+        .onReceive(NotificationCenter.default.publisher(for: .savingToastNotification)) { self.savingToastNotification(notification: $0) }
         .audioAlerts()
         .environment(\.colorScheme, mapType ? .dark : colorScheme)
-        .onAppear {
-            if !AddMapMapTip.discovered { // Update adding a Map Map tip
-                Timer.scheduledTimer(withTimeInterval: 15, repeats: false) { _ in
-                    AddMapMapTip.discovered = true
-                }
-            }
-            Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { _ in // Update using the HUD tip
-                Task { await UseHUDTip.count.donate() }
-            }
-        }
-    }
-    
-    /// Handles drag and drop of images from outside of Map Map.
-    /// - Parameter providers: All arguments given from drag and drop.
-    /// - Returns: Success boolean.
-    private func dropImage(providers: [NSItemProvider]) -> Bool {
-        guard let provider = providers.first
-        else { return false }
-        if !provider.hasItemConformingToTypeIdentifier("public.image") { return false }
-        _ = provider.loadObject(ofClass: UIImage.self) { image, _ in
-            guard let image = image as? UIImage
-            else { return }
-            DispatchQueue.main.async { _ = MapMap(uiImage: image, moc: moc) }
-        }
-        return true
+        .onAppear { tipSetup() }
     }
 }
 

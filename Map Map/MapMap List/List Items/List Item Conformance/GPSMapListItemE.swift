@@ -8,7 +8,10 @@
 import SwiftUI
 
 extension GPSMap: ListItem {
-    var displayName: String { self.name ?? GPSMap.defaultName }
+    var displayName: String { 
+        get { self.name ?? GPSMap.defaultName }
+        set { self.name = newValue == "" ? nil : newValue }
+    }
     var thumbnail: any View {
         Image(systemName: "point.bottomleft.forward.to.point.topright.scurvepath.fill")
             .resizable()
